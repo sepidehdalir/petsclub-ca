@@ -202,7 +202,7 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             id="lost-found-heading"
-            eyebrow="Lost &amp; Found"
+            eyebrow="Lost & Found"
             title="Helping Canadian pets get home"
             description="A dedicated Lost & Found tool with local alerts and searchable reports is on the roadmap."
             action={
