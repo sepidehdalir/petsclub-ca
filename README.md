@@ -300,21 +300,58 @@ configured rather than failing silently. That is also why CI needs no secrets.
 
 ### Setting up Supabase
 
-1. Create a project at [supabase.com](https://supabase.com).
-2. Copy the project URL and anon key into `.env.local`.
+1. Create a project at [supabase.com](https://supabase.com). Region
+   **Canada (Central) `ca-central-1`** keeps data in Canada. Save the generated
+   database password immediately — it can be reset but never viewed again.
+
+2. Copy four values into `.env.local`:
+
+   | Variable | Where in the dashboard |
+   | --- | --- |
+   | `NEXT_PUBLIC_SUPABASE_URL` | Project Settings → API Keys → Project URL |
+   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Project Settings → API Keys → publishable key (`sb_publishable_…`) |
+   | `SUPABASE_SERVICE_ROLE_KEY` | Project Settings → API Keys → secret key (`sb_secret_…`) |
+   | `SUPABASE_DB_URL` | **Connect** → Connection String → **Session pooler** |
+
+   Legacy `anon` / `service_role` JWTs work too; the publishable and secret keys
+   are what new projects issue.
+
+   Take the **session pooler** URI, not "Direct connection": the direct host is
+   IPv6-only and unreachable from most networks. The *transaction* pooler
+   (port 6543) is also wrong — it does not support the DDL these migrations run.
+   Replace `[YOUR-PASSWORD]`, brackets included, with the database password.
+
 3. Apply the schema, in order:
 
    ```bash
    psql "$SUPABASE_DB_URL" -f supabase/migrations/20260829120000_core_schema.sql
    psql "$SUPABASE_DB_URL" -f supabase/migrations/20260829120100_auth_profile_provisioning.sql
    psql "$SUPABASE_DB_URL" -f supabase/migrations/20260829120200_row_level_security.sql
+   psql "$SUPABASE_DB_URL" -f supabase/migrations/20260830120000_service_role_privileges.sql
    psql "$SUPABASE_DB_URL" -f supabase/seed.sql
    ```
 
    Or, with the Supabase CLI linked to the project: `npx supabase db push`.
 
-4. In **Authentication → URL Configuration**, set the site URL and add
-   `<origin>/auth/callback` as a redirect URL.
+   The seed is taxonomy only — no users, no threads — and every statement
+   upserts on `slug`, so it is safe to re-run and safe to apply to production.
+
+4. In **Authentication → URL Configuration**:
+
+   - **Site URL** — the deployment's own origin, e.g.
+     `https://petsclub-ca.vercel.app`.
+   - **Redirect URLs** — add `http://localhost:3000/**` and
+     `https://petsclub-ca.vercel.app/**`.
+
+   The wildcards matter: the app sends `emailRedirectTo` as
+   `<origin>/auth/callback?next=…`, and exact-match entries do not survive the
+   query string. Allowing any path on an origin you control is safe here because
+   `safeRedirectPath` rejects off-site targets before any redirect happens.
+
+5. Email confirmation is on by default. Supabase's built-in sender is capped at
+   a couple of messages per hour and, on new projects, only delivers to
+   project members' addresses. That is fine for development but not for launch —
+   configure custom SMTP before opening sign-ups.
 
 ---
 
@@ -400,13 +437,36 @@ vercel deploy          # preview
 vercel deploy --prod   # production
 ```
 
+### Environment variables on Vercel
+
+Set these under **Project Settings → Environment Variables**, scoped to
+**Production**:
+
+| Variable | Value |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | the deployment origin (`https://petsclub-ca.vercel.app` today) |
+| `NEXT_PUBLIC_SUPABASE_URL` | the Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | the publishable key |
+
+`NEXT_PUBLIC_*` values are inlined into the bundle at build time, so changing
+any of them requires a **redeploy** — editing the variable alone changes
+nothing.
+
+Deliberately *not* set on Vercel yet:
+
+- `SUPABASE_SERVICE_ROLE_KEY` — nothing reads it before Milestone 6, and an
+  unused key that bypasses RLS is pure liability. Add it, Production-only, when
+  the moderation tooling ships.
+- `SUPABASE_DB_URL` — local tooling only; the application never reads it.
+- `RESEND_API_KEY` — not wired up yet.
+
 Remaining steps to go live on the real domain:
 
 1. Set `NEXT_PUBLIC_SITE_URL=https://petsclub.ca` in the Vercel project's
-   Production environment.
+   Production environment, and redeploy.
 2. Add `petsclub.ca` under **Domains** and point DNS at Vercel.
-3. Add the Supabase variables once a project exists, and add
-   `https://petsclub.ca/auth/callback` to the Supabase redirect allow-list.
+3. In Supabase, change the **Site URL** to `https://petsclub.ca` and add
+   `https://petsclub.ca/**` to the redirect allow-list.
 
 Until step 1 is done, `robots.ts` returns `Disallow: /`, because the current
 origin is not the production domain. That is deliberate: it stops a

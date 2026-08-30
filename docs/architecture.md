@@ -230,8 +230,8 @@ Two independent layers. A bug in one does not by itself open a hole.
 ### Layer 1 — column privileges
 
 PostgreSQL column-level `GRANT`s decide which columns a role may *ever* write.
-Supabase grants `ALL` on new public tables to `anon` and `authenticated` by
-default, so the RLS migration revokes that and re-grants a minimum surface:
+The RLS migration revokes whatever Supabase's default privileges gave `anon` and
+`authenticated` on a new table, then re-grants a minimum surface:
 
 ```sql
 grant update (display_name, avatar_url, bio, province, city)
@@ -242,6 +242,17 @@ grant update (display_name, avatar_url, bio, province, city)
 matter what the API sends, because the *statement* is rejected before RLS is
 even consulted. The same technique makes `reply_count`, `view_count`,
 `last_activity_at` and `author_id` unwritable by clients.
+
+A note on defaults, because they have changed. Older Supabase projects granted
+`ALL` on new `public` tables to `anon`, `authenticated` *and* `service_role`.
+Current projects do not: when `postgres` creates the table, the default ACL
+grants only `Dxtm` — TRUNCATE, REFERENCES, TRIGGER, MAINTAIN — with no DML at
+all. For `anon` and `authenticated` this is immaterial, since the RLS migration
+states their privileges explicitly. For `service_role` it meant the privileged
+client in `lib/supabase/admin.ts` had no access to any table, which
+`20260830120000_service_role_privileges.sql` corrects. Row Level Security was
+never the constraint there: `service_role` carries `rolbypassrls`, so only the
+table grants were missing.
 
 ### Layer 2 — row policies
 
@@ -444,10 +455,15 @@ Applying the schema:
 psql "$SUPABASE_DB_URL" -f supabase/migrations/20260829120000_core_schema.sql
 psql "$SUPABASE_DB_URL" -f supabase/migrations/20260829120100_auth_profile_provisioning.sql
 psql "$SUPABASE_DB_URL" -f supabase/migrations/20260829120200_row_level_security.sql
+psql "$SUPABASE_DB_URL" -f supabase/migrations/20260830120000_service_role_privileges.sql
 psql "$SUPABASE_DB_URL" -f supabase/seed.sql
 ```
 
 Or, with the Supabase CLI linked to the project: `npx supabase db push`.
+
+`SUPABASE_DB_URL` must be the **session pooler** connection string. The direct
+connection host is IPv6-only, and the transaction pooler on port 6543 does not
+support the DDL these migrations run. See the README for where to find it.
 
 ---
 
