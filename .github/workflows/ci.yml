@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel superseded runs on the same branch instead of paying for both.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Lint, typecheck, test and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      # The Milestone 1 site is fully static and reads Supabase lazily, so CI
+      # builds without any credentials. This keeps secrets out of pull-request
+      # runs from forks entirely — there is nothing to leak.
+      #
+      # It is set to the production origin so the build exercises the real
+      # canonical-URL and robots behaviour rather than the localhost fallback.
+      NEXT_PUBLIC_SITE_URL: https://petsclub.ca
+      NEXT_TELEMETRY_DISABLED: "1"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          # Caches the npm download cache, keyed on package-lock.json.
+          cache: npm
+
+      - name: Install dependencies
+        # `npm ci` installs exactly the locked tree and fails if
+        # package-lock.json is out of step with package.json.
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm run test
+
+      - name: Build
+        run: npm run build
