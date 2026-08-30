@@ -7,7 +7,8 @@ import {
   AuthSubmitButton,
   AuthTextField,
 } from "@/features/auth/components/form-parts";
-import { initialAuthFormState, resetPasswordAction } from "@/features/auth/actions";
+import { resetPasswordAction } from "@/features/auth/actions";
+import { initialAuthFormState } from "@/features/auth/form-state";
 
 export function ResetPasswordForm() {
   const [state, formAction] = useActionState(resetPasswordAction, initialAuthFormState);

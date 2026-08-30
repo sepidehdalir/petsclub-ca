@@ -7,7 +7,8 @@ import {
   AuthSubmitButton,
   AuthTextField,
 } from "@/features/auth/components/form-parts";
-import { forgotPasswordAction, initialAuthFormState } from "@/features/auth/actions";
+import { forgotPasswordAction } from "@/features/auth/actions";
+import { initialAuthFormState } from "@/features/auth/form-state";
 
 export function ForgotPasswordForm() {
   const [state, formAction] = useActionState(forgotPasswordAction, initialAuthFormState);

@@ -8,7 +8,8 @@ import {
   AuthSubmitButton,
   AuthTextField,
 } from "@/features/auth/components/form-parts";
-import { initialAuthFormState, signInAction } from "@/features/auth/actions";
+import { signInAction } from "@/features/auth/actions";
+import { initialAuthFormState } from "@/features/auth/form-state";
 
 export interface SignInFormProps {
   /** Validated site-relative path to return to after signing in. */

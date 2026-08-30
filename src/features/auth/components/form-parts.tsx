@@ -4,7 +4,7 @@ import { useFormStatus } from "react-dom";
 
 import { Button } from "@/components/ui/button";
 import { Field, Input, fieldIds } from "@/components/ui/field";
-import type { AuthFormState } from "@/features/auth/actions";
+import type { AuthFormState } from "@/features/auth/form-state";
 
 export interface AuthTextFieldProps {
   id: string;

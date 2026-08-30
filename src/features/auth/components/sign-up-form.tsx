@@ -8,7 +8,8 @@ import {
   AuthSubmitButton,
   AuthTextField,
 } from "@/features/auth/components/form-parts";
-import { initialAuthFormState, signUpAction } from "@/features/auth/actions";
+import { signUpAction } from "@/features/auth/actions";
+import { initialAuthFormState } from "@/features/auth/form-state";
 
 export function SignUpForm() {
   const [state, formAction] = useActionState(signUpAction, initialAuthFormState);

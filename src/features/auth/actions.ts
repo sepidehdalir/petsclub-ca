@@ -9,6 +9,7 @@ import {
   signInSchema,
   signUpSchema,
 } from "@/features/auth/schemas";
+import type { AuthFormState } from "@/features/auth/form-state";
 import { isSupabaseConfigured } from "@/lib/env/public";
 import { absoluteUrl } from "@/lib/seo/urls";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -20,17 +21,12 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
  * before touching Supabase; the browser is never trusted to have validated
  * anything. Actions return a serialisable state object consumed by
  * `useActionState`, so the forms work as plain HTML posts before hydration.
+ *
+ * This file may only export async functions: the `"use server"` directive above
+ * turns every export into a Server Function, and exporting anything else fails
+ * at request time. `AuthFormState` and `initialAuthFormState` therefore live in
+ * `./form-state.ts`.
  */
-
-export interface AuthFormState {
-  status: "idle" | "error" | "success";
-  /** Message shown above the form. */
-  message?: string;
-  /** Per-field validation messages, keyed by input name. */
-  fieldErrors?: Record<string, string>;
-}
-
-export const initialAuthFormState: AuthFormState = { status: "idle" };
 
 const NOT_CONFIGURED_STATE: AuthFormState = {
   status: "error",
