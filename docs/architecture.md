@@ -476,3 +476,4 @@ support the DDL these migrations run. See the README for where to find it.
 | [0003](decisions/0003-defence-in-depth-authorisation.md) | Column grants plus RLS |
 | [0004](decisions/0004-client-side-header-auth-state.md) | Client-side header auth state |
 | [0005](decisions/0005-community-and-editorial-architecture.md) | Community and editorial as one platform |
+| [0006](decisions/0006-scanner-safe-email-confirmation.md) | Emailed tokens are redeemed behind a POST |

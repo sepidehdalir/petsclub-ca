@@ -208,7 +208,7 @@ Sign up ──▶ Server Action ──▶ zod ──▶ supabase.auth.signUp
                                             │
                                         profiles row (role always defaults)
                                             │
-        confirmation email ──▶ /auth/callback ──▶ session ──▶ /account
+        confirmation email ──▶ /auth/confirm ──▶ [button] ──▶ session ──▶ /account
 ```
 
 - Profiles are created by a **database trigger**, never by the client, and the
@@ -225,6 +225,26 @@ Sign up ──▶ Server Action ──▶ zod ──▶ supabase.auth.signUp
   passwords.
 - Forms are Server Actions and sign-out is a POST route handler, so both work
   before hydration.
+- **Emailed tokens are redeemed behind a POST.** Mail providers and security
+  gateways prefetch links to scan them, and a one-time token redeemed on `GET`
+  is redeemed by the scanner rather than the person — this bit us in production
+  before it was fixed. `/auth/confirm` renders a button; loading the page spends
+  nothing. See [ADR 0006](docs/decisions/0006-scanner-safe-email-confirmation.md).
+
+### Email templates
+
+The scanner-safe flow requires the Supabase templates to link at `/auth/confirm`
+rather than `{{ .ConfirmationURL }}`, which would route through Supabase's own
+`GET`-redeeming verify endpoint. In **Authentication → Emails**, the link in both
+**Confirm signup** and **Reset password** must be:
+
+```html
+<a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type={{ .EmailActionType }}">
+```
+
+`{{ .RedirectTo }}` is the `emailRedirectTo` the application supplies — already
+carrying `?next=`, which is why the token is appended with `&`. Keep these two in
+step with `src/app/auth/confirm/page.tsx`.
 
 ---
 
@@ -484,7 +504,7 @@ origin is not the production domain. That is deliberate: it stops a
 
 ## Engineering Decisions
 
-Five decisions are recorded as ADRs in [`docs/decisions/`](docs/decisions):
+Six decisions are recorded as ADRs in [`docs/decisions/`](docs/decisions):
 
 | ADR | Decision | The trade-off |
 | --- | --- | --- |
@@ -493,6 +513,7 @@ Five decisions are recorded as ADRs in [`docs/decisions/`](docs/decisions):
 | [0003](docs/decisions/0003-defence-in-depth-authorisation.md) | Column grants **plus** RLS | Two layers that fail independently, at the cost of friction when adding a writable column |
 | [0004](docs/decisions/0004-client-side-header-auth-state.md) | Client-side header auth state | Keeps 28 routes static, at the cost of a brief placeholder for signed-in users |
 | [0005](docs/decisions/0005-community-and-editorial-architecture.md) | Community and editorial on one domain | Each solves the other's cold-start problem; both must share one brand |
+| [0006](docs/decisions/0006-scanner-safe-email-confirmation.md) | Redeem emailed tokens behind a POST | Survives link prefetching by mail scanners, at the cost of one extra click |
 
 Three further choices, made deliberately rather than by default:
 

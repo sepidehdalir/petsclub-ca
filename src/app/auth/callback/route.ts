@@ -1,20 +1,23 @@
 import { NextResponse, type NextRequest } from "next/server";
-import type { EmailOtpType } from "@supabase/supabase-js";
 
 import { safeRedirectPath } from "@/features/auth/schemas";
 import { isSupabaseConfigured } from "@/lib/env/public";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 /**
- * Auth callback.
+ * OAuth / PKCE callback.
  *
- * Handles the two shapes of link Supabase Auth sends:
- *  - PKCE (`?code=`) — used for email confirmation and OAuth once providers
- *    are enabled.
- *  - OTP (`?token_hash=&type=`) — used by email templates that predate PKCE.
+ * Handles the `?code=` exchange, which is what an OAuth provider redirects to
+ * once external providers are enabled. That exchange is safe to perform on GET
+ * because it is bound to the `code_verifier` cookie set when the flow started:
+ * a prefetching scanner has no such cookie and cannot complete it.
  *
- * Supporting both means an existing project's email templates keep working
- * without a template migration.
+ * Emailed one-time tokens are a different matter and are **not** redeemed here.
+ * Mail providers and security appliances prefetch links, so any endpoint that
+ * spends a token on GET spends it for the scanner rather than the person. A
+ * `?token_hash=` request is therefore forwarded, unspent, to `/auth/confirm`,
+ * which redeems it only behind an explicit POST. Links generated before that
+ * route existed keep working, and keep working *safely*.
  *
  * The destination always passes through `safeRedirectPath`, so `?next=` can
  * only ever point at a path on this site — the classic open-redirect hole in
@@ -28,21 +31,22 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL("/sign-in?error=not-configured", origin));
   }
 
-  const supabase = await createSupabaseServerClient();
   const code = searchParams.get("code");
   const tokenHash = searchParams.get("token_hash");
   const type = searchParams.get("type");
 
+  // Forward, do not redeem. `/auth/confirm` validates both values itself.
+  if (tokenHash && type) {
+    const handoff = new URL("/auth/confirm", origin);
+    handoff.searchParams.set("token_hash", tokenHash);
+    handoff.searchParams.set("type", type);
+    handoff.searchParams.set("next", next);
+    return NextResponse.redirect(handoff);
+  }
+
   if (code) {
+    const supabase = await createSupabaseServerClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) {
-      return NextResponse.redirect(new URL(next, origin));
-    }
-  } else if (tokenHash && type) {
-    const { error } = await supabase.auth.verifyOtp({
-      type: type as EmailOtpType,
-      token_hash: tokenHash,
-    });
     if (!error) {
       return NextResponse.redirect(new URL(next, origin));
     }

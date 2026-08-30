@@ -68,6 +68,47 @@ export const resetPasswordSchema = z
     path: ["confirmPassword"],
   });
 
+/**
+ * Email one-time-token types accepted by `/auth/confirm`.
+ *
+ * The value arrives from a query string, so it is attacker-controllable and is
+ * validated against this allow-list before ever reaching `verifyOtp`. The list
+ * mirrors Supabase's `EmailOtpType`; `sms` and `phone_change` are absent
+ * because this application has no phone flows.
+ */
+export const EMAIL_OTP_TYPES = [
+  "signup",
+  "recovery",
+  "invite",
+  "magiclink",
+  "email_change",
+  "email",
+] as const;
+
+export const emailOtpTypeSchema = z.enum(EMAIL_OTP_TYPES);
+
+export type EmailOtpTypeValue = z.infer<typeof emailOtpTypeSchema>;
+
+/**
+ * The hashed one-time token from an authentication email.
+ *
+ * Only a shape check: the token's real validation is Supabase's, and this
+ * exists so an empty or obviously malformed value is rejected before a network
+ * call. Whitespace is disallowed because a token that arrived wrapped by a mail
+ * client is corrupt, not merely untidy.
+ */
+export const tokenHashSchema = z
+  .string()
+  .trim()
+  .min(16, "That confirmation link is not valid.")
+  .max(512, "That confirmation link is not valid.")
+  .regex(/^[A-Za-z0-9_-]+$/, "That confirmation link is not valid.");
+
+export const confirmEmailSchema = z.object({
+  tokenHash: tokenHashSchema,
+  type: emailOtpTypeSchema,
+});
+
 export type SignUpInput = z.infer<typeof signUpSchema>;
 export type SignInInput = z.infer<typeof signInSchema>;
 export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;

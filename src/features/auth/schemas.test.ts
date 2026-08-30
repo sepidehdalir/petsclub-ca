@@ -1,11 +1,14 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  confirmEmailSchema,
+  emailOtpTypeSchema,
   isSafeRedirectPath,
   safeRedirectPath,
   signInSchema,
   signUpSchema,
   resetPasswordSchema,
+  tokenHashSchema,
 } from "@/features/auth/schemas";
 
 /**
@@ -141,5 +144,68 @@ describe("resetPasswordSchema", () => {
     });
 
     expect(result.success).toBe(true);
+  });
+});
+
+/**
+ * `type` and `token_hash` reach `/auth/confirm` straight from a query string,
+ * so they are attacker-controllable. These schemas are what stands between an
+ * arbitrary string and a `verifyOtp` call.
+ */
+describe("emailOtpTypeSchema", () => {
+  it("accepts the email token types this application issues", () => {
+    for (const type of ["signup", "recovery", "invite", "magiclink", "email_change", "email"]) {
+      expect(emailOtpTypeSchema.safeParse(type).success).toBe(true);
+    }
+  });
+
+  it("rejects phone token types, which this application has no flows for", () => {
+    expect(emailOtpTypeSchema.safeParse("sms").success).toBe(false);
+    expect(emailOtpTypeSchema.safeParse("phone_change").success).toBe(false);
+  });
+
+  it("rejects arbitrary and empty values", () => {
+    expect(emailOtpTypeSchema.safeParse("").success).toBe(false);
+    expect(emailOtpTypeSchema.safeParse("../../admin").success).toBe(false);
+    expect(emailOtpTypeSchema.safeParse("SIGNUP").success).toBe(false);
+  });
+});
+
+describe("tokenHashSchema", () => {
+  it("accepts a realistic token", () => {
+    expect(tokenHashSchema.safeParse("a".repeat(64)).success).toBe(true);
+    expect(tokenHashSchema.safeParse("pkce_9f8e7d6c5b4a3210_ABC-def").success).toBe(true);
+  });
+
+  it("rejects values that are absent or too short to be a token", () => {
+    expect(tokenHashSchema.safeParse("").success).toBe(false);
+    expect(tokenHashSchema.safeParse("short").success).toBe(false);
+  });
+
+  it("rejects tokens mangled by a mail client", () => {
+    // Wrapped across a line, or with markup appended by a link rewriter.
+    expect(tokenHashSchema.safeParse("a".repeat(30) + " " + "b".repeat(30)).success).toBe(false);
+    expect(tokenHashSchema.safeParse("a".repeat(40) + "<br>").success).toBe(false);
+    expect(tokenHashSchema.safeParse("a".repeat(600)).success).toBe(false);
+  });
+});
+
+describe("confirmEmailSchema", () => {
+  it("accepts a well-formed confirmation submission", () => {
+    const result = confirmEmailSchema.safeParse({
+      tokenHash: "a".repeat(64),
+      type: "signup",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("rejects a valid token paired with an unsupported type", () => {
+    expect(
+      confirmEmailSchema.safeParse({ tokenHash: "a".repeat(64), type: "sms" }).success,
+    ).toBe(false);
+  });
+
+  it("rejects a supported type paired with a missing token", () => {
+    expect(confirmEmailSchema.safeParse({ tokenHash: "", type: "recovery" }).success).toBe(false);
   });
 });

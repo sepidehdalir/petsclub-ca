@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 
 import {
+  confirmEmailSchema,
   forgotPasswordSchema,
   resetPasswordSchema,
   safeRedirectPath,
@@ -84,7 +85,7 @@ export async function signUpAction(
       // Consumed by the handle_new_user() trigger. It reads display_name only
       // — a role supplied here is ignored by design.
       data: { display_name: parsed.data.displayName },
-      emailRedirectTo: absoluteUrl("/auth/callback?next=/account"),
+      emailRedirectTo: absoluteUrl("/auth/confirm?next=/account"),
     },
   });
 
@@ -171,7 +172,7 @@ export async function forgotPasswordAction(
   const supabase = await createSupabaseServerClient();
 
   await supabase.auth.resetPasswordForEmail(parsed.data.email, {
-    redirectTo: absoluteUrl("/auth/callback?next=/reset-password"),
+    redirectTo: absoluteUrl("/auth/confirm?next=/reset-password"),
   });
 
   // The same response is returned whether or not an account exists. Anything
@@ -231,4 +232,67 @@ export async function resetPasswordAction(
   }
 
   redirect("/account");
+}
+
+// ---------------------------------------------------------------------------
+// Confirm an emailed one-time token
+// ---------------------------------------------------------------------------
+
+/**
+ * Redeems the token from a confirmation or recovery email.
+ *
+ * This is a Server Action, so it runs only in response to a POST that Next.js
+ * has origin-checked. That is the entire point of the design: mail providers
+ * and corporate security appliances routinely *prefetch* links to scan them,
+ * and a one-time token that is redeemed by a GET is therefore redeemed by the
+ * scanner rather than by the person. The user then clicks a link that has
+ * already been spent and is told it expired.
+ *
+ * `/auth/confirm` renders a page that reads the token but does not spend it;
+ * only pressing the button reaches this action. A scanner issuing GETs leaves
+ * the token untouched.
+ *
+ * The form works without JavaScript, so the button is a genuine form
+ * submission rather than a scripted fetch.
+ */
+export async function confirmEmailAction(
+  _previousState: AuthFormState,
+  formData: FormData,
+): Promise<AuthFormState> {
+  if (!isSupabaseConfigured) {
+    return NOT_CONFIGURED_STATE;
+  }
+
+  // `type` comes from the query string and is attacker-controllable, so it is
+  // checked against the allow-list before it can reach verifyOtp.
+  const parsed = confirmEmailSchema.safeParse({
+    tokenHash: readString(formData, "tokenHash"),
+    type: readString(formData, "type"),
+  });
+
+  if (!parsed.success) {
+    return {
+      status: "error",
+      message: "That confirmation link is not valid. Request a new one.",
+    };
+  }
+
+  const supabase = await createSupabaseServerClient();
+
+  const { error } = await supabase.auth.verifyOtp({
+    type: parsed.data.type,
+    token_hash: parsed.data.tokenHash,
+  });
+
+  if (error) {
+    return {
+      status: "error",
+      message:
+        "This link has expired or has already been used. Request a new one and open it within the hour.",
+    };
+  }
+
+  // Session cookies are now set. `redirect` throws, so it stays outside any
+  // try/catch that would swallow the control-flow signal.
+  redirect(safeRedirectPath(readString(formData, "next"), "/account"));
 }
