@@ -13,10 +13,16 @@ import { z } from "zod";
 
 const PASSWORD_MIN_LENGTH = 10;
 
+/**
+ * Normalise before validating, not after: people paste addresses with a
+ * trailing space or a capitalised domain, and rejecting those as "invalid"
+ * would be a self-inflicted support burden.
+ */
 export const emailSchema = z
-  .email("Enter a valid email address.")
+  .string()
   .max(254, "That email address is too long.")
-  .transform((value) => value.trim().toLowerCase());
+  .transform((value) => value.trim().toLowerCase())
+  .pipe(z.email("Enter a valid email address."));
 
 /**
  * Password rule: length only.
