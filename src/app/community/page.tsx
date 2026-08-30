@@ -23,28 +23,27 @@ export default function CommunityPage() {
         breadcrumbs={[{ name: "Community", path: "/community" }]}
       />
 
-      {/* Jump links: with 25 categories, an in-page index is faster than a
-          long scroll and gives the taxonomy a crawlable internal link block. */}
-      <Section spacing="compact" as="nav" aria-label="Community areas">
-        <Container>
-          <ul className="flex flex-wrap gap-2">
-            {communityTaxonomy.map((group) => (
-              <li key={group.slug}>
-                <a
-                  href={`#${group.slug}`}
-                  className="inline-flex rounded-full border border-border-strong bg-surface px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-pine-600 hover:text-pine-800"
-                >
-                  {group.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
-
       <Section spacing="compact" className="pb-16 sm:pb-20">
         <Container>
-          <div className="space-y-14">
+          {/* Jump links: with 25 categories, an in-page index is faster than a
+              long scroll, and it gives the taxonomy a crawlable internal link
+              block near the top of the page. */}
+          <nav aria-label="Community areas">
+            <ul className="flex flex-wrap gap-2">
+              {communityTaxonomy.map((group) => (
+                <li key={group.slug}>
+                  <a
+                    href={`#${group.slug}`}
+                    className="inline-flex rounded-full border border-border-strong bg-surface px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-pine-600 hover:text-pine-800"
+                  >
+                    {group.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="mt-12 space-y-14">
             {communityTaxonomy.map((group) => (
               <CategoryGroupList key={group.slug} group={group} />
             ))}

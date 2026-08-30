@@ -18,7 +18,7 @@ const COPYRIGHT_YEAR = 2026;
 export function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-border bg-surface">
-      <Container width="wide" className="py-12 lg:py-16">
+      <Container className="py-12 lg:py-16">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_2.4fr]">
           <div className="max-w-xs space-y-3">
             <Link href="/" className="inline-flex rounded-md" aria-label="PetsClub.ca — home">

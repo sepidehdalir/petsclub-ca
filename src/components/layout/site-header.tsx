@@ -15,6 +15,9 @@ import { AuthNav } from "@/features/auth/components/auth-nav";
  * active-link state, the drawer and the auth slot — are Client Components,
  * so the header ships a minimal amount of JavaScript.
  *
+ * Uses the default Container width so the wordmark aligns with page
+ * content on every route — a wider shell than the body reads as a mistake.
+ *
  * The full primary navigation appears at `xl`. Eight top-level destinations
  * plus a call to action do not fit honestly below that width, so smaller
  * screens get the drawer rather than a cramped, horizontally scrolling row.
@@ -22,7 +25,7 @@ import { AuthNav } from "@/features/auth/components/auth-nav";
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-canvas/95 backdrop-blur supports-[backdrop-filter]:bg-canvas/80">
-      <Container width="wide">
+      <Container>
         <div className="flex h-16 items-center justify-between gap-4">
           <Link
             href="/"
