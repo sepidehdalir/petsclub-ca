@@ -5,7 +5,7 @@ import { createMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createMetadata({
   title: "Terms of Use",
-  description: "The terms that will govern use of PetsClub.ca.",
+  description: "The terms that will govern use of ThePetClub.ca.",
   path: "/terms-of-use",
 });
 
@@ -13,13 +13,13 @@ export default function TermsOfUsePage() {
   return (
     <PolicyPage
       title="Terms of Use"
-      description="The terms that govern your use of PetsClub.ca."
+      description="The terms that govern your use of ThePetClub.ca."
       path="/terms-of-use"
       pendingReview="legal"
     >
       <h2>Status of this page</h2>
       <p>
-        Final terms will be drafted with legal counsel and published before PetsClub accepts
+        Final terms will be drafted with legal counsel and published before The Pet Club accepts
         public sign-ups. This page outlines the intended terms so they can be reviewed. It is
         not yet an enforceable agreement.
       </p>
@@ -31,7 +31,7 @@ export default function TermsOfUsePage() {
           contract in their province.
         </li>
         <li>
-          <strong>Your content.</strong> You keep ownership of what you post, and grant PetsClub
+          <strong>Your content.</strong> You keep ownership of what you post, and grant The Pet Club
           a licence to display and distribute it on the platform.
         </li>
         <li>
@@ -49,7 +49,7 @@ export default function TermsOfUsePage() {
           guidelines.
         </li>
         <li>
-          <strong>No professional advice.</strong> Nothing on PetsClub is veterinary, legal or
+          <strong>No professional advice.</strong> Nothing on The Pet Club is veterinary, legal or
           financial advice.
         </li>
         <li>
@@ -60,7 +60,7 @@ export default function TermsOfUsePage() {
 
       <h2>Availability</h2>
       <p>
-        PetsClub is provided as-is while it is in active development. Features described as
+        The Pet Club is provided as-is while it is in active development. Features described as
         planned may change.
       </p>
     </PolicyPage>

@@ -5,7 +5,7 @@ import { createMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createMetadata({
   title: "Community Guidelines",
-  description: "The rules that keep PetsClub a useful, kind place for Canadian pet parents.",
+  description: "The rules that keep The Pet Club a useful, kind place for Canadian pet parents.",
   path: "/community-guidelines",
 });
 
@@ -42,7 +42,7 @@ export default function CommunityGuidelinesPage() {
 
       <h2>Medical advice</h2>
       <p>
-        PetsClub is not a substitute for veterinary care. Members may share experiences, but no
+        The Pet Club is not a substitute for veterinary care. Members may share experiences, but no
         one here can examine your animal. If something is urgent, contact a veterinarian.
       </p>
 

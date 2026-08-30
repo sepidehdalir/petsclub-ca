@@ -6,7 +6,7 @@ import { createMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Advertising Disclosure",
   description:
-    "How PetsClub.ca will handle advertising, affiliate links and sponsored placements.",
+    "How ThePetClub.ca will handle advertising, affiliate links and sponsored placements.",
   path: "/advertising-disclosure",
 });
 
@@ -14,13 +14,13 @@ export default function AdvertisingDisclosurePage() {
   return (
     <PolicyPage
       title="Advertising Disclosure"
-      description="How advertising and affiliate relationships will work on PetsClub."
+      description="How advertising and affiliate relationships will work on The Pet Club."
       path="/advertising-disclosure"
       pendingReview="legal"
     >
       <h2>Current status</h2>
       <p>
-        PetsClub does not currently run advertising, affiliate links or sponsored content. There
+        The Pet Club does not currently run advertising, affiliate links or sponsored content. There
         is nothing to disclose today. This page states the commitments that will apply when
         monetisation begins, so they are on the record before any money is involved.
       </p>

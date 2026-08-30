@@ -123,7 +123,7 @@ export default function HomePage() {
           <SectionHeading
             id="explore-heading"
             eyebrow="Explore"
-            title="Find your corner of PetsClub"
+            title="Find your corner of The Pet Club"
             description="Start with a topic, then dive into the discussions and guides underneath it."
           />
 

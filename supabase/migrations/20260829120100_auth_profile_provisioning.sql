@@ -1,5 +1,5 @@
 -- ============================================================================
--- PetsClub.ca — automatic profile provisioning + authorisation helpers
+-- ThePetClub.ca — automatic profile provisioning + authorisation helpers
 -- ============================================================================
 -- Every authenticated user must have exactly one public profile. Creating it
 -- from the client would mean trusting the client with the moment of account

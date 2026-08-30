@@ -27,7 +27,7 @@ export function AuthFormShell({ title, description, children, footer }: AuthForm
     <Section spacing="default">
       <Container width="prose" className="max-w-md">
         <div className="text-center">
-          <Link href="/" className="inline-flex rounded-md" aria-label="PetsClub.ca — home">
+          <Link href="/" className="inline-flex rounded-md" aria-label="ThePetClub.ca — home">
             <Wordmark className="text-2xl" />
           </Link>
           <h1 className="mt-6 text-2xl font-semibold text-foreground sm:text-3xl">{title}</h1>

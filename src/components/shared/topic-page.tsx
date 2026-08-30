@@ -101,7 +101,7 @@ export function TopicPage({ path }: TopicPageProps) {
             id="topic-guides-heading"
             eyebrow="Editorial"
             title={`${topic.name} guides`}
-            description="Researched, Canada-specific guides from the PetsClub editorial team."
+            description="Researched, Canada-specific guides from the Pet Club editorial team."
           />
 
           {guides.length > 0 ? (

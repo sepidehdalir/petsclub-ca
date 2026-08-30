@@ -32,9 +32,9 @@ function resolveSiteUrl(): string {
 }
 
 export const siteConfig = {
-  name: "PetsClub",
-  legalName: "PetsClub.ca",
-  domain: "petsclub.ca",
+  name: "The Pet Club",
+  legalName: "ThePetClub.ca",
+  domain: "thepetclub.ca",
   tagline: "Canada's community for pet parents.",
   description:
     "Ask questions, share experiences, and discover trusted pet advice from across Canada.",
@@ -45,7 +45,7 @@ export const siteConfig = {
   /** Used for Open Graph / Twitter cards and the default social image. */
   ogImagePath: "/opengraph-image",
   /** Contact address surfaced on the contact page. Update before launch. */
-  contactEmail: "hello@petsclub.ca",
+  contactEmail: "hello@thepetclub.ca",
 } as const;
 
 export type SiteConfig = typeof siteConfig;

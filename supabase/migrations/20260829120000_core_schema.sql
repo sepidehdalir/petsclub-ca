@@ -1,5 +1,5 @@
 -- ============================================================================
--- PetsClub.ca — core community schema
+-- ThePetClub.ca — core community schema
 -- ============================================================================
 -- Creates the four foundation entities: profiles, categories, threads, posts.
 --

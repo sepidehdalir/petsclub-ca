@@ -4,7 +4,7 @@
 
 ## Context
 
-PetsClub is two products in one: an editorial library that lives or dies by
+The Pet Club is two products in one: an editorial library that lives or dies by
 organic search, and a community that needs authenticated, interactive writing.
 Those pull in different directions. Editorial wants static HTML on a CDN.
 Community wants per-request session state.

@@ -7,7 +7,7 @@ export interface WordmarkProps {
 }
 
 /**
- * The PetsClub wordmark.
+ * The Pet Club wordmark.
  *
  * Typographic rather than an image file: it costs no network request, cannot
  * shift layout while loading, stays crisp at any density, and inherits the
@@ -21,7 +21,7 @@ export function Wordmark({ className, showDomain = true }: WordmarkProps) {
         className,
       )}
     >
-      Pets
+      The Pet
       <span className="text-pine-700">Club</span>
       {showDomain ? (
         <span className="text-base font-normal text-foreground-subtle">.ca</span>

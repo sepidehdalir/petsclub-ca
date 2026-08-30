@@ -1,5 +1,5 @@
 -- ============================================================================
--- PetsClub.ca — taxonomy seed
+-- ThePetClub.ca — taxonomy seed
 -- ============================================================================
 -- Seeds the forum category tree. This is *structural* data, not content:
 -- it contains no users, no threads and no replies, so nothing here can be
@@ -30,7 +30,7 @@ values
    'The Canada-specific side of pet ownership — costs, insurance, products, travel and provincial rules.',
    3, null),
   ('Community', 'community',
-   'The social heart of PetsClub — introductions, photos, stories and memorials.',
+   'The social heart of The Pet Club — introductions, photos, stories and memorials.',
    4, null),
   ('Lost & Found', 'lost-and-found',
    'Community-powered help for missing pets across Canada.',

@@ -7,7 +7,7 @@ import { createMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createMetadata({
   title: "Page not found",
-  description: "The page you were looking for does not exist on PetsClub.",
+  description: "The page you were looking for does not exist on The Pet Club.",
   noIndex: true,
 });
 

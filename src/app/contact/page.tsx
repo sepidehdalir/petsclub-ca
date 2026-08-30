@@ -6,7 +6,7 @@ import { createMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createMetadata({
   title: "Contact",
-  description: "How to reach the PetsClub team about the community, editorial or partnerships.",
+  description: "How to reach the Pet Club team about the community, editorial or partnerships.",
   path: "/contact",
 });
 

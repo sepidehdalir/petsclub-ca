@@ -49,7 +49,7 @@ describe("createMetadata", () => {
   });
 
   it("uses the absolute site title on the homepage and a plain title elsewhere", () => {
-    // A bare string lets the root layout's `%s | PetsClub` template apply;
+    // A bare string lets the root layout's `%s | The Pet Club` template apply;
     // the homepage overrides it so the brand name is not repeated.
     expect(createMetadata({ title: "Dogs" }).title).toBe("Dogs");
     expect(createMetadata({}).title).toEqual({

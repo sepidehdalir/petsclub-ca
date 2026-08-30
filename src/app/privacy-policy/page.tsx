@@ -5,7 +5,7 @@ import { createMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createMetadata({
   title: "Privacy Policy",
-  description: "How PetsClub.ca handles personal information.",
+  description: "How ThePetClub.ca handles personal information.",
   path: "/privacy-policy",
 });
 
@@ -19,7 +19,7 @@ export default function PrivacyPolicyPage() {
     >
       <h2>Status of this page</h2>
       <p>
-        PetsClub is a Canadian platform and will comply with the Personal Information Protection
+        The Pet Club is a Canadian platform and will comply with the Personal Information Protection
         and Electronic Documents Act (PIPEDA) and applicable provincial privacy legislation. The
         final policy will be drafted with legal counsel and published before public sign-ups
         open. What follows describes our intended practice so that it can be reviewed, not a
@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
 
       <h2>Data processors</h2>
       <p>
-        PetsClub is hosted on Vercel and uses Supabase for its database, authentication and file
+        The Pet Club is hosted on Vercel and uses Supabase for its database, authentication and file
         storage. The final policy will name every processor, the data each receives, and where
         it is stored.
       </p>

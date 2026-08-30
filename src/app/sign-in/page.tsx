@@ -8,7 +8,7 @@ import { createMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createMetadata({
   title: "Sign in",
-  description: "Sign in to your PetsClub account.",
+  description: "Sign in to your Pet Club account.",
   path: "/sign-in",
   noIndex: true,
 });
@@ -42,7 +42,7 @@ export default async function SignInPage(props: PageProps<"/sign-in">) {
       description="Sign in to join the conversation."
       footer={
         <>
-          New to PetsClub?{" "}
+          New to The Pet Club?{" "}
           <Link
             href="/sign-up"
             className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"

@@ -13,11 +13,11 @@ import { createMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Canada Guides",
   description:
-    "Canada-specific pet guides covering costs, insurance, nutrition and care — researched and reviewed by the PetsClub editorial team.",
+    "Canada-specific pet guides covering costs, insurance, nutrition and care — researched and reviewed by the Pet Club editorial team.",
   path: "/guides",
 });
 
-/** What a published PetsClub guide will commit to. */
+/** What a published Pet Club guide will commit to. */
 const editorialPrinciples = [
   {
     title: "Canadian by default",
@@ -72,7 +72,7 @@ export default function GuidesPage() {
             id="principles-heading"
             eyebrow="How we work"
             title="Our editorial standards"
-            description="The rules a PetsClub guide has to meet before it is published."
+            description="The rules a Pet Club guide has to meet before it is published."
           />
 
           <ul className="mt-8 grid gap-4 md:grid-cols-3">

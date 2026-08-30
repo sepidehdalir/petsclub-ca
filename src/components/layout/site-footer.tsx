@@ -21,7 +21,7 @@ export function SiteFooter() {
       <Container className="py-12 lg:py-16">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_2.4fr]">
           <div className="max-w-xs space-y-3">
-            <Link href="/" className="inline-flex rounded-md" aria-label="PetsClub.ca — home">
+            <Link href="/" className="inline-flex rounded-md" aria-label="ThePetClub.ca — home">
               <Wordmark />
             </Link>
             <p className="text-sm leading-relaxed text-foreground-muted">
@@ -60,7 +60,7 @@ export function SiteFooter() {
             &copy; {COPYRIGHT_YEAR} {siteConfig.legalName}. All rights reserved.
           </p>
           <p>
-            PetsClub publishes general pet information and community discussion. It is not a
+            The Pet Club publishes general pet information and community discussion. It is not a
             substitute for advice from a licensed veterinarian.
           </p>
         </div>

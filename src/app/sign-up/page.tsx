@@ -7,7 +7,7 @@ import { createMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createMetadata({
   title: "Create an account",
-  description: "Join PetsClub — Canada's community for pet parents.",
+  description: "Join The Pet Club — Canada's community for pet parents.",
   path: "/sign-up",
   noIndex: true,
 });
@@ -15,7 +15,7 @@ export const metadata: Metadata = createMetadata({
 export default function SignUpPage() {
   return (
     <AuthFormShell
-      title="Join PetsClub"
+      title="Join The Pet Club"
       description="Ask questions, share what worked, and follow the topics you care about."
       footer={
         <>

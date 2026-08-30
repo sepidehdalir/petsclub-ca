@@ -27,7 +27,7 @@ jobs:
       #
       # It is set to the production origin so the build exercises the real
       # canonical-URL and robots behaviour rather than the localhost fallback.
-      NEXT_PUBLIC_SITE_URL: https://petsclub.ca
+      NEXT_PUBLIC_SITE_URL: https://thepetclub.ca
       NEXT_TELEMETRY_DISABLED: "1"
 
     steps:

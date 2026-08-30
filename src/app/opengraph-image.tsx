@@ -77,7 +77,7 @@ export default function OpengraphImage() {
             fontFamily: "system-ui, sans-serif",
           }}
         >
-          petsclub.ca
+          {siteConfig.domain}
         </div>
       </div>
     ),

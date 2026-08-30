@@ -1,6 +1,6 @@
 <div align="center">
 
-# PetsClub.ca
+# ThePetClub.ca
 
 **Canada's community for pet parents.**
 
@@ -18,11 +18,11 @@ A production-grade Canadian pet community and editorial platform.
 
 ## Overview
 
-PetsClub.ca is a community and editorial platform built specifically for
+ThePetClub.ca is a community and editorial platform built specifically for
 Canadian pet owners. Most authoritative pet content online is written for a
 United States audience — the prices are in the wrong currency, the products are
 not sold here, and the rules on licensing, insurance and travel do not apply.
-PetsClub combines a discussion community with a Canada-specific editorial
+The Pet Club combines a discussion community with a Canada-specific editorial
 library so the answer you find is the answer that applies where you live.
 
 This repository is the real codebase, developed in public. It is built to
@@ -40,7 +40,7 @@ intended to read as a record of how the platform was actually assembled.
 **Live build:** https://petsclub-ca.vercel.app — deployed on Vercel. Search
 engines are blocked here (`robots.txt` returns `Disallow: /` for any origin
 that is not the production domain), so it will not be indexed alongside
-petsclub.ca. The `petsclub.ca` domain is not attached yet; see
+thepetclub.ca. The `thepetclub.ca` domain is not attached yet; see
 [Deployment](#deployment).
 
 ---
@@ -430,6 +430,14 @@ npm ci → lint → typecheck → test → build
 Deployed on Vercel at **https://petsclub-ca.vercel.app**. The repository is
 connected to the Vercel project, so pushes to `main` deploy automatically.
 
+> **On the `petsclub-ca` name.** The GitHub repository, the npm package and the
+> Vercel project all predate the move to `thepetclub.ca`, and renaming them
+> would change the deployment hostname — which would in turn invalidate the
+> Supabase redirect allow-list and break authentication until it was updated.
+> The slug is therefore kept deliberately. It is an internal identifier; nothing
+> user-facing derives from it, because every public URL and brand string comes
+> from `src/config/site.ts`.
+
 ```bash
 npm i -g vercel
 vercel link
@@ -462,15 +470,15 @@ Deliberately *not* set on Vercel yet:
 
 Remaining steps to go live on the real domain:
 
-1. Set `NEXT_PUBLIC_SITE_URL=https://petsclub.ca` in the Vercel project's
+1. Set `NEXT_PUBLIC_SITE_URL=https://thepetclub.ca` in the Vercel project's
    Production environment, and redeploy.
-2. Add `petsclub.ca` under **Domains** and point DNS at Vercel.
-3. In Supabase, change the **Site URL** to `https://petsclub.ca` and add
-   `https://petsclub.ca/**` to the redirect allow-list.
+2. Add `thepetclub.ca` under **Domains** and point DNS at Vercel.
+3. In Supabase, change the **Site URL** to `https://thepetclub.ca` and add
+   `https://thepetclub.ca/**` to the redirect allow-list.
 
 Until step 1 is done, `robots.ts` returns `Disallow: /`, because the current
 origin is not the production domain. That is deliberate: it stops a
-`*.vercel.app` copy of the site from being indexed alongside petsclub.ca.
+`*.vercel.app` copy of the site from being indexed alongside thepetclub.ca.
 
 ---
 
@@ -508,4 +516,4 @@ Three further choices, made deliberately rather than by default:
 
 [MIT](LICENSE)
 
-The PetsClub name, wordmark and brand are not covered by the MIT licence.
+The Pet Club name, wordmark and brand are not covered by the MIT licence.

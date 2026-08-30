@@ -10,7 +10,7 @@ import { createMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createMetadata({
   title: "Search",
-  description: "Search PetsClub discussions, guides and Canadian pet resources.",
+  description: "Search The Pet Club discussions, guides and Canadian pet resources.",
   path: "/search",
   // A results page has no stable content of its own and must not compete with
   // the pages it points at.
@@ -27,7 +27,7 @@ export default async function SearchPage(props: PageProps<"/search">) {
     <>
       <PageHeader
         eyebrow="Search"
-        title="Search PetsClub"
+        title="Search The Pet Club"
         description="Full-text search across discussions and guides is part of a later milestone. Until then, the category index below is the fastest way to find a topic."
         breadcrumbs={[{ name: "Search", path: "/search" }]}
       />
@@ -75,7 +75,7 @@ export default async function SearchPage(props: PageProps<"/search">) {
             ) : (
               <EmptyState
                 title="Nothing to search yet"
-                description="PetsClub search launches alongside the community engine. Browse by category for now."
+                description="The Pet Club search launches alongside the community engine. Browse by category for now."
                 action={
                   <ButtonLink href="/community" variant="secondary">
                     Browse all categories

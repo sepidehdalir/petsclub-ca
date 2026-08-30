@@ -1,5 +1,5 @@
 /**
- * Canonical PetsClub community taxonomy.
+ * Canonical Pet Club community taxonomy.
  *
  * This is the single in-code source of truth for forum structure. It drives
  * navigation, the `/community` hub, category routes, `generateStaticParams`
@@ -143,7 +143,7 @@ export const communityTaxonomy: readonly CommunityCategoryGroup[] = [
   {
     slug: "community",
     name: "Community",
-    description: "The social heart of PetsClub — introductions, photos, stories and memorials.",
+    description: "The social heart of The Pet Club — introductions, photos, stories and memorials.",
     children: [
       {
         slug: "introduce-yourself",

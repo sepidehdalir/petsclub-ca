@@ -6,7 +6,7 @@ import { createMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Editorial Policy",
   description:
-    "How PetsClub researches, reviews, sources and corrects its Canadian pet guides.",
+    "How The Pet Club researches, reviews, sources and corrects its Canadian pet guides.",
   path: "/editorial-policy",
 });
 
@@ -20,7 +20,7 @@ export default function EditorialPolicyPage() {
     >
       <h2>Scope</h2>
       <p>
-        This policy covers guides published by the PetsClub editorial team. It does not cover
+        This policy covers guides published by the Pet Club editorial team. It does not cover
         member-written community posts, which are governed by the{" "}
         <a
           href="/community-guidelines"
@@ -72,7 +72,7 @@ export default function EditorialPolicyPage() {
 
       <h2>Not veterinary advice</h2>
       <p>
-        PetsClub guides are general information. They do not diagnose, and they do not replace an
+        The Pet Club guides are general information. They do not diagnose, and they do not replace an
         examination by a licensed veterinarian.
       </p>
     </PolicyPage>

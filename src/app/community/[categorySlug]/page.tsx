@@ -82,7 +82,7 @@ export default async function CommunityCategoryPage(
           <EmptyState
             className="mt-8"
             title="No discussions yet"
-            description="Posting opens when the community engine launches. Until then, browse the rest of the categories to see what PetsClub will cover."
+            description="Posting opens when the community engine launches. Until then, browse the rest of the categories to see what The Pet Club will cover."
             action={
               <ButtonLink href="/community" variant="secondary">
                 Browse all categories

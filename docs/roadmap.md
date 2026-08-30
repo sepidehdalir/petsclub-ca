@@ -1,4 +1,4 @@
-# PetsClub.ca — Roadmap
+# ThePetClub.ca — Roadmap
 
 Milestones are ordered so that each one is independently shippable and none
 requires rewriting the last. Only Milestone 1 is complete; everything below it
@@ -153,5 +153,5 @@ messages, real-time chat, sitter or vet booking, ecommerce, video hosting,
 gamification, and AI-generated content or an "AI veterinarian".
 
 `catbar.ca` and `petbar.ca` are reserved for potential future vertical brands.
-They are not part of PetsClub.ca and traffic is not split across them — see
+They are not part of ThePetClub.ca and traffic is not split across them — see
 [ADR 0005](decisions/0005-community-and-editorial-architecture.md).

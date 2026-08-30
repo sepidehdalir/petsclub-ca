@@ -18,7 +18,7 @@ export default function CommunityPage() {
     <>
       <PageHeader
         eyebrow="Community"
-        title="PetsClub Community"
+        title="The Pet Club Community"
         description={`Ask a question, share what worked, or read what other Canadian pet parents have been through. ${allCommunityCategories.length} categories across ${communityTaxonomy.length} areas.`}
         breadcrumbs={[{ name: "Community", path: "/community" }]}
       />

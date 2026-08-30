@@ -1,5 +1,5 @@
 -- ============================================================================
--- PetsClub.ca — Row Level Security and privilege model
+-- ThePetClub.ca — Row Level Security and privilege model
 -- ============================================================================
 -- Authorisation is enforced in two independent layers:
 --

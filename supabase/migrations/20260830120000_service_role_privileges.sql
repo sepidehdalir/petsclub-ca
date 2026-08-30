@@ -1,5 +1,5 @@
 -- ============================================================================
--- PetsClub.ca — restore the privileged path for service_role
+-- ThePetClub.ca — restore the privileged path for service_role
 -- ============================================================================
 -- 20260829120200_row_level_security.sql states that service_role is left
 -- "deliberately untouched" because it is the privileged path. That was true of

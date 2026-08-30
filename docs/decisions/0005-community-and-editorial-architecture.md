@@ -23,10 +23,10 @@ community categories are two presentations of the same subject tree.
 - **They solve each other's cold-start problem.** Guides bring search traffic;
   the community converts readers into members. Community questions reveal which
   guides to write, and unanswered questions are a content backlog.
-- **One domain compounds authority.** Splitting across `petsclub.ca` and a
+- **One domain compounds authority.** Splitting across `thepetclub.ca` and a
   separate content domain would divide link equity and force the same visitor to
   learn two brands. The owner also holds `catbar.ca` and `petbar.ca`; they are
-  explicitly *not* used for this, precisely so PetsClub traffic stays
+  explicitly *not* used for this, precisely so The Pet Club traffic stays
   consolidated.
 - **The taxonomy is the shared spine.** `features/community/taxonomy.ts` defines
   the subject tree; `config/topics.ts` groups it for editorial section fronts.

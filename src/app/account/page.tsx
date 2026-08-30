@@ -15,7 +15,7 @@ import { formatDate } from "@/lib/utils/format";
 
 export const metadata: Metadata = createMetadata({
   title: "Your account",
-  description: "Your PetsClub account.",
+  description: "Your Pet Club account.",
   path: "/account",
   noIndex: true,
 });
@@ -67,7 +67,7 @@ export default async function AccountPage() {
       <PageHeader
         eyebrow="Account"
         title={profile?.display_name ?? "Your account"}
-        description="Your PetsClub membership. Profile editing, pet profiles and notification settings arrive with a later milestone."
+        description="Your Pet Club membership. Profile editing, pet profiles and notification settings arrive with a later milestone."
         breadcrumbs={[{ name: "Account", path: "/account" }]}
       />
 

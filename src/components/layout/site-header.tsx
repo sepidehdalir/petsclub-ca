@@ -30,7 +30,7 @@ export function SiteHeader() {
           <Link
             href="/"
             className="flex shrink-0 items-center rounded-md"
-            aria-label="PetsClub.ca — home"
+            aria-label="ThePetClub.ca — home"
           >
             <Wordmark />
           </Link>
@@ -54,7 +54,7 @@ export function SiteHeader() {
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             <Link
               href="/search"
-              aria-label="Search PetsClub"
+              aria-label="Search The Pet Club"
               className="inline-flex h-11 w-11 items-center justify-center rounded-md text-foreground-muted transition-colors hover:bg-surface-muted hover:text-foreground"
             >
               <svg

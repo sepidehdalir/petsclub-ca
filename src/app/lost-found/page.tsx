@@ -45,7 +45,7 @@ export default function LostFoundPage() {
       <PageHeader
         eyebrow="Lost & Found"
         title="Lost & Found pets in Canada"
-        description="When a pet goes missing, the first hours matter most. PetsClub is building a Canada-wide Lost & Found so a report reaches the people nearby who can actually help."
+        description="When a pet goes missing, the first hours matter most. The Pet Club is building a Canada-wide Lost & Found so a report reaches the people nearby who can actually help."
         breadcrumbs={[{ name: "Lost & Found", path: "/lost-found" }]}
         actions={
           <ButtonLink href="/community/lost-dogs">Go to Lost &amp; Found categories</ButtonLink>

@@ -47,7 +47,7 @@ export function PolicyPage({
               </h2>
               <p className="mt-1.5 text-sm leading-relaxed text-clay-700/90">
                 {pendingReview === "legal"
-                  ? "This page describes our intended approach. It has not been reviewed by a lawyer and is not yet a binding legal document. The final version will be published before PetsClub accepts public sign-ups."
+                  ? "This page describes our intended approach. It has not been reviewed by a lawyer and is not yet a binding legal document. The final version will be published before The Pet Club accepts public sign-ups."
                   : "This page describes our intended approach and will be finalised before we publish our first guide."}
               </p>
             </div>
