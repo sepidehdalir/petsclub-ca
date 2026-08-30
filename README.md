@@ -37,7 +37,11 @@ intended to read as a record of how the platform was actually assembled.
 > handful of illustrative fixtures are labelled as samples everywhere they
 > appear. Nothing on this site presents fabricated activity as real.
 
-**Live site:** https://petsclub.ca *(not yet deployed — see [Deployment](#deployment))*
+**Live build:** https://petsclub-ca.vercel.app — deployed on Vercel. Search
+engines are blocked here (`robots.txt` returns `Disallow: /` for any origin
+that is not the production domain), so it will not be indexed alongside
+petsclub.ca. The `petsclub.ca` domain is not attached yet; see
+[Deployment](#deployment).
 
 ---
 
@@ -386,23 +390,27 @@ npm ci → lint → typecheck → test → build
 
 ## Deployment
 
-Targets Vercel. Not yet deployed.
+Deployed on Vercel at **https://petsclub-ca.vercel.app**. The repository is
+connected to the Vercel project, so pushes to `main` deploy automatically.
 
 ```bash
 npm i -g vercel
 vercel link
-vercel --prod
+vercel deploy          # preview
+vercel deploy --prod   # production
 ```
 
-Then, in the Vercel project settings:
+Remaining steps to go live on the real domain:
 
-1. Add `NEXT_PUBLIC_SITE_URL=https://petsclub.ca` for Production.
-2. Add the Supabase variables once a project exists.
-3. Add `petsclub.ca` under **Domains** and point DNS at Vercel.
-4. Add `https://petsclub.ca/auth/callback` to the Supabase redirect allow-list.
+1. Set `NEXT_PUBLIC_SITE_URL=https://petsclub.ca` in the Vercel project's
+   Production environment.
+2. Add `petsclub.ca` under **Domains** and point DNS at Vercel.
+3. Add the Supabase variables once a project exists, and add
+   `https://petsclub.ca/auth/callback` to the Supabase redirect allow-list.
 
-`robots.ts` returns `Disallow: /` for any origin that is not the production
-domain, so preview deployments cannot be indexed alongside the real site.
+Until step 1 is done, `robots.ts` returns `Disallow: /`, because the current
+origin is not the production domain. That is deliberate: it stops a
+`*.vercel.app` copy of the site from being indexed alongside petsclub.ca.
 
 ---
 
