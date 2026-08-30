@@ -5,7 +5,18 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Override default ignores of eslint-config-next.
+  {
+    rules: {
+      // `any` disables the type system; require an explicit, reviewed opt-out.
+      "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
+      // Debug logging must not reach production; warn/error remain available.
+      "no-console": ["error", { allow: ["warn", "error"] }],
+    },
+  },
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
