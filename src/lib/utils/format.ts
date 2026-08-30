@@ -3,9 +3,8 @@ import { siteConfig } from "@/config/site";
 /**
  * Formatting helpers shared by server and client components.
  *
- * All formatting is locale-pinned to `en-CA` and rendered from an explicit
- * reference time where relevant, so server and client output cannot disagree
- * and cause a hydration mismatch.
+ * Locale is pinned to `en-CA` and no function reads the clock internally, so
+ * server and client output cannot disagree and cause a hydration mismatch.
  */
 
 const dateFormatter = new Intl.DateTimeFormat(siteConfig.language, {
@@ -37,30 +36,28 @@ const WEEK = DAY * 7;
 const MONTH = DAY * 30;
 const YEAR = DAY * 365;
 
-/**
- * Formats a past timestamp as a short relative label ("3 days ago").
- *
- * `now` is an explicit parameter rather than an internal `Date.now()` call so
- * that callers control the reference point and the function stays pure and
- * testable.
- */
-export function formatRelativeTime(isoDate: string, now: Date): string {
-  const elapsedSeconds = Math.round((now.getTime() - new Date(isoDate).getTime()) / 1000);
+const UNITS: ReadonlyArray<readonly [seconds: number, label: string]> = [
+  [YEAR, "year"],
+  [MONTH, "month"],
+  [WEEK, "week"],
+  [DAY, "day"],
+  [HOUR, "hour"],
+  [MINUTE, "minute"],
+];
 
+/**
+ * Formats an elapsed duration in seconds as a short relative label.
+ *
+ * The single source of truth for relative time wording. Anything under a
+ * minute, or in the future, reads as "just now" rather than producing a
+ * negative or zero-valued phrase.
+ */
+export function formatElapsed(elapsedSeconds: number): string {
   if (elapsedSeconds < MINUTE) {
     return "just now";
   }
 
-  const units: Array<[seconds: number, label: string]> = [
-    [YEAR, "year"],
-    [MONTH, "month"],
-    [WEEK, "week"],
-    [DAY, "day"],
-    [HOUR, "hour"],
-    [MINUTE, "minute"],
-  ];
-
-  for (const [seconds, label] of units) {
+  for (const [seconds, label] of UNITS) {
     if (elapsedSeconds >= seconds) {
       const value = Math.floor(elapsedSeconds / seconds);
       return `${value} ${label}${value === 1 ? "" : "s"} ago`;
@@ -68,4 +65,24 @@ export function formatRelativeTime(isoDate: string, now: Date): string {
   }
 
   return "just now";
+}
+
+/**
+ * Formats a past timestamp relative to `now`.
+ *
+ * `now` is an explicit parameter rather than an internal `Date.now()` call, so
+ * the function stays pure and testable and callers control the reference point.
+ */
+export function formatRelativeTime(isoDate: string, now: Date): string {
+  return formatElapsed(Math.round((now.getTime() - new Date(isoDate).getTime()) / 1000));
+}
+
+/** Formats a whole number of elapsed hours as a relative label. */
+export function formatRelativeHours(hours: number): string {
+  return formatElapsed(hours * HOUR);
+}
+
+/** Formats a whole number of elapsed days as a relative label. */
+export function formatRelativeDays(days: number): string {
+  return formatElapsed(days * DAY);
 }

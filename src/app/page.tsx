@@ -1,69 +1,278 @@
-import Image from "next/image";
+import type { Metadata } from "next";
 
-export default function Home() {
+import { DemoContentNotice } from "@/components/shared/demo-content-notice";
+import { ButtonLink } from "@/components/ui/button";
+import { Card, CardBody, LinkCard } from "@/components/ui/card";
+import { Container, Section, SectionHeading } from "@/components/ui/layout-primitives";
+import { siteConfig } from "@/config/site";
+import { ThreadPreviewCard } from "@/features/community/components/thread-preview-card";
+import { demoThreads } from "@/features/community/fixtures";
+import { communityTaxonomy } from "@/features/community/taxonomy";
+import { GuideCard } from "@/features/editorial/components/guide-card";
+import { plannedGuides } from "@/features/editorial/fixtures";
+import { LostFoundCard } from "@/features/lost-found/components/lost-found-card";
+import { demoLostFoundReports } from "@/features/lost-found/fixtures";
+import { createMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = createMetadata({
+  path: "/",
+  description: siteConfig.description,
+});
+
+/** Topic entry points surfaced in the "Explore" grid. */
+const exploreTopics = [
+  {
+    href: "/dogs",
+    title: "Dogs",
+    description: "Puppies, health, nutrition, training and breeds.",
+  },
+  {
+    href: "/cats",
+    title: "Cats",
+    description: "Kittens, behaviour, health and indoor enrichment.",
+  },
+  {
+    href: "/health",
+    title: "Health",
+    description: "Symptoms, prevention and working with your vet.",
+  },
+  {
+    href: "/food",
+    title: "Food",
+    description: "Diets, ingredients and brands sold in Canada.",
+  },
+  {
+    href: "/training",
+    title: "Training",
+    description: "Everyday skills, behaviour and building routines.",
+  },
+  {
+    href: "/guides",
+    title: "Canada Guides",
+    description: "Costs, insurance, travel and provincial rules.",
+  },
+] as const;
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <>
+      {/* ---------------------------------------------------------------- Hero */}
+      <Section as="section" spacing="spacious" aria-labelledby="hero-heading">
+        <Container>
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-wider text-pine-700">
+              {siteConfig.legalName}
+            </p>
+
+            <h1
+              id="hero-heading"
+              className="mt-4 text-4xl font-semibold leading-[1.1] text-foreground sm:text-5xl lg:text-6xl"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              Canada&rsquo;s community for pet parents.
+            </h1>
+
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-foreground-muted sm:text-xl">
+              Ask questions, share experiences, and discover trusted pet advice from across
+              Canada.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <ButtonLink href="/community" size="lg">
+                Ask the Community
+              </ButtonLink>
+              <ButtonLink href="/community" size="lg" variant="secondary">
+                Explore Discussions
+              </ButtonLink>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* ------------------------------------------------- Trending discussions */}
+      <Section tone="muted" aria-labelledby="trending-heading">
+        <Container>
+          <SectionHeading
+            id="trending-heading"
+            eyebrow="Community"
+            title="Trending discussions"
+            description="The questions Canadian pet parents are working through right now."
+            action={
+              <ButtonLink href="/community" variant="secondary" size="sm">
+                Browse all categories
+              </ButtonLink>
+            }
+          />
+
+          <DemoContentNotice className="mt-6">
+            Sample discussions — the community opens in an upcoming release
+          </DemoContentNotice>
+
+          <Card className="mt-4">
+            <CardBody className="py-2">
+              {demoThreads.map((thread) => (
+                <ThreadPreviewCard key={thread.id} thread={thread} />
+              ))}
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
+      {/* ------------------------------------------------------------- Explore */}
+      <Section aria-labelledby="explore-heading">
+        <Container>
+          <SectionHeading
+            id="explore-heading"
+            eyebrow="Explore"
+            title="Find your corner of PetsClub"
+            description="Start with a topic, then dive into the discussions and guides underneath it."
+          />
+
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {exploreTopics.map((topic) => (
+              <li key={topic.href} className="flex">
+                <LinkCard
+                  className="w-full"
+                  href={topic.href}
+                  title={topic.title}
+                  description={topic.description}
+                />
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
+      {/* ------------------------------------------------------- Latest guides */}
+      <Section tone="muted" aria-labelledby="guides-heading">
+        <Container>
+          <SectionHeading
+            id="guides-heading"
+            eyebrow="Editorial"
+            title="Guides we are writing"
+            description="Researched, Canada-specific guides written and reviewed by our editorial team."
+            action={
+              <ButtonLink href="/guides" variant="secondary" size="sm">
+                See the guide plan
+              </ButtonLink>
+            }
+          />
+
+          <DemoContentNotice className="mt-6">
+            Planned titles — no article has been published yet
+          </DemoContentNotice>
+
+          <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {plannedGuides.map((guide) => (
+              <li key={guide.id} className="flex">
+                <GuideCard guide={guide} />
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
+      {/* ------------------------------------------------ Ask the community CTA */}
+      <Section aria-labelledby="ask-heading">
+        <Container>
+          <div className="rounded-card border border-pine-200 bg-pine-50 px-6 py-12 sm:px-12 sm:py-16">
+            <div className="max-w-2xl">
+              <h2
+                id="ask-heading"
+                className="text-2xl font-semibold text-pine-900 sm:text-3xl"
+              >
+                Have a question about your pet?
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-pine-900/80 sm:text-lg">
+                Whether it is a first-week puppy problem, a vet bill you did not expect, or a
+                cat that has decided the litter box is optional — ask the people who have been
+                there.
+              </p>
+              <div className="mt-8">
+                <ButtonLink href="/community" size="lg">
+                  Ask the Community
+                </ButtonLink>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* -------------------------------------------------- Lost & Found preview */}
+      <Section tone="muted" aria-labelledby="lost-found-heading">
+        <Container>
+          <SectionHeading
+            id="lost-found-heading"
+            eyebrow="Lost &amp; Found"
+            title="Helping Canadian pets get home"
+            description="A dedicated Lost & Found tool with local alerts and searchable reports is on the roadmap."
+            action={
+              <ButtonLink href="/lost-found" variant="secondary" size="sm">
+                About Lost &amp; Found
+              </ButtonLink>
+            }
+          />
+
+          <DemoContentNotice className="mt-6">
+            Sample layout only — these are not real missing pets
+          </DemoContentNotice>
+
+          <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {demoLostFoundReports.map((report) => (
+              <li key={report.id} className="flex">
+                <LostFoundCard report={report} />
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
+      {/* ---------------------------------------------------------- Join the club */}
+      <Section aria-labelledby="join-heading">
+        <Container width="prose" className="text-center">
+          <h2 id="join-heading" className="text-3xl font-semibold text-foreground sm:text-4xl">
+            Join Canadian pet parents sharing advice, experiences and stories.
+          </h2>
+          <p className="mt-4 text-lg leading-relaxed text-foreground-muted">
+            Creating an account takes a minute, and it is free. Membership will let you post
+            questions, follow topics and keep track of the answers that helped.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <ButtonLink href="/sign-up" size="lg">
+              Create your account
+            </ButtonLink>
+            <ButtonLink href="/community" size="lg" variant="secondary">
+              Browse the community
+            </ButtonLink>
+          </div>
+        </Container>
+      </Section>
+
+      {/*
+        Category anchors give the taxonomy an internal-linking surface on the
+        highest-authority page, without padding the homepage with copy.
+      */}
+      <Section as="section" spacing="compact" tone="muted" aria-labelledby="all-topics-heading">
+        <Container>
+          <h2
+            id="all-topics-heading"
+            className="font-sans text-sm font-semibold uppercase tracking-wider text-foreground-muted"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            All community categories
+          </h2>
+          <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+            {communityTaxonomy.map((group) => (
+              <li key={group.slug}>
+                <a
+                  href={`/community#${group.slug}`}
+                  className="text-sm text-foreground-muted transition-colors hover:text-pine-700 hover:underline"
+                >
+                  {group.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+    </>
   );
 }
