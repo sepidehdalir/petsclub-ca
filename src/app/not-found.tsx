@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { ButtonLink } from "@/components/ui/button";
 import { Container, Section } from "@/components/ui/layout-primitives";
-import { primaryNavigation } from "@/config/navigation";
+import { headerNavigation } from "@/config/navigation";
 import { createMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createMetadata({
@@ -46,7 +46,7 @@ export default function NotFound() {
             Popular destinations
           </h2>
           <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
-            {primaryNavigation.map((item) => (
+            {headerNavigation.map((item) => (
               <li key={item.href}>
                 <ButtonLink href={item.href} variant="link" size="sm" className="h-auto px-0">
                   {item.label}

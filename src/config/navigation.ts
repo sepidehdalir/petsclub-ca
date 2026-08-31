@@ -18,20 +18,52 @@ export interface NavGroup {
   items: readonly NavItem[];
 }
 
-/** Primary desktop navigation. */
+/**
+ * The editorial masthead.
+ *
+ * Six sections, each a real page with real content behind it. The order is
+ * editorial rather than alphabetical: the two animals first, then the three
+ * subjects that cut across both, then the Canada-specific reference shelf.
+ *
+ * Nothing speculative belongs in this list. A masthead is a promise about
+ * what the publication covers, and a heading that leads somewhere empty is
+ * the fastest way to spend a reader's trust. New sections join once they
+ * have something to show.
+ */
 export const primaryNavigation: readonly NavItem[] = [
-  {
-    label: "Community",
-    href: "/community",
-    description: "Forums for Canadian pet parents",
-  },
   { label: "Dogs", href: "/dogs", description: "Care, training and nutrition" },
   { label: "Cats", href: "/cats", description: "Care, behaviour and nutrition" },
   { label: "Health", href: "/health", description: "Symptoms, vets and prevention" },
   { label: "Food", href: "/food", description: "Diets and Canadian brands" },
   { label: "Training", href: "/training", description: "Behaviour and everyday skills" },
-  { label: "Canada Guides", href: "/guides", description: "Costs, insurance and local life" },
+  {
+    label: "Guides",
+    href: "/guides",
+    description: "Canadian costs, insurance and local life",
+  },
+] as const;
+
+/**
+ * Real destinations that are not editorial sections.
+ *
+ * Community and Lost & Found are services rather than subjects. Mixing them
+ * into the masthead flattened that distinction and made the row too long to
+ * read; kept separate, each surface can place them where they belong — beside
+ * the account controls on desktop, in their own group in the drawer.
+ */
+export const secondaryNavigation: readonly NavItem[] = [
+  {
+    label: "Community",
+    href: "/community",
+    description: "Forums for Canadian pet parents",
+  },
   { label: "Lost & Found", href: "/lost-found", description: "Help reunite missing pets" },
+] as const;
+
+/** Every navigable destination in the header, in menu order. */
+export const headerNavigation: readonly NavItem[] = [
+  ...primaryNavigation,
+  ...secondaryNavigation,
 ] as const;
 
 /** Structured footer navigation. */

@@ -1,25 +1,36 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useId, useState } from "react";
 
+import { CloseIcon, MenuIcon, SearchIcon } from "@/components/layout/nav-icons";
 import { NavLink } from "@/components/layout/nav-link";
 import { Wordmark } from "@/components/layout/wordmark";
-import { ButtonLink } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
-import { primaryNavigation } from "@/config/navigation";
+import { primaryNavigation, secondaryNavigation } from "@/config/navigation";
+import { siteConfig } from "@/config/site";
+import { MobileAuthLinks } from "@/features/auth/components/mobile-auth-links";
 
 /**
- * Mobile and tablet navigation drawer.
+ * The menu below `lg`.
  *
- * Rendered as a modal `<dialog>` so focus trapping, Escape-to-close and
- * background inertness come from the platform rather than from hand-written
- * key handlers.
+ * Built on the native `<dialog>` via `Dialog`, so focus trapping, Escape, the
+ * top-layer stacking context and background inertness are the platform's job
+ * rather than hand-written key handlers — which is also why there is no focus
+ * library here and no `keydown` listener to get wrong.
+ *
+ * It is laid out as a publication's contents page rather than a settings
+ * drawer: search at the top where a reader reaches for it, the six sections
+ * set large in the serif with a hairline between each, then the two services,
+ * then the account. One level deep throughout — no accordions, nothing that
+ * has to be opened before it can be read.
  */
 export function MobileNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const [renderedPath, setRenderedPath] = useState(pathname);
+  const panelId = useId();
 
   // Close on navigation, so browser back/forward cannot leave the drawer
   // covering the page underneath. Adjusting state during render rather than in
@@ -30,91 +41,99 @@ export function MobileNav() {
     setOpen(false);
   }
 
+  const close = () => setOpen(false);
+
   return (
     <>
       <button
         type="button"
         onClick={() => setOpen(true)}
         aria-expanded={open}
-        aria-label="Open navigation menu"
-        className="inline-flex h-11 w-11 items-center justify-center rounded-md text-foreground transition-colors hover:bg-surface-muted xl:hidden"
+        aria-controls={panelId}
+        aria-label="Open menu"
+        className="inline-flex h-11 w-11 items-center justify-center rounded-xs text-foreground transition-colors hover:bg-surface-muted lg:hidden"
       >
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          className="h-5 w-5"
-        >
-          <path d="M4 7h16M4 12h16M4 17h16" />
-        </svg>
+        <MenuIcon />
       </button>
 
       <Dialog
+        id={panelId}
         open={open}
-        onClose={() => setOpen(false)}
-        title="Site navigation"
+        onClose={close}
+        title="Menu"
         hideTitle
-        className="m-0 ml-auto h-dvh max-h-dvh w-[min(22rem,88vw)] max-w-none rounded-none border-y-0 border-r-0"
+        // Full bleed on a phone: at 390px a partial sheet leaves a strip of
+        // dimmed page that reads as an accident rather than a choice. It
+        // becomes a right-hand drawer once there is room for one.
+        className="m-0 ml-auto h-dvh max-h-dvh w-full max-w-none rounded-none border-y-0 border-r-0 sm:w-[26rem]"
       >
-        <div className="flex items-center justify-between border-b border-border px-4 py-3">
-          <Wordmark className="text-lg" />
+        <div className="flex h-16 shrink-0 items-center justify-between border-b border-border pl-4 pr-2">
+          <Link href="/" onClick={close} aria-label={`${siteConfig.name} — home`}>
+            <Wordmark />
+          </Link>
           <button
             type="button"
-            onClick={() => setOpen(false)}
-            aria-label="Close navigation menu"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-md text-foreground transition-colors hover:bg-surface-muted"
+            onClick={close}
+            aria-label="Close menu"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-xs text-foreground transition-colors hover:bg-surface-muted"
           >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.75"
-              strokeLinecap="round"
-              className="h-5 w-5"
-            >
-              <path d="M6 6l12 12M18 6L6 18" />
-            </svg>
+            <CloseIcon />
           </button>
         </div>
 
-        <nav aria-label="Primary" className="flex-1 overflow-y-auto px-2 py-3">
-          <ul className="space-y-0.5">
-            {primaryNavigation.map((item) => (
-              <li key={item.href}>
-                <NavLink
-                  href={item.href}
-                  onNavigate={() => setOpen(false)}
-                  className="block rounded-md px-3 py-3 text-base font-medium text-foreground transition-colors hover:bg-surface-muted"
-                  activeClassName="bg-pine-50 text-pine-800"
-                >
-                  {item.label}
-                  {item.description ? (
-                    <span className="mt-0.5 block text-body-sm font-normal text-foreground-muted">
-                      {item.description}
-                    </span>
-                  ) : null}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="space-y-2 border-t border-border px-4 py-4">
-          <ButtonLink href="/community" fullWidth onClick={() => setOpen(false)}>
-            Ask the Community
-          </ButtonLink>
-          <ButtonLink
+        <div className="flex-1 overflow-y-auto overscroll-contain px-4 pb-8 pt-5">
+          {/*
+            Shaped like the field it leads to. A reader looking for search
+            looks for a box, and /search is a real page, so this stays a plain
+            link — no input in the drawer that would need its own state, its
+            own submit path and its own focus management.
+          */}
+          <Link
             href="/search"
-            variant="secondary"
-            fullWidth
-            onClick={() => setOpen(false)}
+            onClick={close}
+            className="flex h-12 items-center gap-3 rounded-xs border border-border-strong px-3.5 text-ui text-foreground-subtle transition-colors hover:border-pine-700 hover:text-foreground"
           >
-            Search
-          </ButtonLink>
+            <SearchIcon className="h-[1.125rem] w-[1.125rem]" />
+            <span>Search {siteConfig.name}</span>
+          </Link>
+
+          <nav aria-label="Sections" className="mt-7">
+            <ul className="-mt-px">
+              {primaryNavigation.map((item) => (
+                <li key={item.href} className="border-t border-border">
+                  <NavLink
+                    href={item.href}
+                    onNavigate={close}
+                    className="flex min-h-14 items-center py-3 font-serif text-title-2 text-foreground transition-colors hover:text-pine-800"
+                    activeClassName="text-pine-800"
+                  >
+                    {item.label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav aria-label="More" className="mt-7 border-t border-border pt-5">
+            <ul className="space-y-1">
+              {secondaryNavigation.map((item) => (
+                <li key={item.href}>
+                  <NavLink
+                    href={item.href}
+                    onNavigate={close}
+                    className="flex min-h-11 items-center text-ui text-foreground-muted transition-colors hover:text-foreground"
+                    activeClassName="text-pine-800"
+                  >
+                    {item.label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="mt-7 border-t border-border pt-5">
+            <MobileAuthLinks onNavigate={close} />
+          </div>
         </div>
       </Dialog>
     </>

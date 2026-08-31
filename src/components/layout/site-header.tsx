@@ -2,47 +2,56 @@ import Link from "next/link";
 
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { NavLink } from "@/components/layout/nav-link";
+import { SearchIcon } from "@/components/layout/nav-icons";
 import { Wordmark } from "@/components/layout/wordmark";
-import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/layout-primitives";
-import { primaryNavigation } from "@/config/navigation";
+import { primaryNavigation, secondaryNavigation } from "@/config/navigation";
+import { siteConfig } from "@/config/site";
 import { AuthNav } from "@/features/auth/components/auth-nav";
 
 /**
- * Global application header.
+ * Global masthead.
  *
- * A Server Component: only the pieces that genuinely need the browser — the
- * active-link state, the drawer and the auth slot — are Client Components,
- * so the header ships a minimal amount of JavaScript.
+ * A Server Component. Only the three pieces that genuinely need the browser —
+ * the active-section state, the drawer and the auth slot — are Client
+ * Components, so the header ships very little JavaScript for something on
+ * every page.
  *
- * Uses the default Container width so the wordmark aligns with page
- * content on every route — a wider shell than the body reads as a mistake.
+ * The layout is a masthead, not a toolbar: the wordmark anchors the left, the
+ * six editorial sections sit in the middle as plain type, and the things you
+ * *do* rather than *read* — search, community, account — are grouped at the
+ * right behind a hairline. Nothing is a pill, nothing casts a shadow, and the
+ * only colour is the rule under the section you are currently in.
  *
- * The full primary navigation appears at `xl`. Eight top-level destinations
- * plus a call to action do not fit honestly below that width, so smaller
- * screens get the drawer rather than a cramped, horizontally scrolling row.
+ * The full row appears at `lg`. Six sections plus the utility group fit
+ * honestly at 1024px; below that the drawer is the more usable answer than a
+ * cramped or scrolling row.
  */
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-canvas/95 backdrop-blur supports-[backdrop-filter]:bg-canvas/80">
       <Container>
-        <div className="flex h-16 items-center justify-between gap-4">
+        <div className="flex h-16 items-center justify-between gap-4 lg:h-20">
           <Link
             href="/"
-            className="flex shrink-0 items-center rounded-md"
-            aria-label="ThePetClub.ca — home"
+            className="flex shrink-0 items-center rounded-xs"
+            aria-label={`${siteConfig.name} — home`}
           >
-            <Wordmark />
+            <Wordmark className="text-xl lg:text-[1.375rem]" />
           </Link>
 
-          <nav aria-label="Primary" className="hidden xl:block">
-            <ul className="flex items-center gap-x-5">
+          <nav aria-label="Sections" className="hidden lg:block">
+            <ul className="flex items-center gap-x-7">
               {primaryNavigation.map((item) => (
                 <li key={item.href}>
                   <NavLink
                     href={item.href}
-                    className="rounded-md py-2 text-ui text-foreground-muted transition-colors hover:text-pine-700"
-                    activeClassName="text-pine-800 font-semibold"
+                    // The rule sits under the word rather than at the foot of
+                    // the header, so it reads as an editorial underline rather
+                    // than a browser tab. Colour and rule carry the state; the
+                    // weight never changes, so nothing reflows on navigation.
+                    className="inline-flex border-b-2 border-transparent pb-0.5 text-ui text-foreground-muted transition-colors hover:text-foreground"
+                    activeClassName="border-pine-700 text-foreground"
                   >
                     {item.label}
                   </NavLink>
@@ -51,29 +60,24 @@ export function SiteHeader() {
             </ul>
           </nav>
 
-          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+          <div className="flex shrink-0 items-center gap-1 lg:gap-3">
+            <NavLink
+              href="/community"
+              className="hidden text-ui text-foreground-muted transition-colors hover:text-foreground lg:inline-flex"
+              activeClassName="text-foreground"
+            >
+              {secondaryNavigation[0]?.label}
+            </NavLink>
+
+            <span aria-hidden="true" className="hidden h-5 w-px bg-border lg:block" />
+
             <Link
               href="/search"
-              aria-label="Search The Pet Club"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-md text-foreground-muted transition-colors hover:bg-surface-muted hover:text-foreground"
+              aria-label={`Search ${siteConfig.name}`}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-xs text-foreground-muted transition-colors hover:bg-surface-muted hover:text-foreground"
             >
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                className="h-5 w-5"
-              >
-                <circle cx="11" cy="11" r="7" />
-                <path d="M20 20l-3.5-3.5" />
-              </svg>
+              <SearchIcon />
             </Link>
-
-            <ButtonLink href="/community" size="sm" className="hidden lg:inline-flex">
-              Ask the Community
-            </ButtonLink>
 
             <AuthNav />
 

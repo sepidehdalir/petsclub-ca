@@ -5,6 +5,8 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils/cn";
 
 export interface DialogProps {
+  /** Applied to the `<dialog>`, so a trigger can point `aria-controls` at it. */
+  id?: string;
   open: boolean;
   onClose: () => void;
   /** Accessible name for the dialog. */
@@ -26,6 +28,7 @@ export interface DialogProps {
  * `showModal()` does not cover consistently.
  */
 export function Dialog({
+  id,
   open,
   onClose,
   title,
@@ -63,6 +66,7 @@ export function Dialog({
 
   return (
     <dialog
+      id={id}
       ref={dialogRef}
       aria-label={hideTitle ? title : undefined}
       aria-labelledby={hideTitle ? undefined : "dialog-title"}

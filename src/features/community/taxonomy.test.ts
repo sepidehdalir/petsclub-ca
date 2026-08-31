@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { footerNavigation, primaryNavigation, topicRoutes } from "@/config/navigation";
+import { footerNavigation, headerNavigation, topicRoutes } from "@/config/navigation";
 import { topics } from "@/config/topics";
 import {
   allCommunityCategories,
@@ -129,8 +129,11 @@ describe("cross-references", () => {
     }
   });
 
-  it("exposes every primary navigation destination", () => {
-    const hrefs = primaryNavigation.map((item) => item.href);
+  it("reaches the community from the header, exactly once", () => {
+    // Community moved out of the masthead and into the secondary group in
+    // Phase 3. It must still be one click from every page, and it must not
+    // appear twice now that two lists feed the same menu.
+    const hrefs = headerNavigation.map((item) => item.href);
     expect(hrefs).toContain("/community");
     expect(new Set(hrefs).size).toBe(hrefs.length);
   });
