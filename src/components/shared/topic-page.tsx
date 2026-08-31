@@ -53,8 +53,10 @@ export function TopicPage({ path }: TopicPageProps) {
         media={{ asset: getMediaAsset(topic.mediaId) }}
         actions={
           <>
-            <ButtonLink href="/community">Ask the Community</ButtonLink>
-            <ButtonLink href="/community" variant="secondary">
+            <ButtonLink href="/community" variant="editorial">
+              Ask the Community
+            </ButtonLink>
+            <ButtonLink href="/community" variant="editorialQuiet">
               Browse all categories
             </ButtonLink>
           </>

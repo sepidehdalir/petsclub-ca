@@ -86,6 +86,13 @@
   --text-caption: 0.8125rem;
   --text-caption--line-height: 1.5;
 
+  /* Micro — photo credits and fine print. Deliberately below the smallest
+     reading size: this is provenance a reader can find, not copy competing
+     for their attention. Never use it for anything they need to read. */
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 1.45;
+  --text-micro--letter-spacing: 0.01em;
+
   /* Label — uppercase eyebrows and group headings. Pair with `uppercase`. */
   --text-label: 0.75rem;
   --text-label--line-height: 1.35;
@@ -163,9 +170,11 @@
   /* --- Shape ------------------------------------------------------------ */
   /* Restrained radii: cards and controls are softened, not pill-shaped.
      Media is squarer still — a photograph with soft corners reads as a UI
-     tile, and these are meant to read as photographs. */
+     tile, and these are meant to read as photographs. A hair of a radius,
+     not a rounded card: enough to take the mechanical edge off, not enough
+     to be noticed. */
   --radius-card: 0.75rem;
-  --radius-media: 0.25rem;
+  --radius-media: 0.125rem;
 
   /* --- Editorial crops --------------------------------------------------- */
   /* A fixed, small set of frames rather than a ratio invented per placement.

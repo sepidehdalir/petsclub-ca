@@ -21,6 +21,22 @@ const buttonStyles = cva(
         ghost: "text-foreground hover:bg-surface-muted",
         danger: "bg-danger-600 text-white hover:bg-danger-700",
         link: "text-pine-700 underline underline-offset-4 hover:text-pine-900",
+        /**
+         * Section-front calls to action.
+         *
+         * The generic `primary`/`secondary` pair is right for a form, where a
+         * button should look like a control. At the head of an editorial page
+         * it looks like software dropped onto a page of type. These two are
+         * the same actions rendered as editorial ones: a squared pine block
+         * that matches the media radius, and a ruled link that carries no box
+         * at all. Both keep the 44px target the `md` size gives them.
+         */
+        editorial:
+          "rounded-xs bg-pine-800 text-white tracking-[0.01em] hover:bg-pine-900 active:bg-pine-900",
+        editorialQuiet: [
+          "rounded-none border-b border-pine-700/35 text-foreground",
+          "hover:border-pine-800 hover:text-pine-900",
+        ],
       },
       size: {
         sm: "h-9 px-3 text-sm",
@@ -33,6 +49,13 @@ const buttonStyles = cva(
         false: "",
       },
     },
+    // The rule must sit under the words, so the quiet variant drops the
+    // horizontal padding every size otherwise carries. It has to be a
+    // compound variant rather than a class on the variant itself: `cn` runs
+    // tailwind-merge over the finished string, and cva emits `size` after
+    // `variant`, so a `px-0` there would simply lose to the size's `px-5`.
+    // Vertical height, and therefore the tap target, is untouched.
+    compoundVariants: [{ variant: "editorialQuiet", class: "px-0" }],
     defaultVariants: {
       variant: "primary",
       size: "md",

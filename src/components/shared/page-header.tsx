@@ -44,17 +44,20 @@ export function PageHeader({
 }: PageHeaderProps) {
   return (
     <header className="border-b border-border bg-surface">
-      <Container className="py-10 sm:py-14">
+      {/* Tighter at the top than the bottom, and tighter still on a phone.
+          The site header already sits directly above, so a symmetric pad
+          reads as a gap between two bars rather than as the head of a page. */}
+      <Container className="pb-10 pt-5 sm:pb-14 sm:pt-9">
         {breadcrumbs && breadcrumbs.length > 0 ? (
-          <Breadcrumbs items={breadcrumbs} className="mb-6" />
+          <Breadcrumbs items={breadcrumbs} className="mb-4 sm:mb-6" />
         ) : null}
 
         <div
           className={cn(
-            media && "grid items-center gap-8 lg:grid-cols-12 lg:gap-12",
+            media && "grid items-center gap-7 lg:grid-cols-12 lg:gap-12",
           )}
         >
-          <div className={cn("space-y-4", media ? "lg:col-span-7" : "max-w-3xl")}>
+          <div className={cn("space-y-3 sm:space-y-4", media ? "lg:col-span-7" : "max-w-3xl")}>
             {eyebrow ? (
               <p className="text-label uppercase text-pine-700">
                 {eyebrow}
@@ -66,10 +69,18 @@ export function PageHeader({
             </h1>
 
             {description ? (
-              <p className="text-body-lg text-foreground-muted">{description}</p>
+              // Body size on a phone, stepping up only once there is room for
+              // it. `text-body-lg` under the display face is a lot of weight
+              // at 390px, and capping the measure keeps the intro to the two
+              // or three lines it is meant to be rather than a paragraph.
+              <p className="max-w-[54ch] text-body text-foreground-muted sm:text-body-lg">
+                {description}
+              </p>
             ) : null}
 
-            {actions ? <div className="flex flex-wrap gap-3 pt-2">{actions}</div> : null}
+            {actions ? (
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">{actions}</div>
+            ) : null}
           </div>
 
           {media ? (

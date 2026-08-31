@@ -27,6 +27,7 @@ export const FONT_SIZE_STEPS = [
   "body",
   "body-sm",
   "caption",
+  "micro",
   "label",
   "label-lg",
   "ui",

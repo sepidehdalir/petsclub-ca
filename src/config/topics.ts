@@ -67,7 +67,7 @@ export const topics: readonly TopicDefinition[] = [
       "cat-breeds",
     ],
     guideIds: [],
-    mediaId: "cats-window-tabby",
+    mediaId: "cats-kittens-at-window",
   },
   {
     path: "/health",
@@ -77,7 +77,7 @@ export const topics: readonly TopicDefinition[] = [
       "Symptoms worth a vet visit, preventative care that pays off, what treatment costs in Canada, and how other owners navigated the same diagnosis.",
     categorySlugs: ["dog-health", "cat-health", "vet-costs", "pet-insurance"],
     guideIds: ["guide-vaccination", "guide-pet-insurance"],
-    mediaId: "health-senior-dog-resting",
+    mediaId: "health-dog-window-light",
   },
   {
     path: "/food",

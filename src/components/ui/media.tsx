@@ -72,7 +72,7 @@ export function Media({
   const hasFooter = Boolean(caption) || showCredit;
 
   return (
-    <figure className={cn("flex flex-col gap-2", className)}>
+    <figure className={cn("flex flex-col", className)}>
       <div
         className={cn(
           "relative overflow-hidden rounded-media bg-surface-muted",
@@ -91,12 +91,17 @@ export function Media({
       </div>
 
       {hasFooter ? (
-        <figcaption className="text-caption text-foreground-subtle">
-          {caption ? <span>{caption}</span> : null}
-          {caption && showCredit ? <span aria-hidden="true"> · </span> : null}
+        <figcaption className="mt-2 flex flex-col gap-1">
+          {caption ? (
+            <span className="text-caption text-foreground-muted">{caption}</span>
+          ) : null}
           {showCredit ? (
-            <span>
-              Photograph: {asset.photographer} / {asset.source}
+            // The credit is a record, not a line of copy. It stays legible to
+            // anyone who looks for it and disappears for everyone else, which
+            // is the whole job: the manifest is where provenance is actually
+            // kept, and this only has to point at it.
+            <span className="text-micro text-foreground-subtle/75">
+              {asset.photographer} / {asset.source}
             </span>
           ) : null}
         </figcaption>

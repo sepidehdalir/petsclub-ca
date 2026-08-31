@@ -43,7 +43,11 @@ export default function GuidesPage() {
         description="Practical, Canada-specific guides on what pet care actually costs, what to feed, and how to plan for the things that go wrong."
         breadcrumbs={[{ name: "Canada Guides", path: "/guides" }]}
         media={{ asset: getMediaAsset("guides-winter-walk") }}
-        actions={<ButtonLink href="/community">Ask the Community</ButtonLink>}
+        actions={
+          <ButtonLink href="/community" variant="editorial">
+            Ask the Community
+          </ButtonLink>
+        }
       />
 
       <Section aria-labelledby="planned-guides-heading">
