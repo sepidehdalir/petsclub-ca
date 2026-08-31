@@ -500,6 +500,31 @@ Until step 1 is done, `robots.ts` returns `Disallow: /`, because the current
 origin is not the production domain. That is deliberate: it stops a
 `*.vercel.app` copy of the site from being indexed alongside thepetclub.ca.
 
+### Deferred launch verification
+
+**Password reset, end to end — not yet verified against production.** Deferred
+deliberately, not overlooked.
+
+Verified so far:
+
+- `/auth/confirm` and the unspent `?token_hash=` forward from `/auth/callback`
+  are live in production (ADR 0006).
+- The Supabase **Reset password** template links at `{{ .RedirectTo }}` with
+  `&token_hash=`, so redemption goes through this application's `POST`, not
+  Supabase's `GET` verify endpoint. It hardcodes `type=recovery` rather than
+  `{{ .EmailActionType }}`; equivalent for this template, which only ever issues
+  recovery tokens.
+- A recovery email sends and is delivered.
+
+Still unproven: redeeming the token, landing on `/reset-password` with a
+session, and completing `resetPasswordAction`. Run the remainder **signed out,
+in a private window** — an existing session makes `getUser()` succeed and the
+password change pass regardless of whether the token worked, which is a false
+pass, not a test.
+
+Re-run this after the domain move, since the recovery link's origin changes with
+`NEXT_PUBLIC_SITE_URL`.
+
 ---
 
 ## Engineering Decisions
