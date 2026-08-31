@@ -11,8 +11,11 @@ export const contentType = "image/png";
  *
  * Generated at build time by `next/og` rather than checked in as a binary, so
  * the brand copy has exactly one source of truth (`config/site.ts`) and the
- * image cannot drift from the tagline. Uses system font stacks only, which
- * keeps generation dependency-free and fast.
+ * image cannot drift from the tagline. The wordmark itself now reads from
+ * `siteConfig.wordmark` too; it was hard-coded here, and so still said
+ * "PetsClub.ca" on every share card long after the site became thepetclub.ca.
+ * Uses system font stacks only, which keeps generation dependency-free and
+ * fast.
  */
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -39,9 +42,18 @@ export default function OpengraphImage() {
             }}
           />
           <div style={{ display: "flex", fontSize: "40px", color: "#1c1b19" }}>
-            <span style={{ fontWeight: 700 }}>Pets</span>
-            <span style={{ fontWeight: 700, color: "#24523d" }}>Club</span>
-            <span style={{ color: "#7c7970" }}>.ca</span>
+            {/*
+              `whiteSpace: pre` keeps the space `lead` carries before the
+              accent — Satori collapses trailing whitespace in a flex item
+              otherwise, which would render "The PetClub.ca".
+            */}
+            <span style={{ fontWeight: 700, whiteSpace: "pre" }}>
+              {siteConfig.wordmark.lead}
+            </span>
+            <span style={{ fontWeight: 700, color: "#24523d" }}>
+              {siteConfig.wordmark.accent}
+            </span>
+            <span style={{ color: "#7c7970" }}>{siteConfig.wordmark.suffix}</span>
           </div>
         </div>
 

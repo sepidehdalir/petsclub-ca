@@ -1,3 +1,4 @@
+import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils/cn";
 
 export interface WordmarkProps {
@@ -12,8 +13,15 @@ export interface WordmarkProps {
  * Typographic rather than an image file: it costs no network request, cannot
  * shift layout while loading, stays crisp at any density, and inherits the
  * current colour so it works on light and dark surfaces alike.
+ *
+ * The three parts come from `siteConfig.wordmark` rather than being written
+ * out here, so this lockup and the generated Open Graph card cannot disagree
+ * about the brand — which is how the header ended up reading "The PetClub.ca"
+ * after the domain move.
  */
 export function Wordmark({ className, showDomain = true }: WordmarkProps) {
+  const { lead, accent, suffix } = siteConfig.wordmark;
+
   return (
     <span
       className={cn(
@@ -21,10 +29,10 @@ export function Wordmark({ className, showDomain = true }: WordmarkProps) {
         className,
       )}
     >
-      The Pet
-      <span className="text-pine-700">Club</span>
+      {lead}
+      <span className="text-pine-700">{accent}</span>
       {showDomain ? (
-        <span className="text-base font-normal text-foreground-subtle">.ca</span>
+        <span className="text-base font-normal text-foreground-subtle">{suffix}</span>
       ) : null}
     </span>
   );

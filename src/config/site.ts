@@ -42,6 +42,24 @@ export const siteConfig = {
   locale: "en_CA",
   language: "en-CA",
   country: "CA",
+  /**
+   * The wordmark, split into the three parts the lockup styles differently.
+   *
+   * Both the rendered `<Wordmark>` and the generated Open Graph card read the
+   * brand from here. They previously each hard-coded it, which is exactly how
+   * the move to thepetclub.ca left the header reading "The PetClub.ca" and the
+   * social card still reading "PetsClub.ca". `site.test.ts` asserts the parts
+   * still compose to `name`, `legalName` and `domain`, so the next rename
+   * fails a test rather than shipping.
+   */
+  wordmark: {
+    /** Set in the foreground colour. Carries the space before `accent`. */
+    lead: "The Pet ",
+    /** Set in pine — the emphasised half of the lockup. */
+    accent: "Club",
+    /** Domain suffix, set in a muted tone. Dropped from the compact lockup. */
+    suffix: ".ca",
+  },
   /** Used for Open Graph / Twitter cards and the default social image. */
   ogImagePath: "/opengraph-image",
   /** Contact address surfaced on the contact page. Update before launch. */
