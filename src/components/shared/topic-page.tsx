@@ -77,13 +77,13 @@ export function TopicPage({ path }: TopicPageProps) {
                     className="block transition-colors hover:bg-surface-muted focus:bg-surface-muted focus:outline-none"
                   >
                     <CardBody className="space-y-1 py-4">
-                      <p className="text-xs font-semibold uppercase tracking-wider text-pine-700">
+                      <p className="text-label uppercase text-pine-700">
                         {group.name}
                       </p>
-                      <h3 className="font-sans text-base font-semibold text-foreground">
+                      <h3 className="text-title-4 text-foreground">
                         {category.name}
                       </h3>
-                      <p className="text-sm leading-relaxed text-foreground-muted">
+                      <p className="text-body-sm text-foreground-muted">
                         {category.description}
                       </p>
                     </CardBody>

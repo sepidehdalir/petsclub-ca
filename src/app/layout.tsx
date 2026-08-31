@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Source_Serif_4 } from "next/font/google";
+import { Newsreader, Public_Sans } from "next/font/google";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -12,19 +12,30 @@ import "./globals.css";
 /**
  * Fonts are self-hosted by next/font: no third-party request on the critical
  * path, no FOUT from a late stylesheet, and `display: swap` keeps text
- * readable while the file loads. Only the weights actually used are shipped.
+ * readable while the file loads.
+ *
+ * Both faces are variable, so the entire weight range arrives in one file per
+ * style rather than one file per weight — fewer requests than the two static
+ * serif weights this replaces, not more.
+ *
+ * Newsreader also carries an optical-size axis. With `font-optical-sizing`
+ * left at its default of `auto`, the browser draws headlines from the display
+ * cut and running text from the text cut of the same file. That is why it
+ * replaces Source Serif 4, which was loaded at 600/700 only and so could set
+ * neither body copy nor italics — the gap that blocked the article template.
  */
-const inter = Inter({
+const newsreader = Newsreader({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  style: ["normal", "italic"],
+  axes: ["opsz"],
+  variable: "--font-newsreader",
 });
 
-const sourceSerif = Source_Serif_4({
+const publicSans = Public_Sans({
   subsets: ["latin"],
   display: "swap",
-  weight: ["600", "700"],
-  variable: "--font-source-serif",
+  variable: "--font-public-sans",
 });
 
 export const metadata: Metadata = {
@@ -82,7 +93,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang={siteConfig.language} className={`${inter.variable} ${sourceSerif.variable}`}>
+    <html
+      lang={siteConfig.language}
+      className={`${publicSans.variable} ${newsreader.variable}`}
+    >
       <body className="flex min-h-dvh flex-col">
         {/*
           Keyboard users reach the main content without tabbing the whole

@@ -121,7 +121,7 @@ export default async function ConfirmPage(props: PageProps<"/auth/confirm">) {
         }
       >
         <div className="space-y-5">
-          <p className="text-sm leading-relaxed text-foreground-muted">
+          <p className="text-body-sm text-foreground-muted">
             Open the most recent email we sent you and follow the link there. If it keeps
             failing, request a fresh one — links are single-use and expire.
           </p>

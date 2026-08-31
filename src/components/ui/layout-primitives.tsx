@@ -98,15 +98,15 @@ export function SectionHeading({
     >
       <div className="max-w-2xl space-y-2">
         {eyebrow ? (
-          <p className="text-xs font-semibold uppercase tracking-wider text-pine-700">
+          <p className="text-label uppercase text-pine-700">
             {eyebrow}
           </p>
         ) : null}
-        <Heading id={id} className="text-2xl font-semibold text-foreground sm:text-3xl">
+        <Heading id={id} className="text-title-2 text-foreground sm:text-title-1">
           {title}
         </Heading>
         {description ? (
-          <p className="text-base leading-relaxed text-foreground-muted">{description}</p>
+          <p className="text-body text-foreground-muted">{description}</p>
         ) : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}

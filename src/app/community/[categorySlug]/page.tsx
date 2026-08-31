@@ -110,10 +110,10 @@ export default async function CommunityCategoryPage(
                       className="block transition-colors hover:bg-surface-muted focus:bg-surface-muted focus:outline-none"
                     >
                       <CardBody className="space-y-1 py-4">
-                        <span className="block font-sans text-base font-semibold text-foreground">
+                        <span className="block font-serif text-title-4 text-foreground">
                           {sibling.name}
                         </span>
-                        <span className="block text-sm leading-relaxed text-foreground-muted">
+                        <span className="block text-body-sm text-foreground-muted">
                           {sibling.description}
                         </span>
                       </CardBody>

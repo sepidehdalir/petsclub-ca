@@ -26,11 +26,11 @@ export function LostFoundCard({ report, headingLevel: Heading = "h3" }: LostFoun
           <Badge variant="outline">{report.species}</Badge>
         </div>
 
-        <Heading className="font-sans text-base font-semibold leading-snug text-foreground">
+        <Heading className="text-title-4 text-foreground">
           {report.descriptor}
         </Heading>
 
-        <p className="mt-auto text-sm text-foreground-muted">
+        <p className="mt-auto text-body-sm text-foreground-muted">
           {report.city}, {report.province} &middot; {formatRelativeDays(report.reportedDaysAgo)}
         </p>
       </CardBody>

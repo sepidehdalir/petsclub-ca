@@ -19,10 +19,10 @@ export function CategoryGroupList({ group, id }: CategoryGroupListProps) {
   return (
     <section id={id ?? group.slug} aria-labelledby={headingId} className="scroll-mt-24">
       <div className="max-w-2xl space-y-2">
-        <h2 id={headingId} className="text-xl font-semibold text-foreground sm:text-2xl">
+        <h2 id={headingId} className="text-title-2 text-foreground sm:text-title-1">
           {group.name}
         </h2>
-        <p className="text-sm leading-relaxed text-foreground-muted">{group.description}</p>
+        <p className="text-body-sm text-foreground-muted">{group.description}</p>
       </div>
 
       <Card className="mt-5 overflow-hidden">
@@ -35,10 +35,10 @@ export function CategoryGroupList({ group, id }: CategoryGroupListProps) {
               >
                 <CardBody className="flex items-start justify-between gap-4 py-4">
                   <div className="space-y-1">
-                    <h3 className="font-sans text-base font-semibold text-foreground">
+                    <h3 className="text-title-4 text-foreground">
                       {category.name}
                     </h3>
-                    <p className="text-sm leading-relaxed text-foreground-muted">
+                    <p className="text-body-sm text-foreground-muted">
                       {category.description}
                     </p>
                   </div>

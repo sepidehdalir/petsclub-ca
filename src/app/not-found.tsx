@@ -21,15 +21,15 @@ export default function NotFound() {
   return (
     <Section spacing="spacious">
       <Container width="prose">
-        <p className="text-sm font-semibold uppercase tracking-wider text-pine-700">
+        <p className="text-label-lg uppercase text-pine-700">
           Error 404
         </p>
 
-        <h1 className="mt-4 text-3xl font-semibold text-foreground sm:text-4xl">
+        <h1 className="mt-4 text-display-3 text-foreground sm:text-display-2">
           We could not find that page
         </h1>
 
-        <p className="mt-4 text-lg leading-relaxed text-foreground-muted">
+        <p className="mt-4 text-body-lg text-foreground-muted">
           The link may be out of date, or the page may have moved. Here is where most people go
           next.
         </p>
@@ -42,7 +42,7 @@ export default function NotFound() {
         </div>
 
         <nav aria-label="Popular destinations" className="mt-12 border-t border-border pt-8">
-          <h2 className="font-sans text-sm font-semibold uppercase tracking-wider text-foreground-muted">
+          <h2 className="font-sans text-label-lg uppercase text-foreground-muted">
             Popular destinations
           </h2>
           <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">

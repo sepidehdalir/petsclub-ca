@@ -12,13 +12,99 @@
    ========================================================================== */
 
 @theme {
-  /* --- Typography ------------------------------------------------------- */
+  /* --- Typefaces -------------------------------------------------------- */
   /* The font variables are supplied by next/font on <html> (see layout.tsx),
-     which self-hosts the files — no render-blocking third-party request. */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+     which self-hosts the files — no render-blocking third-party request.
+
+     The division is the whole editorial voice of the site, so it is stated
+     once here and nowhere else: the SERIF carries content — headlines,
+     section titles, card headlines, article body. The SANS carries interface —
+     navigation, labels, metadata, buttons, forms, tabular data. A heading set
+     in the sans is making a claim that it is chrome, not writing. */
+  --font-sans: var(--font-public-sans), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", sans-serif;
-  --font-serif: var(--font-source-serif), ui-serif, Georgia, "Times New Roman",
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, "Times New Roman",
     serif;
+
+  /* --- Type scale ------------------------------------------------------- */
+  /* Sizes were previously chosen per call site, which is how the homepage
+     hero ended up on `text-4xl sm:text-5xl lg:text-6xl` and the header on a
+     one-off `text-[0.9375rem]`. Every step below carries its own line height,
+     tracking and weight, so `text-title-2` is a complete instruction and call
+     sites no longer restate `font-semibold` or `leading-snug`.
+
+     Display and title steps are drawn in the serif; body, label and ui steps
+     in the sans. */
+
+  /* Display — front-page and page-level headlines. */
+  --text-display-1: 3.5rem;
+  --text-display-1--line-height: 1.03;
+  --text-display-1--letter-spacing: -0.022em;
+  --text-display-1--font-weight: 500;
+
+  --text-display-2: 2.75rem;
+  --text-display-2--line-height: 1.07;
+  --text-display-2--letter-spacing: -0.019em;
+  --text-display-2--font-weight: 500;
+
+  --text-display-3: 2.125rem;
+  --text-display-3--line-height: 1.13;
+  --text-display-3--letter-spacing: -0.016em;
+  --text-display-3--font-weight: 500;
+
+  /* Title — section headings and card headlines. */
+  --text-title-1: 1.75rem;
+  --text-title-1--line-height: 1.2;
+  --text-title-1--letter-spacing: -0.012em;
+  --text-title-1--font-weight: 600;
+
+  --text-title-2: 1.375rem;
+  --text-title-2--line-height: 1.28;
+  --text-title-2--letter-spacing: -0.008em;
+  --text-title-2--font-weight: 600;
+
+  --text-title-3: 1.125rem;
+  --text-title-3--line-height: 1.36;
+  --text-title-3--letter-spacing: -0.004em;
+  --text-title-3--font-weight: 600;
+
+  --text-title-4: 1rem;
+  --text-title-4--line-height: 1.42;
+  --text-title-4--letter-spacing: -0.002em;
+  --text-title-4--font-weight: 600;
+
+  /* Body — running copy. */
+  --text-body-lg: 1.1875rem;
+  --text-body-lg--line-height: 1.6;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.6;
+
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.5;
+
+  /* Label — uppercase eyebrows and group headings. Pair with `uppercase`. */
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.35;
+  --text-label--letter-spacing: 0.11em;
+  --text-label--font-weight: 600;
+
+  --text-label-lg: 0.8125rem;
+  --text-label-lg--line-height: 1.4;
+  --text-label-lg--letter-spacing: 0.09em;
+  --text-label-lg--font-weight: 600;
+
+  /* UI — navigation and controls that are neither copy nor label. */
+  --text-ui: 0.9375rem;
+  --text-ui--line-height: 1.45;
+  --text-ui--font-weight: 500;
+
+  /* --- Measure ---------------------------------------------------------- */
+  /* Long-form reading measure. Generates no utility — `.prose` reads it. */
+  --measure-prose: 68ch;
 
   /* --- Brand: pine ------------------------------------------------------ */
   --color-pine-50: #f1f7f3;
@@ -61,6 +147,10 @@
 
   /* --- Semantic foreground ---------------------------------------------- */
   --color-foreground: var(--color-ink-900);
+  /* Long-form running text. Softer than `foreground` so a full column of
+     copy does not vibrate, far darker than `foreground-muted`, which is a
+     de-emphasis tone and too light to read paragraph after paragraph. */
+  --color-foreground-reading: var(--color-ink-800);
   --color-foreground-muted: var(--color-ink-600);
   --color-foreground-subtle: var(--color-ink-500);
 
@@ -88,6 +178,8 @@
     background-color: var(--color-canvas);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -105,10 +197,15 @@
     color: var(--color-pine-900);
   }
 
-  /* Headings default to the editorial serif; body copy stays in the sans. */
+  /* Headings default to the editorial serif; body copy stays in the sans.
+     `h4` is included because card headlines drop to it inside a section, and
+     a card headline is content. Interface labels that happen to be headings —
+     footer group names, the account field labels — opt back out with an
+     explicit `font-sans`, which then reads as the deliberate choice it is. */
   h1,
   h2,
-  h3 {
+  h3,
+  h4 {
     font-family: var(--font-serif);
     text-wrap: balance;
   }
@@ -123,5 +220,97 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+}
+
+/* ==========================================================================
+   Components layer
+   ========================================================================== */
+
+@layer components {
+  /* Long-form running text.
+     ------------------------------------------------------------------------
+     Previously this lived as a 400-character string of arbitrary variants
+     inside `policy-page.tsx` (`[&_h2]:pt-2 [&_h2]:font-sans …`), which meant
+     the type scale had two definitions and the second one was unreadable.
+     Rules for running text belong next to the scale they consume.
+
+     The seven policy pages are the consumer today. The article body is the
+     one it is shaped for, which is why the vertical rhythm is set in `em` —
+     it then holds at any base size the article template chooses. */
+  .prose {
+    max-width: var(--measure-prose);
+    color: var(--color-foreground-reading);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  .prose > * + * {
+    margin-top: 1.25em;
+  }
+
+  .prose p {
+    /* Avoids a one-word last line without the reflow cost of `balance`. */
+    text-wrap: pretty;
+  }
+
+  .prose h2 {
+    margin-top: 2em;
+    color: var(--color-foreground);
+    font-size: var(--text-title-2);
+    line-height: var(--text-title-2--line-height);
+    letter-spacing: var(--text-title-2--letter-spacing);
+    font-weight: var(--text-title-2--font-weight);
+  }
+
+  .prose h3 {
+    margin-top: 1.75em;
+    color: var(--color-foreground);
+    font-size: var(--text-title-3);
+    line-height: var(--text-title-3--line-height);
+    letter-spacing: var(--text-title-3--letter-spacing);
+    font-weight: var(--text-title-3--font-weight);
+  }
+
+  /* A heading that opens the column has nothing to be spaced from. */
+  .prose > :first-child {
+    margin-top: 0;
+  }
+
+  .prose ul,
+  .prose ol {
+    padding-left: 1.35rem;
+  }
+
+  .prose ul {
+    list-style-type: disc;
+  }
+
+  .prose ol {
+    list-style-type: decimal;
+  }
+
+  .prose li + li {
+    margin-top: 0.5em;
+  }
+
+  .prose li::marker {
+    color: var(--color-ink-400);
+  }
+
+  .prose a {
+    color: var(--color-pine-700);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .prose a:hover {
+    color: var(--color-pine-900);
+  }
+
+  .prose strong {
+    color: var(--color-foreground);
+    font-weight: 600;
   }
 }

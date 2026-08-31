@@ -74,19 +74,19 @@ export function LinkCard({
     >
       <CardBody className="flex flex-1 flex-col gap-2">
         {eyebrow ? (
-          <p className="text-xs font-semibold uppercase tracking-wider text-pine-700">
+          <p className="text-label uppercase text-pine-700">
             {eyebrow}
           </p>
         ) : null}
 
-        <Heading className="text-lg font-semibold leading-snug text-foreground">
+        <Heading className="text-title-3 text-foreground">
           <Link href={href} className="after:absolute after:inset-0 focus:outline-none">
             {title}
           </Link>
         </Heading>
 
         {description ? (
-          <p className="text-sm leading-relaxed text-foreground-muted">{description}</p>
+          <p className="text-body-sm text-foreground-muted">{description}</p>
         ) : null}
 
         {footer ? <div className="mt-auto pt-3">{footer}</div> : null}

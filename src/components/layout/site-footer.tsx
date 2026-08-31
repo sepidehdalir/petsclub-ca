@@ -24,7 +24,7 @@ export function SiteFooter() {
             <Link href="/" className="inline-flex rounded-md" aria-label="ThePetClub.ca — home">
               <Wordmark />
             </Link>
-            <p className="text-sm leading-relaxed text-foreground-muted">
+            <p className="text-body-sm text-foreground-muted">
               {siteConfig.tagline} A community and information platform for Canadian pet
               parents.
             </p>
@@ -34,7 +34,7 @@ export function SiteFooter() {
             <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
               {footerNavigation.map((group) => (
                 <div key={group.title}>
-                  <h2 className="font-sans text-xs font-semibold uppercase tracking-wider text-foreground">
+                  <h2 className="font-sans text-label uppercase text-foreground">
                     {group.title}
                   </h2>
                   <ul className="mt-3 space-y-2">
@@ -42,7 +42,7 @@ export function SiteFooter() {
                       <li key={item.href}>
                         <Link
                           href={item.href}
-                          className="text-sm text-foreground-muted transition-colors hover:text-pine-700 hover:underline"
+                          className="text-body-sm text-foreground-muted transition-colors hover:text-pine-700 hover:underline"
                         >
                           {item.label}
                         </Link>
@@ -55,7 +55,7 @@ export function SiteFooter() {
           </nav>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 text-xs text-foreground-subtle sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 text-caption text-foreground-subtle sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {COPYRIGHT_YEAR} {siteConfig.legalName}. All rights reserved.
           </p>

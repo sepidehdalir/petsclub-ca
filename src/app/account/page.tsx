@@ -98,13 +98,13 @@ export default async function AccountPage() {
 
                 <dl className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-foreground-muted">
+                    <dt className="text-label uppercase text-foreground-muted">
                       Email
                     </dt>
                     <dd className="mt-1 truncate text-sm text-foreground">{user.email}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-foreground-muted">
+                    <dt className="text-label uppercase text-foreground-muted">
                       Member since
                     </dt>
                     <dd className="mt-1 text-sm text-foreground">
@@ -112,7 +112,7 @@ export default async function AccountPage() {
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-foreground-muted">
+                    <dt className="text-label uppercase text-foreground-muted">
                       Role
                     </dt>
                     <dd className="mt-1">
@@ -120,7 +120,7 @@ export default async function AccountPage() {
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-foreground-muted">
+                    <dt className="text-label uppercase text-foreground-muted">
                       Location
                     </dt>
                     <dd className="mt-1 text-sm text-foreground">
@@ -132,10 +132,10 @@ export default async function AccountPage() {
 
                 {profile.bio ? (
                   <div>
-                    <h3 className="font-sans text-xs font-semibold uppercase tracking-wider text-foreground-muted">
+                    <h3 className="font-sans text-label uppercase text-foreground-muted">
                       Bio
                     </h3>
-                    <p className="mt-1 text-sm leading-relaxed text-foreground">{profile.bio}</p>
+                    <p className="mt-1 text-body-sm text-foreground">{profile.bio}</p>
                   </div>
                 ) : null}
               </CardBody>

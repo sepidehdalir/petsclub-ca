@@ -34,7 +34,7 @@ export default function CommunityPage() {
                 <li key={group.slug}>
                   <a
                     href={`#${group.slug}`}
-                    className="inline-flex rounded-full border border-border-strong bg-surface px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-pine-600 hover:text-pine-800"
+                    className="inline-flex rounded-full border border-border-strong bg-surface px-4 py-2 text-ui text-foreground transition-colors hover:border-pine-600 hover:text-pine-800"
                   >
                     {group.name}
                   </a>

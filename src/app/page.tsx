@@ -60,18 +60,18 @@ export default function HomePage() {
       <Section as="section" spacing="spacious" aria-labelledby="hero-heading">
         <Container>
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-wider text-pine-700">
+            <p className="text-label-lg uppercase text-pine-700">
               {siteConfig.legalName}
             </p>
 
             <h1
               id="hero-heading"
-              className="mt-4 text-4xl font-semibold leading-[1.1] text-foreground sm:text-5xl lg:text-6xl"
+              className="mt-4 text-display-3 text-foreground sm:text-display-2 lg:text-display-1"
             >
               Canada&rsquo;s community for pet parents.
             </h1>
 
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-foreground-muted sm:text-xl">
+            <p className="mt-6 max-w-2xl text-body-lg text-foreground-muted">
               Ask questions, share experiences, and discover trusted pet advice from across
               Canada.
             </p>
@@ -178,11 +178,11 @@ export default function HomePage() {
             <div className="max-w-2xl">
               <h2
                 id="ask-heading"
-                className="text-2xl font-semibold text-pine-900 sm:text-3xl"
+                className="text-title-2 text-pine-900 sm:text-title-1"
               >
                 Have a question about your pet?
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-pine-900/80 sm:text-lg">
+              <p className="mt-4 text-body-lg text-pine-900/80">
                 Whether it is a first-week puppy problem, a vet bill you did not expect, or a
                 cat that has decided the litter box is optional — ask the people who have been
                 there.
@@ -229,10 +229,10 @@ export default function HomePage() {
       {/* ---------------------------------------------------------- Join the club */}
       <Section aria-labelledby="join-heading">
         <Container width="prose" className="text-center">
-          <h2 id="join-heading" className="text-3xl font-semibold text-foreground sm:text-4xl">
+          <h2 id="join-heading" className="text-display-3 text-foreground sm:text-display-2">
             Join Canadian pet parents sharing advice, experiences and stories.
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-foreground-muted">
+          <p className="mt-4 text-body-lg text-foreground-muted">
             Creating an account takes a minute, and it is free. Membership will let you post
             questions, follow topics and keep track of the answers that helped.
           </p>
@@ -255,7 +255,7 @@ export default function HomePage() {
         <Container>
           <h2
             id="all-topics-heading"
-            className="font-sans text-sm font-semibold uppercase tracking-wider text-foreground-muted"
+            className="font-sans text-label-lg uppercase text-foreground-muted"
           >
             All community categories
           </h2>
@@ -264,7 +264,7 @@ export default function HomePage() {
               <li key={group.slug}>
                 <a
                   href={`/community#${group.slug}`}
-                  className="text-sm text-foreground-muted transition-colors hover:text-pine-700 hover:underline"
+                  className="text-body-sm text-foreground-muted transition-colors hover:text-pine-700 hover:underline"
                 >
                   {group.name}
                 </a>

@@ -19,9 +19,9 @@ export function EmptyState({ title, description, action, className }: EmptyState
         className,
       )}
     >
-      <h3 className="text-base font-semibold text-foreground">{title}</h3>
+      <h3 className="text-title-4 text-foreground">{title}</h3>
       {description ? (
-        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-foreground-muted">
+        <p className="mx-auto mt-2 max-w-md text-body-sm text-foreground-muted">
           {description}
         </p>
       ) : null}
@@ -89,8 +89,8 @@ export function ErrorState({
         className,
       )}
     >
-      <h3 className="text-base font-semibold text-danger-700">{title}</h3>
-      <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-foreground-muted">
+      <h3 className="text-title-4 text-danger-700">{title}</h3>
+      <p className="mx-auto mt-2 max-w-md text-body-sm text-foreground-muted">
         {description}
       </p>
       {action ? <div className="mt-6 flex justify-center">{action}</div> : null}

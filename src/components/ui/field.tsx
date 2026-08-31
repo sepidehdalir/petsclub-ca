@@ -29,7 +29,7 @@ export function Textarea({ className, rows = 5, ...props }: TextareaProps) {
   return (
     <textarea
       rows={rows}
-      className={cn(controlBaseStyles, "py-2.5 text-sm leading-relaxed", className)}
+      className={cn(controlBaseStyles, "py-2.5 text-body-sm", className)}
       {...props}
     />
   );

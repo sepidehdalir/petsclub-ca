@@ -28,7 +28,7 @@ export function ThreadPreviewCard({
         <Badge variant="brand">{thread.categoryName}</Badge>
       </div>
 
-      <Heading className="font-sans text-base font-semibold leading-snug text-foreground sm:text-lg">
+      <Heading className="text-title-4 text-foreground sm:text-title-3">
         <Link
           href={demoThreadHref(thread)}
           className="transition-colors after:absolute after:inset-0 group-hover:text-pine-800 focus:outline-none"
@@ -37,7 +37,7 @@ export function ThreadPreviewCard({
         </Link>
       </Heading>
 
-      <dl className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-foreground-muted">
+      <dl className="flex flex-wrap items-center gap-x-4 gap-y-1 text-body-sm text-foreground-muted">
         <div className="flex items-center gap-1.5">
           <dt className="sr-only">Replies</dt>
           <dd>

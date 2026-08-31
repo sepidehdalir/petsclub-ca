@@ -23,11 +23,11 @@ export function GuideCard({ guide, headingLevel: Heading = "h3" }: GuideCardProp
           <Badge variant="accent">In progress</Badge>
         </div>
 
-        <Heading className="font-sans text-lg font-semibold leading-snug text-foreground">
+        <Heading className="text-title-3 text-foreground">
           {guide.title}
         </Heading>
 
-        <p className="text-sm leading-relaxed text-foreground-muted">{guide.summary}</p>
+        <p className="text-body-sm text-foreground-muted">{guide.summary}</p>
       </CardBody>
     </Card>
   );

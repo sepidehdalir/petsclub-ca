@@ -42,10 +42,10 @@ export function PolicyPage({
               role="note"
               className="mb-8 rounded-card border border-clay-200 bg-clay-50 px-5 py-4"
             >
-              <h2 className="font-sans text-sm font-semibold text-clay-700">
+              <h2 className="font-sans text-body-sm font-semibold text-clay-700">
                 Draft — pending {pendingReview === "legal" ? "legal" : "editorial"} review
               </h2>
-              <p className="mt-1.5 text-sm leading-relaxed text-clay-700/90">
+              <p className="mt-1.5 text-body-sm text-clay-700/90">
                 {pendingReview === "legal"
                   ? "This page describes our intended approach. It has not been reviewed by a lawyer and is not yet a binding legal document. The final version will be published before The Pet Club accepts public sign-ups."
                   : "This page describes our intended approach and will be finalised before we publish our first guide."}
@@ -53,11 +53,10 @@ export function PolicyPage({
             </div>
           ) : null}
 
-          {/* Prose styling is scoped here rather than pulled in as a plugin —
-              these pages are the only long-form copy in the application. */}
-          <div className="space-y-6 text-base leading-relaxed text-foreground-muted [&_h2]:pt-2 [&_h2]:font-sans [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-foreground [&_li]:leading-relaxed [&_p+h2]:pt-4 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5">
-            {children}
-          </div>
+          {/* Long-form rules live in `globals.css` beside the type scale they
+              consume, not as arbitrary variants here. The article template is
+              the second consumer this is shaped for. */}
+          <div className="prose">{children}</div>
         </Container>
       </Section>
     </>

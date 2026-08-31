@@ -37,17 +37,17 @@ export function PageHeader({
 
         <div className="max-w-3xl space-y-4">
           {eyebrow ? (
-            <p className="text-xs font-semibold uppercase tracking-wider text-pine-700">
+            <p className="text-label uppercase text-pine-700">
               {eyebrow}
             </p>
           ) : null}
 
-          <h1 className="text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
+          <h1 className="text-display-3 text-foreground sm:text-display-2">
             {title}
           </h1>
 
           {description ? (
-            <p className="text-lg leading-relaxed text-foreground-muted">{description}</p>
+            <p className="text-body-lg text-foreground-muted">{description}</p>
           ) : null}
 
           {actions ? <div className="flex flex-wrap gap-3 pt-2">{actions}</div> : null}

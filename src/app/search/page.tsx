@@ -89,11 +89,11 @@ export default async function SearchPage(props: PageProps<"/search">) {
 
       <Section tone="muted" spacing="compact">
         <Container>
-          <h2 className="text-xl font-semibold text-foreground">Browse by category</h2>
+          <h2 className="text-title-2 text-foreground">Browse by category</h2>
           <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {communityTaxonomy.map((group) => (
               <div key={group.slug}>
-                <h3 className="font-sans text-sm font-semibold uppercase tracking-wider text-foreground-muted">
+                <h3 className="font-sans text-label-lg uppercase text-foreground-muted">
                   {group.name}
                 </h3>
                 <ul className="mt-3 space-y-2">

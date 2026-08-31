@@ -41,7 +41,7 @@ export function SiteHeader() {
                 <li key={item.href}>
                   <NavLink
                     href={item.href}
-                    className="rounded-md py-2 text-[0.9375rem] font-medium text-foreground-muted transition-colors hover:text-pine-700"
+                    className="rounded-md py-2 text-ui text-foreground-muted transition-colors hover:text-pine-700"
                     activeClassName="text-pine-800 font-semibold"
                   >
                     {item.label}

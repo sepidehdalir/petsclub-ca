@@ -93,7 +93,7 @@ export function MobileNav() {
                 >
                   {item.label}
                   {item.description ? (
-                    <span className="mt-0.5 block text-sm font-normal text-foreground-muted">
+                    <span className="mt-0.5 block text-body-sm font-normal text-foreground-muted">
                       {item.description}
                     </span>
                   ) : null}

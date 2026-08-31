@@ -29,15 +29,15 @@ export default function RouteError({
   return (
     <Section spacing="spacious">
       <Container width="prose">
-        <p className="text-sm font-semibold uppercase tracking-wider text-clay-700">
+        <p className="text-label-lg uppercase text-clay-700">
           Something went wrong
         </p>
 
-        <h1 className="mt-4 text-3xl font-semibold text-foreground sm:text-4xl">
+        <h1 className="mt-4 text-display-3 text-foreground sm:text-display-2">
           This page could not be loaded
         </h1>
 
-        <p className="mt-4 text-lg leading-relaxed text-foreground-muted">
+        <p className="mt-4 text-body-lg text-foreground-muted">
           The problem is on our side, not yours. Try again — if it keeps happening, let us know
           and we will look into it.
         </p>
@@ -50,7 +50,7 @@ export default function RouteError({
         </div>
 
         {error.digest ? (
-          <p className="mt-8 text-sm text-foreground-subtle">
+          <p className="mt-8 text-body-sm text-foreground-subtle">
             Reference: <code className="font-mono">{error.digest}</code>
           </p>
         ) : null}

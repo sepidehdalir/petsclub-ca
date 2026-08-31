@@ -80,10 +80,10 @@ export default function GuidesPage() {
               <li key={principle.title} className="flex">
                 <Card className="w-full">
                   <CardBody className="space-y-2">
-                    <h3 className="font-sans text-base font-semibold text-foreground">
+                    <h3 className="text-title-4 text-foreground">
                       {principle.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-foreground-muted">
+                    <p className="text-body-sm text-foreground-muted">
                       {principle.body}
                     </p>
                   </CardBody>
@@ -92,7 +92,7 @@ export default function GuidesPage() {
             ))}
           </ul>
 
-          <p className="mt-8 text-sm text-foreground-muted">
+          <p className="mt-8 text-body-sm text-foreground-muted">
             Read the full{" "}
             <Link
               href="/editorial-policy"

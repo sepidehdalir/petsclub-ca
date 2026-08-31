@@ -71,10 +71,10 @@ export default function LostFoundPage() {
                       className="block transition-colors hover:bg-surface-muted focus:bg-surface-muted focus:outline-none"
                     >
                       <CardBody className="space-y-1 py-4">
-                        <span className="block font-sans text-base font-semibold text-foreground">
+                        <span className="block font-serif text-title-4 text-foreground">
                           {category.name}
                         </span>
-                        <span className="block text-sm leading-relaxed text-foreground-muted">
+                        <span className="block text-body-sm text-foreground-muted">
                           {category.description}
                         </span>
                       </CardBody>
@@ -107,10 +107,10 @@ export default function LostFoundPage() {
                     >
                       {index + 1}
                     </span>
-                    <h3 className="font-sans text-base font-semibold text-foreground">
+                    <h3 className="text-title-4 text-foreground">
                       {step.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-foreground-muted">{step.body}</p>
+                    <p className="text-body-sm text-foreground-muted">{step.body}</p>
                   </CardBody>
                 </Card>
               </li>
