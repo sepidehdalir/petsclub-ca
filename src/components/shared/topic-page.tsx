@@ -14,6 +14,7 @@ import {
 } from "@/features/community/taxonomy";
 import { GuideCard } from "@/features/editorial/components/guide-card";
 import { plannedGuides } from "@/features/editorial/fixtures";
+import { getMediaAsset } from "@/media/manifest";
 
 export interface TopicPageProps {
   /** Route path of the topic to render, e.g. `/dogs`. */
@@ -49,6 +50,7 @@ export function TopicPage({ path }: TopicPageProps) {
         title={topic.title}
         description={topic.description}
         breadcrumbs={[{ name: topic.name, path: topic.path }]}
+        media={{ asset: getMediaAsset(topic.mediaId) }}
         actions={
           <>
             <ButtonLink href="/community">Ask the Community</ButtonLink>

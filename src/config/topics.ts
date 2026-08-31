@@ -1,3 +1,5 @@
+import type { MediaAssetId } from "@/media/manifest";
+
 /**
  * Editorial topic sections.
  *
@@ -24,6 +26,12 @@ export interface TopicDefinition {
   categorySlugs: readonly string[];
   /** Planned editorial guides surfaced on this page. */
   guideIds: readonly string[];
+  /**
+   * Section-front photograph, keyed into `media/manifest`. Typed as
+   * `MediaAssetId` rather than `string`, so a renamed or deleted asset is a
+   * compile error here instead of a missing picture in production.
+   */
+  mediaId: MediaAssetId;
 }
 
 export const topics: readonly TopicDefinition[] = [
@@ -42,6 +50,7 @@ export const topics: readonly TopicDefinition[] = [
       "dog-breeds",
     ],
     guideIds: ["guide-dog-food", "guide-cost-of-dog", "guide-vaccination"],
+    mediaId: "dogs-autumn-bridge",
   },
   {
     path: "/cats",
@@ -58,6 +67,7 @@ export const topics: readonly TopicDefinition[] = [
       "cat-breeds",
     ],
     guideIds: [],
+    mediaId: "cats-window-tabby",
   },
   {
     path: "/health",
@@ -67,6 +77,7 @@ export const topics: readonly TopicDefinition[] = [
       "Symptoms worth a vet visit, preventative care that pays off, what treatment costs in Canada, and how other owners navigated the same diagnosis.",
     categorySlugs: ["dog-health", "cat-health", "vet-costs", "pet-insurance"],
     guideIds: ["guide-vaccination", "guide-pet-insurance"],
+    mediaId: "health-senior-dog-resting",
   },
   {
     path: "/food",
@@ -80,6 +91,7 @@ export const topics: readonly TopicDefinition[] = [
       "canadian-pet-products",
     ],
     guideIds: ["guide-dog-food"],
+    mediaId: "food-dog-at-bowl",
   },
   {
     path: "/training",
@@ -94,6 +106,7 @@ export const topics: readonly TopicDefinition[] = [
       "kittens",
     ],
     guideIds: [],
+    mediaId: "training-forest-path",
   },
 ] as const;
 

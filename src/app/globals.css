@@ -161,8 +161,23 @@
   --color-danger-700: #932a22;
 
   /* --- Shape ------------------------------------------------------------ */
-  /* Restrained radii: cards and controls are softened, not pill-shaped. */
+  /* Restrained radii: cards and controls are softened, not pill-shaped.
+     Media is squarer still — a photograph with soft corners reads as a UI
+     tile, and these are meant to read as photographs. */
   --radius-card: 0.75rem;
+  --radius-media: 0.25rem;
+
+  /* --- Editorial crops --------------------------------------------------- */
+  /* A fixed, small set of frames rather than a ratio invented per placement.
+     Consistent crops are most of what makes a page of photography look art
+     directed instead of assembled. `square` comes from Tailwind already.
+
+       lead      — the widest frame; front-page and article leads
+       landscape — the workhorse; section fronts and cards
+       portrait  — standing subjects, and columns that need vertical weight */
+  --aspect-lead: 16 / 9;
+  --aspect-landscape: 3 / 2;
+  --aspect-portrait: 4 / 5;
 }
 
 /* ==========================================================================

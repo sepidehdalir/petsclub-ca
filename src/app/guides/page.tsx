@@ -9,6 +9,7 @@ import { Container, Section, SectionHeading } from "@/components/ui/layout-primi
 import { GuideCard } from "@/features/editorial/components/guide-card";
 import { plannedGuides } from "@/features/editorial/fixtures";
 import { createMetadata } from "@/lib/seo/metadata";
+import { getMediaAsset } from "@/media/manifest";
 
 export const metadata: Metadata = createMetadata({
   title: "Canada Guides",
@@ -41,6 +42,7 @@ export default function GuidesPage() {
         title="Canada Guides"
         description="Practical, Canada-specific guides on what pet care actually costs, what to feed, and how to plan for the things that go wrong."
         breadcrumbs={[{ name: "Canada Guides", path: "/guides" }]}
+        media={{ asset: getMediaAsset("guides-winter-walk") }}
         actions={<ButtonLink href="/community">Ask the Community</ButtonLink>}
       />
 
