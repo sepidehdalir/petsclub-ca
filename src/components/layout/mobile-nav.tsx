@@ -67,7 +67,20 @@ export function MobileNav() {
         // becomes a right-hand drawer once there is room for one.
         className="m-0 ml-auto h-dvh max-h-dvh w-full max-w-none rounded-none border-y-0 border-r-0 sm:w-[26rem]"
       >
-        <div className="flex h-16 shrink-0 items-center justify-between border-b border-border pl-4 pr-2">
+        {/*
+          Opening a modal dialog moves focus to its first focusable child, and
+          Safari counts that programmatic focus as `:focus-visible` — so every
+          touch-open drew the keyboard ring around the wordmark, which was the
+          first link in the panel. Taking the focus here instead leaves the
+          ring for people who actually tab to a control, and still starts a
+          screen reader at the top of the menu. Not tabbable itself, so
+          suppressing its outline costs no keyboard affordance.
+        */}
+        <div
+          autoFocus
+          tabIndex={-1}
+          className="flex h-16 shrink-0 items-center justify-between border-b border-border pl-4 pr-2 outline-none"
+        >
           <Link href="/" onClick={close} aria-label={`${siteConfig.name} — home`}>
             <Wordmark />
           </Link>

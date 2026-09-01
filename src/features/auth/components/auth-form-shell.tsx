@@ -1,7 +1,5 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { Wordmark } from "@/components/layout/wordmark";
 import { Card, CardBody } from "@/components/ui/card";
 import { Container, Section } from "@/components/ui/layout-primitives";
 import { isSupabaseConfigured } from "@/lib/env/public";
@@ -26,11 +24,13 @@ export function AuthFormShell({ title, description, children, footer }: AuthForm
   return (
     <Section spacing="default">
       <Container width="prose" className="max-w-md">
+        {/*
+          No wordmark here. The global header carries it on every one of these
+          screens, and a second lockup a few centimetres below the first reads
+          as a template seam rather than as branding.
+        */}
         <div className="text-center">
-          <Link href="/" className="inline-flex rounded-md" aria-label="ThePetClub.ca — home">
-            <Wordmark className="text-2xl" />
-          </Link>
-          <h1 className="mt-6 text-2xl font-semibold text-foreground sm:text-3xl">{title}</h1>
+          <h1 className="text-2xl font-semibold text-foreground sm:text-3xl">{title}</h1>
           <p className="mt-2 text-base leading-relaxed text-foreground-muted">{description}</p>
         </div>
 
