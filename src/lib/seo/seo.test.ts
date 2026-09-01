@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { createMetadata } from "@/lib/seo/metadata";
 import { buildSitemapEntries } from "@/lib/seo/sitemap";
 import {
+  articleSchema,
   breadcrumbListSchema,
   discussionForumPostingSchema,
   organizationSchema,
@@ -140,6 +141,67 @@ describe("structured data", () => {
         item: absoluteUrl("/community/dog-health"),
       },
     ]);
+  });
+
+  it("describes a house byline as an Organization, not a Person", () => {
+    // The byline in the markup has to match the byline on the page. A team
+    // rendered as a Person is a false statement about who stands behind the
+    // article, made where no reader will ever check it.
+    const schema = articleSchema({
+      headline: "Winter Dog Care in Canada",
+      description: "What road salt does to paws.",
+      path: "/guides/winter-dog-care-in-canada",
+      datePublished: "2026-09-01",
+      author: { name: "The Pet Club Editorial Team", kind: "Organization" },
+    });
+
+    expect(schema["@type"]).toBe("Article");
+    expect(schema["author"]).toEqual({
+      "@type": "Organization",
+      name: "The Pet Club Editorial Team",
+    });
+    expect(schema["mainEntityOfPage"]).toBe(
+      absoluteUrl("/guides/winter-dog-care-in-canada"),
+    );
+    expect(schema["publisher"]).toEqual({ "@id": organizationSchema()["@id"] });
+    // Unmodified since publication: the two dates agree rather than one being
+    // absent, which is what a validator expects.
+    expect(schema["dateModified"]).toBe("2026-09-01");
+  });
+
+  it("omits reviewedBy unless a named reviewer is supplied", () => {
+    // `reviewedBy` is a claim of expert scrutiny. There is no default for it,
+    // and no article currently has one.
+    const schema = articleSchema({
+      headline: "Renting With a Pet in Canada",
+      description: "Tenancy law is provincial.",
+      path: "/guides/renting-with-a-pet-in-canada",
+      datePublished: "2026-09-01",
+      author: { name: "The Pet Club Editorial Team", kind: "Organization" },
+    });
+
+    expect(schema["reviewedBy"]).toBeUndefined();
+    expect(schema["image"]).toBeUndefined();
+    expect(schema["articleSection"]).toBeUndefined();
+  });
+
+  it("resolves the lead image and section when they are given", () => {
+    const schema = articleSchema({
+      headline: "Indoor, Outdoor, or In Between",
+      description: "How cats live in Canada.",
+      path: "/guides/indoor-or-outdoor-cats-in-canada",
+      datePublished: "2026-09-01",
+      dateModified: "2026-09-02",
+      author: { name: "The Pet Club Editorial Team", kind: "Organization" },
+      section: "Cats",
+      imagePath: "/_next/static/media/cats-window-tabby.jpg",
+    });
+
+    expect(schema["articleSection"]).toBe("Cats");
+    expect(schema["image"]).toBe(
+      absoluteUrl("/_next/static/media/cats-window-tabby.jpg"),
+    );
+    expect(schema["dateModified"]).toBe("2026-09-02");
   });
 
   it("builds a DiscussionForumPosting with an interaction counter", () => {

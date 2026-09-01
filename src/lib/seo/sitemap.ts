@@ -6,6 +6,7 @@ import {
   allCommunityCategories,
   communityCategoryPath,
 } from "@/features/community/taxonomy";
+import { articlePath, publishedArticles } from "@/features/editorial/articles";
 import { absoluteUrl } from "@/lib/seo/urls";
 
 type SitemapEntry = MetadataRoute.Sitemap[number];
@@ -28,6 +29,14 @@ const ROUTE_GROUPS: readonly RouteGroup[] = [
   { paths: ["/"], priority: 1, changeFrequency: "daily" },
   { paths: [COMMUNITY_BASE_PATH], priority: 0.9, changeFrequency: "daily" },
   { paths: topicRoutes, priority: 0.8, changeFrequency: "weekly" },
+  {
+    // Only articles that have completed editorial review. A draft is rendered
+    // `noindex` by `/guides/[slug]`, and advertising it here would contradict
+    // that — so this list is empty until an article is marked `published`.
+    paths: publishedArticles().map((article) => articlePath(article.slug)),
+    priority: 0.8,
+    changeFrequency: "monthly",
+  },
   {
     paths: allCommunityCategories.map((category) => communityCategoryPath(category.slug)),
     priority: 0.7,

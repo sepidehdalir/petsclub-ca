@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/shared/page-header";
 import { ButtonLink } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/ui/card";
 import { Container, Section, SectionHeading } from "@/components/ui/layout-primitives";
+import { ArticleListSection } from "@/features/editorial/components/article-list-section";
 import { GuideCard } from "@/features/editorial/components/guide-card";
 import { plannedGuides } from "@/features/editorial/fixtures";
 import { createMetadata } from "@/lib/seo/metadata";
@@ -50,12 +51,21 @@ export default function GuidesPage() {
         }
       />
 
-      <Section aria-labelledby="planned-guides-heading">
+      <ArticleListSection
+        surfacePath="/guides"
+        id="published-guides-heading"
+        eyebrow="Latest"
+        title="Guides"
+        description="Written for people looking after animals in this country — Canadian prices, Canadian products, Canadian rules."
+      />
+
+      <Section tone="muted" aria-labelledby="planned-guides-heading">
         <Container>
           <SectionHeading
             id="planned-guides-heading"
-            title="What we are writing first"
-            description="These are the guides being researched now. Nothing has been published yet."
+            eyebrow="Commissioned"
+            title="What we are writing next"
+            description="These are the guides being researched now. Nothing has been published from this list yet."
           />
 
           <DemoContentNotice className="mt-6">
@@ -72,7 +82,7 @@ export default function GuidesPage() {
         </Container>
       </Section>
 
-      <Section tone="muted" aria-labelledby="principles-heading">
+      <Section aria-labelledby="principles-heading">
         <Container>
           <SectionHeading
             id="principles-heading"

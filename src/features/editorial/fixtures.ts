@@ -6,8 +6,11 @@
  * progress" placeholders and link nowhere. Publishing thin or generated
  * articles to fill the section would be worse than showing an honest roadmap.
  *
- * The editorial platform, including real article routes and `Article`
- * structured data, ships in Milestone 3.
+ * Real articles live in `articles.ts` and render at `/guides/[slug]`. These two
+ * lists are deliberately never merged: a commissioned title and a written
+ * article are different things, and a reader must be able to tell which is
+ * which at a glance. A title graduates by being written, at which point it is
+ * deleted from here rather than cross-referenced.
  */
 
 export interface PlannedGuide {

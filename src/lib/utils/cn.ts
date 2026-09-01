@@ -23,6 +23,7 @@ export const FONT_SIZE_STEPS = [
   "title-2",
   "title-3",
   "title-4",
+  "deck",
   "body-lg",
   "body",
   "body-sm",

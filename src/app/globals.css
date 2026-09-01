@@ -73,6 +73,14 @@
   --text-title-4--letter-spacing: -0.002em;
   --text-title-4--font-weight: 600;
 
+  /* Deck — the standfirst under an article headline.
+     Sits between `body-lg` and `title-2` and is set in the serif: a deck is
+     the last line of the headline block, not the first line of the article.
+     It is a step rather than an arbitrary size at the call site, for the
+     same reason every other step is. */
+  --text-deck: 1.3125rem;
+  --text-deck--line-height: 1.5;
+
   /* Body — running copy. */
   --text-body-lg: 1.1875rem;
   --text-body-lg--line-height: 1.6;
@@ -336,5 +344,93 @@
   .prose strong {
     color: var(--color-foreground);
     font-weight: 600;
+  }
+}
+
+/* ==========================================================================
+   Long-form article typography
+   --------------------------------------------------------------------------
+   `.prose` above is the shared rule set for running text; the policy pages
+   are its other consumer. Everything here is additive — it extends `.prose`
+   with the elements an editorial article uses and the policy pages do not,
+   and `.prose-article` is the modifier for a column that will be read for ten
+   minutes rather than skimmed for one clause.
+   ========================================================================== */
+
+@layer components {
+  .prose h4 {
+    margin-top: 1.5em;
+    color: var(--color-foreground);
+    font-size: var(--text-title-4);
+    line-height: var(--text-title-4--line-height);
+    letter-spacing: var(--text-title-4--letter-spacing);
+    font-weight: var(--text-title-4--font-weight);
+  }
+
+  /* A pulled quotation, not a note. Callouts are components, deliberately —
+     a blockquote that is really a warning box is a structural lie. */
+  .prose blockquote {
+    margin-top: 1.75em;
+    border-left: 2px solid var(--color-pine-300);
+    padding-left: 1.25rem;
+    color: var(--color-foreground);
+    font-family: var(--font-serif);
+    font-size: var(--text-body-lg);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .prose blockquote > * + * {
+    margin-top: 0.75em;
+  }
+
+  .prose hr {
+    margin-top: 2.5em;
+    border: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* The article column.
+     ------------------------------------------------------------------------
+     Steps up to `body-lg` once the viewport can carry it, with a longer
+     line height than the token's default: a column read continuously wants
+     more air between lines than a paragraph read in passing. At 390px it
+     stays at `body`, where a larger size would cost more lines than it gains
+     in comfort. The vertical rhythm in `.prose` is set in `em`, so it scales
+     with the step rather than needing restating. */
+  .prose-article {
+    /* The serif carries content; the sans carries interface. That division is
+       stated at the top of this file, and running article copy is the case it
+       was written for — `.prose` itself stays in the sans because its other
+       consumer is the policy pages, which are interface text that happens to
+       be long. Newsreader's optical-size axis means this draws from the text
+       cut here and the display cut in the headline above it, from one file. */
+    font-family: var(--font-serif);
+    font-size: var(--text-body);
+  }
+
+  @media (min-width: 640px) {
+    .prose-article {
+      font-size: var(--text-body-lg);
+      line-height: 1.7;
+    }
+
+    .prose-article h2 {
+      font-size: var(--text-title-1);
+      line-height: var(--text-title-1--line-height);
+      letter-spacing: var(--text-title-1--letter-spacing);
+    }
+
+    .prose-article h3 {
+      font-size: var(--text-title-2);
+      line-height: var(--text-title-2--line-height);
+      letter-spacing: var(--text-title-2--letter-spacing);
+    }
+  }
+
+  /* Headings own the space above them; a component callout sets its own, so
+     it must not also inherit the generic sibling margin twice. */
+  .prose-article > figure {
+    margin-top: 2em;
   }
 }

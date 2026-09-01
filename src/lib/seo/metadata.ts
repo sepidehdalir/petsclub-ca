@@ -16,6 +16,19 @@ export interface CreateMetadataOptions {
   noIndex?: boolean;
   /** Overrides the default social share image. */
   imagePath?: string;
+  /**
+   * A share image with its own dimensions and description.
+   *
+   * Editorial articles share their own lead photograph rather than the generic
+   * site card, which is the difference between a link that looks like a page
+   * and one that looks like a story. Takes precedence over `imagePath`.
+   */
+  image?: { url: string; width: number; height: number; alt: string };
+  /** Article publication and revision dates, for `og:article` metadata. */
+  publishedTime?: string;
+  modifiedTime?: string;
+  /** Byline, for `og:article:author`. */
+  authors?: readonly string[];
 }
 
 /**
@@ -32,9 +45,20 @@ export function createMetadata({
   type = "website",
   noIndex = false,
   imagePath = siteConfig.ogImagePath,
+  image,
+  publishedTime,
+  modifiedTime,
+  authors,
 }: CreateMetadataOptions = {}): Metadata {
   const url = canonicalUrl(path);
   const resolvedTitle = title ? `${title} | ${siteConfig.name}` : `${siteConfig.name} — ${siteConfig.tagline}`;
+
+  const shareImage = image ?? {
+    url: imagePath,
+    width: 1200,
+    height: 630,
+    alt: siteConfig.name,
+  };
 
   return {
     title: title ?? { absolute: resolvedTitle },
@@ -49,13 +73,20 @@ export function createMetadata({
       title: resolvedTitle,
       description,
       locale: siteConfig.locale,
-      images: [{ url: imagePath, width: 1200, height: 630, alt: siteConfig.name }],
+      images: [shareImage],
+      ...(type === "article"
+        ? {
+            publishedTime,
+            modifiedTime,
+            authors: authors ? [...authors] : undefined,
+          }
+        : {}),
     },
     twitter: {
       card: "summary_large_image",
       title: resolvedTitle,
       description,
-      images: [imagePath],
+      images: [shareImage.url],
     },
     robots: noIndex
       ? { index: false, follow: false, googleBot: { index: false, follow: false } }

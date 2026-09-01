@@ -1,3 +1,4 @@
+import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 /**
@@ -65,4 +66,19 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+/**
+ * MDX support for the editorial article system.
+ *
+ * `pageExtensions` is deliberately left at its default (`tsx`/`ts`/`jsx`/`js`).
+ * Article bodies live in `src/content/articles` and are pulled in by the
+ * `/guides/[slug]` route as dynamic imports, so no `.mdx` file is ever a route
+ * of its own — a stray content file cannot accidentally publish itself.
+ *
+ * No remark or rehype plugins are configured. Heading anchors and link
+ * handling are done with typed React components in `src/mdx-components.tsx`,
+ * which keeps the dependency surface to the four packages MDX itself needs and
+ * avoids the Turbopack constraint that plugin options must be serialisable.
+ */
+const withMDX = createMDX();
+
+export default withMDX(nextConfig);

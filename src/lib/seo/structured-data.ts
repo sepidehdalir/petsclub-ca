@@ -6,10 +6,11 @@ import { absoluteUrl } from "@/lib/seo/urls";
  *
  * Design rule for this milestone: **only emit structured data that accurately
  * describes content that actually exists.** `Organization`, `WebSite` and
- * `BreadcrumbList` describe the real site and are rendered today. The
- * `Article`, `DiscussionForumPosting` and `ProfilePage` builders are the typed
- * contracts that Milestones 2-4 will use once real editorial posts, threads
- * and member profiles exist; they are deliberately not emitted yet.
+ * `BreadcrumbList` describe the real site. `Article` is emitted by
+ * `/guides/[slug]`, where there are now real articles to describe. The
+ * `DiscussionForumPosting` and `ProfilePage` builders remain the typed
+ * contracts that Milestones 2 and 4 will use once real threads and member
+ * profiles exist; they are deliberately not emitted yet.
  *
  * `SearchAction` is likewise omitted from `WebSite` until site search is a
  * working endpoint — advertising a search target that cannot answer queries
@@ -76,12 +77,40 @@ export interface ArticleSchemaInput {
   headline: string;
   description: string;
   path: string;
+  /** ISO date. */
   datePublished: string;
+  /** ISO date. Defaults to `datePublished`. */
   dateModified?: string;
-  authorName: string;
+  /**
+   * The byline, and what kind of entity it is.
+   *
+   * A house byline is an `Organization` and a named writer is a `Person`.
+   * The distinction is not decoration: describing a team as a Person is a
+   * false claim about who stands behind the article, made in the one place a
+   * reader will never look. `features/editorial/authors.ts` is the source.
+   */
+  author: { name: string; kind: "Person" | "Organization" };
+  /** Section label, e.g. "Dogs". */
+  section?: string;
+  /** Site-relative or absolute URL of the lead image. */
+  imagePath?: string;
+  /**
+   * A named professional who actually reviewed the article.
+   *
+   * Optional, and there is no default. `reviewedBy` is a claim of expert
+   * scrutiny; it is emitted only when a real, named, licensed reviewer is on
+   * record for this article.
+   */
+  reviewer?: { name: string; credentials: string };
 }
 
-/** Reserved for Milestone 3 (Editorial Platform). Not emitted yet. */
+/**
+ * `Article` structured data for an editorial guide.
+ *
+ * Emitted by `/guides/[slug]`. Every field is derived from the typed article
+ * record, so the markup a crawler reads is generated from the same data as the
+ * byline a person reads and the two cannot disagree.
+ */
 export function articleSchema(input: ArticleSchemaInput): JsonLdSchema {
   return {
     "@context": SCHEMA_CONTEXT,
@@ -89,11 +118,23 @@ export function articleSchema(input: ArticleSchemaInput): JsonLdSchema {
     headline: input.headline,
     description: input.description,
     mainEntityOfPage: absoluteUrl(input.path),
+    url: absoluteUrl(input.path),
     datePublished: input.datePublished,
     dateModified: input.dateModified ?? input.datePublished,
     inLanguage: siteConfig.language,
-    author: { "@type": "Person", name: input.authorName },
+    author: { "@type": input.author.kind, name: input.author.name },
     publisher: { "@id": `${siteConfig.url}/#organization` },
+    ...(input.section ? { articleSection: input.section } : {}),
+    ...(input.imagePath ? { image: absoluteUrl(input.imagePath) } : {}),
+    ...(input.reviewer
+      ? {
+          reviewedBy: {
+            "@type": "Person",
+            name: input.reviewer.name,
+            honorificSuffix: input.reviewer.credentials,
+          },
+        }
+      : {}),
   };
 }
 

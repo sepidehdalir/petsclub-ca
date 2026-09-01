@@ -12,6 +12,7 @@ import {
   communityCategoryPath,
   findCommunityCategory,
 } from "@/features/community/taxonomy";
+import { ArticleListSection } from "@/features/editorial/components/article-list-section";
 import { GuideCard } from "@/features/editorial/components/guide-card";
 import { plannedGuides } from "@/features/editorial/fixtures";
 import { getMediaAsset } from "@/media/manifest";
@@ -63,6 +64,24 @@ export function TopicPage({ path }: TopicPageProps) {
         }
       />
 
+      {/* Published articles lead, where there are any. `ArticleListSection`
+          renders nothing when a topic has none, so `/health`, `/food` and
+          `/training` are untouched until they do. */}
+      <ArticleListSection
+        surfacePath={topic.path}
+        id="topic-articles-heading"
+        // Tinted so the published band separates from the category list below
+        // it. Without this the two run together: page header, articles and
+        // categories would be three canvas sections in a row.
+        tone="muted"
+        eyebrow="Read"
+        title={`${topic.name} guides`}
+        // Deliberately not built from `topic.name`: pluralising a section
+        // label into a possessive gives "dogs owners". A fixed line is the
+        // right amount of cleverness here.
+        description="Researched, Canada-specific writing from the Pet Club editorial team."
+      />
+
       <Section aria-labelledby="topic-categories-heading">
         <Container>
           <SectionHeading
@@ -104,8 +123,8 @@ export function TopicPage({ path }: TopicPageProps) {
           <SectionHeading
             id="topic-guides-heading"
             eyebrow="Editorial"
-            title={`${topic.name} guides`}
-            description="Researched, Canada-specific guides from the Pet Club editorial team."
+            title="What we are writing next"
+            description="Commissioned titles. Nothing has been published from this list yet."
           />
 
           {guides.length > 0 ? (
