@@ -43,6 +43,11 @@ export interface ArticleSection {
 const sections = {
   dogs: { id: "dogs", name: "Dogs", surfacePath: "/dogs" },
   cats: { id: "cats", name: "Cats", surfacePath: "/cats" },
+  // Species-neutral and about the care system rather than the animal —
+  // insurance, choosing a practice, what an emergency asks of you. These read
+  // as one shelf, and `/health` already existed as a surface with nothing on
+  // it, so they are listed there rather than diluted into the general hub.
+  health: { id: "health", name: "Pet health", surfacePath: "/health" },
   "canadian-life": {
     id: "canadian-life",
     name: "Pet ownership in Canada",
@@ -674,6 +679,200 @@ export const articles: readonly Article[] = [
       "That kidney disease and thyroid problems are among the conditions commonly managed in senior cats — described qualitatively; source it before adding any figure.",
       "That urinary blockage is the most common reason a cat budget goes from comfortable to not — currently an editorial assertion, not a sourced one. Soften or source.",
       "Whether to name typical ranges for any category once Canadian figures can be sourced and dated.",
+    ],
+  },
+
+  /* ---------------------------------------------------------------- Batch C
+     The care system rather than the animal. Insurance, choosing a practice and
+     preparing for an emergency are one continuous argument — decide before you
+     need to — and they are cross-linked to be read in that order. The travel
+     guide sits with them because it is the same argument applied to being four
+     hundred kilometres from your own clinic.
+
+     Every one of these subjects varies by insurer, practice, carrier,
+     municipality and province, and most of that variation is not sourceable
+     from here. So the bodies are written at the durable level — structure,
+     definitions and the questions to ask — and every specific that would have
+     strengthened a paragraph is in `needsVerification` instead of in the prose.
+     No premium, fee, waiting period, reimbursement rate, carrier dimension or
+     provincial requirement is stated anywhere in this batch.
+
+     ⚠️ Photography: the manifest has no image of a clinic, a car journey or a
+     consultation, so these four use general portraits that carry the mood
+     rather than the subject. Assets that serve as a topic page's own hero are
+     avoided on the surface where that page lists them. Four images that
+     actually depict the subjects are needed before this batch is published. */
+
+  {
+    slug: "pet-insurance-in-canada",
+    section: "health",
+    subcategory: "Money",
+    title:
+      "Pet Insurance in Canada: What It Covers, What It Usually Doesn’t, and How to Compare Plans",
+    deck: "It is not a discount plan for veterinary care. What accident, illness and wellness cover actually do, the four numbers that settle a claim, and why the exclusions decide more than the price does.",
+    metaDescription:
+      "What accident, illness and wellness cover actually do, the four numbers that settle a claim, and why a policy’s exclusions matter more than its monthly price.",
+    publishedAt: "2026-09-02",
+    updatedAt: "2026-09-02",
+    authorId: "pet-club-editorial",
+    readingMinutes: 8,
+    mediaId: "health-senior-dog-resting",
+    mediaAlt:
+      "An elderly dog with a greying muzzle rests on a wooden floor — the years a policy is bought for.",
+    tags: ["pet-insurance", "money", "budgeting", "vet-costs", "canada"],
+    featured: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Buy insurance for the catastrophe, not the routine — a wellness add-on is a payment plan for costs you can already predict.",
+      "A claim is settled by four values: the deductible and how it resets, the reimbursement rate, every limit, and which line items are eligible at all.",
+      "Pre-existing does not require a diagnosis. A symptom noted in a file can make a related condition ineligible years later.",
+      "Waiting periods differ by condition type and are where cover is most often lost. Find them in the wording and diary the dates.",
+      "Compare the policy documents, not the quotes. Two identical-looking premiums can differ by an entire category of disease.",
+    ],
+    relatedSlugs: [
+      "emergency-vet-visits-in-canada",
+      "cost-of-owning-a-dog-in-canada",
+    ],
+    relatedCategorySlugs: ["pet-insurance", "vet-costs"],
+    needsVerification: [
+      "Whether every consumer pet policy sold in Canada excludes pre-existing conditions, or whether any insurer offers a route back for a resolved condition — stated as a general rule with a conditional exception; confirm against several current policy wordings before it is any firmer.",
+      "That reimbursement is typically calculated after the deductible rather than before — the article deliberately tells the reader to check which, rather than asserting one. Confirm the market norm before naming it.",
+      "Whether direct payment to a clinic exists in the Canadian market at all, and with which insurers — currently described as “not universal” and dependent on the clinic agreeing.",
+      "That premiums commonly rise with an animal’s age, and whether an insurer may add an exclusion at renewal for a condition already claimed on. Both are described as questions to ask, not as facts.",
+      "That insurers routinely request the full veterinary history when a significant claim is made. Sourced from nothing yet; confirm or soften.",
+      "The exclusion categories list (breeding, elective procedures, preventable disease where vaccination lapsed, behavioural treatment, hereditary conditions) is framed as “categories to look for” rather than as any insurer’s actual terms. Keep that framing unless each can be sourced.",
+      "Whether Canadian policies commonly apply lifetime limits as well as annual and per-condition ones.",
+    ],
+  },
+  {
+    slug: "finding-a-veterinarian-in-canada",
+    section: "health",
+    subcategory: "Choosing care",
+    title: "Finding a Veterinarian in Canada: How to Choose a Clinic Before You Need One",
+    deck: "The worst time to choose a practice is the first time you need one. What to weigh, the twelve questions worth a phone call, and why the after-hours answer matters more than anything on the website.",
+    metaDescription:
+      "How to choose a veterinary practice before an emergency: what to weigh, the questions worth a phone call, and why the after-hours answer matters most.",
+    publishedAt: "2026-09-02",
+    updatedAt: "2026-09-02",
+    authorId: "pet-club-editorial",
+    readingMinutes: 7,
+    mediaId: "dogs-autumn-bridge",
+    mediaAlt:
+      "A golden retriever trots along a leaf-covered footbridge on an ordinary autumn day.",
+    tags: ["veterinary-care", "choosing-a-vet", "vet-costs", "canada", "planning"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Register with a practice while nothing is wrong. A clinic that already holds the history is worth more than one that is marginally closer.",
+      "Ask what happens at two in the morning, and write down the name, address and hours of wherever you would be sent.",
+      "Weigh travel time in January conditions, real opening hours and same-day availability above anything on the website.",
+      "Confirm two things early: that you can obtain and transfer the records, and that written estimates come before significant work.",
+      "Book a routine appointment and treat it as an audition — handling, explanation, estimate against invoice, and whether anyone asked what you were worried about.",
+    ],
+    relatedSlugs: ["emergency-vet-visits-in-canada", "pet-insurance-in-canada"],
+    relatedCategorySlugs: ["vet-costs", "provincial-questions"],
+    sources: [
+      {
+        label: "Find a veterinarian, and provincial veterinary associations",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/",
+      },
+    ],
+    needsVerification: [
+      "That every province and territory has a body responsible for licensing veterinarians and regulating practices, and that each maintains a register a member of the public can search — stated generally. Name each regulator, and confirm which registers are public, before the list is made specific.",
+      "That the provincial regulator is the correct destination for a complaint about a licensed veterinarian in every province and territory — described generically; confirm the process differs before describing it as uniform.",
+      "Whether a practice may charge for copying or transferring records, and whether any province regulates that — currently written as a question to ask rather than an entitlement.",
+      "That an owner has a right of access to their animal’s veterinary record, which likely varies by province. The article says records “should be” available and transferable on request; do not strengthen this without a provincial source.",
+      "Whether telephone or video triage is generally available from Canadian practices, and how it is charged — raised as a question for rural readers rather than asserted.",
+    ],
+  },
+  {
+    slug: "emergency-vet-visits-in-canada",
+    section: "health",
+    subcategory: "Preparedness",
+    title: "Emergency Vet Visits in Canada: What Pet Owners Should Prepare For",
+    deck: "Not a symptom checker. The hour of preparation — destination, transport, records, money — that decides how the worst night goes, and the one rule for when you are not sure whether to call.",
+    metaDescription:
+      "The hour of preparation that decides how the worst night goes: destination, transport, records and money — plus the one rule for when you are unsure.",
+    publishedAt: "2026-09-02",
+    updatedAt: "2026-09-02",
+    authorId: "pet-club-editorial",
+    readingMinutes: 8,
+    mediaId: "training-forest-path",
+    mediaAlt:
+      "A small dog stands alert on a wet forest path, looking up towards the person walking it.",
+    tags: ["emergency-care", "veterinary-care", "preparedness", "safety", "canada"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Confirm your after-hours destination by phone in daylight, then write the name, address, phone and winter drive time somewhere you can find in the dark.",
+      "Solve transport now: carrier left out and open, leash by the door, a plan for a large dog who cannot walk, and a plan if you do not drive.",
+      "Keep one folder — weight, microchip number, medication list with doses and last times given, chronic diagnoses, and how you would pay.",
+      "For a suspected poisoning, bring the packaging and never induce vomiting unless a veterinary professional has told you to.",
+      "If you are asking yourself whether this is an emergency, that is the reason to phone. Telephone triage is a normal part of what a clinic does.",
+    ],
+    relatedSlugs: [
+      "finding-a-veterinarian-in-canada",
+      "pet-insurance-in-canada",
+    ],
+    relatedCategorySlugs: ["vet-costs", "pet-insurance"],
+    sources: [
+      {
+        label: "Find a veterinarian, and provincial veterinary associations",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/",
+      },
+    ],
+    needsVerification: [
+      "The list of situations owners commonly talk themselves out of (breathing difficulty, collapse, seizure, uncontrolled bleeding, suspected poisoning, major trauma, unproductive retching with a distended abdomen in a large dog, straining without producing urine, a painful distended belly). It is framed as “phone rather than wait”, never as a diagnosis, but every item needs a veterinary source before publication — or the list is cut.",
+      "That very young animals have less physiological reserve and deteriorate faster than adults — widely repeated, not yet sourced here.",
+      "That inducing vomiting is harmful with some substances and that the decision depends on the substance, the interval and the animal. Attach a veterinary toxicology source.",
+      "That animal poison control services charge a per-case consultation fee, and that clinics may work from a case number. No service is named and no fee is stated; confirm before naming any.",
+      "That payment is generally expected at the time of service at Canadian emergency hospitals, and that a deposit may be requested on admission — described as what to ask about rather than as a rule.",
+      "That emergency hospitals treat in order of severity rather than arrival. Universal in practice; source it before stating it as fact.",
+      "That cats conceal illness — carried over from the cat cost guide, and flagged there too.",
+    ],
+  },
+  {
+    slug: "travelling-with-a-pet-in-canada",
+    section: "canadian-life",
+    subcategory: "Travel",
+    title: "Travelling With a Pet in Canada: A Practical Planning Guide",
+    deck: "Most trips fail on something ordinary — a microchip registered to an old phone number, or a booking that allowed one cat and not two dogs. What to settle before you book, and what to arrange at the other end.",
+    metaDescription:
+      "Domestic travel with a dog or cat: identification, restraint in the car, lodging policies in writing, and finding a vet at the other end before you need one.",
+    publishedAt: "2026-09-02",
+    updatedAt: "2026-09-02",
+    authorId: "pet-club-editorial",
+    readingMinutes: 9,
+    mediaId: "health-dog-window-light",
+    mediaAlt: "A shaggy dog settles on a sofa in a shaft of afternoon window light.",
+    tags: ["travel", "planning", "identification", "microchip", "canada"],
+    featured: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Update the microchip registry before you leave, and add a second contact who will actually be reachable while you are away.",
+      "Restrain the animal properly — secured crate, belted carrier or crash-tested harness — and never leave one alone in a parked car in any season.",
+      "Get the accommodation’s pet policy in writing, including whether the animal may be left alone in the room.",
+      "Look up a regular clinic and an emergency hospital near your destination before you go, and keep your own clinic’s number to hand.",
+      "Carrier rules for flights, trains, ferries and buses are set by each operator and change. Confirm them directly for your route and date, in writing.",
+    ],
+    relatedSlugs: [
+      "emergency-vet-visits-in-canada",
+      "renting-with-a-pet-in-canada",
+    ],
+    relatedCategorySlugs: ["travelling-with-pets", "pet-friendly-canada"],
+    needsVerification: [
+      "Every carrier-specific rule is deliberately absent — no airline, rail, ferry or bus operator is named, and no dimension, fee, documentation or temperature restriction is stated. If any of this is ever added, it must be sourced per operator and per route, and dated, because it changes.",
+      "Whether taxi and rideshare operators in major Canadian cities accept animals, and under what conditions — written as something the reader must establish locally.",
+      "That microchip registries in Canada allow an owner to update contact details directly, and whether a second contact can be added — described as what to do rather than as a guaranteed feature of every registry.",
+      "That a chip can be checked for readability at a routine appointment.",
+      "Provincial or municipal requirements for animals in vehicles, if any exist. None are claimed; restraint is argued on safety grounds only.",
+      "Leash, seasonal and access rules for national, provincial and municipal parks, campgrounds and beaches — the article says to check the specific site, and names none.",
+      "That flat-faced breeds tolerate heat poorly. Widely accepted; attach a veterinary source before publication.",
+      "Whether insurance policies commonly cover care received away from home within Canada — raised as a wording question, not answered.",
     ],
   },
 ] as const;

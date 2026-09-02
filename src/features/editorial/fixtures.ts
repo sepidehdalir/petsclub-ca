@@ -28,16 +28,9 @@ export const plannedGuides: readonly PlannedGuide[] = [
       "How to read a Canadian label, which brands are actually made here, and how to compare cost per day.",
     topic: "Food",
   },
-  {
-    id: "guide-pet-insurance",
-    title: "Pet Insurance in Canada",
-    summary:
-      "What coverage really includes, how deductibles work, and the questions to ask before you buy.",
-    topic: "Money",
-  },
-  // `guide-vaccination` and `guide-cost-of-dog` were here. Both have now been
-  // written and live in `articles.ts`, so they are gone from this list rather
-  // than cross-referenced — a title that exists in both places would appear on
-  // `/dogs` twice, once as a guide a reader can open and once as a promise to
-  // write it.
+  // `guide-vaccination`, `guide-cost-of-dog` and `guide-pet-insurance` were
+  // here. All three have now been written and live in `articles.ts`, so they
+  // are gone from this list rather than cross-referenced — a title that exists
+  // in both places would appear on its topic page twice, once as a guide a
+  // reader can open and once as a promise to write it.
 ] as const;

@@ -78,7 +78,9 @@ export const topics: readonly TopicDefinition[] = [
     description:
       "Symptoms worth a vet visit, preventative care that pays off, what treatment costs in Canada, and how other owners navigated the same diagnosis.",
     categorySlugs: ["dog-health", "cat-health", "vet-costs", "pet-insurance"],
-    guideIds: ["guide-pet-insurance"],
+    // The insurance title graduated out of this list when it was written — it
+    // is now a real article, surfaced above by section.
+    guideIds: [],
     mediaId: "health-dog-window-light",
   },
   {
