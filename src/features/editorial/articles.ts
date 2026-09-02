@@ -170,7 +170,7 @@ export interface Article {
  *
  * Ordering is explicit rather than sorted at render time: an editor decides
  * what leads a section, and a date is a poor proxy for that. The first entry
- * whose section points at a surface becomes that surface's lead — so moving an
+ * whose section points at a surface becomes that surface’s lead — so moving an
  * article up this list is how it gets promoted, and nothing else needs
  * changing.
  */
@@ -242,7 +242,10 @@ export const articles: readonly Article[] = [
       "A catio, harness walks, a cat-proofed fence or a dusk-to-dawn curfew all cut risk without removing the outdoors entirely.",
       "If a cat goes out at all: breakaway collar, a microchip registration that is actually current, and a check under the car hood in winter.",
     ],
-    relatedSlugs: ["winter-dog-care-in-canada", "renting-with-a-pet-in-canada"],
+    relatedSlugs: [
+      "indoor-cat-enrichment-canadian-homes",
+      "bringing-home-a-kitten-first-30-days",
+    ],
     relatedCategorySlugs: ["cat-behaviour", "cat-health", "general-cat-discussion"],
     sources: [
       {
@@ -477,6 +480,200 @@ export const articles: readonly Article[] = [
       "That rescue adoption fees in Canada commonly include spay or neuter, initial vaccines and a microchip — stated as usual rather than universal.",
       "That municipal licence fees are commonly lower for spayed or neutered dogs — true in the cities we checked informally, not yet sourced.",
       "Whether to name typical ranges for any category at all once Canadian figures can be sourced and dated.",
+    ],
+  },
+
+  /* ---------------------------------------------------------------- Batch B
+     The cat side of the same shelf. Deliberately not the dog articles with the
+     nouns swapped: the first-month guide is about rooms rather than a
+     schedule, the vaccination guide turns on "but my cat never goes outside",
+     and the cost guide is built around the two lines dog owners never model —
+     litter, and the second cat.
+
+     ⚠️ Photography: the manifest holds three cat photographs and there are now
+     five cat articles, so one asset is used twice within this batch and one is
+     shared with the indoor/outdoor guide. The repeated pair is placed at the
+     first and last positions of the group deliberately — those are diagonal in
+     the two-column grid and two cards apart once it stacks into one column on
+     a phone, which is the only arrangement that avoids the repeat reading as a
+     mistake at both widths. That is mitigation, not a fix. Three more verified
+     cat images are needed before this batch is published. */
+
+  {
+    slug: "bringing-home-a-kitten-first-30-days",
+    section: "cats",
+    subcategory: "New owners",
+    title: "Bringing Home a Kitten: The First 30 Days",
+    deck: "A kitten asks less of your calendar than a puppy and much more of your house — one room to start, two litter boxes, a carrier left out for a decade, and never, ever playing with your hands.",
+    metaDescription:
+      "One room to start, two litter boxes, a carrier left out permanently, and never playing with your hands — the first month with a kitten, in order.",
+    publishedAt: "2026-09-01",
+    updatedAt: "2026-09-01",
+    authorId: "pet-club-editorial",
+    readingMinutes: 8,
+    mediaId: "cats-kittens-at-window",
+    tags: ["kittens", "new-owners", "litter-box", "socialisation", "cats"],
+    featured: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Start in one room. A kitten settles by taking control of territory, and the whole house is too much to hold.",
+      "Two litter boxes for one kitten — one per cat plus one — uncovered, big, and never beside the food.",
+      "Leave the carrier out permanently as furniture. It is the highest-return thing in the article.",
+      "Never play with a kitten using your hands. Charming at eight weeks, a real problem at eight months.",
+      "Lilies, and string or ribbon of any kind, are the two household hazards worth dealing with before arrival.",
+    ],
+    relatedSlugs: [
+      "kitten-vaccination-schedule-in-canada",
+      "indoor-cat-enrichment-canadian-homes",
+    ],
+    relatedCategorySlugs: ["kittens", "general-cat-discussion", "cat-behaviour"],
+    sources: [
+      {
+        label: "Find a veterinarian, and provincial veterinary associations",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/",
+      },
+    ],
+    needsVerification: [
+      "That litter box problems are the most common behavioural reason cats lose their homes — widely repeated, currently written as a general claim; source it or soften it.",
+      "The kitten socialisation period, described here as earlier and shorter than a puppy’s without naming weeks; attach a source before adding figures.",
+      "That most cats past kittenhood digest cow’s milk poorly — well established, but attach a veterinary source.",
+      "Which Canadian municipalities license cats, before the sentence implies a proportion.",
+    ],
+  },
+  {
+    slug: "kitten-vaccination-schedule-in-canada",
+    section: "cats",
+    subcategory: "Health",
+    title: "Kitten Vaccination Schedule in Canada",
+    deck: "What the core feline vaccines are for, why the series takes several appointments rather than one, and the honest answer to “but my cat never goes outside”.",
+    metaDescription:
+      "What FVRCP and rabies cover, why a kitten needs a series rather than one shot, and a straight answer on vaccinating an indoor-only cat.",
+    publishedAt: "2026-09-01",
+    updatedAt: "2026-09-01",
+    authorId: "pet-club-editorial",
+    readingMinutes: 7,
+    mediaId: "cats-kitten-windowsill",
+    tags: ["kittens", "vaccination", "preventative-care", "indoor-cats", "cats"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "The series exists because nobody can see when maternal antibodies fade, so it takes several attempts spaced weeks apart.",
+      "The final dose — around 16 weeks or later — carries most of the weight. One vaccine is not protection.",
+      "Core is FVRCP (panleukopenia, herpesvirus-1, calicivirus) plus rabies. FeLV is the conversation worth having while the cat is young.",
+      "Rabies is regulated provincially and sometimes municipally, and it matters after any reported bite or scratch.",
+      "Indoor-only lowers exposure but is not zero: cats get out, bats get into Canadian houses, and households change.",
+    ],
+    relatedSlugs: [
+      "bringing-home-a-kitten-first-30-days",
+      "cost-of-owning-a-cat-in-canada",
+    ],
+    relatedCategorySlugs: ["kittens", "cat-health", "vet-costs"],
+    sources: [
+      {
+        label: "Find a veterinarian, and provincial veterinary associations",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/",
+      },
+      {
+        label: "Publishes global vaccination guidelines for dogs and cats",
+        publisher: "World Small Animal Veterinary Association",
+        url: "https://wsava.org/",
+      },
+    ],
+    needsVerification: [
+      "Every age range in the schedule section (6–8 weeks, 3–4 week intervals, 16 weeks, 12–16 weeks for rabies, the FeLV two-dose series, the one-year booster) against current WSAVA feline guidance.",
+      "Add the American Association of Feline Practitioners feline vaccination guidelines as a source once the URL is confirmed — deliberately omitted rather than guessed at.",
+      "Rabies vaccination requirements province by province for cats specifically, including whether they differ from the rules for dogs.",
+      "That bats entering houses is a recognised rabies exposure route handled by Canadian public health units — stated generally; confirm with a public health source.",
+      "How FeLV vaccination is positioned for kittens versus settled adult indoor cats, against a named guideline rather than described as common practice.",
+      "The reasoning behind feline injection sites is referred to without being named. Decide whether to name it once a veterinary source is attached.",
+    ],
+  },
+  {
+    slug: "indoor-cat-enrichment-canadian-homes",
+    section: "cats",
+    subcategory: "Behaviour",
+    title: "Indoor Cat Enrichment: A Practical Guide for Canadian Homes",
+    deck: "Height, a window, a proper hunt twice a day, something worth scratching and somewhere to hide — and what changes when the house is shut up and dark by five for half the year.",
+    metaDescription:
+      "The five things a cat needs to be able to do indoors, how to supply each in a Canadian home, and a ten-minute weekly rotation that keeps it working.",
+    publishedAt: "2026-09-01",
+    updatedAt: "2026-09-01",
+    authorId: "pet-club-editorial",
+    readingMinutes: 8,
+    mediaId: "cats-window-tabby",
+    tags: ["indoor-cats", "enrichment", "behaviour", "apartments", "cats"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Five behaviours drive everything: hunt, climb and survey, scratch, hide, patrol. Every good idea supplies one of them.",
+      "Vertical routes are the cheapest win — a cat should be able to cross a room without touching the floor.",
+      "Two wand-toy sessions a day, moved like prey escaping rather than waved in the cat’s face, ending in a catch and a meal.",
+      "Scratching posts fail on height, wobble and location far more often than on material.",
+      "Rotate toys weekly and store the rest. Novelty is the active ingredient, not the number of toys.",
+    ],
+    relatedSlugs: [
+      "indoor-or-outdoor-cats-in-canada",
+      "bringing-home-a-kitten-first-30-days",
+    ],
+    relatedCategorySlugs: ["cat-behaviour", "general-cat-discussion", "kittens"],
+    sources: [
+      {
+        label: "Find a veterinarian, and provincial veterinary associations",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/",
+      },
+    ],
+    needsVerification: [
+      "That declawing is prohibited by the veterinary regulators in a number of Canadian provinces — name the provinces once each college’s position is confirmed, or drop the sentence.",
+      "Bird feeder placement guidance (very close to glass or well away, rather than the middle distance) — attach a conservation source before publication.",
+      "The framing of the five behaviours is descriptive rather than sourced. It makes no medical or preventative claim, but a behavioural source would strengthen it.",
+      "Whether hiding places help cats cope with stressors is stated descriptively; source it before making it any stronger.",
+    ],
+  },
+  {
+    slug: "cost-of-owning-a-cat-in-canada",
+    section: "cats",
+    subcategory: "Money",
+    title: "How Much Does It Cost to Own a Cat in Canada?",
+    deck: "Cheaper than a dog, and the reason cat owners get caught out more often. The lines dog owners never have, the three expensive realities specific to cats, and how to build your own number.",
+    metaDescription:
+      "The cost categories of owning a cat in Canada, the two lines nobody models — litter and the second cat — and an hour-long method for your own figure.",
+    publishedAt: "2026-09-01",
+    updatedAt: "2026-09-01",
+    authorId: "pet-club-editorial",
+    readingMinutes: 8,
+    mediaId: "cats-kittens-at-window",
+    tags: ["money", "budgeting", "pet-insurance", "vet-costs", "cats"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "No dollar figures here, deliberately: fees are set per practice and municipal charges differ between adjacent cities.",
+      "Litter is a permanent line dog owners do not have, and it scales directly with the number of cats.",
+      "The number of cats is the variable that dominates, and the one most likely to change without a decision being made.",
+      "Urinary blockage, the conditions of older cats and dental disease are the three a cat budget should be able to absorb.",
+      "Cats conceal illness and indoor cats live a long time — which means more senior years, where the spending sits.",
+    ],
+    relatedSlugs: [
+      "cost-of-owning-a-dog-in-canada",
+      "kitten-vaccination-schedule-in-canada",
+    ],
+    relatedCategorySlugs: ["vet-costs", "pet-insurance", "cat-food-and-nutrition"],
+    sources: [
+      {
+        label: "Find a veterinarian, and provincial veterinary associations",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/",
+      },
+    ],
+    needsVerification: [
+      "That rescue adoption fees in Canada commonly bundle spay or neuter, vaccines, deworming, a microchip and FeLV/FIV testing — stated as frequent rather than universal.",
+      "That dental disease is common enough in cats to belong in a routine budget — attach a veterinary source.",
+      "That kidney disease and thyroid problems are among the conditions commonly managed in senior cats — described qualitatively; source it before adding any figure.",
+      "That urinary blockage is the most common reason a cat budget goes from comfortable to not — currently an editorial assertion, not a sourced one. Soften or source.",
+      "Whether to name typical ranges for any category once Canadian figures can be sourced and dated.",
     ],
   },
 ] as const;
