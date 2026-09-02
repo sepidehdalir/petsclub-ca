@@ -33,15 +33,27 @@ export default function EditorialPolicyPage() {
 
       <h2>Sourcing</h2>
       <ul>
-        <li>Claims about health, medication or procedure are attributed to a named source.</li>
+        <li>
+          Claims about health, medication or procedure are checked against veterinary
+          guidelines or a government source, and the guide links to the ones a reader can
+          follow. Where we cannot support a specific figure or rule, we write the durable
+          general version and say what we have not established, rather than estimating.
+        </li>
+        <li>
+          Rules that differ by province or municipality are named as such. We identify the
+          jurisdictions we have actually confirmed, and we do not generalise from them to
+          the rest of the country.
+        </li>
         <li>Prices are Canadian, dated, and identified by province where they vary.</li>
         <li>Products are only described as available if they are sold in Canada.</li>
       </ul>
 
       <h2>Review and dating</h2>
       <p>
-        Every guide shows when it was last reviewed. Guides covering costs, regulations or
-        products are reviewed on a schedule, because a stale price is a wrong price.
+        A published guide carries the date it was published and, where it has been revised,
+        the date of that revision. A guide that has not completed review carries no date,
+        because it has not earned one. Guides covering costs, regulations or products are
+        re-checked on a schedule, since a stale rule is a wrong rule.
       </p>
 
       <h2>Corrections</h2>
@@ -68,6 +80,15 @@ export default function EditorialPolicyPage() {
       <p>
         We do not publish machine-generated articles. Tools may assist with research or editing,
         but every published guide is written and reviewed by a person who is accountable for it.
+      </p>
+
+      <h2>Who writes these guides</h2>
+      <p>
+        The Pet Club editorial team are writers and researchers. We are not veterinarians, and we
+        say so on every page that touches health. No guide is described as veterinary-reviewed
+        unless a licensed veterinarian has read it and agreed to be named on it, with their
+        licensing college and registration number shown so a reader can check. No guide currently
+        carries such a review.
       </p>
 
       <h2>Not veterinary advice</h2>

@@ -77,9 +77,17 @@ export interface ArticleSchemaInput {
   headline: string;
   description: string;
   path: string;
-  /** ISO date. */
-  datePublished: string;
-  /** ISO date. Defaults to `datePublished`. */
+  /**
+   * ISO date, and **only** for an article that has actually been published.
+   *
+   * Optional, and deliberately so. `datePublished` is a claim that a piece was
+   * published on a day, and the byline suppresses that claim for an article
+   * still in review. If the markup asserted a date the page refuses to show a
+   * reader, the two would disagree — and the machine-readable half would be
+   * the false one. So an unpublished article passes nothing here.
+   */
+  datePublished?: string;
+  /** ISO date. Defaults to `datePublished`. Omitted when there is no publication date. */
   dateModified?: string;
   /**
    * The byline, and what kind of entity it is.
@@ -119,8 +127,14 @@ export function articleSchema(input: ArticleSchemaInput): JsonLdSchema {
     description: input.description,
     mainEntityOfPage: absoluteUrl(input.path),
     url: absoluteUrl(input.path),
-    datePublished: input.datePublished,
-    dateModified: input.dateModified ?? input.datePublished,
+    // Emitted together or not at all. A `dateModified` without a
+    // `datePublished` would imply a publication that has not happened.
+    ...(input.datePublished
+      ? {
+          datePublished: input.datePublished,
+          dateModified: input.dateModified ?? input.datePublished,
+        }
+      : {}),
     inLanguage: siteConfig.language,
     author: { "@type": input.author.kind, name: input.author.name },
     publisher: { "@id": `${siteConfig.url}/#organization` },

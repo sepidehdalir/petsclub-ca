@@ -27,7 +27,7 @@ const editorialPrinciples = [
   },
   {
     title: "Sourced and dated",
-    body: "Every claim is attributed, every guide shows when it was last reviewed, and corrections are published rather than quietly edited.",
+    body: "Health and legal claims are checked against veterinary guidelines and government sources, and we link the ones you can follow. Corrections are published rather than quietly edited.",
   },
   {
     title: "Not veterinary advice",
@@ -65,11 +65,11 @@ export default function GuidesPage() {
             id="planned-guides-heading"
             eyebrow="Commissioned"
             title="What we are writing next"
-            description="These are the guides being researched now. Nothing has been published from this list yet."
+            description="Commissioned titles that have not been written yet. They are not articles, and they do not link anywhere."
           />
 
           <DemoContentNotice className="mt-6">
-            Planned titles — no article has been published yet
+            Planned titles — nothing here has been written yet
           </DemoContentNotice>
 
           {/* Two columns, not four: the list is down to the titles that have

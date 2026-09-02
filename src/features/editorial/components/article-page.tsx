@@ -152,8 +152,12 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
           headline: article.title,
           description: article.deck,
           path,
-          datePublished: article.publishedAt,
-          dateModified: article.updatedAt,
+          // Only once the article has actually been published. `ArticleByline`
+          // suppresses the date for an `in-review` article, and the markup a
+          // crawler reads must not contradict the page a person reads.
+          ...(article.status === "published"
+            ? { datePublished: article.publishedAt, dateModified: article.updatedAt }
+            : {}),
           author: { name: author.name, kind: author.kind },
           section: section.name,
           imagePath: asset.src.src,

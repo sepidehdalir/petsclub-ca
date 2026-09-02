@@ -61,8 +61,13 @@ export async function generateMetadata({
       height: asset.src.height,
       alt: article.mediaAlt ?? asset.alt,
     },
-    publishedTime: article.publishedAt,
-    modifiedTime: article.updatedAt,
+    // Same rule as the `Article` schema and the byline: an article that has
+    // not been published makes no claim about when it was. Open Graph is read
+    // by machines rather than people, which is exactly why it must not say
+    // something the page itself declines to say.
+    ...(article.status === "published"
+      ? { publishedTime: article.publishedAt, modifiedTime: article.updatedAt }
+      : {}),
     authors: [author.name],
   });
 }
