@@ -57,42 +57,26 @@ export function KeyTakeaways({ items }: KeyTakeawaysProps) {
   );
 }
 
-export interface ArticleStatusNoticeProps {
-  article: Article;
-}
-
-/**
- * States, plainly, that an article has not been published yet.
+/*
+ * There is deliberately no draft-status banner here.
  *
- * `/editorial-policy` promises readers that every published guide is written
- * and reviewed by a person who is accountable for it. An article that has been
- * drafted but not yet signed off has not met that promise, and the honest
- * thing is to say so on the page rather than to publish quietly and hope.
+ * `status` and `needsVerification` are *editorial* state. They decide whether
+ * an article is indexed and whether it appears in the sitemap, and they tell
+ * an editor what is left to do — none of which is a reader's concern. Printing
+ * "Editorial draft — not yet published" and a list of open fact-checks on the
+ * live page published the newsroom's working notes to everyone who opened the
+ * article on a phone.
  *
- * Returns nothing once `status` is `published`, so removing this notice is a
- * one-field change made by the person who did the review.
+ * The distinction that matters: `noindex` keeps a page out of search results,
+ * it does not make the page private. Anything rendered is public. So workflow
+ * state stays in the content model, where editors and `articles.test.ts` can
+ * read it, and never reaches the template.
+ *
+ * The honesty rules this replaces are still enforced, structurally, elsewhere:
+ * an unpublished article carries no publication date (`article-byline.tsx`),
+ * is `noindex` and is absent from the sitemap. It makes no claim it has not
+ * earned — it simply does not narrate its own workflow.
  */
-export function ArticleStatusNotice({ article }: ArticleStatusNoticeProps) {
-  if (article.status === "published") {
-    return null;
-  }
-
-  return (
-    <div
-      role="note"
-      className="rounded-card border border-clay-200 bg-clay-50 px-5 py-4 sm:px-6"
-    >
-      <h2 className="font-sans text-body-sm font-semibold text-clay-700">
-        Editorial draft — not yet published
-      </h2>
-      <p className="mt-1.5 text-body-sm text-clay-700/90">
-        This guide has been drafted but has not completed editorial review, so it is not
-        indexed and should not be treated as final. Any claim still being checked is listed
-        at the end of the article.
-      </p>
-    </div>
-  );
-}
 
 /**
  * The standing distinction between general information and veterinary advice.
@@ -129,19 +113,17 @@ export interface ArticleSourcesProps {
 }
 
 /**
- * Sources, and the claims still being checked.
+ * Where a reader can check the article for themselves.
  *
- * The second list is the unusual one and it is the point. Where a fact would
- * have strengthened the article but could not be confirmed against a primary
- * source, it is written conservatively in the body and flagged here rather
- * than filled in with a confident-sounding guess. Showing readers the open
- * questions costs a little polish and buys the only thing that matters.
+ * Published references only. The article's `needsVerification` list — the
+ * claims an editor still has to confirm — is deliberately **not** rendered
+ * here; see the note above `VeterinaryBoundary`. It is a work queue, not a
+ * reference list, and the two were previously printed under one heading.
  */
 export function ArticleSources({ article }: ArticleSourcesProps) {
   const sources = article.sources ?? [];
-  const pending = article.needsVerification ?? [];
 
-  if (sources.length === 0 && pending.length === 0) {
+  if (sources.length === 0) {
     return null;
   }
 
@@ -154,40 +136,23 @@ export function ArticleSources({ article }: ArticleSourcesProps) {
         id="article-sources-heading"
         className="font-sans text-label uppercase text-foreground-subtle"
       >
-        Sources and open questions
+        Sources
       </h2>
 
-      {sources.length > 0 ? (
-        <ul className="mt-3 space-y-2">
-          {sources.map((source) => (
-            <li key={source.url} className="text-body-sm text-foreground-muted">
-              <a
-                href={source.url}
-                rel="noreferrer"
-                className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"
-              >
-                {source.label}
-              </a>{" "}
-              — {source.publisher}
-            </li>
-          ))}
-        </ul>
-      ) : null}
-
-      {pending.length > 0 ? (
-        <div className="mt-5">
-          <h3 className="font-sans text-body-sm font-semibold text-foreground">
-            Flagged for verification before publication
-          </h3>
-          <ul className="mt-2 list-disc space-y-1.5 pl-5">
-            {pending.map((item) => (
-              <li key={item} className="text-body-sm text-foreground-muted">
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
+      <ul className="mt-3 space-y-2">
+        {sources.map((source) => (
+          <li key={source.url} className="text-body-sm text-foreground-muted">
+            <a
+              href={source.url}
+              rel="noreferrer"
+              className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"
+            >
+              {source.label}
+            </a>{" "}
+            — {source.publisher}
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

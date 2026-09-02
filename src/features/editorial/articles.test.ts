@@ -274,6 +274,85 @@ describe("editorial trust rules", () => {
   });
 });
 
+/**
+ * Editorial workflow state must not reach a reader.
+ *
+ * This is a regression guard for a real bug: the article template rendered
+ * "Editorial draft — not yet published" and the whole fact-check queue onto the
+ * live page, so the first thing a visitor on a phone read was the newsroom's
+ * to-do list. `noindex` had been treated as if it made the page private. It
+ * does not — it keeps a page out of search results, and everything rendered is
+ * public regardless.
+ *
+ * `status` stays readable by components, because the byline legitimately needs
+ * it to decide whether a publication date exists yet. What is checked here is
+ * that the *reader-facing copy* never comes back.
+ */
+describe("editorial state stays internal", () => {
+  const COMPONENT_DIR = fileURLToPath(new URL("./components/", import.meta.url));
+
+  const componentSources = readdirSync(COMPONENT_DIR)
+    .filter((file) => file.endsWith(".tsx"))
+    .map((file) => ({
+      file,
+      // Comments are stripped first: this file and the components themselves
+      // discuss the banned strings in order to explain why they are banned.
+      source: readFileSync(`${COMPONENT_DIR}${file}`, "utf8")
+        .replace(/\/\*[\s\S]*?\*\//g, " ")
+        .replace(/^\s*\/\/.*$/gm, " "),
+    }));
+
+  it("is actually scanning the templates", () => {
+    // Without this, moving or renaming the component directory would turn
+    // every assertion below into a loop over nothing that passes silently.
+    expect(componentSources.length).toBeGreaterThanOrEqual(6);
+  });
+
+  it("renders no draft banner or verification queue", () => {
+    const banned = [
+      /not yet published/i,
+      /editorial draft/i,
+      /flagged for verification/i,
+      /before publication/i,
+      /\bDrafted\b/,
+      /open questions/i,
+    ];
+
+    for (const { file, source } of componentSources) {
+      for (const pattern of banned) {
+        expect(
+          pattern.test(source),
+          `${file}: renders internal editorial copy matching ${pattern}`,
+        ).toBe(false);
+      }
+    }
+  });
+
+  it("never reads the verification queue from a component", () => {
+    const offenders = componentSources
+      .filter(({ source }) => source.includes("needsVerification"))
+      .map(({ file }) => file);
+
+    expect(
+      offenders,
+      `needsVerification is editorial-only; read by ${offenders.join(", ")}`,
+    ).toEqual([]);
+  });
+
+  it("keeps the flagged claims in the model, where an editor can find them", () => {
+    // The field is the alternative to guessing, so it has to stay meaningful
+    // now that nothing renders it — an unused field rots quietly.
+    for (const article of articles) {
+      for (const item of article.needsVerification ?? []) {
+        expect(
+          item.trim().length,
+          `${article.slug}: empty verification note`,
+        ).toBeGreaterThan(20);
+      }
+    }
+  });
+});
+
 describe("article indexing", () => {
   it("keeps unreviewed articles out of the sitemap", () => {
     const urls = buildSitemapEntries().map((entry) => entry.url);

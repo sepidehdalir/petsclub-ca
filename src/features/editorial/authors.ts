@@ -36,9 +36,15 @@ export interface ArticleAuthor {
    * small lie told to a machine, which is still a lie.
    */
   kind: "Organization" | "Person";
-  /** Short line under the name, e.g. "Editorial team". Never a credential. */
-  role: string;
-  /** Author-box biography. Two or three sentences. */
+  /**
+   * Author-box biography. Two or three sentences, and the only place the
+   * byline explains itself.
+   *
+   * There is deliberately no short `role` field. It existed, and the byline
+   * rendered "The Pet Club Editorial Team · Editorial team" — a name that
+   * already says what it is, followed by a label repeating it. What a byline
+   * owes a reader is not a job title but the disclaimer this bio carries.
+   */
   bio: string;
 }
 
@@ -66,7 +72,6 @@ export const petClubEditorial: ArticleAuthor = {
   id: "pet-club-editorial",
   name: "The Pet Club Editorial Team",
   kind: "Organization",
-  role: "Editorial team",
   bio: "The Pet Club editorial team writes practical, Canada-specific guidance for people looking after dogs and cats here — with Canadian prices, Canadian products and Canadian rules. We are writers and researchers, not veterinarians, and we say so on every page that touches health.",
 };
 

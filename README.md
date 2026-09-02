@@ -271,8 +271,14 @@ thread or member profile to describe yet. `WebSite` deliberately omits
 
 **Indexing follows editorial status.** An article is `noindex` and absent from
 the sitemap until it is marked `published`, which happens when a person has
-actually reviewed it. All three launch articles are `in-review` and say so on
-the page.
+actually reviewed it. All three launch articles are `in-review`.
+
+**Editorial state does not render.** `status` and `needsVerification` are the
+newsroom's own notes: they gate indexing and tell an editor what is left to
+check, and neither reaches the page. `noindex` keeps a page out of search
+results — it does not make it private, and anything rendered is public. An
+unpublished article therefore makes no claim it has not earned rather than
+narrating its workflow: it carries no publication date until there is one.
 
 ---
 

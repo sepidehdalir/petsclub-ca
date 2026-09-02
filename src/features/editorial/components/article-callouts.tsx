@@ -39,14 +39,10 @@ export function Note({ title, children, className }: NoteProps) {
         <p className="font-sans text-label uppercase text-pine-700">{title}</p>
       ) : null}
 
-      {/* Resets the article's larger reading size: an aside that matches the
-          column it interrupts stops reading as an aside. */}
+      {/* `callout-body` sets the aside's own reading size and rhythm, in
+          `globals.css` beside the scale it steps down from. */}
       <div
-        className={cn(
-          "text-body-sm text-foreground-reading sm:text-body",
-          "[&>*+*]:mt-3",
-          title && "mt-2",
-        )}
+        className={cn("callout-body text-foreground-reading", title && "mt-2")}
       >
         {children}
       </div>
@@ -71,15 +67,16 @@ export function VetNote({ children }: VetNoteProps) {
   return (
     <aside
       role="note"
-      className="my-8 rounded-card border border-clay-200 bg-clay-50 px-5 py-4 sm:px-6 sm:py-5"
+      // Roomier padding on a phone than the plain `Note`: this one carries the
+      // longest copy of any callout on the site, and a full paragraph pressed
+      // against a tinted edge is exactly where a reader stops reading.
+      className="my-8 rounded-card border border-clay-200 bg-clay-50 px-5 py-5 sm:px-6"
     >
       <p className="font-sans text-label uppercase text-clay-700">
         When to call a vet
       </p>
 
-      <div className="mt-2 text-body-sm text-clay-700/95 sm:text-body [&>*+*]:mt-3">
-        {children}
-      </div>
+      <div className="callout-body mt-2.5 text-clay-700/95">{children}</div>
     </aside>
   );
 }
@@ -106,7 +103,7 @@ export function Checklist({ title, children }: ChecklistProps) {
 
       <div
         className={cn(
-          "mt-3 text-body-sm text-foreground-reading sm:text-body",
+          "callout-body mt-3 text-foreground-reading",
           // The markdown list inside keeps its markers but loses the indent,
           // so items sit against the frame rather than floating inside it.
           "[&_ul]:list-none [&_ul]:p-0",

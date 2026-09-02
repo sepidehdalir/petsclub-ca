@@ -392,12 +392,23 @@
 
   /* The article column.
      ------------------------------------------------------------------------
-     Steps up to `body-lg` once the viewport can carry it, with a longer
-     line height than the token's default: a column read continuously wants
-     more air between lines than a paragraph read in passing. At 390px it
-     stays at `body`, where a larger size would cost more lines than it gains
-     in comfort. The vertical rhythm in `.prose` is set in `em`, so it scales
-     with the step rather than needing restating. */
+     Steps up to `body-lg` once the viewport can carry it, with a longer line
+     height than the token's default: a column read continuously wants more
+     air between lines than a paragraph read in passing.
+
+     Below that it does *not* simply fall back to `.prose`. On a phone the
+     column is about 358px wide, and Newsreader carries a large x-height — set
+     at the 16px body step it runs to roughly 48 characters a line, which is
+     short enough that a 1,600-word article reads as oversized rather than
+     generous, and turns every paragraph into a tall block. A step down to 15px
+     puts the measure back around 52 characters. The leading goes *up* rather
+     than down to pay for it, so the column is lighter without being denser.
+
+     The rhythm is restated per breakpoint rather than left to `em` scaling.
+     Reading a phone column is a different task from reading a desktop one:
+     paragraphs want to sit closer together so the column reads as continuous,
+     while headings keep their full separation so the sections stay findable.
+     That contrast is the thing being tuned, and `em` alone cannot express it. */
   .prose-article {
     /* The serif carries content; the sans carries interface. That division is
        stated at the top of this file, and running article copy is the case it
@@ -406,13 +417,62 @@
        be long. Newsreader's optical-size axis means this draws from the text
        cut here and the display cut in the headline above it, from one file. */
     font-family: var(--font-serif);
-    font-size: var(--text-body);
+    font-size: 0.9375rem;
+    line-height: 1.72;
+  }
+
+  .prose-article > * + * {
+    margin-top: 1.15em;
+  }
+
+  .prose-article ul,
+  .prose-article ol {
+    /* A narrower hanging indent than `.prose` gives back a few characters of
+       measure, which matters more in a list than the deeper indent buys. */
+    padding-left: 1.15rem;
+  }
+
+  .prose-article li + li {
+    margin-top: 0.4em;
+  }
+
+  /* Headings keep their full space while paragraphs tighten, so a section
+     break stays obvious at a glance on a small screen. `:not(:first-child)`
+     preserves the `.prose` rule that a column opening on a heading has
+     nothing to be spaced from. */
+  .prose-article h2:not(:first-child) {
+    margin-top: 2.1em;
+  }
+
+  .prose-article h3:not(:first-child) {
+    margin-top: 1.7em;
   }
 
   @media (min-width: 640px) {
     .prose-article {
       font-size: var(--text-body-lg);
       line-height: 1.7;
+    }
+
+    .prose-article > * + * {
+      margin-top: 1.25em;
+    }
+
+    .prose-article ul,
+    .prose-article ol {
+      padding-left: 1.35rem;
+    }
+
+    .prose-article li + li {
+      margin-top: 0.5em;
+    }
+
+    .prose-article h2:not(:first-child) {
+      margin-top: 2em;
+    }
+
+    .prose-article h3:not(:first-child) {
+      margin-top: 1.75em;
     }
 
     .prose-article h2 {
@@ -425,6 +485,36 @@
       font-size: var(--text-title-2);
       line-height: var(--text-title-2--line-height);
       letter-spacing: var(--text-title-2--letter-spacing);
+    }
+  }
+
+  /* Callout copy.
+     ------------------------------------------------------------------------
+     A note inside an article is still running text, and the "when to call a
+     vet" passage is a full paragraph of it — set at the small step it reads as
+     fine print exactly where a reader most needs it not to. It takes the same
+     15px as the article column on a phone, with a little extra leading and a
+     tighter paragraph gap; the tinted frame is what marks it as an aside, so
+     the type does not also have to shrink to say so. On desktop it settles a
+     clear step below the 19px column. */
+  .callout-body {
+    font-size: 0.9375rem;
+    line-height: 1.68;
+  }
+
+  .callout-body > * + * {
+    margin-top: 0.8em;
+  }
+
+  .callout-body ul,
+  .callout-body ol {
+    padding-left: 1.15rem;
+  }
+
+  @media (min-width: 640px) {
+    .callout-body {
+      font-size: var(--text-body);
+      line-height: 1.65;
     }
   }
 

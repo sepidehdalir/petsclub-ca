@@ -17,7 +17,6 @@ import { ArticleCard } from "@/features/editorial/components/article-card";
 import {
   ArticleAuthorCard,
   ArticleSources,
-  ArticleStatusNotice,
   KeyTakeaways,
   RelatedDiscussion,
   VeterinaryBoundary,
@@ -45,8 +44,8 @@ export interface ArticlePageProps {
  *
  * ## Order
  *
- * Breadcrumb, section, headline, deck, byline, picture, status, takeaways,
- * body, then the furniture: veterinary boundary, sources, author, community.
+ * Breadcrumb, section, headline, deck, byline, picture, takeaways, body, then
+ * the furniture: veterinary boundary, sources, community, author.
  * Related reading closes the page on a tinted band so the article has a
  * visible end rather than trailing off.
  */
@@ -107,17 +106,13 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
 
       <Section spacing="compact">
         <Container width="prose">
-          <div className="space-y-8">
-            <ArticleStatusNotice article={article} />
-
-            {article.keyTakeaways && article.keyTakeaways.length > 0 ? (
-              <KeyTakeaways items={article.keyTakeaways} />
-            ) : null}
-          </div>
+          {article.keyTakeaways && article.keyTakeaways.length > 0 ? (
+            <KeyTakeaways items={article.keyTakeaways} />
+          ) : null}
 
           {/* `prose` sets the reading measure and `prose-article` the long-form
               step; both live in `globals.css` beside the type scale. */}
-          <div className="prose prose-article mt-10">{children}</div>
+          <div className="prose prose-article mt-9 sm:mt-10">{children}</div>
 
           <div className="mt-12 space-y-8">
             {article.veterinaryNotice ? <VeterinaryBoundary /> : null}

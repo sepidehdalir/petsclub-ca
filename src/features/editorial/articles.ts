@@ -81,7 +81,13 @@ export interface ArticleSource {
  * yet signed off by a person who is accountable for it. The editorial policy
  * at `/editorial-policy` promises that every published guide is written and
  * reviewed by a person; an article does not move to `published` until that has
- * actually happened. Only `published` articles enter the sitemap.
+ * actually happened.
+ *
+ * This is **internal state and is never rendered.** It decides two things: an
+ * `in-review` article is `noindex`, and it is absent from the sitemap. It does
+ * not put a banner on the page — a reader is owed accurate content, not the
+ * newsroom's workflow. What an unpublished article does instead is make no
+ * claim it has not earned: it carries no publication date until there is one.
  */
 export type ArticleStatus = "in-review" | "published";
 
@@ -142,8 +148,12 @@ export interface Article {
    *
    * This field is the alternative to guessing. Where a fact would strengthen
    * the article but cannot be confirmed, it is written conservatively in the
-   * body and listed here, and the list is shown to the reader while the
-   * article is `in-review`. An empty-but-present list is not the same as an
+   * body and the open question is recorded here.
+   *
+   * **Editorial only — never rendered.** It is a work queue for whoever signs
+   * the article off, not a reference list for a reader, and the two do not
+   * belong under one heading on a live page. The published references a reader
+   * can follow are `sources`. An empty-but-present list is not the same as an
    * absent one: absent means nothing was flagged.
    */
   needsVerification?: readonly string[];
