@@ -18,7 +18,7 @@ import type { MediaAssetId } from "@/media/manifest";
  * article claims a review that did not happen).
  *
  * The cost is that adding an article means touching two files. That is the
- * right trade for content that makes claims about people's animals.
+ * right trade for content that makes claims about people’s animals.
  *
  * ## URLs
  *
@@ -36,7 +36,7 @@ export interface ArticleSection {
   id: string;
   /** Eyebrow label, and the link text in listings. */
   name: string;
-  /** Existing topic surface this section's articles are listed on. */
+  /** Existing topic surface this section’s articles are listed on. */
   surfacePath: string;
 }
 
@@ -86,7 +86,7 @@ export interface ArticleSource {
  * This is **internal state and is never rendered.** It decides two things: an
  * `in-review` article is `noindex`, and it is absent from the sitemap. It does
  * not put a banner on the page — a reader is owed accurate content, not the
- * newsroom's workflow. What an unpublished article does instead is make no
+ * newsroom’s workflow. What an unpublished article does instead is make no
  * claim it has not earned: it carries no publication date until there is one.
  */
 export type ArticleStatus = "in-review" | "published";
@@ -125,7 +125,7 @@ export interface Article {
   readingMinutes: number;
   /** Hero photograph. Typed, so a deleted asset is a compile error. */
   mediaId: MediaAssetId;
-  /** Overrides the asset's default alt text where the article needs a different emphasis. */
+  /** Overrides the asset’s default alt text where the article needs a different emphasis. */
   mediaAlt?: string;
   /**
    * Internal organisation only. These are for editorial planning and for
@@ -166,10 +166,13 @@ export interface Article {
 }
 
 /**
- * Every article, newest first.
+ * Every article, in the order they are listed on a surface.
  *
  * Ordering is explicit rather than sorted at render time: an editor decides
- * what leads a section, and a date is a poor proxy for that.
+ * what leads a section, and a date is a poor proxy for that. The first entry
+ * whose section points at a surface becomes that surface's lead — so moving an
+ * article up this list is how it gets promoted, and nothing else needs
+ * changing.
  */
 export const articles: readonly Article[] = [
   {
@@ -196,7 +199,10 @@ export const articles: readonly Article[] = [
       "Short-coated, small, senior and recently clipped dogs need a waterproof coat that covers the chest and belly.",
       "Replace lost walking distance with nose work and training — mental work tires a dog disproportionately.",
     ],
-    relatedSlugs: ["indoor-or-outdoor-cats-in-canada", "renting-with-a-pet-in-canada"],
+    relatedSlugs: [
+      "bringing-home-a-puppy-first-30-days",
+      "cost-of-owning-a-dog-in-canada",
+    ],
     relatedCategorySlugs: ["dog-health", "dog-training-and-behaviour", "general-dog-discussion"],
     sources: [
       {
@@ -246,7 +252,7 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "Calgary's responsible-pet-ownership regime is cited as the best-known municipal cat bylaw — confirm current scope and wording with the City before publication.",
+      "Calgary’s responsible-pet-ownership regime is cited as the best-known municipal cat bylaw — confirm current scope and wording with the City before publication.",
       "The scale of predation on Canadian wild birds by free-roaming cats is described qualitatively; attach a primary source or drop the sentence.",
       "Whether to state a lifespan comparison between indoor and outdoor cats — deliberately omitted rather than estimated.",
     ],
@@ -256,7 +262,7 @@ export const articles: readonly Article[] = [
     section: "canadian-life",
     subcategory: "Housing",
     title: "Renting With a Pet in Canada",
-    deck: "Tenancy law is provincial, and a “no pets” clause that is unenforceable in one province is binding a few hours' drive away. What to establish first, and how to become the applicant a landlord says yes to.",
+    deck: "Tenancy law is provincial, and a “no pets” clause that is unenforceable in one province is binding a few hours’ drive away. What to establish first, and how to become the applicant a landlord says yes to.",
     metaDescription:
       "Tenancy law is provincial, and a “no pets” clause that is unenforceable in one province binds in another. What to establish, and how to be the easy yes.",
     publishedAt: "2026-09-01",
@@ -269,19 +275,208 @@ export const articles: readonly Article[] = [
     featured: true,
     status: "in-review",
     keyTakeaways: [
-      "There is no national rule. Establish your own province's position with its tenancy authority before you negotiate anything.",
+      "There is no national rule. Establish your own province’s position with its tenancy authority before you negotiate anything.",
       "In a condo there are two rulebooks and the stricter wins — read the declaration and rules before signing.",
       "Confirm any pet deposit or fee is permitted where you live, and whether it is refundable.",
-      "A one-page pet résumé plus a previous landlord's reference is what converts a refusal into a yes.",
+      "A one-page pet résumé plus a previous landlord’s reference is what converts a refusal into a yes.",
       "Get the pet named and permitted in the lease or a signed addendum, however relaxed the landlord sounds.",
     ],
-    relatedSlugs: ["winter-dog-care-in-canada", "indoor-or-outdoor-cats-in-canada"],
+    relatedSlugs: [
+      "cost-of-owning-a-dog-in-canada",
+      "indoor-or-outdoor-cats-in-canada",
+    ],
     relatedCategorySlugs: ["pet-friendly-canada", "canadian-pet-products"],
     needsVerification: [
-      "The three-way grouping of provincial approaches to no-pets clauses — confirm each province's current position with its tenancy authority and name them explicitly if confirmed.",
+      "The three-way grouping of provincial approaches to no-pets clauses — confirm each province’s current position with its tenancy authority and name them explicitly if confirmed.",
       "Which provinces permit a pet damage deposit, and any caps — currently described generically rather than quantified.",
       "Whether non-refundable monthly pet rent is permitted in each jurisdiction.",
       "The exact current name of each tenancy authority in the directory, before the list is linked.",
+    ],
+  },
+
+  /* ---------------------------------------------------------------- Batch A
+     A puppy cluster. These four are written to be read together: a reader who
+     arrives on any one of them is one click from the other three, and between
+     them they cover the first year of owning a dog in this country. */
+
+  {
+    slug: "bringing-home-a-puppy-first-30-days",
+    section: "dogs",
+    subcategory: "New owners",
+    title: "Bringing Home a Puppy: The First 30 Days",
+    deck: "A week-by-week account of what actually fills the first month — sleep, toilet trips in a Canadian winter, socialisation on a deadline, and teaching a puppy to be alone.",
+    metaDescription:
+      "What actually fills a puppy’s first month, week by week: sleep, house-training in winter, socialisation on a deadline, and alone-time training.",
+    publishedAt: "2026-09-01",
+    updatedAt: "2026-09-01",
+    authorId: "pet-club-editorial",
+    readingMinutes: 9,
+    mediaId: "community-kitchen-morning",
+    tags: ["puppies", "new-owners", "house-training", "socialisation", "dogs"],
+    featured: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Sleep, toilet trips, socialisation and alone-time training are the whole first month — recall and lead work can wait.",
+      "Book the veterinary appointment and settle the insurance question before the puppy arrives, not after.",
+      "Teach being alone from the first full day, in seconds. It is the most-skipped step and the hardest to fix later.",
+      "A winter puppy needs a shovelled toilet patch and an owner dressed to stand outside with it.",
+      "Sixteen to eighteen hours of sleep a day is normal; most spectacular biting is an overtired puppy, not a badly behaved one.",
+    ],
+    relatedSlugs: [
+      "puppy-vaccination-schedule-in-canada",
+      "crate-training-a-puppy-in-canada",
+    ],
+    relatedCategorySlugs: [
+      "puppies",
+      "dog-training-and-behaviour",
+      "general-dog-discussion",
+    ],
+    sources: [
+      {
+        label: "Find a veterinarian, and provincial veterinary associations",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/",
+      },
+    ],
+    needsVerification: [
+      "The 16–18 hours of sleep a day figure for young puppies — widely repeated, but attach a veterinary or behavioural source or soften the sentence.",
+      "That most Canadian municipalities require dogs to be licensed — stated generally rather than enumerated; confirm before naming a proportion.",
+      "The 14–16 week close of the primary socialisation window, against the same source used in the vaccination guide.",
+    ],
+  },
+  {
+    slug: "puppy-vaccination-schedule-in-canada",
+    section: "dogs",
+    subcategory: "Health",
+    title: "Puppy Vaccination Schedule in Canada",
+    deck: "Why the puppy series is several appointments rather than one, what core and non-core actually mean here, and which parts a veterinarian decides rather than an article.",
+    metaDescription:
+      "Why a puppy needs a series rather than one shot, what core and non-core mean in Canada, and the questions worth asking at the first appointment.",
+    publishedAt: "2026-09-01",
+    updatedAt: "2026-09-01",
+    authorId: "pet-club-editorial",
+    readingMinutes: 8,
+    mediaId: "dogs-golden-in-leaves",
+    tags: ["puppies", "vaccination", "preventative-care", "socialisation", "dogs"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "The series exists because nobody can see when maternal antibodies fade, so it takes several attempts spaced weeks apart.",
+      "The final dose — usually around 16 weeks or later — is the one carrying most of the weight. One shot is not protection.",
+      "Core covers distemper, adenovirus and parvovirus, usually combined, plus rabies. Non-core depends on where you live and what your dog does.",
+      "Rabies is a legal requirement in much of Canada, and the rules are provincial and sometimes municipal.",
+      "The socialisation window closes before the series finishes, so socialise deliberately in low-risk ways while it is open.",
+    ],
+    relatedSlugs: [
+      "bringing-home-a-puppy-first-30-days",
+      "cost-of-owning-a-dog-in-canada",
+    ],
+    relatedCategorySlugs: ["puppies", "dog-health", "vet-costs"],
+    sources: [
+      {
+        label: "Find a veterinarian, and provincial veterinary associations",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/",
+      },
+      {
+        label: "Publishes canine vaccination guidelines for veterinary practices",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/",
+      },
+      {
+        label: "Publishes global vaccination guidelines for dogs and cats",
+        publisher: "World Small Animal Veterinary Association",
+        url: "https://wsava.org/",
+      },
+    ],
+    needsVerification: [
+      "Every age range in the schedule section (6–8 weeks, 2–4 week intervals, 16 weeks, 12–16 weeks for rabies, one-year booster) against current AAHA and WSAVA canine vaccination guidelines.",
+      "Rabies vaccination requirements province by province, including the age at which they attach and any municipal additions — currently described generically and referred to the reader’s own clinic.",
+      "Whether leptospirosis is formally treated as core in specific Canadian regions, and by whom.",
+      "The regions of Canada where blacklegged ticks are established, before naming any of them.",
+      "Booster intervals by product; the 1–3 year range is stated loosely and should be sourced or dropped.",
+      "That titre testing does not substitute for legally required rabies vaccination — confirm per province.",
+    ],
+  },
+  {
+    slug: "crate-training-a-puppy-in-canada",
+    section: "dogs",
+    subcategory: "Training",
+    title: "Crate Training a Puppy: A Practical Canadian Guide",
+    deck: "A four-week plan for a dog that goes into an open crate to sleep — plus how long is too long, the five mistakes everyone makes, and how to tell when a crate is the wrong tool.",
+    metaDescription:
+      "A four-week crate training plan, how long is too long, the five common mistakes, and how to tell when a crate is the wrong tool for your dog.",
+    publishedAt: "2026-09-01",
+    updatedAt: "2026-09-01",
+    authorId: "pet-club-editorial",
+    readingMinutes: 9,
+    mediaId: "health-dog-on-bed",
+    tags: ["puppies", "crate-training", "training", "alone-time", "dogs"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Buy the crate for the adult dog and use the divider — a crate a puppy can toilet at one end of loses the house-training benefit.",
+      "Feed every meal inside it with the door open for the first few days. Ask for nothing else.",
+      "Put it in your bedroom for the first few weeks; a puppy that can hear people settles far faster.",
+      "Use a release word every time the door opens, and never open it in response to screaming.",
+      "Crate work and alone-time training are the same project — which matters most if you live in an apartment.",
+      "Protest fades and distress escalates. If it is distress, stop and use a pen instead.",
+    ],
+    relatedSlugs: [
+      "bringing-home-a-puppy-first-30-days",
+      "winter-dog-care-in-canada",
+    ],
+    relatedCategorySlugs: [
+      "dog-training-and-behaviour",
+      "puppies",
+      "general-dog-discussion",
+    ],
+    needsVerification: [
+      "The age-in-months-plus-one-hour rule of thumb — presented as a rough planning figure rather than guidance; attach a source or cut it.",
+      "The 16–18 hours of sleep a day figure, shared with the first-30-days guide.",
+      "Whether to name the recognised behavioural condition directly rather than describing it, once a veterinary source is attached.",
+    ],
+  },
+  {
+    slug: "cost-of-owning-a-dog-in-canada",
+    section: "dogs",
+    subcategory: "Money",
+    title: "How Much Does It Cost to Own a Dog in Canada?",
+    deck: "No national average, because there isn’t an honest one. Instead: every cost category that exists, the one that decides whether ownership is comfortable, and how to build a real number for your own city in an hour.",
+    metaDescription:
+      "Every cost category of owning a dog in Canada, what actually drives the number, and an hour-long method for building a real figure for your own city.",
+    publishedAt: "2026-09-01",
+    updatedAt: "2026-09-01",
+    authorId: "pet-club-editorial",
+    readingMinutes: 7,
+    mediaId: "dogs-white-dog-leaves",
+    tags: ["money", "budgeting", "pet-insurance", "vet-costs", "dogs"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "This guide quotes no dollar figures on purpose: veterinary fees, food and municipal charges vary too much for a national average to be plannable.",
+      "Adult size is the variable that moves almost everything — food, drug doses, boarding and many procedures scale with weight.",
+      "The monthly cost is not the part that matters. Whether an unplanned four-figure veterinary bill is an inconvenience or a crisis is.",
+      "Insurance or a dedicated savings account both work; neither can be started on the day you need it.",
+      "An hour of phone calls to three local clinics produces a budget you can actually trust.",
+    ],
+    relatedSlugs: [
+      "renting-with-a-pet-in-canada",
+      "puppy-vaccination-schedule-in-canada",
+    ],
+    relatedCategorySlugs: ["vet-costs", "pet-insurance", "dog-food-and-nutrition"],
+    sources: [
+      {
+        label: "Find a veterinarian, and provincial veterinary associations",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/",
+      },
+    ],
+    needsVerification: [
+      "That rescue adoption fees in Canada commonly include spay or neuter, initial vaccines and a microchip — stated as usual rather than universal.",
+      "That municipal licence fees are commonly lower for spayed or neutered dogs — true in the cities we checked informally, not yet sourced.",
+      "Whether to name typical ranges for any category at all once Canadian figures can be sourced and dated.",
     ],
   },
 ] as const;
@@ -319,7 +514,7 @@ export function articlesForSurface(surfacePath: string): readonly Article[] {
   );
 }
 
-/** Resolves an article's related reading, skipping anything unresolvable. */
+/** Resolves an article’s related reading, skipping anything unresolvable. */
 export function relatedArticles(article: Article): readonly Article[] {
   return (article.relatedSlugs ?? [])
     .map((slug) => findArticle(slug))

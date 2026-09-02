@@ -49,7 +49,9 @@ export const topics: readonly TopicDefinition[] = [
       "dog-training-and-behaviour",
       "dog-breeds",
     ],
-    guideIds: ["guide-dog-food", "guide-cost-of-dog", "guide-vaccination"],
+    // The vaccination and cost titles graduated out of this list when they
+    // were written — they are now real articles, surfaced above by section.
+    guideIds: ["guide-dog-food"],
     mediaId: "dogs-autumn-bridge",
   },
   {
@@ -76,7 +78,7 @@ export const topics: readonly TopicDefinition[] = [
     description:
       "Symptoms worth a vet visit, preventative care that pays off, what treatment costs in Canada, and how other owners navigated the same diagnosis.",
     categorySlugs: ["dog-health", "cat-health", "vet-costs", "pet-insurance"],
-    guideIds: ["guide-vaccination", "guide-pet-insurance"],
+    guideIds: ["guide-pet-insurance"],
     mediaId: "health-dog-window-light",
   },
   {

@@ -161,7 +161,8 @@ export default function HomePage() {
             Planned titles — no article has been published yet
           </DemoContentNotice>
 
-          <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Two columns while only two titles remain unwritten. */}
+          <ul className="mt-4 grid gap-4 sm:grid-cols-2">
             {plannedGuides.map((guide) => (
               <li key={guide.id} className="flex">
                 <GuideCard guide={guide} />

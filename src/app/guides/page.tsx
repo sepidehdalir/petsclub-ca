@@ -72,7 +72,10 @@ export default function GuidesPage() {
             Planned titles — no article has been published yet
           </DemoContentNotice>
 
-          <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Two columns, not four: the list is down to the titles that have
+              not been written yet, and a four-track grid holding two cards
+              reads as a section that lost something. */}
+          <ul className="mt-4 grid gap-4 sm:grid-cols-2">
             {plannedGuides.map((guide) => (
               <li key={guide.id} className="flex">
                 <GuideCard guide={guide} />

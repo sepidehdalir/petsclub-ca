@@ -35,18 +35,9 @@ export const plannedGuides: readonly PlannedGuide[] = [
       "What coverage really includes, how deductibles work, and the questions to ask before you buy.",
     topic: "Money",
   },
-  {
-    id: "guide-vaccination",
-    title: "Puppy Vaccination Schedule Canada",
-    summary:
-      "A plain-language timeline of core and optional vaccines, and what your vet will typically recommend.",
-    topic: "Health",
-  },
-  {
-    id: "guide-cost-of-dog",
-    title: "Cost of Owning a Dog in Canada",
-    summary:
-      "Realistic first-year and ongoing costs, from food and vet care to grooming, boarding and licensing.",
-    topic: "Money",
-  },
+  // `guide-vaccination` and `guide-cost-of-dog` were here. Both have now been
+  // written and live in `articles.ts`, so they are gone from this list rather
+  // than cross-referenced — a title that exists in both places would appear on
+  // `/dogs` twice, once as a guide a reader can open and once as a promise to
+  // write it.
 ] as const;
