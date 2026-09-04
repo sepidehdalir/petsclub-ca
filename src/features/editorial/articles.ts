@@ -388,7 +388,9 @@ export const articles: readonly Article[] = [
     updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
     readingMinutes: 9,
-    mediaId: "community-kitchen-morning",
+    mediaId: "dogs-black-lab-puppy",
+    mediaAlt:
+      "A black Labrador puppy lying on a wooden floor, head down, watching the room.",
     tags: ["puppies", "new-owners", "house-training", "socialisation", "dogs"],
     featured: true,
     status: "in-review",
@@ -1039,8 +1041,9 @@ export const articles: readonly Article[] = [
     updatedAt: "2026-09-02",
     authorId: "pet-club-editorial",
     readingMinutes: 11,
-    mediaId: "health-dog-window-light",
-    mediaAlt: "A shaggy dog settles on a sofa in a shaft of afternoon window light.",
+    mediaId: "guides-dog-in-car",
+    mediaAlt:
+      "A border collie settled on a blanket in the back of a car, waiting for the drive to start.",
     tags: ["travel", "planning", "identification", "microchip", "canada"],
     featured: true,
     status: "in-review",

@@ -2,6 +2,8 @@ import type { StaticImageData } from "next/image";
 
 import aboutKitchenPlay from "./photos/about-kitchen-play.jpg";
 import catsKittenWindowsill from "./photos/cats-kitten-windowsill.jpg";
+import dogsBlackLabPuppy from "./photos/dogs-black-lab-puppy.jpg";
+import guidesDogInCar from "./photos/guides-dog-in-car.jpg";
 import catsKittensAtWindow from "./photos/cats-kittens-at-window.jpg";
 import catsWindowTabby from "./photos/cats-window-tabby.jpg";
 import communityKitchenMorning from "./photos/community-kitchen-morning.jpg";
@@ -262,6 +264,29 @@ const assets = {
       "https://www.pexels.com/photo/black-man-standing-with-cup-of-coffee-and-croissant-near-akita-inu-5749807/",
     licence: PEXELS_LICENCE,
     showsPeople: true,
+  },
+  "dogs-black-lab-puppy": {
+    id: "dogs-black-lab-puppy",
+    src: dogsBlackLabPuppy,
+    file: "photos/dogs-black-lab-puppy.jpg",
+    alt: "A black Labrador puppy lies on a pale wooden floor with its head down, looking up at the camera.",
+    photographer: "IslandHopper X",
+    source: "Pexels",
+    sourceUrl:
+      "https://www.pexels.com/photo/a-black-labrador-retriever-puppy-lying-on-the-floor-16234669/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "guides-dog-in-car": {
+    id: "guides-dog-in-car",
+    src: guidesDogInCar,
+    file: "photos/guides-dog-in-car.jpg",
+    alt: "A border collie rests on a blanket in the back of a car, looking towards the camera.",
+    photographer: "Brixiv",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/a-cute-dog-lying-on-the-car-5776772/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
   },
   "about-kitchen-play": {
     id: "about-kitchen-play",
