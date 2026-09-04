@@ -798,7 +798,7 @@ export const articles: readonly Article[] = [
     publishedAt: "2026-09-01",
     updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
-    readingMinutes: 7,
+    readingMinutes: 8,
     mediaId: "cats-eating-from-bowls",
     mediaAlt:
       "Two cats eating from separate bowls — the line that doubles when the second cat arrives.",
@@ -1376,7 +1376,7 @@ export const articles: readonly Article[] = [
     publishedAt: "2026-09-03",
     updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
-    readingMinutes: 6,
+    readingMinutes: 7,
     mediaId: "dogs-drinking-water-summer",
     mediaAlt:
       "A dog drinking from a water container on dry grass in strong summer sun.",
@@ -1733,6 +1733,340 @@ export const articles: readonly Article[] = [
       "That osteoarthritis is common and under-diagnosed in cats specifically, and that cats rarely present with lameness. Well supported in feline medicine; attach a source.",
       "That baseline bloodwork is more useful as a trend than a single result \u2014 presented as reasoning rather than as a guideline recommendation.",
       "End-of-life care, palliative options and euthanasia are deliberately not covered here. Both cost guides name it as the least discussed cost, and it needs its own article rather than a paragraph.",
+    ],
+  },
+
+  /* ---------------------------------------------------------------- Batch F
+     Articles 26\u201330, which complete the ranked gap analysis produced at
+     Quality Gate #1. Every one of the fifteen concepts on that list has now
+     been written; nothing here was invented to reach thirty.
+
+     Two of these are load-bearing for the library rather than for search.
+     Moving provinces is the connector \u2014 it is the article where the
+     rabies, tenancy, licensing and veterinary-regulator differences
+     established across earlier batches finally sit in one place and explain
+     each other. End-of-life is the one both cost guides have been pointing at
+     since the first batch while calling it the least discussed cost.
+
+     The pet food guide is the one with the genuinely surprising Canadian
+     answer: no federal body sets nutritional standards for retail pet food
+     here, and the ingredient definitions in use are an American voluntary
+     body's. */
+
+  {
+    slug: "puppy-socialisation-checklist",
+    section: "dogs",
+    subcategory: "Training",
+    title: "Puppy Socialisation: What to Actually Expose a Puppy To",
+    deck: "Socialisation is not exposure \u2014 it is exposure at an intensity the puppy can handle, in which nothing bad happens. The categories to cover, and how to read whether it is working.",
+    metaDescription:
+      "What to actually socialise a puppy to, how to tell an exposure is helping rather than harming, and why a puppy that won\u2019t eat is over threshold.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "training-puppy-on-street",
+    mediaAlt:
+      "A puppy on a lead taking in a street \u2014 the world at a distance it can handle.",
+    tags: ["puppies", "socialisation", "training", "behaviour", "dogs"],
+    featured: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "The primary period is the first three months, so it is largely over by the time most owners feel ready to start.",
+      "AVSAB holds that socialising before a puppy is fully vaccinated should be the standard of care \u2014 behavioural problems, not infectious disease, are the leading cause of death in dogs under three.",
+      "Classes can start at 7\u20138 weeks with one set of vaccines at least seven days beforehand, plus a first deworming.",
+      "A puppy that will not take food is over threshold. That is the single most reliable signal you have.",
+      "Let the puppy choose the distance, watch how fast it recovers, and stop while it is still going well.",
+      "Cover categories rather than counting encounters \u2014 surfaces, sounds and handling get missed while people and dogs get overdone.",
+      "A winter puppy meets far fewer people and far more snow. Compensate deliberately rather than waiting for spring.",
+    ],
+    relatedSlugs: [
+      "puppy-vaccination-schedule-in-canada",
+      "separation-anxiety-in-dogs",
+    ],
+    relatedCategorySlugs: ["puppies", "dog-training-and-behaviour", "general-dog-discussion"],
+    sources: [
+      {
+        label: "Position statement on puppy socialization",
+        publisher: "American Veterinary Society of Animal Behavior",
+        url: "https://avsab.org/puppy-socialization-position-statement/",
+      },
+      {
+        label: "Behavior problems of dogs \u2014 socialisation and early learning",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/behavior/behavior-of-dogs/behavior-problems-of-dogs",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
+    needsVerification: [
+      "The body-language signals used to distinguish a puppy under threshold from one over it are drawn from behavioural guidance and are framed as what to watch rather than as a diagnostic scale. Attach a named source for each before publication.",
+      "That many dogs go through a second period of increased wariness in adolescence \u2014 widely described in behaviour literature, not yet sourced here.",
+      "The exposure categories are an editorial organising structure rather than a published checklist. Confirm nothing in the table conflicts with AVSAB or Merck guidance.",
+      "Whether any Canadian veterinary or behaviour body publishes puppy class standards that should be cited alongside AVSAB's.",
+    ],
+  },
+  {
+    slug: "moving-provinces-with-a-pet",
+    section: "canadian-life",
+    subcategory: "Moving",
+    title: "Moving to Another Province With a Pet",
+    deck: "Crossing a provincial line can create obligations you did not have and remove protections you were relying on. Two of the three layers of Canadian pet rules change, and nothing tells you.",
+    metaDescription:
+      "Rabies law, tenancy law and municipal licensing all change when you move province. What to check, in what order, and the ten minutes that matters most.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "guides-moving-boxes-dog",
+    mediaAlt:
+      "A dog sitting between two people carrying moving boxes \u2014 the day the rules change.",
+    tags: ["moving", "provincial", "licensing", "tenancy", "canada"],
+    featured: true,
+    status: "in-review",
+    keyTakeaways: [
+      "Federal rules barely change; provincial and municipal ones change completely, and municipal ones change again within a province.",
+      "Rabies vaccination is required by law in Ontario and not in British Columbia \u2014 moving west to east can create an obligation you did not have.",
+      "A no-pets clause is void in Ontario and enforceable in British Columbia and Quebec. Settle this before you sign anything.",
+      "Municipal licences do not transfer, and whether cats are licensed at all differs between cities.",
+      "Request veterinary records before you leave, and register with a new practice before you need one.",
+      "Update the microchip registry before moving day. A move is exactly when animals get out.",
+      "Keep cats indoors for several weeks after arrival regardless of their previous arrangement.",
+    ],
+    relatedSlugs: [
+      "pet-licensing-across-canada",
+      "renting-with-a-pet-in-canada",
+    ],
+    relatedCategorySlugs: ["pet-friendly-canada", "provincial-questions", "travelling-with-pets"],
+    sources: [
+      {
+        label: "Rabies and your pets \u2014 the provincial vaccination requirement",
+        publisher: "Government of Ontario",
+        url: "https://www.ontario.ca/page/rabies-pets",
+      },
+      {
+        label: "Rabies \u2014 vaccination is recommended in British Columbia, not legally required",
+        publisher: "BC Centre for Disease Control",
+        url: "https://www.bccdc.ca/health-info/diseases-conditions/rabies",
+      },
+      {
+        label: "Residential Tenancies Act, 2006 \u2014 section 14 makes a no-pets provision void",
+        publisher: "Government of Ontario",
+        url: "https://www.ontario.ca/laws/statute/06r17",
+      },
+      {
+        label: "Pets and tenancy \u2014 prohibitions, restrictions and the pet damage deposit",
+        publisher: "Province of British Columbia",
+        url: "https://www2.gov.bc.ca/gov/content/housing-tenancy/residential-tenancies/during-a-tenancy/pets-and-tenancy",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
+    needsVerification: [
+      "Ontario, British Columbia and Quebec are named because each was confirmed against a government source. The other ten jurisdictions are not characterised, and the article says so.",
+      "That municipal licences generally do not transfer between municipalities \u2014 stated as a general rule and verified for none of the five cities specifically.",
+      "Whether any province restricts the interprovincial movement of companion animals. None is claimed; the article treats domestic moves as unrestricted at the federal level.",
+      "Whether a practice may charge for transferring records, and whether any province regulates it \u2014 carried over from the guide to choosing a veterinarian, where it is also flagged.",
+      "The advice to keep cats in for several weeks after a move is widely given by rescue and veterinary organisations; attach a source before publication.",
+    ],
+  },
+  {
+    slug: "pet-emergency-preparedness-canada",
+    section: "canadian-life",
+    subcategory: "Preparedness",
+    title: "Pets, Wildfires and Evacuation: Emergency Preparedness in Canada",
+    deck: "Most evacuation shelters take service animals only, which means the plan almost everyone has does not work. Where the animal actually goes, and the 72-hour kit the federal guidance asks for.",
+    metaDescription:
+      "Most evacuation shelters accept only service animals. How to plan where a pet goes, and the 72-hour kit \u2014 including the water volumes nobody expects.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 7,
+    mediaId: "guides-pet-emergency-kit",
+    mediaAlt:
+      "A pet carrier, collapsible bowls, food, a coat and a bed laid out from above \u2014 the kit, assembled.",
+    tags: ["emergency-preparedness", "evacuation", "wildfire", "safety", "canada"],
+    featured: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Most evacuation shelters will only accept service animals \u2014 so the plan cannot be \u201cwe will go to the shelter\u201d.",
+      "Write a list now of where the animal could actually go: family further away, pet-friendly hotels, boarding kennels, clinics, shelters.",
+      "The Canadian standard is 72 hours of supplies, and pets are explicitly included in it.",
+      "Federal guidance puts water at 4 litres a day for an average dog and 1 litre for an average cat \u2014 a real volume to have bought in advance.",
+      "Leave the carrier out where you can reach it in the dark. Transport is what evacuations most often fail on.",
+      "When there is a warning rather than an order, that is the moment to move the animals.",
+      "If you truly cannot take them: never loose, never tethered, water in several rooms, and a notice on the door saying how many are inside and where they hide.",
+    ],
+    relatedSlugs: [
+      "emergency-vet-visits-in-canada",
+      "when-a-pet-goes-missing-in-canada",
+    ],
+    relatedCategorySlugs: ["pet-friendly-canada", "general-dog-discussion", "general-cat-discussion"],
+    sources: [
+      {
+        label: "Emergency preparedness for pets and service animals \u2014 the kit, the water volumes and the shelter position",
+        publisher: "Public Safety Canada",
+        url: "https://www.canada.ca/en/services/policing/emergencies/preparedness/get-prepared/emergency-planning-resources/animals.html",
+      },
+      {
+        label: "Emergency kit checklist \u2014 the 72-hour standard",
+        publisher: "Government of Canada",
+        url: "https://www.canada.ca/en/services/policing/emergencies/preparedness/get-prepared/emergency-kits/get-kit.html",
+      },
+      {
+        label: "Wildfire smoke, air quality and your health",
+        publisher: "Government of Canada",
+        url: "https://www.canada.ca/en/services/health/healthy-living/environment/air-quality/wildfire-smoke.html",
+      },
+    ],
+    resources: [
+      {
+        label: "Get Prepared \u2014 building a household emergency plan",
+        publisher: "Public Safety Canada",
+        url: "https://www.canada.ca/en/services/policing/emergencies/preparedness/get-prepared.html",
+      },
+    ],
+    needsVerification: [
+      "\u201cMost evacuation shelters will only accept service animals\u201d is federal guidance rather than a survey of Canadian shelters. Keep the federal attribution; do not restate it as a fact about any specific jurisdiction.",
+      "Whether any province or municipality operates a pet-inclusive evacuation shelter programme, or a pet-rescue service working from door notices \u2014 referred to generally and named nowhere.",
+      "The door-notice practice is widely recommended by emergency management organisations; confirm whether any Canadian authority publishes it before implying official standing.",
+      "Whether provincial emergency management agencies publish their own pet guidance that should be cited alongside the federal source.",
+    ],
+  },
+  {
+    slug: "reading-a-canadian-pet-food-label",
+    section: "health",
+    subcategory: "Nutrition",
+    title: "How to Read a Canadian Pet Food Label",
+    deck: "No Canadian body sets nutritional standards for retail pet food or approves it before sale. Which parts of the label are actually load-bearing, and which words mean nothing here.",
+    metaDescription:
+      "Pet food is not regulated in Canada the way you think. Who oversees what, which parts of the label matter, and why AAFCO is a US voluntary standard.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "food-pouring-kibble",
+    mediaAlt:
+      "Dry food being poured from an unbranded paper bag into a bowl.",
+    tags: ["nutrition", "labelling", "regulation", "food", "canada"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "No Canadian federal body sets nutritional standards for retail pet food or approves a formulation before sale.",
+      "CFIA covers imports, exports and animal by-products; Health Canada polices unsubstantiated health claims; the Competition Bureau requires a bilingual common name, metric net quantity and dealer address.",
+      "Ingredient definitions come from AAFCO \u2014 an American voluntary body \u2014 and are recommended rather than required here.",
+      "The nutritional adequacy statement and life stage is the most useful line on the bag and the one most people skim.",
+      "Ingredient order is by pre-cooking weight, so moisture and ingredient splitting both distort the list.",
+      "Guaranteed analysis is stated as fed, so wet and dry foods are not comparable until moisture is accounted for.",
+      "Premium, holistic and human-grade are not defined terms in Canadian law.",
+    ],
+    relatedSlugs: [
+      "senior-dogs-and-cats",
+      "cost-of-owning-a-dog-in-canada",
+    ],
+    relatedCategorySlugs: ["dog-food-and-nutrition", "cat-food-and-nutrition", "canadian-pet-products"],
+    sources: [
+      {
+        label: "Guide for the labelling and advertising of pet foods \u2014 who regulates what, and what a label must carry",
+        publisher: "Competition Bureau Canada",
+        url: "https://competition-bureau.canada.ca/en/how-we-foster-competition/education-and-outreach/publications/guide-labelling-and-advertising-pet-foods",
+      },
+      {
+        label: "Regulatory oversight of pet food, treats and chews in Canada",
+        publisher: "Canadian Food Inspection Agency",
+        url: "https://inspection.canada.ca/en/animal-health/terrestrial-animals/exports/pet-food/pet-food-treats-and-chews",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
+    needsVerification: [
+      "The division of federal responsibility is taken from the Competition Bureau's own guide. Confirm it is the current edition before publication, and that no regulatory change has since altered CFIA's role.",
+      "That ingredient order is by pre-cooking weight, and the effect of moisture and ingredient splitting \u2014 standard in labelling analysis but not attributed to a Canadian source here.",
+      "That premium, holistic and human-grade have no defined legal meaning in Canada \u2014 stated as an absence rather than a rule; confirm no federal definition exists before publication.",
+      "No product, brand or manufacturer is named anywhere, deliberately. Keep it that way unless an assessment can be sourced and dated.",
+      "Whether any Canadian body publishes an accepted-products list comparable to the VOHC for dental products, which would be worth adding as a resource.",
+    ],
+  },
+  {
+    slug: "end-of-life-care-for-pets",
+    section: "health",
+    subcategory: "End of life",
+    title: "End-of-Life Care, and Knowing When It Is Time",
+    deck: "The moment rarely announces itself, so a framework replaces it: pain, and whether an animal can still eat, breathe, move and engage. Written to be read early.",
+    metaDescription:
+      "How quality of life is actually assessed, what euthanasia involves, and the practical decisions worth making in a quiet week rather than a hard one.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 8,
+    mediaId: "health-hand-holding-paw",
+    mediaAlt:
+      "A hand holding a dog\u2019s paw, the dog leaning in towards it.",
+    tags: ["end-of-life", "euthanasia", "palliative-care", "senior-pets", "grief"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Quality of life is assessed on pain, and the ability to eat and drink, breathe comfortably, eliminate appropriately, move around the home and engage with you.",
+      "Track good days and bad days in writing. A month of notes shows a pattern that no single afternoon contains.",
+      "Palliative care and hospice exist between treating and stopping, and most owners are never told.",
+      "Current guidance is explicit: where pain and suffering cannot be relieved, withholding palliative sedation or euthanasia is unethical and inhumane.",
+      "Euthanasia is usually two stages, sedation first. Knowing what to expect beforehand removes most of the fear.",
+      "Decide home or clinic, and aftercare, in a quiet week rather than in a consulting room.",
+      "Home burial is not universally permitted \u2014 it depends on municipal rules, so check before rather than after.",
+    ],
+    relatedSlugs: [
+      "senior-dogs-and-cats",
+      "finding-a-veterinarian-in-canada",
+    ],
+    relatedCategorySlugs: ["dog-health", "cat-health", "vet-costs"],
+    sources: [
+      {
+        label: "End of life and euthanasia \u2014 quality of life assessment and the limits of palliative care",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/end-of-life-and-euthanasia/",
+      },
+      {
+        label: "2016 AAHA/IAAHPC End-of-Life Care Guidelines for Dogs and Cats",
+        publisher: "American Animal Hospital Association and the International Association for Animal Hospice and Palliative Care",
+        url: "https://www.aaha.org/resources/2016-aaha-iaahpc-end-of-life-care-guidelines/",
+      },
+      {
+        label: "Things pet owners should know about end-of-life care",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/resources/end-of-life-care-for-pets/",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
+    needsVerification: [
+      "The description of what euthanasia involves is written generically and deliberately names no drug. Confirm the two-stage description and the post-mortem observations against a veterinary source before publication \u2014 this is the passage where being wrong would do the most harm.",
+      "Availability of at-home euthanasia across Canada, and whether it is concentrated in urban centres. Described as varying by region and quantified nowhere.",
+      "Whether home burial of a companion animal is permitted, restricted or prohibited, and at which level of government. The article states only that it varies and to check locally \u2014 do not make this specific without a jurisdiction-by-jurisdiction check.",
+      "Whether letting surviving animals see the body helps them. Deliberately written as uncertain; do not strengthen it without evidence.",
+      "Guidance on discussing pet death with children is referred to only in general terms. If it is expanded, it needs a source from a body qualified to give it.",
+      "Pet-loss support services available in Canada \u2014 referred to generally and named nowhere.",
     ],
   },
 ] as const;

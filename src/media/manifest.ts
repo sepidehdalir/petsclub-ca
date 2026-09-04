@@ -15,6 +15,11 @@ import guidesAdoptMeBandana from "./photos/guides-adopt-me-bandana.jpg";
 import trainingDogAtWindow from "./photos/training-dog-at-window.jpg";
 import dogsDrinkingWaterSummer from "./photos/dogs-drinking-water-summer.jpg";
 import catsTwoRestingTogether from "./photos/cats-two-resting-together.jpg";
+import trainingPuppyOnStreet from "./photos/training-puppy-on-street.jpg";
+import guidesMovingBoxesDog from "./photos/guides-moving-boxes-dog.jpg";
+import guidesPetEmergencyKit from "./photos/guides-pet-emergency-kit.jpg";
+import foodPouringKibble from "./photos/food-pouring-kibble.jpg";
+import healthHandHoldingPaw from "./photos/health-hand-holding-paw.jpg";
 import healthDogTeethBrushing from "./photos/health-dog-teeth-brushing.jpg";
 import guidesCatUnderCar from "./photos/guides-cat-under-car.jpg";
 import guidesDogCollarTag from "./photos/guides-dog-collar-tag.jpg";
@@ -300,6 +305,63 @@ const assets = {
     photographer: "Viktoria B.",
     source: "Pexels",
     sourceUrl: "https://www.pexels.com/photo/a-cute-dog-in-a-car-16605513/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "training-puppy-on-street": {
+    id: "training-puppy-on-street",
+    src: trainingPuppyOnStreet,
+    file: "photos/training-puppy-on-street.jpg",
+    alt: "A golden retriever puppy on a lead walking along a street, taking in its surroundings.",
+    photographer: "Josh Hild",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/golden-retriever-puppy-walking-on-the-street-15940442/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "guides-moving-boxes-dog": {
+    id: "guides-moving-boxes-dog",
+    src: guidesMovingBoxesDog,
+    file: "photos/guides-moving-boxes-dog.jpg",
+    alt: "A golden retriever sits between two people carrying cardboard moving boxes in a bright room.",
+    photographer: "Anastasia Shuraeva",
+    source: "Pexels",
+    sourceUrl:
+      "https://www.pexels.com/photo/couple-holding-boxes-with-golden-retriever-at-home-5481537/",
+    licence: PEXELS_LICENCE,
+    showsPeople: true,
+  },
+  "guides-pet-emergency-kit": {
+    id: "guides-pet-emergency-kit",
+    src: guidesPetEmergencyKit,
+    file: "photos/guides-pet-emergency-kit.jpg",
+    alt: "Pet supplies laid out from above \u2014 a carrier bag, collapsible bowls with food, a coat and a bed with a small dog on it.",
+    photographer: "Hana Brannigan",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/flat-lay-of-chihuahua-travel-essentials-3981763/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "food-pouring-kibble": {
+    id: "food-pouring-kibble",
+    src: foodPouringKibble,
+    file: "photos/food-pouring-kibble.jpg",
+    alt: "A hand pours dry pet food from an unbranded paper bag into a white bowl.",
+    photographer: "cottonbro studio",
+    source: "Pexels",
+    sourceUrl:
+      "https://www.pexels.com/photo/a-hand-pouring-brown-dog-food-from-a-paper-bag-into-a-white-bowl-6568942/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "health-hand-holding-paw": {
+    id: "health-hand-holding-paw",
+    src: healthHandHoldingPaw,
+    file: "photos/health-hand-holding-paw.jpg",
+    alt: "A person\u2019s hand gently holding the paw of a black and white dog, which is leaning towards them.",
+    photographer: "Mykhailo Petrenko",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/tender-moment-human-hand-holding-dog-s-paw-32635783/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },
