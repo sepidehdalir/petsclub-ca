@@ -16,6 +16,7 @@ import { ArticleByline } from "@/features/editorial/components/article-byline";
 import { ArticleCard } from "@/features/editorial/components/article-card";
 import {
   ArticleAuthorCard,
+  ArticleResources,
   ArticleSources,
   KeyTakeaways,
   RelatedDiscussion,
@@ -63,8 +64,16 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
         <Container width="prose" className="pb-8 pt-5 sm:pt-9">
           <Breadcrumbs
             className="mb-5 sm:mb-7"
+            // Home > Canada Guides > Dogs > this article. The section is a real
+            // surface with its own listing page, so leaving it out both cost a
+            // reader a step and left the `BreadcrumbList` claiming a flatter
+            // hierarchy than the site actually has. Sections pointed at
+            // `/guides` are skipped rather than repeating the hub.
             items={[
               { name: "Canada Guides", path: "/guides" },
+              ...(section.surfacePath === "/guides"
+                ? []
+                : [{ name: section.name, path: section.surfacePath }]),
               { name: article.title, path },
             ]}
           />
@@ -117,6 +126,7 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
           <div className="mt-12 space-y-8">
             {article.veterinaryNotice ? <VeterinaryBoundary /> : null}
             <ArticleSources article={article} />
+            <ArticleResources article={article} />
             <RelatedDiscussion categorySlugs={article.relatedCategorySlugs ?? []} />
             <ArticleAuthorCard article={article} />
           </div>

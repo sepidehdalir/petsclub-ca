@@ -118,3 +118,92 @@ export function Checklist({ title, children }: ChecklistProps) {
     </section>
   );
 }
+
+export interface ScheduleRow {
+  /** Row header — the age or stage. Rendered as a `<th scope="row">`. */
+  when: string;
+  /** What happens then, in a sentence. */
+  what: string;
+}
+
+export interface ScheduleTableProps {
+  /**
+   * The table's own explanation, rendered as a visible `<caption>`.
+   *
+   * Required, and required to say that the schedule is a shape rather than a
+   * prescription. A table looks more authoritative than the prose around it —
+   * it reads as *the* schedule — so the sentence that says "yours may
+   * reasonably differ" has to travel inside the table rather than sit in a
+   * paragraph above it that a scanning reader skips.
+   */
+  caption: string;
+  /** Column heading for the `when` column. */
+  whenLabel: string;
+  /** Column heading for the `what` column. */
+  whatLabel: string;
+  rows: readonly ScheduleRow[];
+}
+
+/**
+ * A two-column schedule, for the vaccination guides.
+ *
+ * ## Why a real table
+ *
+ * The schedules were bullet lists of "age — what happens" pairs, which is a
+ * table pretending not to be one. A reader scanning for "when is the last
+ * one" has to read every bullet; in a table they read one column.
+ *
+ * ## Why two columns and not four
+ *
+ * The obvious design is age / vaccine / notes / interval. It is unreadable at
+ * 360px, and the usual fix — horizontal scroll — hides the column that
+ * matters most on the device most people are holding. Two columns wrap
+ * cleanly at any width without scrolling, so the `what` cell carries a
+ * sentence rather than a fragment. The overflow wrapper stays as a safety net
+ * for a long unbreakable string, not as the layout.
+ *
+ * Semantics: `when` is a `<th scope="row">`, so a screen reader announces the
+ * age with each cell and the table is navigable without seeing the grid.
+ */
+export function ScheduleTable({ caption, whenLabel, whatLabel, rows }: ScheduleTableProps) {
+  return (
+    <div className="my-8 overflow-x-auto">
+      <table className="w-full border-collapse text-left">
+        <caption className="mb-3 text-left font-sans text-caption text-foreground-muted">
+          {caption}
+        </caption>
+
+        <thead>
+          <tr className="border-b border-ink-300">
+            <th
+              scope="col"
+              className="py-2 pr-4 align-bottom font-sans text-label uppercase text-pine-800"
+            >
+              {whenLabel}
+            </th>
+            <th
+              scope="col"
+              className="py-2 align-bottom font-sans text-label uppercase text-pine-800"
+            >
+              {whatLabel}
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.when} className="border-b border-border align-top">
+              <th
+                scope="row"
+                className="w-[8.5rem] py-3 pr-4 text-body-sm font-semibold text-foreground sm:w-44"
+              >
+                {row.when}
+              </th>
+              <td className="py-3 text-body-sm text-foreground-reading">{row.what}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}

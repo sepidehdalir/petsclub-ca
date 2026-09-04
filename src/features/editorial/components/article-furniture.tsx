@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { Card, CardBody } from "@/components/ui/card";
-import type { Article } from "@/features/editorial/articles";
+import type { Article, ArticleSource } from "@/features/editorial/articles";
 import { getAuthor } from "@/features/editorial/authors";
 import {
   communityCategoryPath,
@@ -113,12 +113,46 @@ export interface ArticleSourcesProps {
 }
 
 /**
- * Where a reader can check the article for themselves.
+ * A list of outbound links under a heading. Shared by the two blocks below.
+ */
+function LinkList({ items }: { items: readonly ArticleSource[] }) {
+  return (
+    <ul className="mt-3 space-y-2">
+      {items.map((item) => (
+        <li key={item.url} className="text-body-sm text-foreground-muted">
+          <a
+            href={item.url}
+            rel="noreferrer"
+            className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"
+          >
+            {item.label}
+          </a>{" "}
+          — {item.publisher}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * The evidence behind the article.
  *
- * Published references only. The article's `needsVerification` list — the
- * claims an editor still has to confirm — is deliberately **not** rendered
- * here; see the note above `VeterinaryBoundary`. It is a work queue, not a
- * reference list, and the two were previously printed under one heading.
+ * ## Why this is not the same block as "Where to go next"
+ *
+ * These two used to be one list, and eleven articles cited the same
+ * veterinary association homepage under a heading reading "Sources". That
+ * link is genuinely useful — it is how you find your own province's
+ * regulator — but it supports no claim in any of those articles. A reader
+ * scanning for whether a piece is sourced saw a citation and got a directory.
+ *
+ * So the split is by *promise*: this heading says "here is where we got
+ * that", and an entry earns it only if following the link lands on the thing
+ * the article says. `ArticleResources` says "here is where you look yours
+ * up", which is a different and equally honest offer.
+ *
+ * The article's `needsVerification` list — claims an editor still has to
+ * confirm — is deliberately rendered by neither; see the note above
+ * `VeterinaryBoundary`.
  */
 export function ArticleSources({ article }: ArticleSourcesProps) {
   const sources = article.sources ?? [];
@@ -138,21 +172,49 @@ export function ArticleSources({ article }: ArticleSourcesProps) {
       >
         Sources
       </h2>
+      <p className="mt-2 text-body-sm text-foreground-muted">
+        The publications behind the specific claims above.
+      </p>
 
-      <ul className="mt-3 space-y-2">
-        {sources.map((source) => (
-          <li key={source.url} className="text-body-sm text-foreground-muted">
-            <a
-              href={source.url}
-              rel="noreferrer"
-              className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"
-            >
-              {source.label}
-            </a>{" "}
-            — {source.publisher}
-          </li>
-        ))}
-      </ul>
+      <LinkList items={sources} />
+    </section>
+  );
+}
+
+export interface ArticleResourcesProps {
+  article: Article;
+}
+
+/**
+ * Directories, regulators and official tools — useful, but not evidence.
+ *
+ * Almost everything in this project varies by province, municipality,
+ * practice or insurer, and the honest answer to most specifics is "look yours
+ * up". This block is where that lookup lives, named as what it is.
+ */
+export function ArticleResources({ article }: ArticleResourcesProps) {
+  const resources = article.resources ?? [];
+
+  if (resources.length === 0) {
+    return null;
+  }
+
+  return (
+    <section
+      aria-labelledby="article-resources-heading"
+      className="border-t border-border pt-6"
+    >
+      <h2
+        id="article-resources-heading"
+        className="font-sans text-label uppercase text-foreground-subtle"
+      >
+        Where to go next
+      </h2>
+      <p className="mt-2 text-body-sm text-foreground-muted">
+        Official directories and regulators, for the parts that depend on where you live.
+      </p>
+
+      <LinkList items={resources} />
     </section>
   );
 }

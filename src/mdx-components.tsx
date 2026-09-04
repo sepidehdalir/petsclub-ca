@@ -5,6 +5,7 @@ import { Children, isValidElement, type ReactNode } from "react";
 import {
   Checklist,
   Note,
+  ScheduleTable,
   VetNote,
 } from "@/features/editorial/components/article-callouts";
 import { slugify } from "@/lib/utils/slug";
@@ -95,6 +96,7 @@ const components = {
   Note,
   VetNote,
   Checklist,
+  ScheduleTable,
 } satisfies MDXComponents;
 
 export function useMDXComponents(): MDXComponents {

@@ -147,7 +147,24 @@ export interface Article {
   relatedSlugs?: readonly string[];
   /** Community categories this article should send readers to. Validated against the taxonomy. */
   relatedCategorySlugs?: readonly string[];
+  /**
+   * Evidence. Publications that actually support a claim this article makes.
+   *
+   * The bar is narrow on purpose: if a reader followed the link, would they
+   * find the thing the article says? A directory, a regulator's landing page
+   * or a "find a vet" tool answers no — those are useful, but they are not
+   * evidence, and listing them under a heading reading "Sources" tells a
+   * reader the article is cited when it is not. Those go in `resources`.
+   */
   sources?: readonly ArticleSource[];
+  /**
+   * Useful places to go next. Directories, regulators, official tools.
+   *
+   * Rendered under its own heading, separately from `sources`, because the
+   * two make different promises. This is "here is where you look yours up";
+   * `sources` is "here is where we got that".
+   */
+  resources?: readonly ArticleSource[];
   /**
    * Claims that need checking against a primary source before publication.
    *
@@ -230,10 +247,12 @@ export const articles: readonly Article[] = [
         publisher: "ASPCA Animal Poison Control Center",
         url: "https://www.aspca.org/news/keeping-pets-safe-during-winter-dangers-ice-melts",
       },
+    ],
+    resources: [
       {
-        label: "Find a veterinarian, and provincial veterinary associations",
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -283,10 +302,12 @@ export const articles: readonly Article[] = [
         publisher: "City of Toronto",
         url: "https://www.toronto.ca/community-people/animals-pets/pet-licensing/",
       },
+    ],
+    resources: [
       {
-        label: "Find a veterinarian, and provincial veterinary associations",
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -390,9 +411,16 @@ export const articles: readonly Article[] = [
     ],
     sources: [
       {
-        label: "Find a veterinarian, and provincial veterinary associations",
+        label: "Position statement on puppy socialization, and why it precedes full vaccination",
+        publisher: "American Veterinary Society of Animal Behavior",
+        url: "https://avsab.org/puppy-socialization-position-statement/",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -412,7 +440,7 @@ export const articles: readonly Article[] = [
     publishedAt: "2026-09-01",
     updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
-    readingMinutes: 10,
+    readingMinutes: 8,
     mediaId: "dogs-golden-in-leaves",
     tags: ["puppies", "vaccination", "preventative-care", "socialisation", "dogs"],
     status: "in-review",
@@ -431,11 +459,6 @@ export const articles: readonly Article[] = [
     ],
     relatedCategorySlugs: ["puppies", "dog-health", "vet-costs"],
     sources: [
-      {
-        label: "Find a veterinarian, and provincial veterinary associations",
-        publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/",
-      },
       {
         label: "2022 Canine Vaccination Guidelines, and the 2024 update making leptospirosis core",
         publisher: "American Animal Hospital Association",
@@ -460,6 +483,13 @@ export const articles: readonly Article[] = [
         label: "Rabies — vaccination is recommended in British Columbia, not legally required",
         publisher: "BC Centre for Disease Control",
         url: "https://www.bccdc.ca/health-info/diseases-conditions/rabies",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -502,6 +532,30 @@ export const articles: readonly Article[] = [
       "puppies",
       "general-dog-discussion",
     ],
+    sources: [
+      {
+        label: "Position statement on puppy socialization — why early training and rest matter",
+        publisher: "American Veterinary Society of Animal Behavior",
+        url: "https://avsab.org/puppy-socialization-position-statement/",
+      },
+      {
+        label: "Residential Tenancies Act, 2006 — section 14 makes a no-pets provision void",
+        publisher: "Government of Ontario",
+        url: "https://www.ontario.ca/laws/statute/06r17",
+      },
+      {
+        label: "Pets and tenancy — where a no-pets term is enforceable",
+        publisher: "Province of British Columbia",
+        url: "https://www2.gov.bc.ca/gov/content/housing-tenancy/residential-tenancies/during-a-tenancy/pets-and-tenancy",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
     needsVerification: [
       "The age-in-months-plus-one-hour rule of thumb — presented as a rough planning figure rather than guidance; attach a source or cut it.",
       "The 16–18 hours of sleep a day figure, shared with the first-30-days guide.",
@@ -536,11 +590,11 @@ export const articles: readonly Article[] = [
       "puppy-vaccination-schedule-in-canada",
     ],
     relatedCategorySlugs: ["vet-costs", "pet-insurance", "dog-food-and-nutrition"],
-    sources: [
+    resources: [
       {
-        label: "Find a veterinarian, and provincial veterinary associations",
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -577,7 +631,7 @@ export const articles: readonly Article[] = [
     publishedAt: "2026-09-01",
     updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
-    readingMinutes: 8,
+    readingMinutes: 9,
     mediaId: "cats-kittens-at-window",
     tags: ["kittens", "new-owners", "litter-box", "socialisation", "cats"],
     featured: true,
@@ -597,9 +651,16 @@ export const articles: readonly Article[] = [
     relatedCategorySlugs: ["kittens", "general-cat-discussion", "cat-behaviour"],
     sources: [
       {
-        label: "Find a veterinarian, and provincial veterinary associations",
+        label: "Which lilies are toxic to cats, and why pollen and vase water count",
+        publisher: "ASPCA Animal Poison Control Center",
+        url: "https://www.aspca.org/news/which-lilies-are-toxic-pets",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -620,7 +681,7 @@ export const articles: readonly Article[] = [
     publishedAt: "2026-09-01",
     updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
-    readingMinutes: 9,
+    readingMinutes: 8,
     mediaId: "cats-kitten-windowsill",
     tags: ["kittens", "vaccination", "preventative-care", "indoor-cats", "cats"],
     status: "in-review",
@@ -638,11 +699,6 @@ export const articles: readonly Article[] = [
     ],
     relatedCategorySlugs: ["kittens", "cat-health", "vet-costs"],
     sources: [
-      {
-        label: "Find a veterinarian, and provincial veterinary associations",
-        publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/",
-      },
       {
         label: "2020 AAHA/AAFP Feline Vaccination Guidelines",
         publisher: "American Animal Hospital Association and American Association of Feline Practitioners",
@@ -669,6 +725,13 @@ export const articles: readonly Article[] = [
         url: "https://www.canada.ca/en/public-health/services/reports-publications/canada-communicable-disease-report-ccdr/monthly-issue/2024-50/issue-12-december-2024/bats-rabies.html",
       },
     ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
     needsVerification: [
       "Ontario, British Columbia and Alberta are named because each was confirmed against a government source. Every other province and territory is still described generically — establish each before naming it.",
       "Whether any Canadian province regulates rabies vaccination differently for cats than for dogs.",
@@ -687,7 +750,7 @@ export const articles: readonly Article[] = [
     publishedAt: "2026-09-01",
     updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
-    readingMinutes: 8,
+    readingMinutes: 7,
     mediaId: "cats-window-tabby",
     tags: ["indoor-cats", "enrichment", "behaviour", "apartments", "cats"],
     status: "in-review",
@@ -704,11 +767,11 @@ export const articles: readonly Article[] = [
       "bringing-home-a-kitten-first-30-days",
     ],
     relatedCategorySlugs: ["cat-behaviour", "general-cat-discussion", "kittens"],
-    sources: [
+    resources: [
       {
-        label: "Find a veterinarian, and provincial veterinary associations",
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -729,7 +792,7 @@ export const articles: readonly Article[] = [
     publishedAt: "2026-09-01",
     updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
-    readingMinutes: 8,
+    readingMinutes: 7,
     mediaId: "cats-kittens-at-window",
     tags: ["money", "budgeting", "pet-insurance", "vet-costs", "cats"],
     status: "in-review",
@@ -746,11 +809,11 @@ export const articles: readonly Article[] = [
       "kitten-vaccination-schedule-in-canada",
     ],
     relatedCategorySlugs: ["vet-costs", "pet-insurance", "cat-food-and-nutrition"],
-    sources: [
+    resources: [
       {
-        label: "Find a veterinarian, and provincial veterinary associations",
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -794,7 +857,7 @@ export const articles: readonly Article[] = [
     publishedAt: "2026-09-02",
     updatedAt: "2026-09-02",
     authorId: "pet-club-editorial",
-    readingMinutes: 8,
+    readingMinutes: 10,
     mediaId: "health-senior-dog-resting",
     mediaAlt:
       "An elderly dog with a greying muzzle rests on a wooden floor — the years a policy is bought for.",
@@ -814,6 +877,30 @@ export const articles: readonly Article[] = [
       "cost-of-owning-a-dog-in-canada",
     ],
     relatedCategorySlugs: ["pet-insurance", "vet-costs"],
+    sources: [
+      {
+        label: "How to resolve a property and other insurance complaint, and the escalation path",
+        publisher: "Financial Services Regulatory Authority of Ontario",
+        url: "https://www.fsrao.ca/consumers/property-and-other-insurance/how-resolve-property-and-other-insurance-complaint",
+      },
+      {
+        label: "Dispute resolution — how a general insurance complaint escalates",
+        publisher: "Insurance Bureau of Canada",
+        url: "https://www.ibc.ca/insurance-basics/how-insurance-works/dispute-resolution",
+      },
+    ],
+    resources: [
+      {
+        label: "General Insurance OmbudService — independent dispute resolution for general insurance",
+        publisher: "General Insurance OmbudService",
+        url: "https://www.giocanada.org/",
+      },
+      {
+        label: "How to file a complaint about an insurance company",
+        publisher: "Financial Consumer Agency of Canada",
+        url: "https://www.canada.ca/en/financial-consumer-agency/services/insurance/make-complaint.html",
+      },
+    ],
     needsVerification: [
       "Whether every consumer pet policy sold in Canada excludes pre-existing conditions, or whether any insurer offers a route back for a resolved condition — stated as a general rule with a conditional exception; confirm against several current policy wordings before it is any firmer.",
       "That reimbursement is typically calculated after the deductible rather than before — the article deliberately tells the reader to check which, rather than asserting one. Confirm the market norm before naming it.",
@@ -835,7 +922,7 @@ export const articles: readonly Article[] = [
     publishedAt: "2026-09-02",
     updatedAt: "2026-09-02",
     authorId: "pet-club-editorial",
-    readingMinutes: 7,
+    readingMinutes: 9,
     mediaId: "dogs-autumn-bridge",
     mediaAlt:
       "A golden retriever trots along a leaf-covered footbridge on an ordinary autumn day.",
@@ -853,9 +940,16 @@ export const articles: readonly Article[] = [
     relatedCategorySlugs: ["vet-costs", "provincial-questions"],
     sources: [
       {
-        label: "Find a veterinarian, and provincial veterinary associations",
+        label: "The provincial and territorial veterinary regulatory bodies, by name",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -913,9 +1007,16 @@ export const articles: readonly Article[] = [
         url: "https://www.merckvetmanual.com/toxicology/petroleum-product-poisoning/petroleum-product-poisoning-in-animals",
       },
       {
-        label: "Find a veterinarian, and provincial veterinary associations",
+        label: "The provincial and territorial veterinary regulatory bodies, by name",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -937,7 +1038,7 @@ export const articles: readonly Article[] = [
     publishedAt: "2026-09-02",
     updatedAt: "2026-09-02",
     authorId: "pet-club-editorial",
-    readingMinutes: 9,
+    readingMinutes: 11,
     mediaId: "health-dog-window-light",
     mediaAlt: "A shaggy dog settles on a sofa in a shaft of afternoon window light.",
     tags: ["travel", "planning", "identification", "microchip", "canada"],
@@ -956,6 +1057,35 @@ export const articles: readonly Article[] = [
       "renting-with-a-pet-in-canada",
     ],
     relatedCategorySlugs: ["travelling-with-pets", "pet-friendly-canada"],
+    sources: [
+      {
+        label: "Air carrier tariffs — the published contract of carriage, and where to find each one",
+        publisher: "Canadian Transportation Agency",
+        url: "https://otc-cta.gc.ca/eng/air-carrier-tariffs-posted-websites",
+      },
+      {
+        label: "Dogs in Parks Canada’s protected places — the leash requirement and penalties",
+        publisher: "Parks Canada",
+        url: "https://parks.canada.ca/voyage-travel/regles-rules/chien-dog",
+      },
+    ],
+    resources: [
+      {
+        label: "Air carrier tariffs — every airline must publish its terms of carriage",
+        publisher: "Canadian Transportation Agency",
+        url: "https://otc-cta.gc.ca/eng/air-carrier-tariffs-posted-websites",
+      },
+      {
+        label: "Dogs in Parks Canada’s protected places",
+        publisher: "Parks Canada",
+        url: "https://parks.canada.ca/voyage-travel/regles-rules/chien-dog",
+      },
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
     needsVerification: [
       "Every carrier-specific rule is deliberately absent — no airline, rail, ferry or bus operator is named, and no dimension, fee, documentation or temperature restriction is stated. If any of this is ever added, it must be sourced per operator and per route, and dated, because it changes.",
       "Whether taxi and rideshare operators in major Canadian cities accept animals, and under what conditions — written as something the reader must establish locally.",
