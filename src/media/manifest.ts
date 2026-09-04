@@ -3,7 +3,12 @@ import type { StaticImageData } from "next/image";
 import aboutKitchenPlay from "./photos/about-kitchen-play.jpg";
 import catsKittenWindowsill from "./photos/cats-kitten-windowsill.jpg";
 import dogsBlackLabPuppy from "./photos/dogs-black-lab-puppy.jpg";
-import guidesDogInCar from "./photos/guides-dog-in-car.jpg";
+import guidesDogHarnessInCar from "./photos/guides-dog-harness-in-car.jpg";
+import trainingDogInCrate from "./photos/training-dog-in-crate.jpg";
+import healthVetExaminingDog from "./photos/health-vet-examining-dog.jpg";
+import healthCatInCarrier from "./photos/health-cat-in-carrier.jpg";
+import catsFeatherToyPlay from "./photos/cats-feather-toy-play.jpg";
+import catsEatingFromBowls from "./photos/cats-eating-from-bowls.jpg";
 import catsKittensAtWindow from "./photos/cats-kittens-at-window.jpg";
 import catsWindowTabby from "./photos/cats-window-tabby.jpg";
 import communityKitchenMorning from "./photos/community-kitchen-morning.jpg";
@@ -277,14 +282,71 @@ const assets = {
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },
-  "guides-dog-in-car": {
-    id: "guides-dog-in-car",
-    src: guidesDogInCar,
-    file: "photos/guides-dog-in-car.jpg",
-    alt: "A border collie rests on a blanket in the back of a car, looking towards the camera.",
-    photographer: "Brixiv",
+  "guides-dog-harness-in-car": {
+    id: "guides-dog-harness-in-car",
+    src: guidesDogHarnessInCar,
+    file: "photos/guides-dog-harness-in-car.jpg",
+    alt: "A tan and white dog wearing a harness sits on the back seat of a car, looking out of the window.",
+    photographer: "Viktoria B.",
     source: "Pexels",
-    sourceUrl: "https://www.pexels.com/photo/a-cute-dog-lying-on-the-car-5776772/",
+    sourceUrl: "https://www.pexels.com/photo/a-cute-dog-in-a-car-16605513/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "training-dog-in-crate": {
+    id: "training-dog-in-crate",
+    src: trainingDogInCrate,
+    file: "photos/training-dog-in-crate.jpg",
+    alt: "A pale dog dozes on a cushioned bed inside an open wire crate in a sunlit room.",
+    photographer: "Rob Bach",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/dog-sleeping-in-a-cage-16267964/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "health-vet-examining-dog": {
+    id: "health-vet-examining-dog",
+    src: healthVetExaminingDog,
+    file: "photos/health-vet-examining-dog.jpg",
+    alt: "A veterinarian in scrubs listens to a small Pomeranian's chest with a stethoscope on a consulting table.",
+    photographer: "Tima Miroshnichenko",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/a-dog-at-the-clinic-6235650/",
+    licence: PEXELS_LICENCE,
+    showsPeople: true,
+  },
+  "health-cat-in-carrier": {
+    id: "health-cat-in-carrier",
+    src: healthCatInCarrier,
+    file: "photos/health-cat-in-carrier.jpg",
+    alt: "A ginger tabby cat settled inside a soft pet carrier, lit by low sun.",
+    photographer: "MikeGz",
+    source: "Pexels",
+    sourceUrl:
+      "https://www.pexels.com/photo/cozy-orange-tabby-cat-relaxing-in-sunlit-carrier-29931479/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "cats-feather-toy-play": {
+    id: "cats-feather-toy-play",
+    src: catsFeatherToyPlay,
+    file: "photos/cats-feather-toy-play.jpg",
+    alt: "A grey cat rears up and catches a feather toy in both front paws.",
+    photographer: "Daniil Kondrashin",
+    source: "Pexels",
+    sourceUrl:
+      "https://www.pexels.com/photo/gray-cat-playing-with-feather-toy-indoors-38151508/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "cats-eating-from-bowls": {
+    id: "cats-eating-from-bowls",
+    src: catsEatingFromBowls,
+    file: "photos/cats-eating-from-bowls.jpg",
+    alt: "Two cats eat side by side from separate ceramic bowls on a wooden stand.",
+    photographer: ".M.Q Huang",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/close-up-photo-of-kittens-eating-6782551/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },
