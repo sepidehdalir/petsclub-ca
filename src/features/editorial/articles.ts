@@ -442,7 +442,7 @@ export const articles: readonly Article[] = [
     publishedAt: "2026-09-01",
     updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
-    readingMinutes: 8,
+    readingMinutes: 9,
     mediaId: "dogs-golden-in-leaves",
     tags: ["puppies", "vaccination", "preventative-care", "socialisation", "dogs"],
     status: "in-review",
@@ -1104,6 +1104,330 @@ export const articles: readonly Article[] = [
       "Leash, seasonal and access rules for national, provincial and municipal parks, campgrounds and beaches — the article says to check the specific site, and names none.",
       "That flat-faced breeds tolerate heat poorly. Widely accepted; attach a veterinary source before publication.",
       "Whether insurance policies commonly cover care received away from home within Canada — raised as a wording question, not answered.",
+    ],
+  },
+
+  /* ---------------------------------------------------------------- Batch D
+     Articles 16\u201320, and the first batch written to the standard Quality
+     Gate #1 arrived at rather than retrofitted to it: name the jurisdiction,
+     cite the source a reader can follow, say which jurisdictions were actually
+     checked, and refuse to generalise past them.
+
+     Two of these close open questions carried since the first batch. The
+     parasite guide finally names where blacklegged ticks are established, and
+     with it the heartworm start date and the reasoning behind it. The
+     separation anxiety guide is the destination the crate guide has been
+     deferring to since it was written, and it takes Training/Behaviour from
+     one article to two.
+
+     No prices anywhere, as before. */
+
+  {
+    slug: "parasite-prevention-for-pets-in-canada",
+    section: "health",
+    subcategory: "Preventative care",
+    title: "Parasite Prevention in Canada, by Region and Season",
+    deck: "Heartworm has a date and ticks have a map \u2014 and both are Canadian. Where blacklegged ticks are actually established, why prevention starts on 1 June, and the month everyone stops too early.",
+    metaDescription:
+      "Where blacklegged ticks are established in Canada, why heartworm prevention starts on 1 June, and the autumn month most owners stop too early.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "health-dog-in-tall-grass",
+    mediaAlt:
+      "A dog shoulder-deep in long meadow grass \u2014 which is exactly where the ticks are.",
+    tags: ["parasites", "ticks", "heartworm", "fleas", "preventative-care", "canada"],
+    featured: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Blacklegged ticks are established in southern Manitoba, southern and southeastern Ontario, southern Quebec and Nova Scotia \u2014 and the range is expanding.",
+      "British Columbia has a different species, the western blacklegged tick, and a comparatively stable picture.",
+      "1 June is the Canadian convention for starting heartworm prevention, because larval development in mosquitoes stops below about 14 \u00b0C.",
+      "The common mistake is not missing July. It is stopping tick prevention in September, when ticks are still active.",
+      "Fleas are an indoor, year-round problem, which is why an outbreak in February is not mysterious.",
+      "Never put a dog tick product on a cat, and raise it explicitly if both live in your house.",
+    ],
+    relatedSlugs: [
+      "puppy-vaccination-schedule-in-canada",
+      "summer-heat-safety-for-dogs-in-canada",
+    ],
+    relatedCategorySlugs: ["dog-health", "cat-health", "vet-costs"],
+    sources: [
+      {
+        label: "Lyme disease surveillance in Canada \u2014 where blacklegged ticks are established",
+        publisher: "Public Health Agency of Canada",
+        url: "https://www.canada.ca/en/public-health/services/publications/diseases-conditions/lyme-disease-surveillance-canada-annual-edition-2022.html",
+      },
+      {
+        label: "Seasonal canine heartworm prevention in Canada: does our current timing still work?",
+        publisher: "Centre for Public Health and Zoonoses, Ontario Veterinary College",
+        url: "https://www.wormsandgermsblog.com/2025/04/articles/animals/dogs/seasonal-canine-heartworm-prevention-in-canadadoes-our-current-timing-still-work/",
+      },
+    ],
+    resources: [
+      {
+        label: "Lyme disease monitoring, and the tick surveillance data by region",
+        publisher: "Government of Canada",
+        url: "https://www.canada.ca/en/public-health/services/diseases/lyme-disease/surveillance-lyme-disease.html",
+      },
+    ],
+    needsVerification: [
+      "The four provinces named for established blacklegged tick populations come from federal surveillance reporting. Re-check against the current annual edition before publication, because the range is explicitly described as expanding.",
+      "Heartworm prevalence increases in Manitoba and Quebec between 2007 and 2016 \u2014 attach the underlying study rather than relying on a summary.",
+      "Whether any Canadian veterinary body publishes a current national parasite protocol that should be cited alongside the regional evidence.",
+      "That some canine tick products are toxic to cats, including by contact with a treated dog \u2014 widely known clinically, and it should carry a toxicology or regulator source before publication.",
+      "Tick removal technique is described generically; attach a public health or veterinary source.",
+    ],
+  },
+  {
+    slug: "spaying-and-neutering-in-canada",
+    section: "health",
+    subcategory: "Procedures",
+    title: "Spaying and Neutering in Canada: Timing, Cost and Recovery",
+    deck: "\u201cSix months\u201d is still right for a lot of animals and is no longer the answer for large-breed dogs. What the timing turns on, and the two Canadian costs nobody mentions.",
+    metaDescription:
+      "Why the timing guidance changed for large-breed dogs, what recovery actually asks of you, and the two Canadian costs that change the arithmetic.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 5,
+    mediaId: "health-dog-recovery-cone",
+    mediaAlt:
+      "A golden retriever in a recovery cone resting on the floor \u2014 the fortnight that decides how the surgery goes.",
+    tags: ["spay-neuter", "surgery", "preventative-care", "money", "canada"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Small dogs: around six months for males, and before the first heat \u2014 roughly five to six months \u2014 for females.",
+      "Large dogs over about 45 lb: after growth finishes, usually 9 to 15 months. This is the part that changed.",
+      "For large-breed females the window is wider still, 5 to 15 months, and is meant to be narrowed by a veterinarian rather than applied as a rule.",
+      "The reasoning is orthopaedic and oncologic \u2014 it is an argument for timing the procedure, not for skipping it.",
+      "Municipal licence fees are commonly lower for an altered animal, which is a recurring saving rather than a one-off.",
+      "Exercise restriction during recovery is the instruction most often ignored and the one that matters most.",
+    ],
+    relatedSlugs: [
+      "adopting-a-pet-in-canada",
+      "cost-of-owning-a-dog-in-canada",
+    ],
+    relatedCategorySlugs: ["vet-costs", "dog-health", "cat-health"],
+    sources: [
+      {
+        label: "When should I spay or neuter my dog or cat? Age and timing by projected adult weight",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/resources/spay-or-neuter/",
+      },
+      {
+        label: "2019 AAHA Canine Life Stage Guidelines \u2014 reproductive health and gonadectomy timing",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/resources/life-stage-canine-2019/reproductive-health/",
+      },
+      {
+        label: "Pet licensing \u2014 annual licences for dogs and cats",
+        publisher: "City of Toronto",
+        url: "https://www.toronto.ca/community-people/animals-pets/pet-licensing/",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
+    needsVerification: [
+      "The AAHA weight and age windows are cited from the association's own guidance. Re-check against the current edition before publication, since this is precisely the guidance that has already moved once.",
+      "That municipal licence fees are commonly lower for spayed or neutered animals \u2014 verified for Toronto and Calgary only; no proportion of Canadian municipalities is claimed.",
+      "Feline timing is described only as \u201cgenerally done young\u201d because no AAFP age window has been confirmed here. Establish one before making it any more specific.",
+      "Which subsidised or low-cost spay and neuter programmes operate in Canada, and who runs them \u2014 described as intensely local and named nowhere.",
+      "That sex hormones contribute to growth plate closure, stated as the mechanism behind the large-breed change. Attach a veterinary source.",
+    ],
+  },
+  {
+    slug: "adopting-a-pet-in-canada",
+    section: "canadian-life",
+    subcategory: "Getting a pet",
+    title: "Adopting a Dog or Cat in Canada",
+    deck: "Shelters, rescues, breeders and private sales \u2014 what each one owes you, the questions that separate a serious organisation from a good website, and the federal import rule almost nobody knows about.",
+    metaDescription:
+      "What shelters, rescues and breeders each owe you, the questions the CFIA says to ask, and the 2022 import rule that covers rescue and fostering.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "guides-adopt-me-bandana",
+    mediaAlt:
+      "A dog in an \u201cAdopt Me\u201d bandana at an outdoor adoption event.",
+    tags: ["adoption", "rescue", "shelters", "breeders", "canada"],
+    featured: true,
+    status: "in-review",
+    keyTakeaways: [
+      "Since 28 September 2022 commercial dogs cannot enter Canada from countries the CFIA lists as high-risk for dog rabies \u2014 and \u201ccommercial\u201d expressly includes adoption and fostering.",
+      "Ask where the animal is from, what documentation comes with it, and whether you may visit. The CFIA publishes this list itself.",
+      "Red flags: meeting somewhere neutral, no access to the animal or its mother, money transferred abroad, no questions about your household, no paperwork.",
+      "A difficult application process is a recommendation, not an obstacle.",
+      "Settle your housing before you apply \u2014 a no-pets clause is void in Ontario and binding in British Columbia and Quebec.",
+      "Re-register the microchip in your own name the week the animal arrives. Implanting and registering are two different things.",
+    ],
+    relatedSlugs: [
+      "spaying-and-neutering-in-canada",
+      "renting-with-a-pet-in-canada",
+    ],
+    relatedCategorySlugs: ["pet-friendly-canada", "general-dog-discussion", "general-cat-discussion"],
+    sources: [
+      {
+        label: "Ask questions before you buy or adopt a dog \u2014 and the warning signs to look for",
+        publisher: "Canadian Food Inspection Agency",
+        url: "https://inspection.canada.ca/en/importing-food-plants-animals/pets/ask-questions-you-get-dog",
+      },
+      {
+        label: "New measure prohibiting the entry of commercial dogs from countries at high risk for dog rabies",
+        publisher: "Canadian Food Inspection Agency",
+        url: "https://inspection.canada.ca/en/animal-health/terrestrial-animals/diseases/reportable/rabies/notice-industry-2022-06-28",
+      },
+    ],
+    resources: [
+      {
+        label: "Countries the CFIA classifies as high-risk for dog rabies",
+        publisher: "Canadian Food Inspection Agency",
+        url: "https://inspection.canada.ca/en/animal-health/terrestrial-animals/diseases/reportable/rabies/countries-high-risk-dog",
+      },
+    ],
+    needsVerification: [
+      "The 2022 commercial dog import prohibition and the CFIA's definition of \u201ccommercial\u201d are cited from the agency's own notice. Confirm it remains in force, and that the high-risk country list is current, before publication \u2014 this is exactly the kind of measure that gets amended.",
+      "Whether provincial animal welfare legislation imposes any requirement on rescues or breeders that a reader should know about. None is claimed; the article stays on federal ground and on questions to ask.",
+      "Whether any province regulates dog breeding or rescue operation through licensing, which would be worth naming if so.",
+      "That shelter and rescue adoption fees commonly bundle spay or neuter, vaccines, deworming and microchipping \u2014 stated as frequent rather than universal, and carried over from the cost guides where it is also flagged.",
+    ],
+  },
+  {
+    slug: "separation-anxiety-in-dogs",
+    section: "dogs",
+    subcategory: "Behaviour",
+    title: "Separation Anxiety in Dogs: Telling It Apart and Treating It",
+    deck: "Protest fades and distress escalates, and the difference decides everything you do next. What the evidence-based protocol actually is, and why most plans fail for a reason that is not the dog.",
+    metaDescription:
+      "How to tell distress from protest, the graduated departure protocol that has evidence behind it, and why plans with too many instructions fail.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 7,
+    mediaId: "training-dog-at-window",
+    mediaAlt:
+      "A dog alone at a window, seen from behind, watching for something outside.",
+    tags: ["separation-anxiety", "behaviour", "training", "alone-time", "dogs"],
+    featured: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Protest fades and distress escalates. Film a departure before you change anything \u2014 it answers the question in one afternoon.",
+      "Rule out medical causes first, especially where a previously settled adult dog has suddenly stopped coping.",
+      "The protocol with evidence behind it is graduated departure training plus a safety signal, so departures become predictable.",
+      "Moving too fast provokes anxiety and undoes progress. The increments are the mechanism, not a formality.",
+      "Owners given more than five instructions did worse than those given fewer \u2014 so do three things properly rather than twelve badly.",
+      "Medication, where a veterinarian recommends it, augments the training rather than replacing it.",
+      "In an apartment the risk is the noise complaint, and what that costs you depends on your province.",
+    ],
+    relatedSlugs: [
+      "crate-training-a-puppy-in-canada",
+      "bringing-home-a-puppy-first-30-days",
+    ],
+    relatedCategorySlugs: ["dog-training-and-behaviour", "dog-health", "general-dog-discussion"],
+    sources: [
+      {
+        label: "Treatment of behaviour problems in animals \u2014 graduated departures and safety signals",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/behavior/behavioral-medicine-introduction/treatment-of-behavior-problems-in-animals",
+      },
+      {
+        label: "Evaluation of treatments for separation anxiety in dogs",
+        publisher: "Journal of the American Veterinary Medical Association",
+        url: "https://avmajournals.avma.org/view/journals/javma/217/3/javma.2000.217.342.xml",
+      },
+      {
+        label: "Anxious behaviour: how to help your dog cope with unsettling situations",
+        publisher: "Cornell University College of Veterinary Medicine",
+        url: "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/anxious-behavior-how-help-your-dog-cope-unsettling-situations",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
+    needsVerification: [
+      "The finding that owners given more than five instructions saw worse outcomes comes from a single JAVMA evaluation. Read the paper in full and confirm the framing before publication rather than relying on a summary.",
+      "How behaviour professionals are credentialed in Canada, and whether any province regulates the title. The article routes readers through their veterinary clinic instead, which is safe but less useful than naming a route.",
+      "Whether veterinary behaviour referral is generally available across Canada, or concentrated in a few centres \u2014 relevant to rural readers and currently not addressed.",
+      "The list of signs distinguishing distress from protest is drawn from veterinary behaviour references and is framed as what to look for, never as a diagnosis. Confirm each against a named source before publication.",
+    ],
+  },
+  {
+    slug: "summer-heat-safety-for-dogs-in-canada",
+    section: "dogs",
+    subcategory: "Seasonal care",
+    title: "Summer Heat Safety for Dogs in Canada",
+    deck: "The same rule as winter, pointed the other way \u2014 except heat does not give you the warning cold does. Parked cars, the pavement test, and what an AQHI of 7 should change about your walk.",
+    metaDescription:
+      "Why there is no safe temperature, the back-of-hand pavement test, heatstroke signs, and how to read wildfire smoke and the AQHI for a dog.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "dogs-drinking-water-summer",
+    mediaAlt:
+      "A dog drinking from a water container on dry grass in strong summer sun.",
+    tags: ["summer", "seasonal-care", "heatstroke", "wildfire-smoke", "safety", "dogs"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "There is no safe temperature, for the same reason there is no \u201ctoo cold\u201d number: coat, body fat, activity level and health decide it.",
+      "Flat-faced, overweight, elderly and unwell dogs need a more cautious plan than the dog next door.",
+      "Never leave a dog in a parked car. On a 29 \u00b0C day the interior passes 38 \u00b0C in ten minutes.",
+      "Press the back of your hand to the pavement for seven seconds. If you cannot, neither can your dog.",
+      "Move walks to the ends of the day rather than shortening them at noon.",
+      "On smoke days read the Air Quality Health Index and cut exertion, not just distance \u2014 7 or above is the high-risk band.",
+      "Heatstroke is an emergency: begin cooling, phone ahead, and go, even if the dog seems to improve.",
+    ],
+    relatedSlugs: [
+      "winter-dog-care-in-canada",
+      "parasite-prevention-for-pets-in-canada",
+    ],
+    relatedCategorySlugs: ["dog-health", "general-dog-discussion", "pet-friendly-canada"],
+    sources: [
+      {
+        label: "Warm weather pet safety \u2014 parked cars, hot pavement and heatstroke signs",
+        publisher: "American Veterinary Medical Association",
+        url: "https://www.avma.org/resources-tools/pet-owners/petcare/warm-weather-pet-safety",
+      },
+      {
+        label: "Air Quality Health Index \u2014 the 1 to 10+ scale and its risk bands",
+        publisher: "Government of Canada",
+        url: "https://www.canada.ca/en/environment-climate-change/services/air-quality-health-index.html",
+      },
+      {
+        label: "Wildfire smoke, air quality and your health",
+        publisher: "Government of Canada",
+        url: "https://www.canada.ca/en/services/health/healthy-living/environment/air-quality/wildfire-smoke.html",
+      },
+    ],
+    resources: [
+      {
+        label: "Current Air Quality Health Index readings and special air quality statements",
+        publisher: "Environment and Climate Change Canada",
+        url: "https://www.canada.ca/en/environment-climate-change/services/air-quality-health-index/wildfire-smoke.html",
+      },
+    ],
+    needsVerification: [
+      "The parked-car figures are AVMA's, stated in Fahrenheit and converted here. Confirm the conversions read correctly before publication.",
+      "The seven-second back-of-hand pavement test is widely repeated and is not attributed to a named authority here. Source it or present it purely as a rule of thumb.",
+      "No AQHI threshold exists for animals. The article says so explicitly and treats the human bands as a conservative proxy \u2014 do not let that framing weaken into a recommendation.",
+      "Blue-green algae and specific waterborne risks are deliberately not described. The article says to check local advisories and names none.",
+      "That thick double coats should not be shaved in response to heat without veterinary advice \u2014 attach a source.",
+      "Whether any Canadian jurisdiction legislates on animals left in parked vehicles. None is claimed; the argument is made on physiology alone.",
     ],
   },
 ] as const;

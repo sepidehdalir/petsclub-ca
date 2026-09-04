@@ -9,6 +9,11 @@ import healthVetExaminingDog from "./photos/health-vet-examining-dog.jpg";
 import healthCatInCarrier from "./photos/health-cat-in-carrier.jpg";
 import catsFeatherToyPlay from "./photos/cats-feather-toy-play.jpg";
 import catsEatingFromBowls from "./photos/cats-eating-from-bowls.jpg";
+import healthDogInTallGrass from "./photos/health-dog-in-tall-grass.jpg";
+import healthDogRecoveryCone from "./photos/health-dog-recovery-cone.jpg";
+import guidesAdoptMeBandana from "./photos/guides-adopt-me-bandana.jpg";
+import trainingDogAtWindow from "./photos/training-dog-at-window.jpg";
+import dogsDrinkingWaterSummer from "./photos/dogs-drinking-water-summer.jpg";
 import catsKittensAtWindow from "./photos/cats-kittens-at-window.jpg";
 import catsWindowTabby from "./photos/cats-window-tabby.jpg";
 import communityKitchenMorning from "./photos/community-kitchen-morning.jpg";
@@ -290,6 +295,62 @@ const assets = {
     photographer: "Viktoria B.",
     source: "Pexels",
     sourceUrl: "https://www.pexels.com/photo/a-cute-dog-in-a-car-16605513/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "health-dog-in-tall-grass": {
+    id: "health-dog-in-tall-grass",
+    src: healthDogInTallGrass,
+    file: "photos/health-dog-in-tall-grass.jpg",
+    alt: "A small shaggy dog stands shoulder-deep in long meadow grass, backlit by low sun.",
+    photographer: "Karl Byron",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/dog-amidst-tall-grass-in-sunny-meadow-38486163/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "health-dog-recovery-cone": {
+    id: "health-dog-recovery-cone",
+    src: healthDogRecoveryCone,
+    file: "photos/health-dog-recovery-cone.jpg",
+    alt: "A golden retriever wearing a plastic recovery cone rests its head on the floor indoors.",
+    photographer: "Gabrielli Pereira",
+    source: "Pexels",
+    sourceUrl:
+      "https://www.pexels.com/photo/golden-retriever-wearing-a-veterinary-cone-lying-indoors-33982522/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "guides-adopt-me-bandana": {
+    id: "guides-adopt-me-bandana",
+    src: guidesAdoptMeBandana,
+    file: "photos/guides-adopt-me-bandana.jpg",
+    alt: "A tan dog in a harness wears a red \u201cAdopt Me\u201d bandana at an outdoor adoption event.",
+    photographer: "Matheus Bertelli",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/dogs-with-their-owners-in-a-park-16652369/",
+    licence: PEXELS_LICENCE,
+    showsPeople: true,
+  },
+  "training-dog-at-window": {
+    id: "training-dog-at-window",
+    src: trainingDogAtWindow,
+    file: "photos/training-dog-at-window.jpg",
+    alt: "A curly-coated dog sits alone at a window, seen from behind, watching the garden outside.",
+    photographer: "Lesli Whitecotton",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/a-dog-sits-by-a-window-gazing-outside-15071991/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "dogs-drinking-water-summer": {
+    id: "dogs-drinking-water-summer",
+    src: dogsDrinkingWaterSummer,
+    file: "photos/dogs-drinking-water-summer.jpg",
+    alt: "A tan dog drinks from a water container on dry grass in strong summer sunlight.",
+    photographer: "Do\u011fan Alpaslan Demir",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/dog-drinking-water-outdoors-in-sunny-park-38538704/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },
