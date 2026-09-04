@@ -979,7 +979,7 @@ export const articles: readonly Article[] = [
     publishedAt: "2026-09-02",
     updatedAt: "2026-09-02",
     authorId: "pet-club-editorial",
-    readingMinutes: 9,
+    readingMinutes: 10,
     mediaId: "health-cat-in-carrier",
     mediaAlt:
       "A cat settled in a pet carrier — left out and open, which is the whole point.",
@@ -1428,6 +1428,311 @@ export const articles: readonly Article[] = [
       "Blue-green algae and specific waterborne risks are deliberately not described. The article says to check local advisories and names none.",
       "That thick double coats should not be shaved in response to heat without veterinary advice \u2014 attach a source.",
       "Whether any Canadian jurisdiction legislates on animals left in parked vehicles. None is claimed; the argument is made on physiology alone.",
+    ],
+  },
+
+  /* ---------------------------------------------------------------- Batch E
+     Articles 21\u201325, chosen to correct the balance rather than to chase
+     volume. No dog-only article in this batch: one on cats and inter-cat
+     behaviour, two on preventative health that cover both species, and two on
+     Canadian rules and practicalities.
+
+     The licensing guide is the one this library has been missing since the
+     first batch \u2014 five articles referred to municipal licensing and none
+     owned it. It is also the most purely Canadian thing here: municipal, not
+     provincial, and impossible to write from anywhere else. */
+
+  {
+    slug: "introducing-a-second-cat",
+    section: "cats",
+    subcategory: "Behaviour",
+    title: "Introducing a Second Cat, or a Cat and a Dog",
+    deck: "Cats decide who is family by smell, which is why the first ten minutes matter more than the next ten weeks. A staged introduction, and the quiet conflict most owners never notice.",
+    metaDescription:
+      "A staged introduction for a second cat \u2014 scent before sight \u2014 plus the silent signs of conflict owners miss, and how cat-and-dog differs.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 7,
+    mediaId: "cats-two-resting-together",
+    mediaAlt:
+      "Two cats resting a few feet apart on a tiled floor \u2014 coexistence, which is the realistic goal.",
+    tags: ["multi-cat", "behaviour", "introductions", "cats", "training"],
+    featured: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Cats identify group members by smell, so the introduction is about scent long before it is about sight.",
+      "Separate room first, then swap bedding, then swap territory, then sight through a barrier \u2014 the cats' behaviour decides when to move on, not the calendar.",
+      "One per cat plus one, in separate locations: litter boxes, feeding stations, water, beds and scratching posts.",
+      "Most inter-cat conflict is silent. A cat blocking a doorway or avoiding half the house is the sign, not fighting.",
+      "\u201cThe first cat seems lonely\u201d is the most common reason given for a second cat and the least reliable one.",
+      "With a dog the failure mode is one bad moment rather than a slow stalemate \u2014 lead on, escape routes up high, and the cat sets the pace.",
+    ],
+    relatedSlugs: [
+      "indoor-cat-enrichment-canadian-homes",
+      "cost-of-owning-a-cat-in-canada",
+    ],
+    relatedCategorySlugs: ["cat-behaviour", "general-cat-discussion", "kittens"],
+    sources: [
+      {
+        label: "Step-by-step guide: how to introduce a new cat to other cats in your home",
+        publisher: "American Association of Feline Practitioners",
+        url: "https://catvets.com/wp-content/uploads/2024/07/Step-by-Step-Guide-How-to-Introduce-a-New-Cat-to-Other-Cats-in-Your-Home.pdf",
+      },
+      {
+        label: "Introducing cats, and introducing cats and dogs",
+        publisher: "International Cat Care",
+        url: "https://icatcare.org/articles/introducing-cats",
+      },
+      {
+        label: "Feline behaviour problems: aggression",
+        publisher: "Cornell Feline Health Center",
+        url: "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-aggression",
+      },
+    ],
+    needsVerification: [
+      "The staged introduction sequence is drawn from feline behaviour guidance and is deliberately given without fixed timings. Confirm each stage against the AAFP guide before publication.",
+      "Synthetic pheromone products are mentioned as something that may help. Establish what evidence exists before that framing is strengthened, and name no product.",
+      "The list of silent conflict signs is behavioural description rather than a diagnostic tool. Source it against a named reference.",
+      "That bite wounds in cats abscess readily \u2014 clinically well established, not yet sourced here.",
+    ],
+  },
+  {
+    slug: "dental-care-for-dogs-and-cats",
+    section: "health",
+    subcategory: "Preventative care",
+    title: "Dental Care for Dogs and Cats",
+    deck: "Most dogs and cats have periodontal disease by three and almost none of them show it. What a professional dental actually involves, and the straight answer on anaesthesia-free cleaning.",
+    metaDescription:
+      "Why dental disease is invisible, what a professional dental under anaesthetic actually does, and why AAHA does not recommend anaesthesia-free cleaning.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 7,
+    mediaId: "health-dog-teeth-brushing",
+    mediaAlt:
+      "A small dog having its teeth brushed \u2014 the only home-care measure that reliably works.",
+    tags: ["dental", "preventative-care", "surgery", "money", "dogs", "cats"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "By three years of age most dogs and cats have some periodontal disease, and it usually goes unnoticed \u2014 animals adapt rather than stop eating.",
+      "Most of each tooth, and most of the disease, is below the gumline. That is why radiographs and probing under anaesthetic are the procedure.",
+      "AAHA does not recommend anaesthesia-free dentistry: no accurate diagnosis, no pain control, no airway protection, and no treatment of the actual disease.",
+      "Removing the visible tartar alone is cosmetic.",
+      "If anaesthesia is the worry, interrogate the anaesthesia \u2014 bloodwork, monitoring, and what changes for an older patient.",
+      "Brushing is the home-care measure that works. Dental chews and additives vary; ask which your clinic considers evidenced.",
+      "Hard chews fracture teeth. If you would not want it hitting your knee, it is too hard.",
+    ],
+    relatedSlugs: [
+      "senior-dogs-and-cats",
+      "pet-insurance-in-canada",
+    ],
+    relatedCategorySlugs: ["dog-health", "cat-health", "vet-costs"],
+    sources: [
+      {
+        label: "2019 AAHA Dental Care Guidelines for Dogs and Cats",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/resources/2019-aaha-dental-care-guidelines-for-dogs-and-cats/",
+      },
+      {
+        label: "Nonanesthetic dentistry \u2014 why AAHA does not recommend it",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/resources/2019-aaha-dental-care-guidelines-for-dogs-and-cats/nonanesthetic-dentistry/",
+      },
+      {
+        label: "Do pets need anesthesia for dental care?",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/resources/anesthesia-and-dental-cleaning/",
+      },
+    ],
+    needsVerification: [
+      "\u201cBy three years of age, most dogs and cats have some periodontal disease\u201d is cited to AAHA. Confirm the exact wording and whether the association states a figure before any number is used.",
+      "Feline-specific dental disease \u2014 resorptive lesions in particular \u2014 is deliberately not described. Establish a source before adding it, because it is the commonest feline dental question and the article currently does not answer it.",
+      "That human toothpaste is unsafe for dogs and cats \u2014 well established, attach a toxicology or veterinary source.",
+      "That hard chews are a common cause of tooth fracture. Widely stated by veterinary dentists; source it or present it purely as a rule of thumb.",
+      "Which home-care products have evidence behind them. The article deliberately names none and refers the reader to their clinic; the VOHC accepted-products list should be assessed as a possible resource.",
+    ],
+  },
+  {
+    slug: "when-a-pet-goes-missing-in-canada",
+    section: "canadian-life",
+    subcategory: "Emergencies",
+    title: "When a Pet Goes Missing in Canada",
+    deck: "The first hour matters more than the next three days, and most of it gets spent on the wrong things. What to do first, and why a lost cat search looks nothing like a lost dog search.",
+    metaDescription:
+      "What to do in the first hour, why a lost cat is hiding within a few houses, and the microchip limitation the CVMA is explicit about.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "guides-cat-under-car",
+    mediaAlt:
+      "A cat crouched under a parked car \u2014 which is where a frightened lost cat usually is.",
+    tags: ["lost-pet", "microchip", "identification", "emergencies", "canada"],
+    featured: true,
+    status: "in-review",
+    keyTakeaways: [
+      "Update the microchip registration and file a municipal lost report before anything else. Both take minutes and both get skipped.",
+      "A microchip is not a tracker, and the CVMA is explicit that not all scanners read all chips \u2014 use every search method, not just the chip.",
+      "A lost dog travels and is seen by people. A frightened lost cat hides silently, close by, and will not answer you.",
+      "Search cats at ground level: under decks, porches, sheds and vehicles, with a torch after dark.",
+      "Ask neighbours for permission to physically check their property, not just to keep an eye out.",
+      "Visit shelters in person and keep going back \u2014 animals arrive looking nothing like their photographs.",
+      "A collar tag with a mobile number is the layer that needs no scanner, no clinic and no institution.",
+    ],
+    relatedSlugs: [
+      "pet-licensing-across-canada",
+      "indoor-or-outdoor-cats-in-canada",
+    ],
+    relatedCategorySlugs: ["general-dog-discussion", "general-cat-discussion", "pet-friendly-canada"],
+    sources: [
+      {
+        label: "Microchip animal identification in small companion animals \u2014 including scanner limitations",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/policy-and-outreach/position-statements/statements/microchip-animal-identification-in-small-companion-animals/",
+      },
+      {
+        label: "Lost and found pets \u2014 filing a lost report with municipal animal services",
+        publisher: "City of Toronto",
+        url: "https://www.toronto.ca/community-people/animals-pets/lost-found-pets/",
+      },
+      {
+        label: "Lost cats and dogs \u2014 what a municipality does with a found animal",
+        publisher: "City of Calgary",
+        url: "https://www.calgary.ca/pets/lost-animals.html",
+      },
+    ],
+    needsVerification: [
+      "That a frightened lost cat typically stays close and hides rather than travelling \u2014 consistently reported by recovery organisations and not yet attached to a named source here.",
+      "Hold periods for unclaimed animals, and the length of published found-animal lists, vary by municipality. The article says to ask locally and states no period as national.",
+      "Whether any Canadian microchip registry allows owners to update their own details directly, and which registries operate here. None is named.",
+      "Whether municipal animal services universally accept lost reports from the public \u2014 verified for Toronto and Calgary only.",
+    ],
+  },
+  {
+    slug: "pet-licensing-across-canada",
+    section: "canadian-life",
+    subcategory: "Rules",
+    title: "Dog and Cat Licensing Across Canada",
+    deck: "Tenancy is provincial, rabies is provincial, licensing is not \u2014 it is municipal, and five Canadian cities give five different answers about species, age and what you get.",
+    metaDescription:
+      "Licensing is municipal, not provincial. How Toronto, Ottawa, Calgary, Edmonton and Vancouver differ on species, age thresholds and what is included.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "guides-dog-collar-tag",
+    mediaAlt:
+      "A dog wearing a collar with a metal identification tag \u2014 the layer that works without a scanner.",
+    tags: ["licensing", "bylaws", "municipal", "identification", "canada"],
+    status: "in-review",
+    keyTakeaways: [
+      "Licensing is municipal. Your city decides it, and neighbouring cities genuinely differ.",
+      "Toronto, Ottawa, Calgary and Edmonton all license cats as well as dogs. Many municipalities do not.",
+      "Indoor cats are generally not exempt \u2014 Calgary and Edmonton both say so explicitly.",
+      "Age thresholds differ: three months in Calgary, Ottawa and Vancouver; six months in Edmonton.",
+      "Edmonton's licence includes a microchip, and reduced fees for altered animals are common.",
+      "Licensing is not the rabies rule \u2014 that is provincial \u2014 but Ottawa layers its own vaccination requirement on top.",
+      "A licence is not permission from a landlord or a condominium, and it does not transfer when you move.",
+    ],
+    relatedSlugs: [
+      "when-a-pet-goes-missing-in-canada",
+      "renting-with-a-pet-in-canada",
+    ],
+    relatedCategorySlugs: ["pet-friendly-canada", "provincial-questions", "canadian-pet-products"],
+    sources: [
+      {
+        label: "Pet licensing \u2014 dogs and cats, renewed annually",
+        publisher: "City of Toronto",
+        url: "https://www.toronto.ca/community-people/animals-pets/pet-licensing/",
+      },
+      {
+        label: "Cat and dog registration, and the Animal Care and Control By-law",
+        publisher: "City of Ottawa",
+        url: "https://ottawa.ca/en/living-ottawa/animals-and-pets/pet-registration/cat-and-dog-registration",
+      },
+      {
+        label: "Pet licences, and bylaws related to cats",
+        publisher: "City of Calgary",
+        url: "https://www.calgary.ca/pets/licences.html",
+      },
+      {
+        label: "Pet licences \u2014 cats and dogs over six months, microchip included",
+        publisher: "City of Edmonton",
+        url: "https://www.edmonton.ca/residential_neighbourhoods/pets_wildlife/pet-licences-for-residents",
+      },
+      {
+        label: "Dog licences and tags",
+        publisher: "City of Vancouver",
+        url: "https://vancouver.ca/home-property-development/licensing-your-dog.aspx",
+      },
+    ],
+    needsVerification: [
+      "Whether Vancouver licenses cats. The article states the dog requirement only and tells the reader to confirm the cat position with the City rather than inferring it \u2014 resolve this before publication.",
+      "No fees are quoted anywhere, deliberately, because they are set annually per municipality. Keep it that way unless each can be sourced and dated.",
+      "Edmonton's renewed Animal Care and Control Bylaw took effect in May 2026. Confirm the licensing provisions described are the current ones.",
+      "That licences generally do not transfer between municipalities \u2014 stated as a general rule and verified for none of the five specifically.",
+      "The five cities are illustrative. No proportion of Canadian municipalities is claimed for any of the patterns described, and none should be added without a survey.",
+    ],
+  },
+  {
+    slug: "senior-dogs-and-cats",
+    section: "health",
+    subcategory: "Life stage",
+    title: "Caring for a Senior Dog or Cat",
+    deck: "\u201cHe\u2019s just getting old\u201d is the most expensive sentence in pet ownership. When senior actually starts, what changes, and why most of it has a name.",
+    metaDescription:
+      "Senior is the last quarter of expected lifespan \u2014 seven for a large dog, ten for a cat. What changes, what it might really be, and what to change at home.",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-03",
+    authorId: "pet-club-editorial",
+    readingMinutes: 7,
+    mediaId: "health-senior-dog-close",
+    mediaAlt:
+      "An elderly dog with a greying muzzle resting indoors, watching the room.",
+    tags: ["senior-pets", "life-stage", "arthritis", "preventative-care", "dogs", "cats"],
+    featured: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Senior is a proportion, not a birthday: the last 25% of estimated lifespan.",
+      "A large dog can be senior at seven or eight; a small breed may not be until around twelve; a cat is generally senior past ten.",
+      "What changes is the monitoring \u2014 more frequent examinations and baseline bloodwork you can compare against later.",
+      "Stiffness, increased thirst, weight change and night-time confusion all have names, and several are manageable.",
+      "Cats rarely limp. A cat that has stopped jumping to a favourite perch has told you something specific.",
+      "Traction on hard floors, ramps, and lower-sided litter boxes do more for quality of life than most purchases.",
+      "Adjust the exercise rather than stopping it \u2014 lost muscle makes painful joints worse.",
+    ],
+    relatedSlugs: [
+      "dental-care-for-dogs-and-cats",
+      "pet-insurance-in-canada",
+    ],
+    relatedCategorySlugs: ["dog-health", "cat-health", "vet-costs"],
+    sources: [
+      {
+        label: "2023 AAHA Senior Care Guidelines for Dogs and Cats \u2014 defining the senior patient",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/defining-the-senior-patient/",
+      },
+      {
+        label: "Senior status: understanding your senior pet\u2019s life stage",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/resources/senior-status-understanding-your-senior-pets-life-stage/",
+      },
+      {
+        label: "2021 AAHA/AAFP Feline Life Stage Guidelines",
+        publisher: "American Animal Hospital Association and American Association of Feline Practitioners",
+        url: "https://www.aaha.org/wp-content/uploads/globalassets/02-guidelines/feline-life-stage-2021/2021-aaha-aafp-feline-life-stage-guidelines.pdf",
+      },
+    ],
+    needsVerification: [
+      "The age reference points \u2014 large dogs at seven to eight, small breeds around twelve, cats past ten \u2014 are cited to AAHA and AAFP guidance. Re-check against the current editions before publication.",
+      "That a recognised cognitive dysfunction syndrome exists in older dogs and cats \u2014 referred to without being named, and it should be named once a source is attached.",
+      "That osteoarthritis is common and under-diagnosed in cats specifically, and that cats rarely present with lameness. Well supported in feline medicine; attach a source.",
+      "That baseline bloodwork is more useful as a trend than a single result \u2014 presented as reasoning rather than as a guideline recommendation.",
+      "End-of-life care, palliative options and euthanasia are deliberately not covered here. Both cost guides name it as the least discussed cost, and it needs its own article rather than a paragraph.",
     ],
   },
 ] as const;

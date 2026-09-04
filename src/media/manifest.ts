@@ -14,6 +14,11 @@ import healthDogRecoveryCone from "./photos/health-dog-recovery-cone.jpg";
 import guidesAdoptMeBandana from "./photos/guides-adopt-me-bandana.jpg";
 import trainingDogAtWindow from "./photos/training-dog-at-window.jpg";
 import dogsDrinkingWaterSummer from "./photos/dogs-drinking-water-summer.jpg";
+import catsTwoRestingTogether from "./photos/cats-two-resting-together.jpg";
+import healthDogTeethBrushing from "./photos/health-dog-teeth-brushing.jpg";
+import guidesCatUnderCar from "./photos/guides-cat-under-car.jpg";
+import guidesDogCollarTag from "./photos/guides-dog-collar-tag.jpg";
+import healthSeniorDogClose from "./photos/health-senior-dog-close.jpg";
 import catsKittensAtWindow from "./photos/cats-kittens-at-window.jpg";
 import catsWindowTabby from "./photos/cats-window-tabby.jpg";
 import communityKitchenMorning from "./photos/community-kitchen-morning.jpg";
@@ -295,6 +300,64 @@ const assets = {
     photographer: "Viktoria B.",
     source: "Pexels",
     sourceUrl: "https://www.pexels.com/photo/a-cute-dog-in-a-car-16605513/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "cats-two-resting-together": {
+    id: "cats-two-resting-together",
+    src: catsTwoRestingTogether,
+    file: "photos/cats-two-resting-together.jpg",
+    alt: "A black cat and a tabby cat lie side by side on a tiled floor against a white wall.",
+    photographer: "Mathias Reding",
+    source: "Pexels",
+    sourceUrl:
+      "https://www.pexels.com/photo/two-cats-laying-on-ground-next-to-each-other-28271510/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "health-dog-teeth-brushing": {
+    id: "health-dog-teeth-brushing",
+    src: healthDogTeethBrushing,
+    file: "photos/health-dog-teeth-brushing.jpg",
+    alt: "Gloved hands brush the teeth of a small long-haired dog in close-up.",
+    photographer: "Gustavo Fring",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/vet-cleaning-dog-teeth-6816865/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "guides-cat-under-car": {
+    id: "guides-cat-under-car",
+    src: guidesCatUnderCar,
+    file: "photos/guides-cat-under-car.jpg",
+    alt: "A tabby and white cat crouches under a parked car, looking out at the camera.",
+    photographer: "Jana",
+    source: "Pexels",
+    sourceUrl:
+      "https://www.pexels.com/photo/adorable-tabby-cat-peeking-from-under-a-car-14042698/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "guides-dog-collar-tag": {
+    id: "guides-dog-collar-tag",
+    src: guidesDogCollarTag,
+    file: "photos/guides-dog-collar-tag.jpg",
+    alt: "A brown Labrador sits in sunlight wearing a leather collar with a metal identification tag.",
+    photographer: "Blue Bird",
+    source: "Pexels",
+    sourceUrl:
+      "https://www.pexels.com/photo/dog-with-smooth-brown-coat-and-letter-tag-on-collar-7210639/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "health-senior-dog-close": {
+    id: "health-senior-dog-close",
+    src: healthSeniorDogClose,
+    file: "photos/health-senior-dog-close.jpg",
+    alt: "A close view of an elderly dog with a greying muzzle resting indoors.",
+    photographer: "Harris Rigorad",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/elderly-dog-resting-indoors-30205968/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },
