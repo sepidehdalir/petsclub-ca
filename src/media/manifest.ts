@@ -15,6 +15,11 @@ import guidesAdoptMeBandana from "./photos/guides-adopt-me-bandana.jpg";
 import trainingDogAtWindow from "./photos/training-dog-at-window.jpg";
 import dogsDrinkingWaterSummer from "./photos/dogs-drinking-water-summer.jpg";
 import catsTwoRestingTogether from "./photos/cats-two-resting-together.jpg";
+import catsLeavingLitterBox from "./photos/cats-leaving-litter-box.jpg";
+import catsDrinkingRunningWater from "./photos/cats-drinking-running-water.jpg";
+import healthVetConsultationDiscussion from "./photos/health-vet-consultation-discussion.jpg";
+import healthDogDescendingStairs from "./photos/health-dog-descending-stairs.jpg";
+import trainingDogLookingBackWalk from "./photos/training-dog-looking-back-walk.jpg";
 import trainingPuppyOnStreet from "./photos/training-puppy-on-street.jpg";
 import guidesMovingBoxesDog from "./photos/guides-moving-boxes-dog.jpg";
 import guidesPetEmergencyKit from "./photos/guides-pet-emergency-kit.jpg";
@@ -362,6 +367,65 @@ const assets = {
     photographer: "Mykhailo Petrenko",
     source: "Pexels",
     sourceUrl: "https://www.pexels.com/photo/tender-moment-human-hand-holding-dog-s-paw-32635783/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "cats-leaving-litter-box": {
+    id: "cats-leaving-litter-box",
+    src: catsLeavingLitterBox,
+    file: "photos/cats-leaving-litter-box.jpg",
+    alt: "A ginger and white cat stepping out of an open litter tray on a tiled floor beside a potted plant.",
+    photographer: "Nadiye Odaba\u015f\u0131",
+    source: "Pexels",
+    sourceUrl:
+      "https://www.pexels.com/photo/a-cute-domestic-cat-stepping-out-of-a-litter-box-13705497/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "cats-drinking-running-water": {
+    id: "cats-drinking-running-water",
+    src: catsDrinkingRunningWater,
+    file: "photos/cats-drinking-running-water.jpg",
+    alt: "A Bengal cat leans into a running tap over a white sink, drinking from the stream.",
+    photographer: "Helena Jankovi\u010dov\u00e1 Kov\u00e1\u010dov\u00e1",
+    source: "Pexels",
+    sourceUrl:
+      "https://www.pexels.com/photo/a-bengal-cat-enjoys-drinking-fresh-water-from-a-bathroom-faucet-16440309/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "health-vet-consultation-discussion": {
+    id: "health-vet-consultation-discussion",
+    src: healthVetConsultationDiscussion,
+    file: "photos/health-vet-consultation-discussion.jpg",
+    alt: "An owner and a veterinarian stand either side of a small dog on a consulting table, talking, with clinic monitors behind them.",
+    photographer: "Tima Miroshnichenko",
+    source: "Pexels",
+    sourceUrl:
+      "https://www.pexels.com/photo/woman-and-veterinarian-discussing-care-for-a-pomeranian-dog-in-a-modern-clinic-6235011/",
+    licence: PEXELS_LICENCE,
+    showsPeople: true,
+  },
+  "health-dog-descending-stairs": {
+    id: "health-dog-descending-stairs",
+    src: healthDogDescendingStairs,
+    file: "photos/health-dog-descending-stairs.jpg",
+    alt: "A dalmatian picks its way down a wooden staircase in a house, a person climbing ahead of it.",
+    photographer: "Bethany Ferr",
+    source: "Pexels",
+    sourceUrl:
+      "https://www.pexels.com/photo/a-dalmatian-dog-descends-a-wooden-staircase-indoors-5482781/",
+    licence: PEXELS_LICENCE,
+    showsPeople: true,
+  },
+  "training-dog-looking-back-walk": {
+    id: "training-dog-looking-back-walk",
+    src: trainingDogLookingBackWalk,
+    file: "photos/training-dog-looking-back-walk.jpg",
+    alt: "A shaggy grey dog on a lead pauses on a grass path and looks back over its shoulder towards its handler.",
+    photographer: "Paul",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/cute-shaggy-dog-on-a-walk-7877091/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },

@@ -1206,7 +1206,6 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "A dog shoulder-deep in long meadow grass \u2014 which is exactly where the ticks are.",
     tags: ["parasites", "ticks", "heartworm", "fleas", "preventative-care", "canada"],
-    featured: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -2028,7 +2027,6 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "Dry food being poured from an unbranded paper bag into a bowl.",
     tags: ["nutrition", "labelling", "regulation", "food", "canada"],
-    featured: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -2135,6 +2133,356 @@ export const articles: readonly Article[] = [
       "Whether letting surviving animals see the body helps them. Deliberately written as uncertain; do not strengthen it without evidence.",
       "Guidance on discussing pet death with children is referred to only in general terms. If it is expanded, it needs a source from a body qualified to give it.",
       "Pet-loss support services available in Canada \u2014 referred to generally and named nowhere.",
+    ],
+  },
+
+  /* ---------------------------------------------------------------- Batch G
+     Articles 31–35, the first batch after Quality Gate #2 and the first
+     written under the pricing rule documented above.
+
+     Three of these exist because earlier articles kept pointing at them: the
+     cat guides have said for six batches that litter box problems are the
+     commonest reason cats lose their homes, the cat cost guide names urinary
+     blockage as the thing that breaks a budget, and the senior guide gestures
+     at arthritis repeatedly. Each was a promise the library had not kept.
+
+     The veterinary costs article is the one that tests the new pricing rule,
+     and it largely fails it on purpose — no authority in Canada publishes what
+     a consultation costs, because practices set their own fees and competition
+     law constrains associations from doing it for them. So the article teaches
+     the structure of a bill instead, carries the federal Competition Bureau
+     material on why the sector looks as it does, and quotes exactly one price:
+     the municipal licence fee already established in the licensing guide. */
+
+  {
+    slug: "litter-box-problems-in-cats",
+    section: "cats",
+    subcategory: "Behaviour",
+    title: "Litter Box Problems in Cats",
+    deck: "A cat that has stopped using the box is not making a point. Rule out the body first, then work out whether it is toileting or marking — because they need opposite fixes.",
+    metaDescription:
+      "Why medical causes come first, how to tell toileting from marking, and the litter box audit that resolves most cases.",
+    publishedAt: "2026-09-05",
+    updatedAt: "2026-09-05",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "cats-leaving-litter-box",
+    mediaAlt:
+      "A cat stepping out of an open litter tray — uncovered, low-sided, in a quiet corner.",
+    tags: ["litter-box", "house-soiling", "behaviour", "cats", "multi-cat"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Rule out medical causes before anything else — it is the first step in the veterinary guidelines, and behavioural work is wasted until it is done.",
+      "Straining while producing little or no urine is an emergency, not a litter box problem.",
+      "Toileting and marking look similar on the carpet and need opposite responses: normal volume squatting versus small-volume spraying on vertical surfaces.",
+      "One box per cat plus one, in separate rooms — two trays side by side is one location as far as a cat is concerned.",
+      "Uncovered, bigger than looks necessary, low sides, fine unscented litter, scooped daily.",
+      "Clean with an enzymatic cleaner and never anything ammonia-based, which smells to a cat like a spot already used.",
+      "Never punish: it cannot connect to a decision made twenty minutes ago, and it adds the stress that often caused the problem.",
+    ],
+    relatedSlugs: [
+      "cat-urinary-blockage-flutd",
+      "introducing-a-second-cat",
+    ],
+    relatedCategorySlugs: ["cat-behaviour", "cat-health", "general-cat-discussion"],
+    sources: [
+      {
+        label: "AAFP/ISFM guidelines for diagnosing and solving house-soiling behaviour in cats",
+        publisher: "American Association of Feline Practitioners and International Society of Feline Medicine",
+        url: "https://catvets.com/resource/aafp-isfm-house-soiling-guidelines/",
+      },
+      {
+        label: "Feline behaviour problems: house soiling",
+        publisher: "Cornell Feline Health Center",
+        url: "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-house-soiling",
+      },
+      {
+        label: "Soiling indoors — telling toileting from marking",
+        publisher: "International Cat Care",
+        url: "https://icatcare.org/articles/soiling-indoors",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
+    needsVerification: [
+      "The named medical causes (urinary tract inflammation, feline idiopathic cystitis, hyperthyroidism, diabetes) are drawn from the AAFP/ISFM guidance and Cornell. Confirm each against the guideline text before publication rather than relying on a summary.",
+      "That house-soiling is among the most common reasons cats are surrendered — carried from the kitten guide, where it is also flagged, and still not attached to a Canadian source.",
+      "That ammonia-based cleaners encourage re-soiling: widely stated and mechanistically plausible; attach a source or soften.",
+      "The four-category framing in the AAFP/ISFM algorithm is simplified here to two. Confirm the simplification does not misrepresent the guidance.",
+      "Whether synthetic pheromone products have evidence in house-soiling specifically. Mentioned only as a possible adjunct and named nowhere.",
+    ],
+  },
+  {
+    slug: "cat-urinary-blockage-flutd",
+    section: "cats",
+    subcategory: "Urgent care",
+    title: "Urinary Blockage and FLUTD in Cats",
+    deck: "A cat straining and producing nothing is an emergency measured in hours. What FLUTD actually covers, which cats are at risk, and the one line that decides your next hour.",
+    metaDescription:
+      "Straining with little or no urine is an emergency. What FLUTD covers, which cats are at higher risk, and how the signs are triaged.",
+    publishedAt: "2026-09-05",
+    updatedAt: "2026-09-05",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "cats-drinking-running-water",
+    mediaAlt:
+      "A cat drinking from a running tap — water intake being one of the few levers a household actually has.",
+    tags: ["flutd", "urinary", "emergency-care", "cat-health", "cats"],
+    featured: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Straining in the box while producing little or no urine is an emergency at any hour. Phone immediately and do not attempt anything at home.",
+      "Cornell states the time from complete urinary obstruction until death may be less than twenty-four to forty-eight hours.",
+      "FLUTD is a category, not a diagnosis — it covers idiopathic cystitis, stones, obstruction, infection and more, and they are treated differently.",
+      "Feline idiopathic cystitis, in which stress plays a recognised part, is the most common finding.",
+      "Male and neutered male cats are at higher risk of obstruction because the urethra is longer and narrower.",
+      "Owners routinely mistake obstruction for constipation. If you cannot tell which you are looking at, that is the reason to phone.",
+      "Water intake, weight, activity, stress and easy litter box access are the household levers — none replaces veterinary care.",
+    ],
+    relatedSlugs: [
+      "emergency-vet-visits-in-canada",
+      "litter-box-problems-in-cats",
+    ],
+    relatedCategorySlugs: ["cat-health", "vet-costs", "general-cat-discussion"],
+    sources: [
+      {
+        label: "Feline lower urinary tract disease — what it covers, the signs, and why obstruction is an emergency",
+        publisher: "Cornell Feline Health Center",
+        url: "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-lower-urinary-tract-disease",
+      },
+      {
+        label: "Lower urinary tract disease in cats",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/urinary-system/noninfectious-diseases-of-the-urinary-system-in-small-animals/lower-urinary-tract-disease-in-cats",
+      },
+      {
+        label: "Obstructive uropathy in dogs and cats",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/urinary-system/noninfectious-diseases-of-the-urinary-system-in-small-animals/obstructive-uropathy-in-dogs-and-cats",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
+    needsVerification: [
+      "SAFETY — the 24 to 48 hour figure is quoted from Cornell and is the most consequential sentence in this article. Confirm the exact wording against the current page before publication; do not paraphrase it into anything more precise.",
+      "The risk profile (male and neutered male, middle-aged, overweight, indoor, low activity) is Cornell's. Confirm before publication, and do not let it harden into a prediction about any individual cat.",
+      "The treatment description (catheterisation under sedation, fluids, hospitalisation) is deliberately general and names no drug. Confirm it against a veterinary source before publication.",
+      "That prescription diets are effective for specific urinary conditions — stated generally and attached to no product or study.",
+      "Whether Canadian emergency hospital availability materially affects outcomes in obstruction cases, which would be a genuinely Canadian addition if a source exists. Not claimed here.",
+    ],
+  },
+  {
+    slug: "what-veterinary-care-costs-in-canada",
+    section: "health",
+    subcategory: "Money",
+    title: "What Veterinary Care Actually Costs in Canada",
+    deck: "Nobody publishes it, and there is a competition-law reason for that. How a bill is actually assembled, why two clinics differ legitimately, and how to build a real number for your own city.",
+    metaDescription:
+      "Why no Canadian authority publishes veterinary prices, how a bill is structured line by line, and how to get a real figure for your own city.",
+    publishedAt: "2026-09-05",
+    updatedAt: "2026-09-05",
+    authorId: "pet-club-editorial",
+    readingMinutes: 7,
+    mediaId: "health-vet-consultation-discussion",
+    mediaAlt:
+      "An owner and a veterinarian talking over a small dog on the consulting table — the conversation the article argues for having early.",
+    tags: ["vet-costs", "money", "budgeting", "regulation", "canada"],
+    featured: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "No Canadian authority publishes veterinary prices because none sets them — practices set their own fees, and competition law constrains associations from publishing schedules.",
+      "A bill is assembled from separate lines: consultation, diagnostics, procedure and anaesthesia, medication, hospitalisation, after-hours premium, tax.",
+      "Hospitalisation, not the procedure, is what most often turns an emergency into a four-figure event.",
+      "The Competition Bureau reports the sector consolidating — nearly all practices independently owned in 2009, corporate chains at around a fifth of the market since.",
+      "Ask for a written prescription rather than assuming you must buy medication at the clinic. Whether you can fill it elsewhere is a provincial question.",
+      "An estimate with a range is more honest than a single number for work where the plan can change once someone can see what is happening.",
+      "Phone three clinics and build your own figure — it takes an hour and it is the only kind worth anything.",
+    ],
+    relatedSlugs: [
+      "pet-insurance-in-canada",
+      "cost-of-owning-a-dog-in-canada",
+    ],
+    relatedCategorySlugs: ["vet-costs", "pet-insurance", "provincial-questions"],
+    sources: [
+      {
+        label: "Pets, vets and meds: the case for more competition — consolidation, pricing pressures and prescription portability",
+        publisher: "Competition Bureau Canada",
+        url: "https://competition-bureau.canada.ca/en/how-we-foster-competition/education-and-outreach/pets-vets-and-meds-case-more-competition",
+      },
+      {
+        label: "Trade associations and the Competition Act — why professional bodies do not set prices",
+        publisher: "Competition Bureau Canada",
+        url: "https://competition-bureau.canada.ca/en/bid-rigging-price-fixing-and-other-agreements-between-competitors/trade-associations-and-competition-act",
+      },
+      {
+        label: "Competition Bureau recommends increasing competition in the sale of pet medication",
+        publisher: "Government of Canada",
+        url: "https://www.canada.ca/en/competition-bureau/news/2024/10/competition-bureau-recommends-increasing-competition-in-the-sale-of-pet-medication.html",
+      },
+      {
+        label: "Pet licensing fees — the published rates for altered and unaltered animals",
+        publisher: "City of Toronto",
+        url: "https://www.toronto.ca/community-people/animals-pets/pet-licensing/pet-licensing-fees/",
+      },
+    ],
+    resources: [
+      {
+        label: "Your provincial or territorial veterinary regulator, and what it licenses",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+    ],
+    needsVerification: [
+      "PRICE — the Toronto licence fees are the only per-service figures in this article and are carried from the licensing guide, where the re-check note also lives. Re-check the City fee page before publication and delete rather than carry a stale figure.",
+      "The Competition Bureau figures ($9.3 billion annual spend; corporate chains at roughly 20.4% against nearly all independent ownership in 2009) are attributed to the Bureau in the prose. Confirm against the current version of its page before publication, since the study will be updated.",
+      "The provincial medication-resale positions (Ontario, British Columbia, New Brunswick and Nova Scotia prohibiting resale to pharmacists; Quebec cited as the contrasting model) come from the Bureau rather than from each province's own regulator. Verify against provincial sources before this is relied on, and note the Bureau is advocating for change so the position may move.",
+      "That competition law is the reason no association publishes a fee guide is an inference from the Bureau's general guidance to trade associations, not a statement the Bureau makes about veterinary fee guides specifically. Keep the current framing, which describes the constraint rather than asserting a causal history.",
+      "No per-service veterinary price appears anywhere, deliberately. Do not add one unless an authority that sets it publishes it.",
+    ],
+  },
+  {
+    slug: "arthritis-and-mobility-in-dogs-and-cats",
+    section: "health",
+    subcategory: "Chronic conditions",
+    title: "Arthritis and Mobility in Dogs and Cats",
+    deck: "Animals with joint pain do not limp — they do less. What owners actually notice, why cats hide it almost entirely, and the changes at home that do the most.",
+    metaDescription:
+      "The signs of joint pain in dogs and cats, why cats rarely limp, what multimodal treatment means, and the home changes that matter most.",
+    publishedAt: "2026-09-05",
+    updatedAt: "2026-09-05",
+    authorId: "pet-club-editorial",
+    readingMinutes: 7,
+    mediaId: "health-dog-descending-stairs",
+    mediaAlt:
+      "A dog picking its way carefully down a wooden staircase — stairs being one of the first things to change.",
+    tags: ["arthritis", "mobility", "pain", "senior-pets", "dogs", "cats"],
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Osteoarthritis is described by AAHA as underdiagnosed, largely because animals do less rather than limping.",
+      "In dogs: slowness to rise, hoisting the back end up, difficulty on stairs, less jumping and play.",
+      "In cats it is almost entirely indirect — stopped jumping, missed landings, a coat that has stopped being groomed, weight loss, and toileting outside the box.",
+      "A cat that has stopped reaching a favourite high place has told you something specific.",
+      "Treatment is multimodal by design: pain management, weight, controlled exercise, rehabilitation, diet, environment and sometimes surgery.",
+      "Overweight is a recognised risk factor for development and progression, and it is the lever owners control most directly.",
+      "Never give human pain medication — several are toxic to dogs and cats.",
+      "Traction on hard floors is free and is the change that most reliably restores an animal's confidence.",
+    ],
+    relatedSlugs: [
+      "senior-dogs-and-cats",
+      "what-veterinary-care-costs-in-canada",
+    ],
+    relatedCategorySlugs: ["dog-health", "cat-health", "vet-costs"],
+    sources: [
+      {
+        label: "Osteoarthritis in dogs and cats — clinical signs, risk factors and multimodal management",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/musculoskeletal-system/osteoarthritis-in-dogs-and-cats/osteoarthritis-in-dogs-and-cats",
+      },
+      {
+        label: "2022 AAHA Pain Management Guidelines for Dogs and Cats",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/resources/2022-aaha-pain-management-guidelines-for-dogs-and-cats/",
+      },
+      {
+        label: "Canine osteoarthritis: an underdiagnosed condition",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/trends-magazine/publications/canine-osteoarthritis-an-underdiagnosed-condition/",
+      },
+    ],
+    resources: [
+      {
+        label: "Mobility Matters — recognising and managing osteoarthritis",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/wp-content/uploads/globalassets/05-pet-health-resources/mobilitymatters.pdf",
+      },
+    ],
+    needsVerification: [
+      "The feline sign list (weight loss, reduced appetite, changed attitude, poor grooming, toileting outside the box, inability to jump) is Merck's. Confirm the wording before publication — it is the part of this article doing the most work.",
+      "That AAHA describes canine osteoarthritis as underdiagnosed: confirm against the article cited rather than the headline.",
+      "That overweight is a recognised risk factor for development and progression — stated for dogs; confirm whether the same is established for cats before the wording covers both species equally.",
+      "No drug, drug class or dose appears anywhere, deliberately. Keep it that way: species differences in analgesia between dogs and cats are exactly where owner harm occurs.",
+      "The evidence base for joint supplements is described as varying by product and ingredient. Do not strengthen or weaken this without a source, and name no product.",
+      "Whether veterinary rehabilitation and physiotherapy are widely available in Canada, or concentrated in urban centres — relevant to rural readers and currently not addressed.",
+    ],
+  },
+  {
+    slug: "loose-leash-walking-and-recall",
+    section: "dogs",
+    subcategory: "Training",
+    title: "Loose-Leash Walking and Recall",
+    deck: "Both fail for the same reason: they get tested on the street before they are built in the hallway. A progression for each, and the one rule that protects a recall for life.",
+    metaDescription:
+      "How to build lead walking and recall in the order that works, why the long line matters, and the mistakes that break a recall permanently.",
+    publishedAt: "2026-09-05",
+    updatedAt: "2026-09-05",
+    authorId: "pet-club-editorial",
+    readingMinutes: 8,
+    mediaId: "training-dog-looking-back-walk",
+    mediaAlt:
+      "A dog on a lead pausing on a path to look back towards its handler — the moment both of these skills are built on.",
+    tags: ["training", "recall", "lead-walking", "behaviour", "dogs"],
+    featured: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "AVSAB recommends only reward-based methods for all dog training, and holds that aversive methods should not be used under any circumstances.",
+      "Deliver the reward at your trouser seam, not out in front — this single detail fixes more pulling than any equipment.",
+      "Pulling works, which is why it persists. Forward progress stops when the lead tightens and resumes when it loosens.",
+      "Recall's protective rule: coming back must always be worth it, and must usually end with a release back to what the dog was doing.",
+      "Never call a recall you cannot back up, and never call a dog to something it will dislike.",
+      "The long line is the stage most people skip and the one that makes off-lead recall possible.",
+      "Increase one variable at a time — distance, then duration, then distraction.",
+      "No recall is guaranteed. Roads, wildlife and livestock are reasons to keep the line on regardless.",
+    ],
+    relatedSlugs: [
+      "puppy-socialisation-checklist",
+      "bringing-home-a-puppy-first-30-days",
+    ],
+    relatedCategorySlugs: ["dog-training-and-behaviour", "puppies", "general-dog-discussion"],
+    sources: [
+      {
+        label: "Position statement on humane dog training — reward-based methods, and no role for aversive training",
+        publisher: "American Veterinary Society of Animal Behavior",
+        url: "https://avsab.org/wp-content/uploads/2021/08/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf",
+      },
+      {
+        label: "Veterinary behaviorists: no role for aversive dog training practices",
+        publisher: "American Veterinary Medical Association",
+        url: "https://www.avma.org/javma-news/2021-11-01/veterinary-behaviorists-no-role-aversive-dog-training-practices",
+      },
+      {
+        label: "What are reward-based training methods for dogs and cats?",
+        publisher: "American Veterinary Society of Animal Behavior",
+        url: "https://avsab.org/what-are-reward-based-training-methods-for-dogs-and-cats/",
+      },
+    ],
+    resources: [
+      {
+        label: "Dogs in Parks Canada’s protected places — the leash requirement",
+        publisher: "Parks Canada",
+        url: "https://parks.canada.ca/voyage-travel/regles-rules/chien-dog",
+      },
+    ],
+    needsVerification: [
+      "The AVSAB position is quoted closely, including the list of aversive equipment and the statement that there is no exception for aggressive behaviour. Confirm against the position statement PDF before publication.",
+      "That many dogs regress noticeably during adolescence, roughly six to eighteen months — widely described in behaviour literature and not yet sourced here.",
+      "The five-stage lead progression and the recall progression are editorial structures rather than published protocols. They make no claim beyond ordering, but confirm nothing conflicts with AVSAB guidance.",
+      "That retractable leads teach a dog that pulling extends the lead: mechanically obvious, but presented as reasoning rather than as a sourced finding.",
+      "Whether dog training is regulated in any Canadian province, or whether any credential is protected. The article routes readers to their veterinary clinic instead, which is safe but less useful than naming a route if one exists.",
     ],
   },
 ] as const;
