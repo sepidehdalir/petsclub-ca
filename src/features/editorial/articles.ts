@@ -2487,6 +2487,16 @@ export const articles: readonly Article[] = [
   },
 ] as const;
 
+/**
+ * Every article slug, as a union.
+ *
+ * Derived from the array rather than maintained beside it, so it cannot drift.
+ * This exists so that other features — Puppy Journey, for one — can hold a
+ * reference to an article and have a deleted or renamed slug surface as a
+ * compile error rather than as a 404 discovered by a reader.
+ */
+export type ArticleSlug = (typeof articles)[number]["slug"];
+
 /** The description used for metadata. Falls back to the deck. */
 export function articleDescription(article: Article): string {
   return article.metaDescription ?? article.deck;

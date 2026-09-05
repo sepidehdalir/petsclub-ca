@@ -15,6 +15,7 @@ import guidesAdoptMeBandana from "./photos/guides-adopt-me-bandana.jpg";
 import trainingDogAtWindow from "./photos/training-dog-at-window.jpg";
 import dogsDrinkingWaterSummer from "./photos/dogs-drinking-water-summer.jpg";
 import catsTwoRestingTogether from "./photos/cats-two-resting-together.jpg";
+import puppyElevenWeeks from "./photos/puppy-eleven-weeks.jpg";
 import catsLeavingLitterBox from "./photos/cats-leaving-litter-box.jpg";
 import catsDrinkingRunningWater from "./photos/cats-drinking-running-water.jpg";
 import healthVetConsultationDiscussion from "./photos/health-vet-consultation-discussion.jpg";
@@ -426,6 +427,17 @@ const assets = {
     photographer: "Paul",
     source: "Pexels",
     sourceUrl: "https://www.pexels.com/photo/cute-shaggy-dog-on-a-walk-7877091/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "puppy-eleven-weeks": {
+    id: "puppy-eleven-weeks",
+    src: puppyElevenWeeks,
+    file: "photos/puppy-eleven-weeks.jpg",
+    alt: "A pale yellow Labrador puppy sits on a tiled floor, ears soft, looking up and slightly past the camera.",
+    photographer: "Rahul Katare",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/adorable-labrador-puppy-sitting-indoors-35942005/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },
