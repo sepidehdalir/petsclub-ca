@@ -44,7 +44,14 @@ export default function EditorialPolicyPage() {
           jurisdictions we have actually confirmed, and we do not generalise from them to
           the rest of the country.
         </li>
-        <li>Prices are Canadian, dated, and identified by province where they vary.</li>
+        <li>
+          We publish a price only where the body that sets it publishes it — a municipality&rsquo;s
+          own licence fee, for instance. Such a figure is named with the place it applies to, dated,
+          and linked to the page it came from, and it is offered as one example rather than as a
+          Canadian price. We do not publish national averages, typical ranges, or veterinary,
+          insurance or grooming costs, because nobody sets those centrally and a figure you could
+          plan against would be a figure we had invented.
+        </li>
         <li>Products are only described as available if they are sold in Canada.</li>
       </ul>
 

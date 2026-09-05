@@ -80,6 +80,45 @@ export interface ArticleSource {
 }
 
 /**
+ * ## The pricing rule
+ *
+ * Settled at Quality Gate #2, after thirty articles containing no dollar
+ * figures at all. The blanket ban was the right call while nothing could be
+ * sourced, and it became the single largest constraint on this library's
+ * Canadian specificity — a cost guide that answers no cost question is only
+ * half an article.
+ *
+ * The replacement is not "prices are now allowed". It is a narrow test that a
+ * figure has to pass, and most figures cannot:
+ *
+ *  1. **Set and published by the body that sets it.** A municipal licence fee
+ *     on the city's own fee page qualifies. A veterinary fee, a premium, a
+ *     grooming rate or an adoption fee does not, because no authority
+ *     publishes them and they are set per practice, per insurer, per shelter.
+ *  2. **Geographically attributed in the sentence itself**, not in a footnote.
+ *     "Toronto charges" is publishable; "licences cost" is not.
+ *  3. **Dated, and cited to the page that carries it**, so a reader can check
+ *     whether it has moved.
+ *  4. **Framed as one example, never as a Canadian figure.** A price appears
+ *     to show that a category is real and how it varies — never to let a
+ *     reader in another city plan against it.
+ *  5. **Recorded in `needsVerification` with its own re-check note**, because
+ *     a fee that was right in 2026 is a wrong fee in 2028 and nothing else in
+ *     this system will notice.
+ *
+ * What this deliberately does not unlock: national averages, "typical" ranges
+ * assembled from clinics we phoned, anything converted from US dollars, and
+ * any figure whose only source is another article. The two cost guides keep
+ * their no-figures position — their argument is that no honest national
+ * average exists, and that argument is unaffected by a city publishing its own
+ * licence fee.
+ *
+ * Applied once so far, in `pet-licensing-across-canada`. Any future use starts
+ * by asking whether the number would survive all five tests, and the honest
+ * answer for most pet costs in Canada is still no.
+ */
+
+/**
  * Editorial status.
  *
  * `in-review` is the honest state for a draft that has been written but not
@@ -138,7 +177,19 @@ export interface Article {
    * tag pages, which would be thin, indexable and worthless.
    */
   tags: readonly string[];
-  /** Promotes the article on its section surface. */
+  /**
+   * Promotes the article on its section surface.
+   *
+   * Reserved for the lead article of a surface — the one worth putting a
+   * reader in front of before they have decided what they came for. It ran to
+   * sixteen of thirty by the end of Batch F, which is not a selection, and was
+   * cut back to one or two per surface at Quality Gate #2.
+   *
+   * Nothing reads this field yet. That is exactly why it drifted: a flag with
+   * no consumer has no feedback. Whatever eventually consumes it inherits
+   * whatever discipline is kept here, so the bar is deliberately high — an
+   * article earns it by being the best thing on its shelf, not by being new.
+   */
   featured?: boolean;
   status: ArticleStatus;
   /** The quick answer, shown above the body where the subject supports one. */
@@ -211,7 +262,6 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "Two dogs standing among snow-covered pines on a still winter day in the forest.",
     tags: ["winter", "seasonal-care", "paw-care", "safety", "dogs"],
-    featured: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -331,7 +381,6 @@ export const articles: readonly Article[] = [
     mediaId: "about-kitchen-play",
     mediaAlt: "A man crouches in the kitchen of a rented home, playing with a white dog.",
     tags: ["housing", "renting", "tenancy", "moving", "canada"],
-    featured: true,
     status: "in-review",
     keyTakeaways: [
       "There is no national rule. In Ontario a no-pets clause is void; in British Columbia and Quebec the same clause binds you.",
@@ -638,7 +687,6 @@ export const articles: readonly Article[] = [
     readingMinutes: 9,
     mediaId: "cats-kittens-at-window",
     tags: ["kittens", "new-owners", "litter-box", "socialisation", "cats"],
-    featured: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -754,7 +802,7 @@ export const articles: readonly Article[] = [
     publishedAt: "2026-09-01",
     updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
-    readingMinutes: 7,
+    readingMinutes: 8,
     mediaId: "cats-feather-toy-play",
     mediaAlt:
       "A grey cat rearing up to catch a feather toy in both paws — the hunt, indoors.",
@@ -773,6 +821,26 @@ export const articles: readonly Article[] = [
       "bringing-home-a-kitten-first-30-days",
     ],
     relatedCategorySlugs: ["cat-behaviour", "general-cat-discussion", "kittens"],
+    sources: [
+      {
+        label:
+          "Professional Practice Standard 1: Feline Partial Digit Amputation / Declawing — the mandatory prohibition and its therapeutic exceptions",
+        publisher: "College of Veterinarians of British Columbia",
+        url: "https://www.cvbc.ca/wp-content/uploads/2020/03/Feline-Declaw-Standard-_Revised_.pdf",
+      },
+      {
+        label:
+          "Medically unnecessary veterinary surgery — why Ontario takes a different regulatory approach",
+        publisher: "College of Veterinarians of Ontario",
+        url: "https://www.cvo.org/standards/medically-unnecessary-veterinary-surgery",
+      },
+      {
+        label:
+          "Partial digital amputation (onychectomy or declawing) of the domestic felid — the national position",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/policy-and-outreach/position-statements/statements/partial-digital-amputation-onychectomy-or-declawing-of-the-domestic-felid/",
+      },
+    ],
     resources: [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
@@ -781,7 +849,8 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "That declawing is prohibited by the veterinary regulators in a number of Canadian provinces — name the provinces once each college’s position is confirmed, or drop the sentence.",
+      "British Columbia and Ontario are named because each was confirmed from its own regulator’s published standard. Other provinces are described only as “several”: secondary sources put the total at eight, but no province beyond these two has been checked against its own regulator here, so no number is stated. Verify each before naming any.",
+      "The CVBC standard is dated May 2018 and revised the same month. Confirm it is still the current version before publication.",
       "Bird feeder placement guidance (very close to glass or well away, rather than the middle distance) — attach a conservation source before publication.",
       "The framing of the five behaviours is descriptive rather than sourced. It makes no medical or preventative claim, but a behavioural source would strengthen it.",
       "Whether hiding places help cats cope with stressors is stated descriptively; source it before making it any stronger.",
@@ -870,7 +939,6 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "An elderly dog with a greying muzzle rests on a wooden floor — the years a policy is bought for.",
     tags: ["pet-insurance", "money", "budgeting", "vet-costs", "canada"],
-    featured: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -984,6 +1052,7 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "A cat settled in a pet carrier — left out and open, which is the whole point.",
     tags: ["emergency-care", "veterinary-care", "preparedness", "safety", "canada"],
+    featured: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1051,7 +1120,6 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "A dog wearing a harness settled on a car seat, restrained for the drive.",
     tags: ["travel", "planning", "identification", "microchip", "canada"],
-    featured: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1260,7 +1328,6 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "A dog in an \u201cAdopt Me\u201d bandana at an outdoor adoption event.",
     tags: ["adoption", "rescue", "shelters", "breeders", "canada"],
-    featured: true,
     status: "in-review",
     keyTakeaways: [
       "Since 28 September 2022 commercial dogs cannot enter Canada from countries the CFIA lists as high-risk for dog rabies \u2014 and \u201ccommercial\u201d expressly includes adoption and fostering.",
@@ -1317,7 +1384,6 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "A dog alone at a window, seen from behind, watching for something outside.",
     tags: ["separation-anxiety", "behaviour", "training", "alone-time", "dogs"],
-    featured: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1458,7 +1524,6 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "Two cats resting a few feet apart on a tiled floor \u2014 coexistence, which is the realistic goal.",
     tags: ["multi-cat", "behaviour", "introductions", "cats", "training"],
-    featured: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1571,7 +1636,6 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "A cat crouched under a parked car \u2014 which is where a frightened lost cat usually is.",
     tags: ["lost-pet", "microchip", "identification", "emergencies", "canada"],
-    featured: true,
     status: "in-review",
     keyTakeaways: [
       "Update the microchip registration and file a municipal lost report before anything else. Both take minutes and both get skipped.",
@@ -1627,6 +1691,7 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "A dog wearing a collar with a metal identification tag \u2014 the layer that works without a scanner.",
     tags: ["licensing", "bylaws", "municipal", "identification", "canada"],
+    featured: true,
     status: "in-review",
     keyTakeaways: [
       "Licensing is municipal. Your city decides it, and neighbouring cities genuinely differ.",
@@ -1647,6 +1712,11 @@ export const articles: readonly Article[] = [
         label: "Pet licensing \u2014 dogs and cats, renewed annually",
         publisher: "City of Toronto",
         url: "https://www.toronto.ca/community-people/animals-pets/pet-licensing/",
+      },
+      {
+        label: "Pet licensing fees \u2014 the published rates for altered and unaltered animals",
+        publisher: "City of Toronto",
+        url: "https://www.toronto.ca/community-people/animals-pets/pet-licensing/pet-licensing-fees/",
       },
       {
         label: "Cat and dog registration, and the Animal Care and Control By-law",
@@ -1671,7 +1741,8 @@ export const articles: readonly Article[] = [
     ],
     needsVerification: [
       "Whether Vancouver licenses cats. The article states the dog requirement only and tells the reader to confirm the cat position with the City rather than inferring it \u2014 resolve this before publication.",
-      "No fees are quoted anywhere, deliberately, because they are set annually per municipality. Keep it that way unless each can be sourced and dated.",
+      "PRICE \u2014 the Toronto licence fees ($25/$60 dog, $15/$50 cat) were read from the City\u2019s own fee page in 2026 and are, with one federal statutory fine, the only dollar figures in the library. The City resets them and they WILL go stale: re-check the fee page before publication and at every scheduled review, and delete the figures rather than carry a wrong one.",
+      "No other municipality\u2019s fees are quoted, and none should be added unless each can be sourced to that city\u2019s own fee page and dated. Toronto is present as an illustration of the spay/neuter differential, not as a Canadian figure.",
       "Edmonton's renewed Animal Care and Control Bylaw took effect in May 2026. Confirm the licensing provisions described are the current ones.",
       "That licences generally do not transfer between municipalities \u2014 stated as a general rule and verified for none of the five specifically.",
       "The five cities are illustrative. No proportion of Canadian municipalities is claimed for any of the patterns described, and none should be added without a survey.",
@@ -1693,7 +1764,6 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "An elderly dog with a greying muzzle resting indoors, watching the room.",
     tags: ["senior-pets", "life-stage", "arthritis", "preventative-care", "dogs", "cats"],
-    featured: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1769,7 +1839,6 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "A puppy on a lead taking in a street \u2014 the world at a distance it can handle.",
     tags: ["puppies", "socialisation", "training", "behaviour", "dogs"],
-    featured: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1828,7 +1897,6 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "A dog sitting between two people carrying moving boxes \u2014 the day the rules change.",
     tags: ["moving", "provincial", "licensing", "tenancy", "canada"],
-    featured: true,
     status: "in-review",
     keyTakeaways: [
       "Federal rules barely change; provincial and municipal ones change completely, and municipal ones change again within a province.",
@@ -1897,7 +1965,6 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "A pet carrier, collapsible bowls, food, a coat and a bed laid out from above \u2014 the kit, assembled.",
     tags: ["emergency-preparedness", "evacuation", "wildfire", "safety", "canada"],
-    featured: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1961,6 +2028,7 @@ export const articles: readonly Article[] = [
     mediaAlt:
       "Dry food being poured from an unbranded paper bag into a bowl.",
     tags: ["nutrition", "labelling", "regulation", "food", "canada"],
+    featured: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
