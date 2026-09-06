@@ -1080,6 +1080,19 @@ export const roadmapStages: readonly RoadmapStage[] = [
   { slug: "12-weeks", label: "12 weeks", phase: "early-puppy", range: { unit: "weeks", minDays: 84, maxDays: LAST_WEEKLY_DAY } },
 
   // Early development — one calendar month each, on anniversaries of the DOB.
+  //
+  // `3-months` opens on day 91 rather than on the reader's own three-month
+  // anniversary, and that is deliberate. A fixed handover keeps every public
+  // stage page meaning one stable thing regardless of who is reading it:
+  // `/puppy/3-months` is *the third month of life, from thirteen weeks*, for
+  // everyone. Moving the boundary to each reader's anniversary would leave
+  // `/puppy/12-weeks` — a page titled "Your 12-Week-Old Puppy" — serving
+  // thirteen-week-olds for a day or two, and would make a public page's span
+  // depend on a date it does not know.
+  //
+  // The cost is that a reader can reach this stage a day or two before their
+  // own anniversary. That is a content-stage assignment, not an age claim, and
+  // `journeyHeadlineAge` refuses to turn it into one.
   { slug: "3-months", label: "3 months", phase: "early-development", range: { unit: "months", minMonths: 3, maxMonths: 3 } },
   { slug: "4-months", label: "4 months", phase: "early-development", range: { unit: "months", minMonths: 4, maxMonths: 4 } },
   { slug: "5-months", label: "5 months", phase: "early-development", range: { unit: "months", minMonths: 5, maxMonths: 5 } },
@@ -1197,7 +1210,9 @@ export function stageAgePhrase(stage: RoadmapStage): string {
  * Two different things are in play and they must not be confused. The
  * **content stage** is an editorial unit — what we have written, and for whom.
  * The **exact age** is a fact about this reader's puppy, which the civil-date
- * engine knows precisely.
+ * engine knows precisely. A reader can legitimately be on the 3-month stage
+ * while being thirteen weeks old; what they must never be told is that they
+ * are older than they are.
  *
  * Where a stage spans weeks, the exact week is the honest headline: telling
  * the owner of a ten-week-old that their puppy is "9–11 weeks old" would be
@@ -1205,14 +1220,26 @@ export function stageAgePhrase(stage: RoadmapStage): string {
  * product had lost track. The stage label still appears — in the eyebrow above
  * the headline, where it belongs, as the name of the section they are reading.
  *
- * Where a stage spans months, the stage label *is* the better headline, for
- * the reason set out in the previous gate: a thirteen-week-old resolving to
- * the three-month stage should not see two competing numbers.
+ * Where a stage spans months, the stage label is the better headline **only
+ * once the puppy has actually completed that many calendar months**. The
+ * weekly phase ends on a fixed day and the third calendar month does not: the
+ * anniversary lands anywhere from day 89 to day 92, and for the majority of
+ * dates of birth it falls on day 91 or 92 — *after* the 12-week stage has
+ * ended. Without this check a puppy that turns three months old tomorrow is
+ * told it is three months old today, which is the same class of error as
+ * calling twelve weeks three months in the Ontario block. Below the
+ * anniversary the exact age is used instead, and it is always true.
  */
 export function journeyHeadlineAge(age: PuppyAge, roadmap: RoadmapStage | null): string {
   if (!roadmap || roadmap.range.unit === "weeks") {
     return age.label;
   }
+
+  // The content stage may run ahead of the calendar. The headline may not.
+  if (age.months < roadmap.range.minMonths) {
+    return age.label;
+  }
+
   return stageAgePhrase(roadmap);
 }
 

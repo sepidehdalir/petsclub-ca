@@ -947,7 +947,12 @@ describe("hybrid age resolution", () => {
       // dob, today, headline phrase, meta row
       ["2026-06-18", "2026-09-05", "11 weeks old", ["Early puppy"]],
       ["2026-06-25", "2026-09-05", "10 weeks old", ["Early puppy"]],
-      ["2026-06-06", "2026-09-05", "3 months old", ["13 weeks", "Early development"]],
+      // Day 91, but the three-month anniversary is day 92 — so the stage is
+      // "3 months" and the headline is not. This case was written the other
+      // way round before the boundary gate, and was wrong by a day.
+      ["2026-06-06", "2026-09-05", "13 weeks old", ["Early development"]],
+      // The same puppy a day later, on its anniversary.
+      ["2026-06-06", "2026-09-06", "3 months old", ["13 weeks", "Early development"]],
       // Exactly on the anniversary the two agree, so the age is not repeated.
       ["2026-05-05", "2026-09-05", "4 months old", ["Early development"]],
       // Part-way through the month it says something the headline does not.
@@ -982,7 +987,7 @@ describe("hybrid age resolution", () => {
     // Anywhere the two differ, the exact age is kept — and it is never the
     // same string as the headline, which is what "competing labels" would be.
     for (const [birth, today] of [
-      ["2026-06-06", "2026-09-05"],
+      ["2026-06-06", "2026-09-06"],
       ["2026-01-31", "2026-09-05"],
       ["2024-02-29", "2026-09-05"],
     ]) {
@@ -1300,6 +1305,134 @@ describe("hybrid age resolution", () => {
         expect(other.sections.some((section) => section.id === id)).toBe(false);
       }
     }
+  });
+
+  it("never claims more completed months than the puppy has lived", () => {
+    // The 12-week stage ends on a fixed day and the third calendar month does
+    // not: the anniversary lands between day 89 and day 92, and for most dates
+    // of birth it falls after day 90. So a reader can enter the 3-month stage
+    // before turning three months old. That is a content-stage assignment; the
+    // headline must not turn it into an age claim.
+    const start = daysFromCivil({ year: 2024, month: 1, day: 1 });
+    const overstated: string[] = [];
+
+    for (let offset = 0; offset < 366 * 2; offset += 1) {
+      const birth = civilFromDays(start + offset);
+      const birthDay = daysFromCivil(birth);
+
+      for (let days = 56; days <= 400; days += 1) {
+        const result = resolveAge(birth, civilFromDays(birthDay + days));
+        if (!result.ok) continue;
+        const stage = roadmapStageFor(result.age);
+        if (!stage || stage.range.unit !== "months") continue;
+
+        const headline = journeyHeadlineAge(result.age, stage);
+        // If the headline names months, the puppy must have completed them.
+        const claimed = /^(\d+)(?:–\d+)? months old$/.exec(headline);
+        if (claimed && result.age.months < Number(claimed[1])) {
+          overstated.push(`${formatCivilDate(birth)} day ${days}: "${headline}" at ${result.age.months} months`);
+        }
+      }
+    }
+
+    expect(overstated).toEqual([]);
+  });
+
+  it("hands over from 12 weeks to 3 months on day 91, whatever the anniversary", () => {
+    // A fixed handover, so every public page means one stable thing. The four
+    // dates of birth below put the three-month anniversary on days 90, 91 and
+    // 92 respectively — February, a 30-day month, a 31-day month and a leap
+    // year — and the stage boundary does not move.
+    const cases: { dob: string; anniversary: number; note: string }[] = [
+      { dob: "2025-11-30", anniversary: 90, note: "clamped into February" },
+      { dob: "2026-04-30", anniversary: 91, note: "30-day month" },
+      { dob: "2026-05-31", anniversary: 92, note: "31-day months" },
+      { dob: "2023-11-29", anniversary: 92, note: "leap year" },
+    ];
+
+    for (const { dob, anniversary, note } of cases) {
+      const birth = parseCivilDate(dob)!;
+      expect(daysBetween(birth, addCalendarMonths(birth, 3)), note).toBe(anniversary);
+
+      expect(slugAtDay(dob, 90), note).toBe("12-weeks");
+      expect(slugAtDay(dob, 91), note).toBe("3-months");
+
+      // And the headline tracks the calendar rather than the stage.
+      const onDay91 = ageOn(dob, dayAfter(dob, 91));
+      const stage91 = roadmapStageFor(onDay91)!;
+      const headline91 = journeyHeadlineAge(onDay91, stage91);
+
+      if (anniversary <= 91) {
+        expect(headline91, `${dob} (${note})`).toBe("3 months old");
+      } else {
+        // Not three months old yet — say the week instead.
+        expect(headline91, `${dob} (${note})`).toBe("13 weeks old");
+        expect(onDay91.months, note).toBe(2);
+      }
+
+      // Once the reader is on a month stage *and* past the anniversary, both
+      // agree. Where the anniversary lands on day 89 or 90 the reader is still
+      // on the 12-week stage that day, which the next test covers.
+      const settled = Math.max(anniversary, 91);
+      const onSettled = ageOn(dob, dayAfter(dob, settled));
+      expect(journeyHeadlineAge(onSettled, roadmapStageFor(onSettled)!), note).toBe("3 months old");
+    }
+  });
+
+  it("reaches three months on the calendar even while still on the 12-week stage", () => {
+    // The other direction, and the one that proves stage assignment and
+    // calendar age are independent: an anniversary at day 89 or 90 arrives
+    // while the reader is still on the 12-week stage. The headline stays on
+    // weeks, which is true, and nothing is claimed either way.
+    const dob = "2025-11-30";
+    const onDay90 = ageOn(dob, dayAfter(dob, 90));
+    expect(roadmapStageFor(onDay90)!.slug).toBe("12-weeks");
+    expect(onDay90.months).toBe(3);
+    expect(journeyHeadlineAge(onDay90, roadmapStageFor(onDay90)!)).toBe("12 weeks old");
+  });
+
+  it("keeps the Ontario legal threshold independent of stage assignment", () => {
+    // No legal state may be triggered by entering a content stage. The proof:
+    // the threshold flips *inside* the 12-week stage for one date of birth and
+    // has *not* flipped on day 91 of the 3-month stage for another.
+    const legalOn = (dob: string, days: number) => {
+      const birth = parseCivilDate(dob)!;
+      const today = civilFromDays(daysFromCivil(birth) + days);
+      const section = resolveStage(twelveWeeks, { province: "ON", birth, today }).find(
+        (s) => s.id === "vaccine-questions",
+      )!;
+      return section.provinceBlocks.find((b) => b.kind === "legal")!;
+    };
+
+    // Anniversary on day 90: reached while still on the 12-week stage.
+    expect(roadmapStageFor(ageOn("2025-11-30", dayAfter("2025-11-30", 90)))!.slug).toBe("12-weeks");
+    expect(legalOn("2025-11-30", 90).heading).toContain("is now past the legal threshold");
+    expect(legalOn("2025-11-30", 89).heading).toContain("reaches the legal threshold on");
+
+    // Anniversary on day 92: still approaching on day 91, by which point the
+    // Journey has already moved the reader to the 3-month stage.
+    expect(roadmapStageFor(ageOn("2026-05-31", dayAfter("2026-05-31", 91)))!.slug).toBe("3-months");
+    expect(legalOn("2026-05-31", 91).heading).toContain("reaches the legal threshold on");
+    expect(legalOn("2026-05-31", 92).heading).toContain("is now past the legal threshold");
+  });
+
+  it("gives every public stage page one meaning that does not depend on a reader", () => {
+    // A public page has no date of birth, so its span must be expressible
+    // without one. Weekly stages are day ranges; monthly stages are whole
+    // completed months. Neither is a function of who is reading.
+    for (const stage of roadmapStages) {
+      if (stage.range.unit === "weeks") {
+        expect(Number.isInteger(stage.range.minDays)).toBe(true);
+        expect(Number.isInteger(stage.range.maxDays)).toBe(true);
+      } else {
+        expect(Number.isInteger(stage.range.minMonths)).toBe(true);
+        expect(stage.range.maxMonths === undefined || Number.isInteger(stage.range.maxMonths)).toBe(true);
+      }
+    }
+
+    // And resolution is a pure function of (days, months) — it takes no birth
+    // date, so it cannot make a stage boundary vary by reader.
+    expect(roadmapStageFor.length).toBe(1);
   });
 
   it("keeps the implemented stage a strict subset of the roadmap", () => {
