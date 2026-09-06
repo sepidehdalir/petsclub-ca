@@ -1255,15 +1255,27 @@ export const threeMonths: PuppyStage = {
 /**
  * Four to five months.
  *
- * ## Why one stage covers two months
+ * ## Why one stage covers three months
  *
- * The differentiation gate looked for a four-month page and found that
- * nothing separates month four from month five. Permanent eruption spans
- * both — Merck puts the appearance of the permanent teeth at around four to
- * five months, complete by about seven. The neutering decision spans four to
- * six depending on size. And the freedom that follows the end of the
- * vaccination series simply continues. Splitting them would have meant
- * writing the same page twice.
+ * Two differentiation gates reached this independently. The first looked for
+ * a four-month page and found nothing separating month four from month five.
+ * The second assessed six months on its own and found that roughly two thirds
+ * of such a page would have repeated this one.
+ *
+ * The reason is that the things that actually happen here run across the whole
+ * span rather than landing in a particular month. Merck puts the appearance of
+ * the permanent teeth at around four to five months and completion at about
+ * seven. The neutering decision runs from four to six by size and only becomes
+ * a date at six, and then only for smaller dogs. And the freedom that follows
+ * the end of the vaccination series simply continues.
+ *
+ * What six months does bring is one genuine addition — WSAVA's advice to
+ * consider revaccinating at or after 26 weeks rather than waiting until 12 to
+ * 16 months. That is a section, not a stage, and it lives in
+ * `vaccine-questions` below.
+ *
+ * The stage therefore describes *progression across a phase* rather than
+ * pretending everything happens at once.
  *
  * ## The spine
  *
@@ -1281,14 +1293,14 @@ export const threeMonths: PuppyStage = {
  * collapse. It also carries no "second fear period" language: the gate found
  * no peer-reviewed basis for it at any age.
  */
-export const fourToFiveMonths: PuppyStage = {
-  slug: "4-5-months",
-  label: "4–5 months",
-  title: "Your 4 to 5-Month-Old Puppy",
+export const fourToSixMonths: PuppyStage = {
+  slug: "4-6-months",
+  label: "4–6 months",
+  title: "Your 4 to 6-Month-Old Puppy",
   deck:
-    "Two things arrive together: more of the world, once your veterinarian says the series is finished, and the permanent teeth. One of them is a lot more fun than the other.",
+    "Two things arrive together: more of the world, once your veterinarian says the series is finished, and the permanent teeth. Across these three months one of them gets easier and the other does not.",
   metaDescription:
-    "What matters at four and five months: broader outings once the vaccination series is complete, permanent teeth arriving, training that has to work in harder places, and when to start the neutering conversation.",
+    "What matters from four to six months: broader outings once the vaccination series is complete, permanent teeth arriving and finishing, training in harder places, the neutering decision, and the booster conversation that comes back around six months.",
   mediaId: "puppy-four-five-months",
   mediaAlt:
     "A young dog in a plain harness standing on a park path — around the age this stage covers.",
@@ -1299,17 +1311,19 @@ export const fourToFiveMonths: PuppyStage = {
     {
       id: "this-week",
       title: "Where you are now",
-      summary: "The world opens and the teeth arrive.",
+      summary: "The world opens and the teeth arrive — then, slowly, settle.",
       body: [
-        "Two things change in this period and they pull in opposite directions. For most puppies the primary vaccination series is finished or finishing, which — once your veterinarian confirms it — opens up where you can reasonably go. And the permanent teeth start coming through, which makes a puppy that was already chewing considerably worse to live with.",
-        "The result is a stage that feels like progress and hard work at the same time. The training you banked at three months is about to be tested in places it has never been tested, and the household is about to lose a skirting board. Both are normal, and neither is adolescence — that is months away yet.",
+        "Two things change at the start of this period and they pull in opposite directions. For most puppies the primary vaccination series is finished or finishing, which — once your veterinarian confirms it — opens up where you can reasonably go. And the permanent teeth start coming through, which makes a puppy that was already chewing considerably worse to live with.",
+        "This stage covers three months rather than one because that is how long those two things take to play out. Around four months the chewing is at its most destructive and the world is newly available. By six it is a different animal: the mouth is nearly finished, the outings are routine, and two conversations have usually come back round — whether this dog is being neutered and when, and whether your clinic wants a further vaccine dose now rather than at a year old.",
+        "None of it is adolescence. That is still ahead, and the work you put in here is what it draws on.",
       ],
       points: [
         "Ask your veterinarian to confirm the series is complete rather than assuming it from a date.",
         "Chewing gets worse before it gets better. Manage it; do not try to train it away.",
         "Practise in harder places, not harder exercises.",
         "House-training is usually good and not usually finished.",
-        "If your dog will be neutered, this is when the timing conversation starts — and the answer depends on size.",
+        "The neutering conversation starts here and, for a smaller dog, usually concludes here. The answer depends on size.",
+        "Towards six months there is often a second vaccination conversation. It is a decision, not a formality.",
       ],
     },
     {
@@ -1325,12 +1339,13 @@ export const fourToFiveMonths: PuppyStage = {
     {
       id: "teething",
       title: "Permanent teeth and chewing",
-      summary: "The physical fact that defines these two months.",
+      summary: "The physical fact that defines this phase, and the one that ends during it.",
       body: [
         "This is the period the chewing has been building towards. The Merck Veterinary Manual puts the appearance of the permanent teeth at around four to five months, with all of them present by about seven — so what you are dealing with now has a physical cause, a known trajectory, and an end.",
         "That changes the job from correction to management, and it changes puppy-proofing. A four-month-old can reach higher, is more determined, and has a mouth that wants pressure on it. Go round the house again at the new height: chair legs, table edges, remote controls, shoes left by the door, cables that were previously out of reach and are not any more.",
         "Give the mouth somewhere legal to go. Keep a rotation so items stay interesting, and use cold — a wet flannel frozen into a twist, or a stuffed toy from the freezer — which does more for a sore mouth than anything you can say. On what to give, the useful conversation is with your veterinarian rather than a shelf: hardness is the thing to ask about, because chews that do not give at all are a recognised cause of fractured teeth, and \u201cnatural\u201d is not a synonym for safe.",
-        "Chewing is normal; swallowing is the risk, and it does not go away because the puppy is older. Anything given should be too large to swallow and should be taken away as it wears down. Losing a baby tooth, a spot of blood on a toy, or finding nothing at all are all ordinary. What is worth a veterinary look is a baby tooth still firmly in place beside the adult tooth that is replacing it, a mouth that seems painful rather than itchy, or a tooth that is broken rather than shed.",
+        "Chewing is normal; swallowing is the risk, and it does not go away because the puppy is older. Anything given should be too large to swallow and should be taken away as it wears down. Losing a baby tooth, a spot of blood on a toy, or finding nothing at all are all ordinary. What is worth a veterinary look is a mouth that seems painful rather than itchy, or a tooth that is broken rather than shed.",
+        "The other end of this is worth knowing about, because it arrives inside this stage. Merck puts the full set of permanent teeth in place by about seven months, so by six the process is progressing towards completion rather than finished — the chewing usually eases before the last teeth are through. If a baby tooth is still firmly in place alongside the adult tooth replacing it by around this point, that is worth raising rather than waiting on. It is a common thing for a veterinarian to look at, and if a dog is going to be anaesthetised for neutering anyway, the two are sometimes dealt with in the same event. That is a conversation to have rather than an expectation to arrive with.",
       ],
       guide: {
         slug: "dental-care-for-dogs-and-cats",
@@ -1398,7 +1413,9 @@ export const fourToFiveMonths: PuppyStage = {
       body: [
         "If your dog is going to be neutered, this is roughly when the conversation starts, and the single most important thing to know is that there is no universal age. The American Animal Hospital Association's guidance splits on projected adult bodyweight, at 45 pounds.",
         "For a dog expected to be under that, the recommended timing is around six months for castration and before the anticipated first heat — five to six months — for spaying. For a dog expected to be over it, the recommendation is to wait until growth is complete, usually somewhere between nine and fifteen months for males, with a wider individualised window for females. The reasoning is not arbitrary: it balances risks that pull in opposite directions, and the guidelines themselves caution that findings in one breed may not transfer to another.",
-        "So the useful thing to do here is not to book anything. It is to establish which side of that line your dog is likely to fall on, and to agree a plan with your veterinarian rather than a default. If your dog is a small breed, the decision genuinely needs making during this stage; if it is a large one, you have months, and using them is the point.",
+        "So the useful thing to do at the start of this stage is not to book anything. It is to establish which side of that line your dog is likely to fall on, and to agree a plan with your veterinarian rather than accept a default.",
+        "Where that leads differs by the end of it. For a smaller dog the conversation usually stops being a discussion somewhere around six months and becomes a date — the timing depends on sex, on how the individual dog is developing and on your veterinarian's assessment, not on the calendar alone. For a larger dog it commonly stays a plan for months yet, and pulling it forward to match a friend's small dog is the thing the size split exists to prevent.",
+        "One practical note if a procedure is being arranged. A dog under anaesthetic can sometimes have other things attended to in the same event — a baby tooth that has not come out on its own being the common example at this age. That is worth asking about rather than assuming; it is neither universal nor required, and it depends entirely on what your veterinarian finds.",
       ],
       guide: {
         slug: "spaying-and-neutering-in-canada",
@@ -1452,18 +1469,22 @@ export const fourToFiveMonths: PuppyStage = {
     },
     {
       id: "vaccine-questions",
-      title: "Questions to discuss with your veterinarian at this stage",
-      summary: "Confirm completion. Do not infer it from a calendar.",
+      title: "Vaccination: two conversations, months apart",
+      summary: "Confirm the series is finished. Then, around six months, expect a second question.",
       tone: "caution",
       body: [
         "The mistake this stage invites is inference. A dog that had an injection two months ago, is bigger, and is plainly thriving feels finished — and roughly as often as not, it is not. Whether the series is complete depends on when it began and how the doses were spaced, and neither of those is visible from a calendar or from the dog.",
-        "So the job here is a single confirmation, obtained out loud, and then a second question about what it changes. Both the American Animal Hospital Association and the World Small Animal Veterinary Association put the last dose at sixteen weeks or later, which is a point many dogs pass mid-way through this stage rather than before it. Get the answer as a yes or a date, not as an impression, and write it down.",
+        "So the job at the start of this stage is a single confirmation, obtained out loud, and then a second question about what it changes. Both the American Animal Hospital Association and the World Small Animal Veterinary Association put the last dose at sixteen weeks or later, which is a point many dogs pass mid-way through this stage rather than before it. Get the answer as a yes or a date, not as an impression, and write it down.",
+        "Then, towards the end of this stage, a second conversation often appears, and it surprises people who thought the subject was closed. The World Small Animal Veterinary Association advises considering revaccination at or after 26 weeks of age *instead of* waiting until twelve to sixteen months. It is worth being precise about why, because the reasoning is not what most owners assume.",
+        "It is not that a dose is due, and it is not an extra vaccine bolted onto the schedule. It is that maternal antibody interferes with the vaccines given early in life, it fades on a timetable nobody can see from outside, and a small minority of puppies still have enough of it at sixteen weeks to blunt that final dose. Nobody can tell which puppies those were. Bringing the next dose forward from a year to around six months shortens the window in which that minority is unprotected. It replaces an appointment rather than adding one.",
+        "Two consequences follow for you. First, this is a clinical judgement rather than a rule, and practice genuinely differs — the American Animal Hospital Association still frames it as a booster within the first year, so a clinic that does not raise it at six months is not behind. Ask which approach yours follows and why, rather than assuming either. Second, there is an alternative: WSAVA supports serological testing from twenty weeks onwards to check whether a dog has actually responded, which for some dogs and some owners is a better answer than another dose. Whether it is available and appropriate is a question for your veterinarian.",
       ],
       points: [
         "Is the primary series complete? If not, what is outstanding and when is it due?",
         "Now that it is, what changes about where I can take this dog — and what does not?",
         "Are there places you would still avoid around here, and for how long?",
-        "Should this dog have anything further before it is a year old?",
+        "Do you follow the 26-week approach, or the twelve-month one? Which is it for this dog, and why?",
+        "Would serology be appropriate here instead, or is that not something you offer?",
         "What parasite prevention should be running, and for how many months this year?",
         "Is the rabies requirement where we live satisfied, and is it on the record?",
       ],
@@ -1523,8 +1544,8 @@ export const fourToFiveMonths: PuppyStage = {
       title: "What's next",
       summary: "Six months, and the last stretch before things get interesting.",
       body: [
-        "Around six months the teeth finish arriving, there is a further vaccination conversation to have, and for smaller dogs the neutering decision stops being a discussion and becomes a date. It is also the last quiet stretch before adolescence.",
-        "Adolescence itself is further off than the internet suggests. The research that documents a dip in trainability puts it at around eight months, and finds it passes — dogs are more trainable before it and after it. The work you are doing now, in harder places and with less to show for it than you would like, is what the dog comes back to on the other side.",
+        "By the end of this stage the mouth is close to finished, the outings are ordinary, and the two conversations this phase raises — the neutering plan and the booster question — have usually been had. What is left is the last quiet stretch.",
+        "Adolescence is further off than the internet suggests. The research that documents a dip in trainability puts it at around eight months, and finds it passes — dogs are more trainable before it and after it. Nothing about that is happening yet, and treating a five-month-old as a teenager is a good way to apply pressure where practice was needed. The work you are doing now, in harder places and with less to show for it than you would like, is what the dog comes back to on the other side.",
       ],
     },
   ],
@@ -1558,9 +1579,9 @@ export const fourToFiveMonths: PuppyStage = {
       url: "https://www.aaha.org/resources/2022-aaha-canine-vaccination-guidelines/",
     },
     {
-      label: "2024 Guidelines for the Vaccination of Dogs and Cats — final puppy dose at sixteen weeks or older",
+      label: "2024 Guidelines for the Vaccination of Dogs and Cats — final puppy dose at sixteen weeks or older, and revaccination at or after 26 weeks rather than at 12 to 16 months",
       publisher: "World Small Animal Veterinary Association",
-      url: "https://wsava.org/wp-content/uploads/2024/05/2024-Guidelines-for-the-Vaccination-of-Dogs-and-Cats.pdf",
+      url: "https://wsava.org/wp-content/uploads/2024/04/WSAVA-Vaccination-guidelines-2024.pdf",
     },
     {
       label: "Teenage dogs? Evidence for adolescent-phase conflict behaviour — reduced trainability at around eight months, with five months as pre-adolescence",
@@ -1582,10 +1603,14 @@ export const fourToFiveMonths: PuppyStage = {
     "Retained deciduous teeth are described as worth a veterinary look, without a prevalence, a breed pattern or a treatment. The AAHA life stage guidelines mention correcting persistent deciduous teeth; that is the basis for raising it, not for advising on it.",
     "Sterilization timing is quoted from the 2019 AAHA Canine Life Stage Guidelines, Textbox 1, including the 45 lb projected-adult-bodyweight split. No universal age appears, the guidelines' own caution that findings in one breed may not transfer to another is carried, and the page books nothing.",
     "That many puppies complete the primary series around this period is stated as depending on records and the veterinary plan, never as a schedule. The final-dose ages stay attributed to AAHA and WSAVA.",
+    "The 26-week point follows WSAVA 2024, which advises considering revaccination at or after 26 weeks rather than waiting until 12 to 16 months, to reduce the window for the minority still carrying interfering maternal antibody at 16+ weeks. It is written as a decision that replaces an appointment rather than adds one, is explicitly not presented as a universal six-month vaccine, records that AAHA frames it differently, and carries WSAVA's serology alternative from 20 weeks. Do not let an edit turn any of that into a timetable.",
+    "That retained deciduous teeth are sometimes addressed during a neutering anaesthetic is stated as something to ask about, explicitly not universal and not required. AAHA's life stage guidelines mention correcting persistent deciduous teeth in that context; that is the basis for raising it, not for advising on it.",
+    "That permanent dentition is progressing towards completion by six months follows Merck's 'by about seven months', stated as progression rather than as an end point. There is no claim that teething finishes at six months, and none should be added.",
     "That this stage is not adolescence is attributed to Asher et al., who place the trainability dip at around eight months and treat five months as pre-adolescence. Do not introduce adolescent framing here.",
     "No 'second fear period' language appears anywhere. The differentiation gate found no peer-reviewed basis for it at any age; it stays out until one exists.",
     "No minutes-per-month exercise formula appears, and the page says explicitly that there is not a sound one. The growth-plate reasoning names no age, distance or rule.",
     "Feeding gives no quantities, no calorie tables and no adult-weight prediction. Body condition is described qualitatively (ribs felt without pressing, waist visible from above); attach a body-condition-score source before it is made more precise.",
+    "No adult-food transition appears at any point in this stage, deliberately. Merck ties the switch to skeletal maturity rather than calendar age, and puts that at eight to twelve months in small and medium dogs and up to fifteen or sixteen in large and giant ones. A universal six-month transition would be wrong for every size.",
     "That a sudden loss of house-training warrants veterinary attention is stated as a reason to ask rather than a diagnosis, and names no condition.",
   ],
 };
@@ -1595,7 +1620,7 @@ export const stages: readonly PuppyStage[] = [
   nineToElevenWeeks,
   twelveWeeks,
   threeMonths,
-  fourToFiveMonths,
+  fourToSixMonths,
 ];
 
 /* ------------------------------------------------------------- the roadmap */
@@ -1773,18 +1798,23 @@ export const roadmapStages: readonly RoadmapStage[] = [
   // own anniversary. That is a content-stage assignment, not an age claim, and
   // `journeyHeadlineAge` refuses to turn it into one.
   { slug: "3-months", label: "3 months", phase: "early-development", range: { unit: "months", minMonths: 3, maxMonths: 3 } },
-  // Four and five months are one stage, not two. The differentiation gate
-  // found nothing that separates them: permanent eruption spans both (Merck
-  // puts it at around four to five months, complete by about seven), the
-  // neutering decision spans four to six by size, and the freedom that
-  // follows the vaccination series simply continues. The behavioural
-  // landmarks people reach for here are not here at all — Asher et al. place
-  // the adolescent trainability dip at eight months and call five months
-  // *pre*-adolescence — so splitting these would have meant writing the same
-  // page twice. Six months stays separate: it carries the ~26-week dose,
-  // the small-breed neuter age, and the handover into adolescence.
-  { slug: "4-5-months", label: "4–5 months", phase: "early-development", range: { unit: "months", minMonths: 4, maxMonths: 5 } },
-  { slug: "6-months", label: "6 months", phase: "early-development", range: { unit: "months", minMonths: 6, maxMonths: 6 } },
+  // Four, five and six months are one stage. Two gates reached that
+  // conclusion independently. Permanent eruption spans the whole span (Merck
+  // puts its start at around four to five months and completion at about
+  // seven); the neutering decision runs from four to six by size and only
+  // *executes* at six for small dogs; and the freedom that follows the
+  // vaccination series simply continues throughout.
+  //
+  // Six months was assessed on its own and did not survive it. Its one strong
+  // topic — WSAVA's advice to consider revaccinating at or after 26 weeks
+  // instead of waiting for 12 to 16 months — is a section, not a stage, and
+  // roughly two thirds of a 6-month page would have repeated this one. The
+  // material people reach for to justify it belongs later: Asher et al. put
+  // the adolescent trainability dip at eight months and never measured six,
+  // and Merck puts skeletal maturity — the real trigger for adult food — at
+  // eight to twelve months in small and medium dogs and up to fifteen or
+  // sixteen in large ones.
+  { slug: "4-6-months", label: "4–6 months", phase: "early-development", range: { unit: "months", minMonths: 4, maxMonths: 6 } },
 
   // Adolescence — paired months, because the things that define this period
   // arrive on their own schedule and not on a monthly one.
@@ -1972,34 +2002,34 @@ export function stageFor(age: PuppyAge): PuppyStage | null {
 export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
   {
     sizeGroup: "toy",
-    stageSlug: "4-5-months",
+    stageSlug: "4-6-months",
     sectionId: "neutering",
     body: [
-      "A toy-breed dog sits well under the 45 lb line, which puts the decision inside this stage rather than after it. AAHA's timing for a dog expected to stay under that weight is around six months for castration, and before the anticipated first heat — five to six months — for spaying. That is close enough that the conversation needs having now rather than at the next routine appointment.",
+      "A toy-breed dog sits well under the 45 lb line, which puts both the decision and, usually, the procedure inside this stage. AAHA's timing for a dog expected to stay under that weight is around six months for castration, and before the anticipated first heat — five to six months — for spaying. So the conversation needs having at the start of this phase rather than the end of it, because the date it leads to falls within the same three months. Exactly when depends on sex and on how your own dog is developing, which is your veterinarian's call rather than a chart's.",
     ],
   },
   {
     sizeGroup: "small",
-    stageSlug: "4-5-months",
+    stageSlug: "4-6-months",
     sectionId: "neutering",
     body: [
-      "A small-breed dog is likely to stay under the 45 lb line, which puts this decision inside this stage rather than after it. AAHA's timing for that group is around six months for castration and before the anticipated first heat — five to six months — for spaying, so it is worth settling the plan at the next appointment rather than the one after.",
+      "A small-breed dog is likely to stay under the 45 lb line, which puts both the decision and, usually, the procedure inside this stage. AAHA's timing for that group is around six months for castration and before the anticipated first heat — five to six months — for spaying, so settle the plan at the next appointment rather than the one after. The date itself depends on sex and on how this individual dog is developing rather than on the month alone.",
     ],
   },
   {
     sizeGroup: "large",
-    stageSlug: "4-5-months",
+    stageSlug: "4-6-months",
     sectionId: "neutering",
     body: [
-      "A large-breed dog is expected to finish well over the 45 lb line, and AAHA's guidance for that group is to wait until growth is complete — usually somewhere between nine and fifteen months for males, with a wider individualised window for females. So you have months here rather than weeks, and the useful thing to do with them is have the conversation properly rather than early.",
+      "A large-breed dog is expected to finish well over the 45 lb line, and AAHA's guidance for that group is to wait until growth is complete — usually somewhere between nine and fifteen months for males, with a wider individualised window for females. That is after this stage ends, not within it. So you have months rather than weeks, and the useful thing to do with them is have the conversation properly rather than early — and to be unmoved when a friend's small dog is booked in at six months.",
     ],
   },
   {
     sizeGroup: "giant",
-    stageSlug: "4-5-months",
+    stageSlug: "4-6-months",
     sectionId: "neutering",
     body: [
-      "A giant-breed dog grows for longer than almost any other, which puts it firmly in the group AAHA advises waiting on until growth is complete — usually nine to fifteen months for males, with a wider individualised window for females. Nothing about this decision is urgent at four or five months, and the guidelines caution explicitly that findings in one breed may not transfer to another, which is a reason to make it with your own veterinarian rather than from a table.",
+      "A giant-breed dog grows for longer than almost any other, which puts it firmly in the group AAHA advises waiting on until growth is complete — usually nine to fifteen months for males, with a wider individualised window for females. That is well beyond this stage. Nothing about the decision is urgent at any point in these three months, and the guidelines caution explicitly that findings in one breed may not transfer to another — a reason to make it with your own veterinarian rather than from a table.",
     ],
   },
   {
@@ -2140,7 +2170,7 @@ export const breedModifiers: readonly BreedModifier[] = [
 export const provinceModifiers: readonly ProvinceModifier[] = [
   {
     provinces: ["ON"],
-    stageSlug: "4-5-months",
+    stageSlug: "4-6-months",
     sectionId: "vaccine-questions",
     heading: "In Ontario, rabies vaccination is a legal requirement from three months of age",
     kind: "legal",
@@ -2175,7 +2205,7 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
   },
   {
     provinces: ["BC"],
-    stageSlug: "4-5-months",
+    stageSlug: "4-6-months",
     sectionId: "vaccine-questions",
     heading: "In British Columbia, rabies vaccination is recommended rather than required",
     kind: "guidance",
@@ -2423,7 +2453,7 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
 export const seasonModifiers: readonly SeasonModifier[] = [
   {
     season: "summer",
-    stageSlug: "4-5-months",
+    stageSlug: "4-6-months",
     sectionId: "exercise",
     heading: "Longer walks in summer",
     body: [
@@ -2434,7 +2464,7 @@ export const seasonModifiers: readonly SeasonModifier[] = [
   },
   {
     season: "winter",
-    stageSlug: "4-5-months",
+    stageSlug: "4-6-months",
     sectionId: "exercise",
     heading: "Longer walks in winter",
     body: [

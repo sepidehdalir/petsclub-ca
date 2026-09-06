@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 import { JsonLd } from "@/components/shared/json-ld";
 import { getAuthor } from "@/features/editorial/authors";
 import { StageView } from "@/features/puppy/components/stage-view";
-import { fourToFiveMonths } from "@/features/puppy/stages";
+import { fourToSixMonths } from "@/features/puppy/stages";
 import { createMetadata } from "@/lib/seo/metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { getMediaAsset } from "@/media/manifest";
 
-const stage = fourToFiveMonths;
+const stage = fourToSixMonths;
 const path = `/puppy/${stage.slug}`;
 
 export const metadata: Metadata = createMetadata({
@@ -30,7 +30,7 @@ export const metadata: Metadata = createMetadata({
 });
 
 /**
- * The public 4-to-5-month stage.
+ * The public 4-to-6-month stage.
  *
  * Renders the universal content with **no context**: no breed, no province, no
  * season. That is what makes it a safely indexable page — its content is the
@@ -38,13 +38,16 @@ export const metadata: Metadata = createMetadata({
  * one canonical version of it. The personalised layers live at `/my-puppy`,
  * which is `noindex` and canonicals here.
  *
- * One page covers two months because the differentiation gate found nothing
- * that separates them. The reader is still told their exact age — a
- * four-month-old reads "4 months old" and a five-month-old reads "5 months
- * old", because a range label is never used as an age claim. See
- * `journeyHeadlineAge`.
+ * One page covers three months because two differentiation gates said so
+ * independently: nothing separates months four and five, and a standalone
+ * six-month page would have repeated roughly two thirds of this one. The
+ * reader is still told their exact age — four, five or six months — because a
+ * range label is never used as an age claim. See `journeyHeadlineAge`.
+ *
+ * The former `/puppy/4-5-months` path redirects here permanently, the same way
+ * `/puppy/11-weeks` does — see `redirects()` in `next.config.ts`.
  */
-export default function FourToFiveMonthsPage() {
+export default function FourToSixMonthsPage() {
   const author = getAuthor("pet-club-editorial");
   const asset = getMediaAsset(stage.mediaId);
 

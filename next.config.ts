@@ -49,10 +49,9 @@ const nextConfig: NextConfig = {
   /**
    * Route history.
    *
-   * `/puppy/11-weeks` was the proof-of-concept stage. The differentiation gate
-   * found no sourceable difference between a nine-, ten- and eleven-week-old,
-   * so the three collapsed into one stage at `/puppy/9-11-weeks` and the old
-   * path became a redirect rather than a second copy of the same writing.
+   * Two stages have been merged after a differentiation gate found the split
+   * unsupportable, and in both cases the narrower path became a redirect
+   * rather than a second copy of the same writing.
    *
    * A 308 rather than a 307: the move is permanent, and nothing was ever
    * indexed at the old path — the Journey has been `noindex` and out of the
@@ -66,6 +65,15 @@ const nextConfig: NextConfig = {
       {
         source: "/puppy/11-weeks",
         destination: "/puppy/9-11-weeks",
+        permanent: true,
+      },
+      {
+        // Same story a stage later: the 6-month gate found that a standalone
+        // six-month page would have repeated two thirds of the 4–5 month one,
+        // so the two merged and the narrower path became a redirect. Nothing
+        // was ever indexed at it.
+        source: "/puppy/4-5-months",
+        destination: "/puppy/4-6-months",
         permanent: true,
       },
     ];
