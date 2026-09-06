@@ -1251,11 +1251,351 @@ export const threeMonths: PuppyStage = {
   ],
 };
 
+
+/**
+ * Four to five months.
+ *
+ * ## Why one stage covers two months
+ *
+ * The differentiation gate looked for a four-month page and found that
+ * nothing separates month four from month five. Permanent eruption spans
+ * both — Merck puts the appearance of the permanent teeth at around four to
+ * five months, complete by about seven. The neutering decision spans four to
+ * six depending on size. And the freedom that follows the end of the
+ * vaccination series simply continues. Splitting them would have meant
+ * writing the same page twice.
+ *
+ * ## The spine
+ *
+ * **The world opens and the teeth arrive.** Those are the two things that are
+ * true here and nowhere earlier, and both are sourced. Three months was about
+ * consolidation; this is about what happens when a consolidated puppy is let
+ * out into more of the world with a mouth that hurts.
+ *
+ * ## What this stage must not do
+ *
+ * It must not introduce adolescence. Asher et al. place the adolescent
+ * trainability dip at eight months and describe five months as
+ * *pre*-adolescence, so a puppy here is before the phase, not in it. Normal
+ * variability at four months is not "stubbornness" and is not a recall
+ * collapse. It also carries no "second fear period" language: the gate found
+ * no peer-reviewed basis for it at any age.
+ */
+export const fourToFiveMonths: PuppyStage = {
+  slug: "4-5-months",
+  label: "4–5 months",
+  title: "Your 4 to 5-Month-Old Puppy",
+  deck:
+    "Two things arrive together: more of the world, once your veterinarian says the series is finished, and the permanent teeth. One of them is a lot more fun than the other.",
+  metaDescription:
+    "What matters at four and five months: broader outings once the vaccination series is complete, permanent teeth arriving, training that has to work in harder places, and when to start the neutering conversation.",
+  mediaId: "puppy-four-five-months",
+  mediaAlt:
+    "A young dog in a plain harness standing on a park path — around the age this stage covers.",
+  reviewBy: "2027-09-01",
+  status: "in-review",
+
+  sections: [
+    {
+      id: "this-week",
+      title: "Where you are now",
+      summary: "The world opens and the teeth arrive.",
+      body: [
+        "Two things change in this period and they pull in opposite directions. For most puppies the primary vaccination series is finished or finishing, which — once your veterinarian confirms it — opens up where you can reasonably go. And the permanent teeth start coming through, which makes a puppy that was already chewing considerably worse to live with.",
+        "The result is a stage that feels like progress and hard work at the same time. The training you banked at three months is about to be tested in places it has never been tested, and the household is about to lose a skirting board. Both are normal, and neither is adolescence — that is months away yet.",
+      ],
+      points: [
+        "Ask your veterinarian to confirm the series is complete rather than assuming it from a date.",
+        "Chewing gets worse before it gets better. Manage it; do not try to train it away.",
+        "Practise in harder places, not harder exercises.",
+        "House-training is usually good and not usually finished.",
+        "If your dog will be neutered, this is when the timing conversation starts — and the answer depends on size.",
+      ],
+    },
+    {
+      id: "development",
+      title: "Development",
+      summary: "More confident, more opinionated, and still learning by context.",
+      body: [
+        "A puppy of this age is physically much more capable and noticeably more independent. It will go further from you, investigate more on its own account, and show clearer preferences about what it does and does not want to do. Curiosity outruns judgement by a wide margin, which is why the recall work in this period matters more than it feels like it does.",
+        "Learning is still strongly tied to context. A behaviour that is solid in the garden may be absent on a pavement with a bin lorry going past, and that is a gap in practice rather than a refusal. Reading it as defiance is the most common mistake of this age and it leads to pressure being applied where repetition was needed.",
+        "This is not adolescence. The research that describes a dip in trainability during adolescence places it at around eight months and treats five months as the phase before it, so a puppy here is on the near side of that. What you are seeing is a confident young dog with incomplete generalisation, not a teenager.",
+      ],
+    },
+    {
+      id: "teething",
+      title: "Permanent teeth and chewing",
+      summary: "The physical fact that defines these two months.",
+      body: [
+        "This is the period the chewing has been building towards. The Merck Veterinary Manual puts the appearance of the permanent teeth at around four to five months, with all of them present by about seven — so what you are dealing with now has a physical cause, a known trajectory, and an end.",
+        "That changes the job from correction to management, and it changes puppy-proofing. A four-month-old can reach higher, is more determined, and has a mouth that wants pressure on it. Go round the house again at the new height: chair legs, table edges, remote controls, shoes left by the door, cables that were previously out of reach and are not any more.",
+        "Give the mouth somewhere legal to go. Keep a rotation so items stay interesting, and use cold — a wet flannel frozen into a twist, or a stuffed toy from the freezer — which does more for a sore mouth than anything you can say. On what to give, the useful conversation is with your veterinarian rather than a shelf: hardness is the thing to ask about, because chews that do not give at all are a recognised cause of fractured teeth, and \u201cnatural\u201d is not a synonym for safe.",
+        "Chewing is normal; swallowing is the risk, and it does not go away because the puppy is older. Anything given should be too large to swallow and should be taken away as it wears down. Losing a baby tooth, a spot of blood on a toy, or finding nothing at all are all ordinary. What is worth a veterinary look is a baby tooth still firmly in place beside the adult tooth that is replacing it, a mouth that seems painful rather than itchy, or a tooth that is broken rather than shed.",
+      ],
+      guide: {
+        slug: "dental-care-for-dogs-and-cats",
+        label: "The mouth you are looking after for the next decade",
+      },
+    },
+    {
+      id: "socialisation",
+      title: "Socialisation and outings",
+      summary: "More access, once it is confirmed — and access is not the same as exposure.",
+      body: [
+        "Do not assume the series is complete because a certain number of weeks have passed. Ask, get an answer, and ask what it changes: whether the whole world is now reasonable, or whether there are still places your veterinarian would avoid given the disease picture where you live.",
+        "Once you have that, widen deliberately rather than all at once. Neighbourhood pavements, a quiet high street, a café terrace, a car park, a bus stop, gravel and metal grates and wet grass — the value is in the variety of surfaces and situations, not in the number of dogs met. Increase complexity a rung at a time and keep the sessions short enough that the puppy is still enjoying itself when you leave.",
+        "The thing to resist is the shortcut. A dog park is not socialisation; it is a crowd of strangers with no supervision, and for a four-month-old with no reliable recall it is a way to acquire a problem rather than prevent one. Structured interaction — a known adult dog with good manners, a well-run class — teaches far more than volume does. One calm experience the puppy could have walked away from is worth an afternoon of being carried through a crowd.",
+      ],
+      guide: {
+        slug: "puppy-socialisation-checklist",
+        label: "What to expose a puppy to, and how to read the puppy",
+      },
+    },
+    {
+      id: "training",
+      title: "Training",
+      summary: "Same behaviours, harder rooms. Nothing here is reliable yet.",
+      body: [
+        "The list does not get longer at this age; the conditions get harder. Everything below is work you have already started, moved somewhere it has not worked before, and none of it is finished — a puppy that performs beautifully on the drive is not a dog you can trust off-lead at the park.",
+      ],
+      points: [
+        "Recall against real distraction, on a long line, so that you never call a recall you cannot back up. Pay it enormously, every time, and never call to end something the puppy is enjoying.",
+        "Lead work on actual pavements. Two good minutes at the end of the road beats twenty minutes of pulling, and rewarding the position you want beats correcting the one you do not.",
+        "Settling away from home — outside a shop, at a café table, in the car. It is the most transferable thing you can teach and the least practised.",
+        "Impulse-control foundations, in their simplest form: waiting a beat before the door opens, before the bowl goes down, before the lead comes off. Short, boring, and enormously useful later.",
+        "Handling that stays cooperative: a paw offered rather than taken, ended before the puppy wants it to end. The mouth needs looking at more often now, so it is worth being easy.",
+        "One set of rules across the household. A puppy can learn any rule and cannot learn four versions of it, and this is the age where inconsistency starts to show.",
+      ],
+      guide: {
+        slug: "loose-leash-walking-and-recall",
+        label: "Lead work and recall, built properly",
+      },
+    },
+    {
+      id: "toilet-training",
+      title: "House-training",
+      summary: "Usually good. Usually not finished.",
+      body: [
+        "Most puppies are reliable for long stretches by now, which is exactly when the routine gets relaxed and the accidents come back. Extend the intervals gradually rather than withdrawing the schedule, and keep some supervision indoors — an unwatched puppy with a full bladder in a room you are not in is not a training failure waiting to happen, it is one already underway.",
+        "Expect setbacks around change: a new schedule, a house move, a stretch of bad weather, a day left longer than usual. Accidents are information about what changed rather than misbehaviour, and punishing them teaches a dog to go where you cannot see it — which is a harder problem than the one you started with.",
+        "One thing is worth separating from training entirely. A dog that was reliably house-trained and suddenly is not, particularly with straining, increased frequency, obvious urgency or blood, needs a veterinary opinion before anyone reaches for a training plan.",
+      ],
+    },
+    {
+      id: "exercise",
+      title: "Exercise and activity",
+      summary: "More, gradually, and still not far.",
+      body: [
+        "Outings can lengthen in this period, and the useful measure is variety rather than distance. A route with new surfaces, things to sniff and places to stop does more for a young dog than the same loop done faster, and sniffing tires them in a way walking does not.",
+        "We are not going to give you a minutes-per-month formula, because there is not a sound one. What is worth understanding is the shape: free movement at the puppy's own pace, where it can stop when it wants to, is good for it. Repetitive forced exercise — running alongside a bicycle, long stair sessions, throwing a ball until the dog drops — is the thing to be careful with while the growth plates are open, and how careful depends on how big this dog is going to be.",
+        "Mental work still does more than mileage. Five minutes of training, a scattered handful of food, or a new place to investigate will empty a four-month-old more thoroughly than an extra kilometre will.",
+      ],
+    },
+    {
+      id: "neutering",
+      title: "The neutering conversation",
+      summary: "A discussion window, not a date — and the answer depends on size.",
+      body: [
+        "If your dog is going to be neutered, this is roughly when the conversation starts, and the single most important thing to know is that there is no universal age. The American Animal Hospital Association's guidance splits on projected adult bodyweight, at 45 pounds.",
+        "For a dog expected to be under that, the recommended timing is around six months for castration and before the anticipated first heat — five to six months — for spaying. For a dog expected to be over it, the recommendation is to wait until growth is complete, usually somewhere between nine and fifteen months for males, with a wider individualised window for females. The reasoning is not arbitrary: it balances risks that pull in opposite directions, and the guidelines themselves caution that findings in one breed may not transfer to another.",
+        "So the useful thing to do here is not to book anything. It is to establish which side of that line your dog is likely to fall on, and to agree a plan with your veterinarian rather than a default. If your dog is a small breed, the decision genuinely needs making during this stage; if it is a large one, you have months, and using them is the point.",
+      ],
+      guide: {
+        slug: "spaying-and-neutering-in-canada",
+        label: "Why the timing question has changed, and what to weigh",
+      },
+    },
+    {
+      id: "feeding",
+      title: "Feeding",
+      summary: "Still growth food, and body condition beats any chart.",
+      body: [
+        "Stay on a diet formulated for growth. It is too early to move to adult food, and how much longer depends on how big this dog will be — that is a question for your veterinarian rather than a bag, and it belongs at an appointment where the puppy is on the scales anyway.",
+        "The more useful skill at this age is reading the dog rather than the label. You should be able to feel ribs without pressing hard, and see a waist from above. Quantities get adjusted against that, in consultation with your clinic, rather than against a table — puppies of the same age and the same weight can genuinely need different amounts.",
+        "Meals remain the cheapest training currency you have. A portion of the daily food delivered by hand during short sessions buys repetitions that a bowl does not.",
+      ],
+      guide: {
+        slug: "reading-a-canadian-pet-food-label",
+        label: "What the label does and does not tell you",
+      },
+    },
+    {
+      id: "sleep",
+      title: "Sleep",
+      summary: "Less obvious, still needed.",
+      body: [
+        "Nights are usually settled. The daytime rest is what slips, because the dog is better company now and gets included in more. An over-tired four-month-old does not look tired — it looks rude, mouthy and unable to settle, and it is at its worst in the late afternoon.",
+        "Keep a rest routine rather than waiting for the dog to opt into one, and use the settle work from the training section: a mat and a chew in a quiet room is both rest and practice.",
+      ],
+    },
+    {
+      id: "grooming",
+      title: "Handling and grooming",
+      summary: "Short, regular, and increasingly about the mouth.",
+      body: [
+        "Keep the sessions brief and cooperative. What changes here is that the mouth is worth looking at more often — lifting a lip to see how the teeth are coming in should be an unremarkable thing that happens a few times a week, not an event.",
+        "Coat care depends on what this dog is growing. If a professional groomer is in the picture, keep the appointments going as short positive visits rather than waiting until one is needed, because the first appointment that is required rather than chosen is the one that goes badly.",
+      ],
+    },
+    {
+      id: "veterinary-care",
+      title: "Veterinary care",
+      summary: "Confirm the series, look at the mouth, open the neutering question.",
+      body: [
+        "There is usually an appointment in this period and it is a useful one to prepare for, because three separate conversations land at once: whether the vaccination series is complete, how the mouth is coming along, and the shape of the neutering decision.",
+        "Take the record. Ask for the series to be confirmed as finished rather than inferring it, ask what that changes about where you can go, and ask what your parasite plan is for the season ahead rather than for today.",
+      ],
+      guide: {
+        slug: "finding-a-veterinarian-in-canada",
+        label: "Choosing a practice before you need one",
+      },
+    },
+    {
+      id: "vaccine-questions",
+      title: "Questions to discuss with your veterinarian at this stage",
+      summary: "Confirm completion. Do not infer it from a calendar.",
+      tone: "caution",
+      body: [
+        "The mistake this stage invites is inference. A dog that had an injection two months ago, is bigger, and is plainly thriving feels finished — and roughly as often as not, it is not. Whether the series is complete depends on when it began and how the doses were spaced, and neither of those is visible from a calendar or from the dog.",
+        "So the job here is a single confirmation, obtained out loud, and then a second question about what it changes. Both the American Animal Hospital Association and the World Small Animal Veterinary Association put the last dose at sixteen weeks or later, which is a point many dogs pass mid-way through this stage rather than before it. Get the answer as a yes or a date, not as an impression, and write it down.",
+      ],
+      points: [
+        "Is the primary series complete? If not, what is outstanding and when is it due?",
+        "Now that it is, what changes about where I can take this dog — and what does not?",
+        "Are there places you would still avoid around here, and for how long?",
+        "Should this dog have anything further before it is a year old?",
+        "What parasite prevention should be running, and for how many months this year?",
+        "Is the rabies requirement where we live satisfied, and is it on the record?",
+      ],
+      guide: {
+        slug: "puppy-vaccination-schedule-in-canada",
+        label: "Why it is a series, and what core actually means",
+      },
+    },
+    {
+      id: "parasite-prevention",
+      title: "Parasite prevention",
+      summary: "More time outdoors changes the exposure, not just the season.",
+      body: [
+        "A dog that is now walking further, on more surfaces and in longer grass has a different exposure profile from the one that was mostly in your garden a month ago. That is worth saying out loud at the appointment, because the plan follows the lifestyle as much as the postcode.",
+        "The Canadian specifics still matter: heartworm prevention is seasonal in most of the country and its start follows the local mosquito season rather than a month on the calendar, and tick activity runs longer at both ends of the year than most people expect. Ask for dates, and ask what to do if one is missed.",
+      ],
+      guide: {
+        slug: "parasite-prevention-for-pets-in-canada",
+        label: "Region and season, and what actually drives the timing",
+      },
+    },
+    {
+      id: "safety",
+      title: "Safety",
+      summary: "A taller, bolder dog with a mouth that wants something to do.",
+      body: [
+        "The hazard list moves up and outwards again, and the chewing makes the ingestion risk the one to take most seriously.",
+      ],
+      points: [
+        "Swallowed objects, still the most likely serious accident. Socks, stones, corn cobs, string and the stuffing out of a toy remain the usual culprits, and a chew worn down small becomes one.",
+        "Counters and tables, now within reach of a dog that has worked out it can stretch.",
+        "Roads and doors. Confidence has arrived well ahead of road sense, and the first serious escape usually happens somewhere around here.",
+        "Car travel with the dog secured rather than loose in a footwell.",
+        "Off-lead decisions. A recall that works in the garden is not a recall, and an unfenced space is not the place to find that out.",
+        "Long grass, standing water and wildlife faeces on longer walks, which is a parasite question as much as a safety one.",
+      ],
+    },
+    {
+      id: "red-flags",
+      title: "When to call a veterinarian",
+      summary: "The usual list, plus two things this stage makes more likely.",
+      tone: "caution",
+      body: [
+        "A young dog has less reserve than an adult and can deteriorate faster, so the threshold for phoning stays low. Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
+        "Contact your veterinary clinic — rather than waiting to see whether it settles — if a puppy will not eat, is repeatedly vomiting or has persistent diarrhoea, is unusually limp or unresponsive, is breathing with effort, has not urinated in an unusually long stretch, is straining without producing anything, or you have any reason to think it has swallowed something it should not have.",
+        "Two things belong on the list at this age in particular. Anything wrong in the mouth — a baby tooth still firmly in place next to its replacement, a broken tooth, bleeding that does not stop, or a dog that has gone off food and seems sore rather than itchy — is worth having looked at rather than waiting for it to sort itself out. And a dog that was house-trained and abruptly is not, especially with straining, urgency or blood, is a medical question before it is a training one.",
+        "Limping or reluctance to bear weight after a walk or a fall should also be examined rather than rested and hoped over. A growing skeleton is not a small adult one.",
+        "This describes what to look for so you know when to call. It does not diagnose, and it is not a substitute for examining your dog — only a veterinarian who has seen it can do that.",
+      ],
+      guide: {
+        slug: "emergency-vet-visits-in-canada",
+        label: "The hour of preparation that decides how the worst night goes",
+      },
+    },
+    {
+      id: "whats-next",
+      title: "What's next",
+      summary: "Six months, and the last stretch before things get interesting.",
+      body: [
+        "Around six months the teeth finish arriving, there is a further vaccination conversation to have, and for smaller dogs the neutering decision stops being a discussion and becomes a date. It is also the last quiet stretch before adolescence.",
+        "Adolescence itself is further off than the internet suggests. The research that documents a dip in trainability puts it at around eight months, and finds it passes — dogs are more trainable before it and after it. The work you are doing now, in harder places and with less to show for it than you would like, is what the dog comes back to on the other side.",
+      ],
+    },
+  ],
+
+  checklist: [
+    { id: "confirm", label: "Ask your veterinarian to confirm the series is complete", detail: "And what it changes about where you can go. Do not infer it from a date." },
+    { id: "proof", label: "Puppy-proof again, at the new height", detail: "Chair legs, table edges, cables and shoes that were out of reach last month." },
+    { id: "chews", label: "Set up a chew rotation and check items for wear", detail: "Too large to swallow, and ask your veterinarian about hardness." },
+    { id: "mouth", label: "Look in the mouth a few times a week", detail: "A baby tooth still firmly in place beside its replacement is worth mentioning." },
+    { id: "longline", label: "Practise recall on a long line, against real distraction" },
+    { id: "settle", label: "Practise settling away from home — outside a shop, in the car" },
+    { id: "neuter", label: "Start the neutering timing conversation", detail: "The answer depends on projected adult size, so start by establishing that." },
+    { id: "house", label: "Extend the toilet routine rather than withdrawing it" },
+    { id: "condition", label: "Learn to feel body condition rather than following a chart" },
+  ],
+
+  sources: [
+    {
+      label: "Dental development of dogs — permanent teeth appear at around four to five months, complete by about seven",
+      publisher: "Merck Veterinary Manual",
+      url: "https://www.merckvetmanual.com/dog-owners/digestive-disorders-of-dogs/dental-development-of-dogs",
+    },
+    {
+      label: "2019 AAHA Canine Life Stage Guidelines — recommended timing for canine sterilization, split at 45 lb projected adult bodyweight",
+      publisher: "American Animal Hospital Association",
+      url: "https://www.aaha.org/wp-content/uploads/globalassets/02-guidelines/canine-life-stage-2019/2019-aaha-canine-life-stage-guidelines-final.pdf",
+    },
+    {
+      label: "2022 AAHA Canine Vaccination Guidelines — continuing the initial series past sixteen weeks",
+      publisher: "American Animal Hospital Association",
+      url: "https://www.aaha.org/resources/2022-aaha-canine-vaccination-guidelines/",
+    },
+    {
+      label: "2024 Guidelines for the Vaccination of Dogs and Cats — final puppy dose at sixteen weeks or older",
+      publisher: "World Small Animal Veterinary Association",
+      url: "https://wsava.org/wp-content/uploads/2024/05/2024-Guidelines-for-the-Vaccination-of-Dogs-and-Cats.pdf",
+    },
+    {
+      label: "Teenage dogs? Evidence for adolescent-phase conflict behaviour — reduced trainability at around eight months, with five months as pre-adolescence",
+      publisher: "Asher et al., Biology Letters (2020)",
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7280042",
+    },
+  ],
+
+  resources: [
+    {
+      label: "Your provincial or territorial veterinary regulator, and what it licenses",
+      publisher: "Canadian Veterinary Medical Association",
+      url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+    },
+  ],
+
+  needsVerification: [
+    "Permanent eruption is attributed to Merck (around four to five months, complete by about seven). No eruption order, tooth count or peak-chewing age appears and none should be added without a source.",
+    "Retained deciduous teeth are described as worth a veterinary look, without a prevalence, a breed pattern or a treatment. The AAHA life stage guidelines mention correcting persistent deciduous teeth; that is the basis for raising it, not for advising on it.",
+    "Sterilization timing is quoted from the 2019 AAHA Canine Life Stage Guidelines, Textbox 1, including the 45 lb projected-adult-bodyweight split. No universal age appears, the guidelines' own caution that findings in one breed may not transfer to another is carried, and the page books nothing.",
+    "That many puppies complete the primary series around this period is stated as depending on records and the veterinary plan, never as a schedule. The final-dose ages stay attributed to AAHA and WSAVA.",
+    "That this stage is not adolescence is attributed to Asher et al., who place the trainability dip at around eight months and treat five months as pre-adolescence. Do not introduce adolescent framing here.",
+    "No 'second fear period' language appears anywhere. The differentiation gate found no peer-reviewed basis for it at any age; it stays out until one exists.",
+    "No minutes-per-month exercise formula appears, and the page says explicitly that there is not a sound one. The growth-plate reasoning names no age, distance or rule.",
+    "Feeding gives no quantities, no calorie tables and no adult-weight prediction. Body condition is described qualitatively (ribs felt without pressing, waist visible from above); attach a body-condition-score source before it is made more precise.",
+    "That a sudden loss of house-training warrants veterinary attention is stated as a reason to ask rather than a diagnosis, and names no condition.",
+  ],
+};
+
 export const stages: readonly PuppyStage[] = [
   eightWeeks,
   nineToElevenWeeks,
   twelveWeeks,
   threeMonths,
+  fourToFiveMonths,
 ];
 
 /* ------------------------------------------------------------- the roadmap */
@@ -1631,6 +1971,38 @@ export function stageFor(age: PuppyAge): PuppyStage | null {
 
 export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
   {
+    sizeGroup: "toy",
+    stageSlug: "4-5-months",
+    sectionId: "neutering",
+    body: [
+      "A toy-breed dog sits well under the 45 lb line, which puts the decision inside this stage rather than after it. AAHA's timing for a dog expected to stay under that weight is around six months for castration, and before the anticipated first heat — five to six months — for spaying. That is close enough that the conversation needs having now rather than at the next routine appointment.",
+    ],
+  },
+  {
+    sizeGroup: "small",
+    stageSlug: "4-5-months",
+    sectionId: "neutering",
+    body: [
+      "A small-breed dog is likely to stay under the 45 lb line, which puts this decision inside this stage rather than after it. AAHA's timing for that group is around six months for castration and before the anticipated first heat — five to six months — for spaying, so it is worth settling the plan at the next appointment rather than the one after.",
+    ],
+  },
+  {
+    sizeGroup: "large",
+    stageSlug: "4-5-months",
+    sectionId: "neutering",
+    body: [
+      "A large-breed dog is expected to finish well over the 45 lb line, and AAHA's guidance for that group is to wait until growth is complete — usually somewhere between nine and fifteen months for males, with a wider individualised window for females. So you have months here rather than weeks, and the useful thing to do with them is have the conversation properly rather than early.",
+    ],
+  },
+  {
+    sizeGroup: "giant",
+    stageSlug: "4-5-months",
+    sectionId: "neutering",
+    body: [
+      "A giant-breed dog grows for longer than almost any other, which puts it firmly in the group AAHA advises waiting on until growth is complete — usually nine to fifteen months for males, with a wider individualised window for females. Nothing about this decision is urgent at four or five months, and the guidelines caution explicitly that findings in one breed may not transfer to another, which is a reason to make it with your own veterinarian rather than from a table.",
+    ],
+  },
+  {
     sizeGroup: "large",
     stageSlug: "3-months",
     sectionId: "exercise",
@@ -1766,6 +2138,59 @@ export const breedModifiers: readonly BreedModifier[] = [
  * to be a provincial fact.
  */
 export const provinceModifiers: readonly ProvinceModifier[] = [
+  {
+    provinces: ["ON"],
+    stageSlug: "4-5-months",
+    sectionId: "vaccine-questions",
+    heading: "In Ontario, rabies vaccination is a legal requirement from three months of age",
+    kind: "legal",
+    body: [
+      "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. A dog at this stage has passed that threshold, so this is a matter of confirming it has been done rather than planning for it.",
+      "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. It is a legal obligation rather than a veterinary recommendation, so it belongs on the list of things to confirm at the appointment.",
+    ],
+    ageThreshold: {
+      months: 3,
+      before: {
+        heading: "In Ontario, your dog reaches the legal threshold on {date}",
+        body: [
+          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Three calendar months from your dog's date of birth falls on {date}.",
+          "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. It is a legal obligation rather than a veterinary recommendation.",
+        ],
+      },
+      reached: {
+        heading: "In Ontario, your dog is past the legal threshold",
+        body: [
+          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Your dog reached three calendar months on {date}, so this is now a matter of confirming it has been done.",
+          "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. It is a legal obligation rather than a veterinary recommendation, which is why it is worth checking off the record rather than assuming.",
+        ],
+      },
+    },
+    sources: [
+      {
+        label: "Rabies and your pets — the provincial vaccination requirement",
+        publisher: "Government of Ontario",
+        url: "https://www.ontario.ca/page/rabies-pets",
+      },
+    ],
+  },
+  {
+    provinces: ["BC"],
+    stageSlug: "4-5-months",
+    sectionId: "vaccine-questions",
+    heading: "In British Columbia, rabies vaccination is recommended rather than required",
+    kind: "guidance",
+    body: [
+      "The BC Centre for Disease Control recommends rabies vaccination for pets; provincial law does not compel it. That is a real difference from provinces such as Ontario, where three months of age is a legal threshold.",
+      "Recommended is not optional, and it matters more as a dog goes further afield. It comes up when boarding, when travelling, and above all if a dog is ever exposed or involved in a bite incident, where a documented current vaccination puts an animal in a materially different position.",
+    ],
+    sources: [
+      {
+        label: "Rabies — vaccination is recommended in British Columbia, not legally required",
+        publisher: "BC Centre for Disease Control",
+        url: "https://www.bccdc.ca/health-info/diseases-conditions/rabies",
+      },
+    ],
+  },
   {
     provinces: ["ON"],
     stageSlug: "3-months",
@@ -1996,6 +2421,28 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
  * like. Spring and autumn do not, and get nothing rather than an adjective.
  */
 export const seasonModifiers: readonly SeasonModifier[] = [
+  {
+    season: "summer",
+    stageSlug: "4-5-months",
+    sectionId: "exercise",
+    heading: "Longer walks in summer",
+    body: [
+      "This is the stage where outings lengthen, and summer is the season most likely to punish that. Heat gives less warning than cold and a young dog enjoying itself will not stop in time, so walk at the ends of the day and treat midday as indoor time. Test pavement with the back of your hand before committing to a route — if you cannot hold it there comfortably, it is too hot for paws.",
+      "Water and shade need to be part of the plan rather than something you find. And the longer, greener routes that open up now are exactly where tick exposure is highest, which makes the parasite conversation more immediate than it was in February.",
+    ],
+    guide: { slug: "summer-heat-safety-for-dogs-in-canada", label: "Heat, pavement and wildfire smoke" },
+  },
+  {
+    season: "winter",
+    stageSlug: "4-5-months",
+    sectionId: "exercise",
+    heading: "Longer walks in winter",
+    body: [
+      "Winter constrains this stage differently: not heat but traction, daylight and salt. Ice is a genuine risk to a growing dog that has just discovered it can run, so pick surfaces deliberately and keep the pace self-chosen rather than chased. Rinse the paws after treated pavements, and check between the toes if the dog starts refusing to walk — ice balling up there is usually the reason.",
+      "Short daylight is the other cost, because it takes away the hours in which the new places you want to practise in are usable. Go out more often for less time rather than waiting for the weekend, and move some of the work indoors: a stairwell, a garage and a porch are three different contexts as far as a young dog is concerned.",
+    ],
+    guide: { slug: "winter-dog-care-in-canada", label: "Winter care, paws and road salt" },
+  },
   {
     season: "winter",
     stageSlug: "3-months",

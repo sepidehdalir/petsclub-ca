@@ -180,6 +180,8 @@ export type SectionId =
   | "exercise"
   | "veterinary-care"
   | "vaccine-questions"
+  /** The spay/neuter timing decision — a discussion window, never a date. */
+  | "neutering"
   | "parasite-prevention"
   | "safety"
   /** Records, identification and licensing — an audit, not a to-do list. */

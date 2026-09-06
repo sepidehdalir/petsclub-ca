@@ -44,6 +44,7 @@ import {
   journeyHeadlineAge,
   stageAgePhrase,
   stageFor,
+  fourToFiveMonths,
   stages,
   threeMonths,
   twelveWeeks,
@@ -405,6 +406,7 @@ describe("stage resolution", () => {
       "9-11-weeks",
       "12-weeks",
       "3-months",
+      "4-5-months",
     ]);
   });
 });
@@ -1470,6 +1472,8 @@ describe("hybrid age resolution", () => {
     // five months, complete by about seven. Three stages sit entirely before
     // that, so none of them may describe eruption, replacement or teething as
     // under way — which three of them previously did.
+    // Four to five months is deliberately absent: it is the stage Merck's
+    // timing actually supports, and it says so.
     const early = [eightWeeks, nineToElevenWeeks, twelveWeeks, threeMonths];
     const forbidden = [
       /adult teeth (start|come|are coming) (moving )?(through|in)/i,
@@ -1502,7 +1506,7 @@ describe("hybrid age resolution", () => {
     // Two stages now state when the permanent teeth arrive, in order to say
     // that it has not happened yet. A claim about timing carries its source.
     const MERCK = "merckvetmanual.com";
-    for (const stage of [nineToElevenWeeks, twelveWeeks, threeMonths]) {
+    for (const stage of [nineToElevenWeeks, twelveWeeks, threeMonths, fourToFiveMonths]) {
       const prose = stage.sections
         .flatMap((section) => [...(section.body ?? []), ...(section.points ?? [])])
         .join(" ");
@@ -1515,7 +1519,7 @@ describe("hybrid age resolution", () => {
     }
 
     // And the register records the source rather than an open question.
-    for (const stage of [nineToElevenWeeks, twelveWeeks, threeMonths]) {
+    for (const stage of [nineToElevenWeeks, twelveWeeks, threeMonths, fourToFiveMonths]) {
       expect(stage.needsVerification.join(" ")).toMatch(/Merck/);
     }
   });
@@ -1587,16 +1591,17 @@ describe("hybrid age resolution", () => {
     ]);
   });
 
-  it("has no route for any early-development stage yet", () => {
+  it("gives the merged stage a route and the split months none", () => {
     const appDir = fileURLToPath(new URL("../../app/", import.meta.url));
     const puppyRoutes = readdirSync(join(appDir, "puppy"), { withFileTypes: true })
       .filter((entry) => entry.isDirectory())
       .map((entry) => entry.name);
 
-    for (const slug of ["4-months", "5-months", "4-5-months", "6-months"]) {
+    expect(puppyRoutes).toContain("4-5-months");
+    for (const slug of ["4-months", "5-months", "6-months"]) {
       expect(puppyRoutes).not.toContain(slug);
     }
-    expect(puppyRoutes).toHaveLength(4);
+    expect(puppyRoutes).toHaveLength(5);
   });
 
   it("links no reader at a path that only redirects", async () => {
@@ -1644,6 +1649,91 @@ describe("hybrid age resolution", () => {
     }
   });
 
+  it("introduces no adolescence before the research puts it there", () => {
+    // Asher et al. place the adolescent trainability dip at around eight
+    // months and treat five months as pre-adolescence. Nothing at or before
+    // 4–5 months may frame itself as adolescence, or describe the recall
+    // collapse that belongs to it — and no stage may use "second fear period"
+    // language, for which the gate found no peer-reviewed basis at any age.
+    const beforeAdolescence = [eightWeeks, nineToElevenWeeks, twelveWeeks, threeMonths, fourToFiveMonths];
+
+    for (const stage of beforeAdolescence) {
+      const prose = [
+        stage.deck,
+        ...stage.sections.flatMap((section) => [
+          section.summary,
+          ...(section.body ?? []),
+          ...(section.points ?? []),
+        ]),
+      ].join(" ");
+
+      // Adolescence may be named as something ahead — "what arrives next is
+      // adolescence" is fine — but never as something happening now.
+      expect(prose).not.toMatch(/adolescence (?:has|is now|is already) (?:begun|started|here|arrived)/i);
+      expect(prose).not.toMatch(/(?:your |the )?(?:puppy|dog) is (?:now )?(?:in |entering |an? )adolescen/i);
+      expect(prose).not.toMatch(/this (?:is|stage is) adolescence/i);
+      expect(prose).not.toMatch(/teenage (?:phase|dog|stage)/i);
+      expect(prose).not.toMatch(/recall (?:will )?collapse/i);
+
+      // "Stubborn" may appear only where it is named as a misreading and
+      // rejected — which is the point the 3-month stage makes. It may never
+      // be the page's own description of the dog.
+      for (const sentence of prose.split(/(?<=[.?!])\s+/)) {
+        if (!/stubborn/i.test(sentence)) continue;
+        expect(
+          /misread|mistake|wrong|is not|not being|rather than/i.test(sentence),
+          `${stage.slug} calls a dog stubborn without rejecting it: ${sentence}`,
+        ).toBe(true);
+      }
+    }
+
+    // And nowhere in the Journey at all.
+    for (const stage of stages) {
+      const all = JSON.stringify(stage.sections);
+      expect(all).not.toMatch(/second fear period/i);
+      expect(all).not.toMatch(/fear imprint/i);
+    }
+  });
+
+  it("gives no universal neutering age, and splits it the way the guidance does", () => {
+    const section = fourToFiveMonths.sections.find((s) => s.id === "neutering")!;
+    const prose = [section.summary, ...(section.body ?? []), ...(section.points ?? [])].join(" ");
+
+    // The split, and the source, are both stated.
+    expect(prose).toMatch(/45 pounds|45 lb/i);
+    expect(prose).toMatch(/American Animal Hospital Association|AAHA/);
+    expect(fourToFiveMonths.sources.some((s) => s.url.includes("canine-life-stage"))).toBe(true);
+
+    // No single age is offered to everyone, and nothing is booked.
+    expect(prose).not.toMatch(/all (?:dogs|puppies) should be (?:neutered|spayed)/i);
+    expect(prose).not.toMatch(/(?:neuter|spay) (?:your (?:dog|puppy) )?at (?:four|five|4|5) months/i);
+    expect(prose).toMatch(/no universal age|depends on size|depends on projected adult/i);
+
+    // Size decides it, and every size group says something different.
+    const bySize = sizeGroupModifiers.filter(
+      (m) => m.stageSlug === "4-5-months" && m.sectionId === "neutering",
+    );
+    expect(bySize.length).toBeGreaterThanOrEqual(3);
+    const bodies = bySize.map((m) => m.body.join(" "));
+    expect(new Set(bodies).size).toBe(bodies.length);
+    // Small dogs get a decision now; large ones get months.
+    expect(bodies.find((b) => b.includes("toy-breed") || b.includes("Small-breed") || b.includes("small-breed"))).toMatch(
+      /five to six months|around six months/i,
+    );
+    expect(bodies.find((b) => b.includes("giant-breed"))).toMatch(/nine and fifteen|growth is complete/i);
+  });
+
+  it("does not infer that the vaccination series is finished", () => {
+    const section = fourToFiveMonths.sections.find((s) => s.id === "vaccine-questions")!;
+    const prose = [section.summary, ...(section.body ?? []), ...(section.points ?? [])].join(" ");
+
+    expect(prose).toMatch(/confirm|Is the primary series complete/i);
+    expect(prose).not.toMatch(/is now fully vaccinated|your (?:puppy|dog) is fully vaccinated/i);
+    expect(prose).not.toMatch(/by (?:four|five) months the series is (?:complete|finished)/i);
+    // Still no schedule.
+    expect(prose).not.toMatch(/every (?:two|three|four) weeks/i);
+  });
+
   it("keeps the implemented stage a strict subset of the roadmap", () => {
     // A page is not minted because an interval elapsed. Every implemented
     // stage must appear on the roadmap; the reverse must not hold.
@@ -1652,7 +1742,7 @@ describe("hybrid age resolution", () => {
       expect(roadmapSlugs.has(stage.slug)).toBe(true);
     }
     expect(stages.length).toBeLessThan(roadmapStages.length);
-    expect(stages).toHaveLength(4);
+    expect(stages).toHaveLength(5);
     expect(roadmapStages).toHaveLength(10);
   });
 
@@ -1945,9 +2035,18 @@ describe("personalised canonical", () => {
     }
   });
 
-  it("still sends a 4-month puppy to the hub, because that stage has no page", async () => {
-    // Day 130 is comfortably inside the fourth month for any date of birth.
-    const canonical = await canonicalFor({ dob: dobForAge(130, "ON"), province: "ON" });
+  it("canonicalises a 4-month and a 5-month puppy to the shared stage", async () => {
+    // Day 130 is comfortably inside the fourth month and day 170 inside the
+    // fifth, for any date of birth. Both are one page.
+    for (const days of [130, 170]) {
+      const canonical = await canonicalFor({ dob: dobForAge(days, "ON"), province: "ON" });
+      expect(canonical.endsWith("/puppy/4-5-months")).toBe(true);
+    }
+  });
+
+  it("still sends a 6-month puppy to the hub, because that stage has no page", async () => {
+    // Day 195 is inside the sixth month for any date of birth.
+    const canonical = await canonicalFor({ dob: dobForAge(195, "ON"), province: "ON" });
     expect(canonical.endsWith("/puppy")).toBe(true);
   });
 
@@ -1975,7 +2074,7 @@ describe("personalised canonical", () => {
   it("canonicalises a puppy of any other age to the Journey hub, not to a stage", async () => {
     // Day 76 is one day short of week 11; day 84 is one day past it; the rest
     // are ages we have written no stage for at all.
-    for (const days of [1, 40, 55, 150, 300]) {
+    for (const days of [1, 40, 55, 195, 300]) {
       const canonical = await canonicalFor({ dob: dobForAge(days, "ON"), province: "ON" });
       expect(canonical.endsWith("/puppy")).toBe(true);
       expect(canonical).not.toContain("9-11-weeks");
@@ -2051,11 +2150,17 @@ describe("indexing", () => {
     const puppyRoutes = readdirSync(join(appDir, "puppy"), { withFileTypes: true })
       .filter((entry) => entry.isDirectory())
       .map((entry) => entry.name);
-    expect([...puppyRoutes].sort()).toEqual(["12-weeks", "3-months", "8-weeks", "9-11-weeks"]);
-    expect(puppyRoutes).toHaveLength(4);
+    expect([...puppyRoutes].sort()).toEqual([
+      "12-weeks",
+      "3-months",
+      "4-5-months",
+      "8-weeks",
+      "9-11-weeks",
+    ]);
+    expect(puppyRoutes).toHaveLength(5);
 
-    // The whole of early development is still roadmap-only.
-    for (const slug of ["4-months", "5-months", "4-5-months", "6-months"]) {
+    // The split months never became routes, and six months is still to come.
+    for (const slug of ["4-months", "5-months", "6-months"]) {
       expect(puppyRoutes).not.toContain(slug);
     }
 
@@ -2086,7 +2191,13 @@ describe("indexing", () => {
 
     // And the one route that exists is the one the rail can reach.
     const implemented = stages.map((stage) => stage.slug);
-    expect([...implemented].sort()).toEqual(["12-weeks", "3-months", "8-weeks", "9-11-weeks"]);
+    expect([...implemented].sort()).toEqual([
+      "12-weeks",
+      "3-months",
+      "4-5-months",
+      "8-weeks",
+      "9-11-weeks",
+    ]);
     for (const slug of implemented) {
       expect(roadmapStages.some((stage) => stage.slug === slug)).toBe(true);
     }

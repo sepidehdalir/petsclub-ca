@@ -19,6 +19,7 @@ import puppyElevenWeeks from "./photos/puppy-eleven-weeks.jpg";
 import puppyTwelveWeeks from "./photos/puppy-twelve-weeks.jpg";
 import puppyEightWeeks from "./photos/puppy-eight-weeks.jpg";
 import puppyThreeMonths from "./photos/puppy-three-months.jpg";
+import puppyFourFiveMonths from "./photos/puppy-four-five-months.jpg";
 import catsLeavingLitterBox from "./photos/cats-leaving-litter-box.jpg";
 import catsDrinkingRunningWater from "./photos/cats-drinking-running-water.jpg";
 import healthVetConsultationDiscussion from "./photos/health-vet-consultation-discussion.jpg";
@@ -441,6 +442,17 @@ const assets = {
     photographer: "Rahul Katare",
     source: "Pexels",
     sourceUrl: "https://www.pexels.com/photo/adorable-labrador-puppy-sitting-indoors-35942005/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "puppy-four-five-months": {
+    id: "puppy-four-five-months",
+    src: puppyFourFiveMonths,
+    file: "photos/puppy-four-five-months.jpg",
+    alt: "A young black-and-white dog in a plain harness stands on a paved park path, looking out across the grass.",
+    photographer: "Bas Geerlings",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/puppy-standing-on-concrete-ground-6728128/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },
