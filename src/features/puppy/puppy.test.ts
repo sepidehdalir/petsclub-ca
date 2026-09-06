@@ -33,9 +33,13 @@ import {
   nineToTwelveMonths,
   findPhase,
   findRoadmapStage,
+  isJourneyComplete,
+  journeyPhases,
+  JOURNEY_ENDS_AFTER_MONTHS,
   journeyMeta,
   roadmapByPhase,
   breedModifiers,
+  beyondTheFirstYear,
   eightWeeks,
   provinceModifiers,
   roadmapStageFor,
@@ -346,6 +350,11 @@ function dayAfter(dob: string, days: number): string {
   return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
+/** A civil date as `YYYY-MM-DD`. */
+function formatIso({ year, month, day }: { year: number; month: number; day: number }): string {
+  return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+}
+
 /** The resolved stage slug on a puppy's nth day of life. */
 function slugAtDay(dob: string, days: number): string | null {
   return slugOn(dob, dayAfter(dob, days));
@@ -362,14 +371,19 @@ describe("stage resolution", () => {
     expect(stageFor(ageOn(dob, dayAfter(dob, 84)))?.slug).toBe("12-weeks");
   });
 
-  it("still places an unimplemented age on the roadmap, so the reader is not stranded", () => {
+  it("has written every stage it puts on the roadmap", () => {
+    // The Journey is finished: no age inside it resolves to a roadmap entry
+    // that has no page.
     const dob = "2026-06-18";
     expect(slugAtDay(dob, 60)).toBe("8-weeks");
-    expect(slugOn(dob, "2027-01-18")).toBe("7-8-months");
-    // Maturity is on the roadmap and has no page — the reader is placed
-    // without being sent anywhere that does not exist.
-    expect(slugOn(dob, "2027-07-18")).toBe("young-adult");
-    expect(stageFor(ageOn(dob, "2027-07-18"))).toBeNull();
+    expect(stageFor(ageOn(dob, dayAfter(dob, 60)))?.slug).toBe("8-weeks");
+    expect(slugOn(dob, "2027-07-18")).toBe("beyond-the-first-year");
+    expect(stageFor(ageOn(dob, "2027-07-18"))?.slug).toBe("beyond-the-first-year");
+
+    const implemented = new Set(stages.map((stage) => stage.slug));
+    for (const entry of roadmapStages) {
+      expect(implemented.has(entry.slug), entry.slug).toBe(true);
+    }
   });
 
   it("keeps the weekly table contiguous in days and the monthly one in months", () => {
@@ -395,12 +409,16 @@ describe("stage resolution", () => {
       expect(current.minMonths).toBe(previous.maxMonths! + 1);
     }
 
-    // Exactly one open-ended stage, and it is the last one.
+    // The Journey is finite: every stage is bounded, and it ends where the
+    // handoff ends.
     const openEnded = roadmapStages.filter(
       (stage) => stage.range.unit === "months" && stage.range.maxMonths === undefined,
     );
-    expect(openEnded.map((stage) => stage.slug)).toEqual(["young-adult"]);
-    expect(roadmapStages.at(-1)?.slug).toBe("young-adult");
+    expect(openEnded).toEqual([]);
+    expect(roadmapStages.at(-1)?.slug).toBe("beyond-the-first-year");
+    const last = roadmapStages.at(-1)!.range;
+    if (last.unit !== "months") throw new Error("terminal stage is not a month range");
+    expect(last.maxMonths).toBe(JOURNEY_ENDS_AFTER_MONTHS);
   });
 
   it("has exactly the two implemented stages of this milestone", () => {
@@ -412,6 +430,7 @@ describe("stage resolution", () => {
       "4-6-months",
       "7-8-months",
       "9-12-months",
+      "beyond-the-first-year",
     ]);
   });
 });
@@ -737,7 +756,7 @@ describe("hybrid age resolution", () => {
     // 12 → 13 moves into maturity.
     expect(slugOn(dob, "2027-06-18")).toBe("9-12-months"); // 12 months
     expect(slugOn(dob, "2027-07-17")).toBe("9-12-months");
-    expect(slugOn(dob, "2027-07-18")).toBe("young-adult"); // 13 months
+    expect(slugOn(dob, "2027-07-18")).toBe("beyond-the-first-year"); // 13 months
     expect(ageOn(dob, "2027-07-18").months).toBe(13);
   });
 
@@ -752,7 +771,7 @@ describe("hybrid age resolution", () => {
     expect(slugOn(dob, "2027-03-31")).toBe("7-8-months");
     // Thirteen months from 31 August is 30 September, clamped.
     expect(slugOn(dob, "2027-09-29")).toBe("9-12-months");
-    expect(slugOn(dob, "2027-09-30")).toBe("young-adult");
+    expect(slugOn(dob, "2027-09-30")).toBe("beyond-the-first-year");
     expect(ageOn(dob, "2027-09-30").months).toBe(13);
   });
 
@@ -773,27 +792,35 @@ describe("hybrid age resolution", () => {
     // Twelve months lands on 28 February, clamped; thirteen on 29 March, not.
     expect(ageOn(dob, "2025-02-28").months).toBe(12);
     expect(slugOn(dob, "2025-03-28")).toBe("9-12-months");
-    expect(slugOn(dob, "2025-03-29")).toBe("young-adult");
+    expect(slugOn(dob, "2025-03-29")).toBe("beyond-the-first-year");
   });
 
-  it("falls through to young adult and stays there to the engine's own limit", () => {
+  it("ends at eighteen months rather than running to the engine's limit", () => {
     const dob = "2026-06-18";
-    expect(slugOn(dob, "2027-07-18")).toBe("young-adult");
-    expect(slugAtDay(dob, 800)).toBe("young-adult");
-    expect(slugAtDay(dob, MAX_PLAUSIBLE_DAYS)).toBe("young-adult");
+    expect(slugOn(dob, "2027-06-18")).toBe("9-12-months"); // 12 months
+    expect(slugOn(dob, "2027-07-18")).toBe("beyond-the-first-year"); // 13 months
+    expect(slugOn(dob, "2027-12-18")).toBe("beyond-the-first-year"); // 18 months
+    expect(slugOn(dob, "2028-01-18")).toBeNull(); // 19 months — past the end
 
-    // Past the engine's limit there is no age to resolve at all, so the
-    // roadmap does not need — and must not have — an entry for it.
+    // Past the end is "complete", not "unwritten" — different states.
+    expect(isJourneyComplete(ageOn(dob, "2027-12-18"))).toBe(false);
+    expect(isJourneyComplete(ageOn(dob, "2028-01-18"))).toBe(true);
+
+    // `MAX_PLAUSIBLE_DAYS` is input validation, not the Journey's boundary.
     const birth = parseCivilDate(dob)!;
-    const past = civilFromDays(daysFromCivil(birth) + MAX_PLAUSIBLE_DAYS + 1);
-    expect(resolveAge(birth, past).ok).toBe(false);
+    const late = resolveAge(birth, civilFromDays(daysFromCivil(birth) + MAX_PLAUSIBLE_DAYS));
+    expect(late.ok).toBe(true);
+    expect(late.ok && roadmapStageFor(late.age)).toBeNull();
+    expect(late.ok && isJourneyComplete(late.age)).toBe(true);
+    expect(MAX_PLAUSIBLE_DAYS).toBeGreaterThan(JOURNEY_ENDS_AFTER_MONTHS * 31);
   });
+
 
   it("marks maturity as the one boundary that genuinely depends on size", () => {
     // Not implemented, and deliberately not promised to the reader — but the
     // place where a size-aware answer belongs is recorded rather than lost.
     const sizeDependent = roadmapStages.filter((stage) => stage.boundaryVariesBySize);
-    expect(sizeDependent.map((stage) => stage.slug)).toEqual(["young-adult"]);
+    expect(sizeDependent.map((stage) => stage.slug)).toEqual(["beyond-the-first-year"]);
   });
 
   it("resolves exactly one stage for every day of every date of birth in a leap year", () => {
@@ -825,9 +852,24 @@ describe("hybrid age resolution", () => {
         }
 
         const stage = roadmapStageFor(result.age);
+
+        // Past the Journey's end there is deliberately no stage, and the
+        // complete state must be the reason rather than a gap.
+        if (result.age.months > JOURNEY_ENDS_AFTER_MONTHS) {
+          if (stage) unresolved.push(`${formatCivilDate(birth)} day ${days}: stage past the end`);
+          if (!isJourneyComplete(result.age)) {
+            unresolved.push(`${formatCivilDate(birth)} day ${days}: past the end, not complete`);
+          }
+          continue;
+        }
+
         if (!stage) {
           unresolved.push(`${formatCivilDate(birth)} on day ${days}`);
           continue;
+        }
+
+        if (isJourneyComplete(result.age)) {
+          unresolved.push(`${formatCivilDate(birth)} day ${days}: complete but on a stage`);
         }
 
         // And the sequence only ever moves forwards: a reader never sees the
@@ -864,7 +906,7 @@ describe("hybrid age resolution", () => {
       "4-6-months",
       "7-8-months",
       "9-12-months",
-      "young-adult",
+      "beyond-the-first-year",
     ]);
 
     expect(roadmapStages.map((stage) => stage.label)).toEqual([
@@ -875,7 +917,7 @@ describe("hybrid age resolution", () => {
       "4–6 months",
       "7\u20138 months",
       "9\u201312 months",
-      "Young adult",
+      "Beyond the first year",
     ]);
 
     // And the rendered order matches the declared order, phase headings and all.
@@ -890,13 +932,13 @@ describe("hybrid age resolution", () => {
       "early-puppy",
       "early-development",
       "adolescence",
-      "maturity",
+      "handoff",
     ]);
     expect(groups.map((group) => group.phase.cadence)).toEqual([
       "weekly",
       "monthly",
       "milestone",
-      "maturity",
+      "handoff",
     ]);
 
     // Grouping must not drop or duplicate an entry.
@@ -972,7 +1014,7 @@ describe("hybrid age resolution", () => {
       // A range names a band, so the headline gives the month we actually know.
       ["2026-01-31", "2026-09-05", "7 months old", ["Adolescence"]],
       ["2025-08-31", "2026-09-05", "1 year old", ["Adolescence"]],
-      ["2024-02-29", "2026-09-05", "a young adult", ["2 years and 6 months", "Maturity"]],
+      ["2025-06-04", "2026-09-05", "1 year and 3 months old", ["Handoff"]],
     ];
 
     for (const [dob, today, phrase, meta] of cases) {
@@ -1002,10 +1044,9 @@ describe("hybrid age resolution", () => {
     // Only a single-month stage or maturity can name an age the exact figure
     // does not already state — a range stage puts the exact figure in the
     // headline, so there is nothing left for the meta row to add.
-    for (const [birth, today] of [
-      ["2026-06-06", "2026-09-06"],
-      ["2024-02-29", "2026-09-05"],
-    ]) {
+    // Only a single-month stage can name an age the exact figure does not
+    // already state — every range puts the exact figure in the headline.
+    for (const [birth, today] of [["2026-06-06", "2026-09-06"]]) {
       const age = ageOn(birth!, today!);
       const roadmap = roadmapStageFor(age)!;
       const meta = journeyMeta(age, roadmap);
@@ -1018,12 +1059,25 @@ describe("hybrid age resolution", () => {
   it("phrases every stage so it can finish the sentence it is put in", () => {
     // "Your puppy is …" has to read as English for all thirteen, which is why
     // maturity is phrased rather than suffixed.
-    for (const stage of roadmapStages) {
-      const sentence = `Your puppy is ${stageAgePhrase(stage)}`;
-      expect(sentence).not.toContain("Young adult old");
-      expect(sentence.endsWith("old") || sentence.endsWith("a young adult")).toBe(true);
+    // `stageAgePhrase` is only ever used as a headline for a stage whose label
+    // names one exact value — the single-month stages. Everything else falls
+    // back to the exact age, which is why "Beyond the first year old" can
+    // never reach a reader.
+    const singleMonth = roadmapStages.filter(
+      (stage) => stage.range.unit === "months" && stage.range.maxMonths === stage.range.minMonths,
+    );
+    expect(singleMonth.length).toBeGreaterThan(0);
+    for (const stage of singleMonth) {
+      expect(`Your puppy is ${stageAgePhrase(stage)}`.endsWith("months old")).toBe(true);
     }
-    expect(stageAgePhrase(findRoadmapStage("young-adult")!)).toBe("a young adult");
+
+    const terminal = findRoadmapStage("beyond-the-first-year")!;
+    for (const dob of ["2026-06-18", "2026-01-31"]) {
+      const age = ageOn(dob, dayAfter(dob, 400));
+      expect(roadmapStageFor(age)!.slug).toBe("beyond-the-first-year");
+      expect(journeyHeadlineAge(age, terminal)).not.toContain("Beyond the first year");
+      expect(journeyHeadlineAge(age, terminal)).toBe(age.label);
+    }
     expect(stageAgePhrase(findRoadmapStage("9-11-weeks")!)).toBe("9–11 weeks old");
     expect(stageAgePhrase(findRoadmapStage("3-months")!)).toBe("3 months old");
     expect(stageAgePhrase(findRoadmapStage("9-12-months")!)).toBe("9\u201312 months old");
@@ -1596,13 +1650,14 @@ describe("hybrid age resolution", () => {
       .filter((entry) => entry.isDirectory())
       .map((entry) => entry.name);
 
-    for (const slug of ["4-6-months", "7-8-months", "9-12-months"]) {
+    for (const slug of ["4-6-months", "7-8-months", "9-12-months", "beyond-the-first-year"]) {
       expect(puppyRoutes).toContain(slug);
     }
+    // The names that were merged away, and the one that was renamed.
     for (const slug of ["4-months", "5-months", "6-months", "9-10-months", "11-12-months", "young-adult"]) {
       expect(puppyRoutes).not.toContain(slug);
     }
-    expect(puppyRoutes).toHaveLength(7);
+    expect(puppyRoutes).toHaveLength(8);
   });
 
   it("links no reader at a path that only redirects", async () => {
@@ -1948,7 +2003,7 @@ describe("hybrid age resolution", () => {
     expect(slugOn(dob, "2027-04-18")).toBe("9-12-months"); // 10 months
     expect(slugOn(dob, "2027-05-18")).toBe("9-12-months"); // 11 months
     expect(slugOn(dob, "2027-06-18")).toBe("9-12-months"); // 12 months
-    expect(slugOn(dob, "2027-07-18")).toBe("young-adult"); // 13 months
+    expect(slugOn(dob, "2027-07-18")).toBe("beyond-the-first-year"); // 13 months
 
     // And every day in between. Born 18 June, the ninth anniversary is day
     // 273 and the thirteenth is day 395 — day counts and calendar
@@ -1958,7 +2013,7 @@ describe("hybrid age resolution", () => {
       expect(slugAtDay(dob, days)).toBe("9-12-months");
     }
     expect(slugAtDay(dob, 272)).toBe("7-8-months");
-    expect(slugAtDay(dob, 395)).toBe("young-adult");
+    expect(slugAtDay(dob, 395)).toBe("beyond-the-first-year");
   });
 
   it("keeps the exact month in the headline across all four", () => {
@@ -2043,6 +2098,165 @@ describe("hybrid age resolution", () => {
     expect(block.sources.some((s) => s.url.includes("ontario.ca"))).toBe(true);
   });
 
+  it("resolves months thirteen through eighteen to the final stage", () => {
+    for (const dob of ["2026-06-18", "2026-01-31", "2024-02-29", "2026-08-31"]) {
+      for (let months = 13; months <= 18; months += 1) {
+        const birth = parseCivilDate(dob)!;
+        const on = addCalendarMonths(birth, months);
+        const age = ageOn(dob, formatIso(on));
+        expect(age.months, `${dob} +${months}`).toBe(months);
+        expect(roadmapStageFor(age)?.slug, `${dob} +${months}`).toBe("beyond-the-first-year");
+        expect(isJourneyComplete(age)).toBe(false);
+      }
+
+      // Twelve stays where it was; nineteen is past the end.
+      const birth = parseCivilDate(dob)!;
+      expect(slugOn(dob, formatIso(addCalendarMonths(birth, 12)))).toBe("9-12-months");
+      expect(slugOn(dob, formatIso(addCalendarMonths(birth, 19)))).toBeNull();
+      expect(isJourneyComplete(ageOn(dob, formatIso(addCalendarMonths(birth, 19))))).toBe(true);
+
+      // No gap and no overlap at either boundary.
+      const dayBefore13 = civilFromDays(daysFromCivil(addCalendarMonths(birth, 13)) - 1);
+      expect(slugOn(dob, formatIso(dayBefore13))).toBe("9-12-months");
+      const lastDay = civilFromDays(daysFromCivil(addCalendarMonths(birth, 19)) - 1);
+      expect(slugOn(dob, formatIso(lastDay))).toBe("beyond-the-first-year");
+    }
+  });
+
+  it("keeps the exact age truthful across the final stage", () => {
+    const dob = "2026-06-18";
+    for (const [months, headline] of [
+      [13, "1 year and 1 month old"],
+      [15, "1 year and 3 months old"],
+      [18, "1 year and 6 months old"],
+    ] as const) {
+      const birth = parseCivilDate(dob)!;
+      const age = ageOn(dob, formatIso(addCalendarMonths(birth, months)));
+      const stage = roadmapStageFor(age)!;
+      expect(stage.slug).toBe("beyond-the-first-year");
+      expect(journeyHeadlineAge(age, stage)).toBe(headline);
+      // The range label is never the age.
+      expect(journeyHeadlineAge(age, stage)).not.toContain("Beyond the first year");
+      expect(journeyMeta(age, stage)).toEqual(["Handoff"]);
+    }
+  });
+
+  it("names no stage, route, phase or label 'Young adult'", () => {
+    for (const stage of roadmapStages) {
+      expect(stage.slug).not.toMatch(/young-adult/i);
+      expect(stage.label).not.toMatch(/young adult/i);
+    }
+    for (const stage of stages) {
+      expect(stage.slug).not.toMatch(/young-adult/i);
+      expect(stage.label).not.toMatch(/young adult/i);
+      expect(stage.title).not.toMatch(/young adult/i);
+    }
+    for (const phase of journeyPhases) {
+      expect(phase.id).not.toMatch(/maturity|young/i);
+      expect(phase.label).not.toMatch(/young adult|maturity/i);
+    }
+
+    const appDir = fileURLToPath(new URL("../../app/", import.meta.url));
+    const puppyRoutes = readdirSync(join(appDir, "puppy"), { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name);
+    expect(puppyRoutes).not.toContain("young-adult");
+    expect(puppyRoutes).toContain("beyond-the-first-year");
+
+    // But the phrase is required where it quotes AAHA, and must survive.
+    const prose = beyondTheFirstYear.sections
+      .flatMap((section) => [section.summary, ...(section.body ?? []), ...(section.points ?? [])])
+      .join(" ");
+    expect(prose).toMatch(/young adult/i);
+    expect(prose).toMatch(/American Animal Hospital Association/);
+    expect(prose).toMatch(/cessation of rapid growth/i);
+    expect(prose).toMatch(/editorial timeline/i);
+    // And it may never say the life stage begins here.
+    expect(prose).not.toMatch(/young adulthood begins/i);
+    expect(prose).not.toMatch(/(?:becomes?|is now) a young adult/i);
+  });
+
+  it("claims nothing is finished on the final stage", () => {
+    const prose = beyondTheFirstYear.sections
+      .flatMap((section) => [
+        section.summary,
+        ...(section.body ?? []),
+        ...(section.points ?? []),
+      ])
+      .concat(beyondTheFirstYear.deck, beyondTheFirstYear.metaDescription)
+      .join(" ");
+
+    // No universal fully-grown or maturity claim.
+    for (const sentence of prose.split(/(?<=[.?!])\s+/)) {
+      if (!/fully grown|finished growing|now (?:an )?adult/i.test(sentence)) continue;
+      expect(
+        /\bnot\b|\bnothing\b|\bno\b|never|refuses|may or may not|depends|probably|almost certainly|whether|\u201c/i.test(
+          sentence,
+        ),
+        `unqualified maturity claim: ${sentence}`,
+      ).toBe(true);
+    }
+    expect(prose).toMatch(/three to four years/i);
+    expect(prose).toMatch(/fifteen or sixteen months/i);
+
+    // No universal adult-food transition and no exercise clearance.
+    expect(prose).not.toMatch(/switch to adult food (?:at|after)/i);
+    expect(prose).toMatch(/skeletal maturity/i);
+    expect(prose).toMatch(/no age at which a dog is issued a licence for adult exercise/i);
+
+    // No folklore, and no preventive-care schedule.
+    expect(prose).not.toMatch(/second fear period|testing boundaries|\bdominance\b|pack leader/i);
+    expect(prose).not.toMatch(/every (?:six|12|twelve) months\b/i);
+    expect(prose).toMatch(/not going to print one here|a conversation rather than a table/i);
+  });
+
+  it("separates the Journey-complete state from the not-yet-written one", () => {
+    // Different meanings need different copy. The complete state must never
+    // borrow the "being researched" language.
+    const appDir = fileURLToPath(new URL("../../app/", import.meta.url));
+    const source = readFileSync(join(appDir, "my-puppy/page.tsx"), "utf8");
+
+    expect(source).toContain("isJourneyComplete(age)");
+    const complete = source.slice(
+      source.indexOf("if (isJourneyComplete(age))"),
+      source.indexOf("// An age we have not written yet"),
+    );
+    expect(complete).toContain("The Puppy Journey is complete");
+    expect(complete).not.toMatch(/being researched|coming soon|have not written|not available/i);
+    // It may only say the opposite: development is *not* finished.
+    for (const sentence of complete.split(/(?<=[.?!])\s+/)) {
+      if (!/development is (?:complete|finished)/i.test(sentence)) continue;
+      expect(/\bnot\b|none of that means/i.test(sentence), sentence).toBe(true);
+    }
+
+    // The complete branch runs before the unwritten one.
+    expect(source.indexOf("if (isJourneyComplete(age))")).toBeLessThan(
+      source.indexOf("// An age we have not written yet"),
+    );
+  });
+
+  it("stops promising unwritten stages once the roadmap is written", () => {
+    // The rail's footer has two states and they must stay distinct, for the
+    // same reason the Journey-complete screen exists.
+    const source = readFileSync(
+      fileURLToPath(new URL("./components/journey-timeline.tsx", import.meta.url)),
+      "utf8",
+    );
+    expect(source).toContain("implemented.size < roadmapStages.length");
+
+    const promise = source.slice(
+      source.indexOf("implemented.size < roadmapStages.length"),
+      source.lastIndexOf("</p>"),
+    );
+    const [pending, complete] = promise.split(") : (");
+    expect(pending).toMatch(/being researched/);
+    expect(complete).not.toMatch(/being researched|the rest|coming soon/i);
+    expect(complete).toMatch(/All \{roadmapStages\.length\} stages are written/);
+
+    // And the branch is reachable only in the state it describes.
+    expect(stages.length).toBe(roadmapStages.length);
+  });
+
   it("keeps the implemented stage a strict subset of the roadmap", () => {
     // A page is not minted because an interval elapsed. Every implemented
     // stage must appear on the roadmap; the reverse must not hold.
@@ -2050,9 +2264,11 @@ describe("hybrid age resolution", () => {
     for (const stage of stages) {
       expect(roadmapSlugs.has(stage.slug)).toBe(true);
     }
-    expect(stages.length).toBeLessThan(roadmapStages.length);
-    expect(stages).toHaveLength(7);
+    // Every roadmap entry is now written. The Journey is finished, which is
+    // the one state in which this is no longer a strict subset.
+    expect(stages).toHaveLength(8);
     expect(roadmapStages).toHaveLength(8);
+    expect(stages.length).toBe(roadmapStages.length);
   });
 
   it("takes its age range from the roadmap rather than restating it", () => {
@@ -2370,9 +2586,15 @@ describe("personalised canonical", () => {
     }
   });
 
-  it("still sends a young adult to the hub, because that stage has no page", async () => {
-    // Day 420 is past thirteen months for any date of birth.
+  it("canonicalises a dog in the final stage to the final stage", async () => {
+    // Day 420 is past thirteen months and short of nineteen for any DOB.
     const canonical = await canonicalFor({ dob: dobForAge(420, "ON"), province: "ON" });
+    expect(canonical.endsWith("/puppy/beyond-the-first-year")).toBe(true);
+  });
+
+  it("sends a dog past the Journey to the hub, not to a stage", async () => {
+    // Day 700 is comfortably past eighteen months for any date of birth.
+    const canonical = await canonicalFor({ dob: dobForAge(700, "ON"), province: "ON" });
     expect(canonical.endsWith("/puppy")).toBe(true);
   });
 
@@ -2400,7 +2622,7 @@ describe("personalised canonical", () => {
   it("canonicalises a puppy of any other age to the Journey hub, not to a stage", async () => {
     // Day 76 is one day short of week 11; day 84 is one day past it; the rest
     // are ages we have written no stage for at all.
-    for (const days of [1, 40, 55, 420, 700]) {
+    for (const days of [1, 20, 40, 55, 700, 900]) {
       const canonical = await canonicalFor({ dob: dobForAge(days, "ON"), province: "ON" });
       expect(canonical.endsWith("/puppy")).toBe(true);
       expect(canonical).not.toContain("9-11-weeks");
@@ -2484,10 +2706,11 @@ describe("indexing", () => {
       "8-weeks",
       "9-11-weeks",
       "9-12-months",
+      "beyond-the-first-year",
     ]);
-    expect(puppyRoutes).toHaveLength(7);
+    expect(puppyRoutes).toHaveLength(8);
 
-    // Every merged-away entry stayed unbuilt, and maturity is still to come.
+    // Every merged-away or renamed entry stayed unbuilt.
     for (const slug of ["4-months", "5-months", "6-months", "9-10-months", "11-12-months", "young-adult"]) {
       expect(puppyRoutes).not.toContain(slug);
     }
@@ -2527,6 +2750,7 @@ describe("indexing", () => {
       "8-weeks",
       "9-11-weeks",
       "9-12-months",
+      "beyond-the-first-year",
     ]);
     for (const slug of implemented) {
       expect(roadmapStages.some((stage) => stage.slug === slug)).toBe(true);

@@ -22,6 +22,7 @@ import puppyThreeMonths from "./photos/puppy-three-months.jpg";
 import puppyFourFiveMonths from "./photos/puppy-four-five-months.jpg";
 import puppySevenEightMonths from "./photos/puppy-seven-eight-months.jpg";
 import puppyNineTwelveMonths from "./photos/puppy-nine-twelve-months.jpg";
+import puppyBeyondFirstYear from "./photos/puppy-beyond-first-year.jpg";
 import catsLeavingLitterBox from "./photos/cats-leaving-litter-box.jpg";
 import catsDrinkingRunningWater from "./photos/cats-drinking-running-water.jpg";
 import healthVetConsultationDiscussion from "./photos/health-vet-consultation-discussion.jpg";
@@ -444,6 +445,17 @@ const assets = {
     photographer: "Rahul Katare",
     source: "Pexels",
     sourceUrl: "https://www.pexels.com/photo/adorable-labrador-puppy-sitting-indoors-35942005/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "puppy-beyond-first-year": {
+    id: "puppy-beyond-first-year",
+    src: puppyBeyondFirstYear,
+    file: "photos/puppy-beyond-first-year.jpg",
+    alt: "A collie-type dog seen from behind, walking away up a leaf-strewn forest path between tall conifers.",
+    photographer: "Elina Volkova",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/a-dog-on-a-footpath-in-a-forest-19164899/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },

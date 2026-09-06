@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { roadmapByPhase, stages } from "@/features/puppy/stages";
+import { roadmapByPhase, roadmapStages, stages } from "@/features/puppy/stages";
 import { cn } from "@/lib/utils/cn";
 
 export interface JourneyTimelineProps {
@@ -16,15 +16,19 @@ const implemented = new Set(stages.map((stage) => stage.slug));
  *
  * ## The rule that matters here
  *
- * Only one stage has a page. Every other entry is shown — because a reader
- * needs to see where they sit in a journey rather than land on a single
- * orphaned page — but rendered as inert text rather than a link. There are no
- * broken links and nothing pretends to be finished.
+ * An entry links only if the stage behind it is written. Every entry is shown
+ * either way — because a reader needs to see where they sit in a journey
+ * rather than land on an orphaned page — but an unwritten one renders as inert
+ * text. There are no broken links and nothing pretends to be finished.
  *
  * A `<span>` with `aria-disabled` would be lying about an interactive control;
- * these are simply not controls. The upcoming entries carry a visible
- * "in progress" affordance instead, which is honest and also does the
- * product's other job: showing that this goes somewhere.
+ * an unwritten entry is simply not a control, and carries a visible
+ * "in progress" affordance instead.
+ *
+ * With the roadmap now fully written this path is unused, and it is kept
+ * rather than deleted: the rail is driven by `stages` against `roadmapStages`,
+ * so adding a roadmap entry ahead of its page must degrade honestly rather
+ * than produce a dead link.
  *
  * ## Why it is grouped
  *
@@ -102,9 +106,26 @@ export function JourneyTimeline({ currentSlug, className }: JourneyTimelineProps
         ))}
       </div>
 
+      {/*
+        Two different states, and they must not share a sentence. A roadmap
+        with stages left to write is making a promise; a complete one is
+        describing a finished series. Saying "the rest are being researched"
+        when there is no rest would be false, and it is exactly the confusion
+        the Journey-complete screen exists to avoid.
+      */}
       <p className="mt-5 px-2.5 text-caption text-foreground-subtle">
-        So far {implemented.size} of these are written. The rest are being researched to the same
-        standard, and a stage only becomes a page when there is something distinct to say about it.
+        {implemented.size < roadmapStages.length ? (
+          <>
+            So far {implemented.size} of these are written. The rest are being researched to the
+            same standard, and a stage only becomes a page when there is something distinct to say
+            about it.
+          </>
+        ) : (
+          <>
+            All {roadmapStages.length} stages are written. The series ends where age stops being the
+            useful way to organise the guidance, rather than at a birthday.
+          </>
+        )}
       </p>
     </nav>
   );

@@ -16,6 +16,7 @@ import { findBreed, findProvince, sizeGroups } from "@/features/puppy/model";
 import type { BreedSlug, ProvinceCode } from "@/features/puppy/model";
 import {
   findPhase,
+  isJourneyComplete,
   journeyHeadlineAge,
   journeyMeta,
   roadmapStageFor,
@@ -123,7 +124,7 @@ const MEANTIME_READING: Record<
     { slug: "loose-leash-walking-and-recall", label: "lead work and recall" },
     { slug: "spaying-and-neutering-in-canada", label: "spaying and neutering" },
   ],
-  maturity: [
+  handoff: [
     { slug: "loose-leash-walking-and-recall", label: "lead work and recall" },
     { slug: "dental-care-for-dogs-and-cats", label: "dental care" },
   ],
@@ -246,6 +247,41 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
   const breed = breedParam ? findBreed(breedParam) : null;
   const province = provinceParam ? findProvince(provinceParam) : null;
   const stage = stageFor(age);
+
+  // Past the end of the Journey. This is **not** the same as "we have not
+  // written this yet", and it must never borrow that copy: a two-year-old dog
+  // is not waiting for a page, and telling its owner that one is being
+  // researched would be false. The Journey is a finite series and this is
+  // what finishing it looks like.
+  if (isJourneyComplete(age)) {
+    return (
+      <Placeholder
+        title="The Puppy Journey is complete"
+        facts={[`Your dog is ${age.exact} old`]}
+        body="There is no next stage, and that is deliberate rather than an omission. A series arranged by age has nothing useful left to say once age stops being the thing that decides what matters — which from here is size, breed, body condition, health history and the individual dog."
+      >
+        <p className="mt-4 text-body text-foreground-muted">
+          None of that means development is finished. It means the guidance stops being
+          age-staged. The library is organised by subject rather than by month, which is how
+          the questions arrive from here — starting with{" "}
+          <Link
+            href={articlePath("loose-leash-walking-and-recall")}
+            className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"
+          >
+            training you maintain rather than finish
+          </Link>{" "}
+          and{" "}
+          <Link
+            href={articlePath("dental-care-for-dogs-and-cats")}
+            className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"
+          >
+            the dental care that is easy to let slide
+          </Link>
+          .
+        </p>
+      </Placeholder>
+    );
+  }
 
   // An age we have not written yet. Say so rather than routing anywhere that
   // does not exist, and show where they sit in the journey.

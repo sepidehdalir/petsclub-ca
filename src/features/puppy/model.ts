@@ -186,6 +186,10 @@ export type SectionId =
   | "freedom"
   /** Interest in other dogs and the world, and what changes about it. */
   | "social-behaviour"
+  /** Where the Journey ends and individual adult care begins. */
+  | "handoff"
+  /** Whether this dog has actually finished growing — which depends on size. */
+  | "growth"
   | "parasite-prevention"
   | "safety"
   /** Records, identification and licensing — an audit, not a to-do list. */

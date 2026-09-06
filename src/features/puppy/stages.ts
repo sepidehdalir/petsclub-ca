@@ -2250,6 +2250,229 @@ export const nineToTwelveMonths: PuppyStage = {
   ],
 };
 
+
+/**
+ * Beyond the first year — the handoff, and the end of the Journey.
+ *
+ * ## What this page is
+ *
+ * An exit. Its job is to end a series well, not to begin a new one, and it is
+ * deliberately the shortest stage here. Everything it touches, it touches once
+ * and then hands to the article library.
+ *
+ * ## The one claim it makes
+ *
+ * That **age has stopped being the thing that organises care.** Up to now the
+ * Journey could say "at this age, this" and be useful. From here what matters
+ * is size, breed, body condition, health history, reproductive status,
+ * lifestyle and the individual dog — none of which a month number predicts.
+ * That is why the series ends rather than continuing at a slower cadence.
+ *
+ * ## What it must not claim
+ *
+ * That anything is finished. Merck puts skeletal maturity in some large and
+ * giant breeds at closer to fifteen or sixteen months, which is *inside* this
+ * stage, so "fully grown" is false for exactly the dogs it would matter most
+ * for. And AAHA puts the completion of physical and social maturation at three
+ * to four years, so behaviour is nowhere near settled either.
+ *
+ * ## Terminology
+ *
+ * The stage explains, once, that AAHA's young-adult life stage began months
+ * ago at the cessation of rapid growth, and that these stages are an editorial
+ * timeline rather than clinical life stages. The phrase "young adult" appears
+ * there, quoting AAHA — which is the correct use of it. What does not appear
+ * is a Journey stage, route or label named after it.
+ */
+export const beyondTheFirstYear: PuppyStage = {
+  slug: "beyond-the-first-year",
+  label: "Beyond the first year",
+  title: "Beyond the First Year",
+  deck:
+    "The last stage of this Journey, and a short one. Age has stopped being the thing that organises care — which is precisely why a month-by-month series should stop here rather than carry on pretending otherwise.",
+  metaDescription:
+    "The final stage of the Puppy Journey: what changes when age stops driving care, whether your dog has actually finished growing, and where to go next for adult-dog guidance.",
+  mediaId: "puppy-beyond-first-year",
+  mediaAlt:
+    "A dog seen from behind, walking away up a forest path — the end of a series rather than the end of anything in the animal.",
+  reviewBy: "2027-09-01",
+  status: "in-review",
+
+  sections: [
+    {
+      id: "this-week",
+      title: "Where you are now",
+      summary: "The timeline ends. The dog carries on.",
+      body: [
+        "This is the last stage of the Puppy Journey, and it is short on purpose. Not because there is nothing left to do, but because from here a month number stops predicting anything useful.",
+        "For the first year, age was a reasonable organising principle. What mattered at nine weeks was true of almost every nine-week-old, and a series arranged by age could be genuinely helpful. That stops being true somewhere around now. What matters from here is your dog's size, its breed, its body condition, its health history, whether it is neutered, what it does with its days, and what it is like — and none of those move on a shared schedule.",
+        "So the honest thing for a month-by-month series to do is finish, rather than to carry on getting vaguer. That is what this page is.",
+      ],
+      points: [
+        "Nothing here says your dog is finished growing, or finished maturing. For many dogs neither is true yet.",
+        "Care from here is individual rather than age-staged.",
+        "The things worth continuing are the unglamorous ones: body condition, dental care, parasite prevention, training maintenance.",
+        "If growth questions were still open at twelve months — food, exercise, neutering — they may still be open now.",
+      ],
+    },
+    {
+      id: "growth",
+      title: "Has your dog actually finished growing?",
+      summary: "It depends on how big it was always going to be.",
+      body: [
+        "This is the question the rest of the page turns on, and it does not have one answer.",
+        "The Merck Veterinary Manual puts skeletal maturity at roughly eight to twelve months in small and medium dogs, and notes that for some large and giant breeds it may not be reached until closer to fifteen or sixteen months. Both of those ranges overlap this stage. So a terrier here has almost certainly finished; a mastiff of exactly the same age may have months left.",
+        "That is why nothing on this page says \u201cnow that your dog is fully grown\u201d. If you do not know which side of that line your dog is on, that is a good question for the next appointment — and a better one than any of the specific questions that depend on the answer.",
+      ],
+    },
+    {
+      id: "development",
+      title: "Where this sits against clinical life stages",
+      summary: "This is where the series ends, not where a life stage begins.",
+      body: [
+        "It is worth being explicit about something, because the vocabulary here is genuinely confusing.",
+        "The American Animal Hospital Association's life stage guidelines define the puppy stage as running from birth to the cessation of rapid growth — approximately six to nine months, varying with breed and size — and the **young adult** stage as running from there until the completion of physical and social maturation, which they place at roughly three to four years in most dogs. By that framework your dog has very likely been a young adult, clinically, for some months already, and will remain one for years.",
+        "The Pet Club's Journey stages are an editorial timeline: a sequence of pages arranged by the age at which particular questions tend to come up. They are not a replacement for clinical life-stage terminology and they do not line up with it. This page is where *this series* ends. It is not where anything in your dog begins or finishes.",
+      ],
+    },
+    {
+      id: "feeding",
+      title: "Feeding",
+      summary: "The trigger is skeletal maturity, not the first birthday.",
+      body: [
+        "If your dog has already moved to an adult diet, that is likely fine and worth reviewing at the next appointment rather than revisiting now. If it has not, the question is not how old the dog is but whether it has finished growing.",
+        "Merck's guidance is to keep feeding a diet formulated for growth until skeletal maturity — not until growth appears to have slowed, and not on a birthday. For a small or medium dog that point has usually passed. For some large and giant breeds it may not arrive until closer to fifteen or sixteen months, which is inside this stage rather than behind it.",
+        "The habit worth keeping either way is reading the dog rather than the bag: ribs that can be felt without pressing hard, a waist visible from above, and portions adjusted against that with your veterinarian rather than against a chart.",
+      ],
+      guide: {
+        slug: "reading-a-canadian-pet-food-label",
+        label: "What the label does and does not tell you",
+      },
+    },
+    {
+      id: "exercise",
+      title: "Exercise",
+      summary: "Built progressively, and not cleared all at once.",
+      body: [
+        "There is no age at which a dog is issued a licence for adult exercise, and this page is not going to invent one. What there is, is a workload that should keep increasing gradually — duration before intensity, variety before either — and a set of things that determine how fast: how big the dog is, whether it has finished growing, what condition it is in, whether it has ever been injured, and how it copes on the day.",
+        "For a smaller dog that is skeletally mature, most of the earlier restraint has done its job. For a large or giant dog that may still be growing, the caution about repetitive forced exercise — running alongside a bicycle, long stair sessions, jumping down from height — has not expired just because a year has passed.",
+        "If you want to start doing something specific with this dog, that is a conversation with the veterinarian who has examined it and knows how big it will get. It is a much better question than a number of minutes.",
+      ],
+    },
+    {
+      id: "training",
+      title: "Training and behaviour",
+      summary: "Maintained, not completed.",
+      body: [
+        "Most dogs are noticeably easier at this point than they were at eight months, and it is tempting to read that as done. It is not — AAHA puts the completion of physical **and social** maturation at three to four years, so a dog in this stage has a long way to go behaviourally, and it will keep changing in ways that have nothing to do with training.",
+        "Adolescent behaviours fade unevenly. Recall, in particular, is maintained rather than achieved: it is the thing owners stop practising precisely because it stopped failing, and the thing that quietly degrades over the following year. Keep it in the weekly routine, keep paying for it, and keep the criteria rising slowly.",
+        "If something is going in the other direction — new fear, new reactivity, less tolerance for things that used to be fine — that is worth asking about rather than waiting out. Your veterinarian first, because discomfort changes behaviour, and a qualified behaviour professional where the answer turns out to be behavioural.",
+      ],
+      guide: {
+        slug: "loose-leash-walking-and-recall",
+        label: "Lead work and recall, built properly",
+      },
+    },
+    {
+      id: "neutering",
+      title: "Neutering, if it is still open",
+      summary: "For most dogs this is settled. For some large ones it is not.",
+      body: [
+        "For most dogs reading this the decision is behind them. Where it is not, it is usually because the dog is large and the advice was to wait: AAHA's window for a male expected to finish over 45 pounds runs to about fifteen months, with a wider individualised window for females, and that overlaps this stage rather than preceding it.",
+        "If it is still open, this is a conversation to have rather than a deadline to meet, and the same caution applies as it did at nine months — the guidelines say findings in one breed may not transfer to another, so it is settled with the veterinarian who has examined your dog.",
+      ],
+      guide: {
+        slug: "spaying-and-neutering-in-canada",
+        label: "Why the timing question has changed, and what to weigh",
+      },
+    },
+    {
+      id: "veterinary-care",
+      title: "What changes about veterinary care",
+      summary: "From a run of milestone appointments to something individual.",
+      body: [
+        "The first year of veterinary care is largely a schedule: a series of appointments arranged around the puppy's age, with a fairly predictable shape. What replaces it is not another schedule but a plan built around this particular dog.",
+        "What that plan covers is broadly the same list for everyone — body condition and weight, nutrition, dental health, parasite prevention, vaccination history and what is due when, reproductive status, and any screening that makes sense for the breed or the lifestyle. What differs is the emphasis and the frequency, and that is a conversation rather than a table. We are not going to print one here, because a schedule that fits a Labrador in Winnipeg and a chihuahua in Halifax equally well would be useless to both.",
+        "The one practical thing worth doing is going into the next appointment having asked for it explicitly: what does ongoing care look like for this dog, and when should I next be here?",
+      ],
+      guide: {
+        slug: "finding-a-veterinarian-in-canada",
+        label: "Choosing a practice before you need one",
+      },
+    },
+    {
+      id: "teething",
+      title: "Dental and parasite maintenance",
+      summary: "Two things that are now ordinary, and easy to let slide.",
+      body: [
+        "The adult teeth have been in for the best part of a year. What matters now is maintenance — home care that actually happens, and a mouth that gets looked at properly rather than glanced at. Dental disease is one of the most common findings in adult dogs and one of the most preventable, and the work that prevents it is dull and daily.",
+        "Parasite prevention is the same shape of problem: it stops being a new decision and becomes a thing that quietly lapses. Heartworm prevention is seasonal in most of Canada and follows the local mosquito season; tick activity runs longer at both ends of the year than most people expect. Ask for the plan as dates, once a year, and put them somewhere you will see them.",
+      ],
+      guide: {
+        slug: "dental-care-for-dogs-and-cats",
+        label: "What actually works, and what to do at home",
+      },
+    },
+    {
+      id: "whats-next",
+      title: "Where the Journey ends",
+      summary: "Here. And then it is just your dog.",
+      body: [
+        "This is the last stage. There is not another page after it, and that is deliberate rather than an omission — a series arranged by age has nothing useful left to say once age stops being the variable.",
+        "What continues is everything that was never really about age: the training you maintain, the weight you watch, the teeth you brush, the prevention you keep on top of, and the relationship the last year was actually building. The library covers the rest, and it is organised by subject rather than by month, because that is how the questions arrive from here.",
+        "Whatever is left to work out about this dog, you now know it better than any page does.",
+      ],
+      guide: {
+        slug: "cost-of-owning-a-dog-in-canada",
+        label: "What the years ahead actually cost",
+      },
+    },
+  ],
+
+  checklist: [
+    { id: "grown", label: "Ask whether your dog has finished growing", detail: "It decides the food question, the exercise question and — for some — the neutering one." },
+    { id: "plan", label: "Ask what ongoing care looks like for this dog", detail: "And when you should next be there. A plan, not a schedule off a page." },
+    { id: "condition", label: "Learn to read body condition and check it monthly" },
+    { id: "dental", label: "Start or keep up home dental care" },
+    { id: "parasites", label: "Get the parasite plan written down as dates, once a year" },
+    { id: "recall", label: "Keep practising recall even though it stopped failing" },
+    { id: "records", label: "Keep the vaccination and treatment record somewhere you will find it" },
+  ],
+
+  sources: [
+    {
+      label: "2019 AAHA Canine Life Stage Guidelines — puppy as birth to cessation of rapid growth at approximately 6–9 months, and young adult through to completion of physical and social maturation by 3 to 4 years",
+      publisher: "American Animal Hospital Association",
+      url: "https://www.aaha.org/wp-content/uploads/globalassets/02-guidelines/canine-life-stage-2019/2019-aaha-canine-life-stage-guidelines-final.pdf",
+    },
+    {
+      label: "Feeding practices in small animals — growth diets until skeletal maturity, roughly 8–12 months in small and medium dogs and closer to 15–16 months in some large and giant breeds",
+      publisher: "Merck Veterinary Manual",
+      url: "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/feeding-practices-in-small-animals",
+    },
+  ],
+
+  resources: [
+    {
+      label: "Your provincial or territorial veterinary regulator, and what it licenses",
+      publisher: "Canadian Veterinary Medical Association",
+      url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+    },
+  ],
+
+  needsVerification: [
+    "This stage is an editorial endpoint and says so. It must never imply that young adulthood begins at thirteen months, that puppyhood ends clinically at thirteen months, that the dog is fully grown, or that behavioural maturity is complete. The AAHA framework is quoted to make exactly that point.",
+    "The phrase 'young adult' appears once, attributed to AAHA and describing their life stage. That is the correct use. No Journey stage, route, phase or label is named after it, and none should be.",
+    "Skeletal maturity is attributed to Merck — roughly eight to twelve months in small and medium dogs, closer to fifteen or sixteen in some large and giant breeds — and both ranges are noted as overlapping this stage. No universal 'fully grown' claim appears.",
+    "The eighteen-month end of the Journey is a judgement, not a sourced boundary: the last size-dependent question closes around fifteen or sixteen months and eighteen adds a margin. It should be described that way if it is ever explained to a reader, and revisited if a source establishes something better.",
+    "AAHA's three-to-four-year figure for completion of physical and social maturation is quoted, and is the reason no behavioural-maturity claim is made here.",
+    "No adult-food transition age appears. No exercise clearance age, minutes-per-month formula or running age appears. No preventive-care schedule or interval appears — the page names the topics and defers the cadence to the veterinarian, deliberately.",
+    "Sterilization timing is quoted from AAHA with the 45 lb split and the fifteen-month upper end, and framed as possibly still open rather than overdue.",
+    "No dominance, boundary-testing or second fear period framing appears anywhere.",
+    "The hero photograph asserts no age. The dog is seen from behind and the alt text describes the departure rather than the animal's life stage.",
+  ],
+};
+
 export const stages: readonly PuppyStage[] = [
   eightWeeks,
   nineToElevenWeeks,
@@ -2258,6 +2481,7 @@ export const stages: readonly PuppyStage[] = [
   fourToSixMonths,
   sevenToEightMonths,
   nineToTwelveMonths,
+  beyondTheFirstYear,
 ];
 
 /* ------------------------------------------------------------- the roadmap */
@@ -2301,13 +2525,13 @@ export const stages: readonly PuppyStage[] = [
  */
 
 /** How finely a phase is divided, and therefore what a stage in it means. */
-export type StageCadence = "weekly" | "monthly" | "milestone" | "maturity";
+export type StageCadence = "weekly" | "monthly" | "milestone" | "handoff";
 
 export type JourneyPhaseId =
   | "early-puppy"
   | "early-development"
   | "adolescence"
-  | "maturity";
+  | "handoff";
 
 export interface JourneyPhase {
   id: JourneyPhaseId;
@@ -2337,10 +2561,15 @@ export const journeyPhases: readonly JourneyPhase[] = [
     note: "By what happens, not by the calendar.",
   },
   {
-    id: "maturity",
-    label: "Maturity",
-    cadence: "maturity",
-    note: "When a dog stops being a puppy depends on how big it got.",
+    // Not "Maturity". A dog at this point is very often not mature — AAHA puts
+    // the completion of physical and social maturation at three to four years
+    // — and the label would be claiming exactly the thing the stage spends its
+    // length denying. This phase is where the Journey ends, not where the dog
+    // finishes.
+    id: "handoff",
+    label: "Handoff",
+    cadence: "handoff",
+    note: "Where this series ends and individual care takes over.",
   },
 ];
 
@@ -2401,6 +2630,9 @@ export const LAST_WEEKLY_DAY = 90;
 
 /** The first monthly stage, in completed calendar months. */
 export const FIRST_MONTHLY_MONTH = 3;
+
+/** The last completed calendar month the Journey has anything to say about. */
+export const JOURNEY_ENDS_AFTER_MONTHS = 18;
 
 export const roadmapStages: readonly RoadmapStage[] = [
   // Early puppy — weekly, in days of life. Starts at eight weeks because that
@@ -2467,16 +2699,46 @@ export const roadmapStages: readonly RoadmapStage[] = [
   // so a stage whose only distinct content is size-dependent cannot carry one.
   { slug: "9-12-months", label: "9–12 months", phase: "adolescence", range: { unit: "months", minMonths: 9, maxMonths: 12 } },
 
-  // Maturity — open-ended, and a *navigation* boundary rather than a claim
-  // about biology. See `boundaryVariesBySize`.
+  // The handoff, and the end of the Journey.
+  //
+  // It used to be called "Young adult" and run from thirteen months to the age
+  // engine's three-year cutoff. Both were wrong. AAHA's young-adult life stage
+  // begins at the *cessation of rapid growth* — approximately six to nine
+  // months, varying with breed and size — so most readers had been clinically
+  // young adults since somewhere in the 7–8 month stage, and a Journey entry
+  // borrowing that term at thirteen months put a clinical label about six
+  // months out of place. Renaming was cleaner than disclaiming it.
+  //
+  // And an open-ended terminal entry meant the Puppy Journey was willing to
+  // place a two-year-eleven-month-old dog. It now ends at eighteen months.
+  // That figure is a judgement rather than a source: the last age-specific,
+  // size-dependent question in the whole Journey closes at around sixteen
+  // months — Merck puts skeletal maturity in some large and giant breeds at
+  // closer to fifteen or sixteen, and AAHA's large-breed sterilisation window
+  // runs to fifteen — so eighteen is that floor plus room for the slowest
+  // dogs. Past it nothing here is age-driven any more.
   {
-    slug: "young-adult",
-    label: "Young adult",
-    phase: "maturity",
-    range: { unit: "months", minMonths: 13 },
+    slug: "beyond-the-first-year",
+    label: "Beyond the first year",
+    phase: "handoff",
+    range: { unit: "months", minMonths: 13, maxMonths: JOURNEY_ENDS_AFTER_MONTHS },
     boundaryVariesBySize: true,
   },
 ];
+
+/**
+ * The last completed month the Journey covers.
+ *
+ * Past this a reader is not waiting for something to be written — they are
+ * finished, and `/my-puppy` says so. That is a different state from "we have
+ * not written this yet" and the two must not share copy.
+ *
+ * Deliberately unrelated to `MAX_PLAUSIBLE_DAYS`, which is an input-validation
+ * guard against a mistyped date of birth and nothing to do with scope.
+ */
+export function isJourneyComplete(age: PuppyAge): boolean {
+  return age.months > JOURNEY_ENDS_AFTER_MONTHS;
+}
 
 /** The roadmap grouped for rendering, phases in order, empty phases dropped. */
 export function roadmapByPhase(): readonly { phase: JourneyPhase; stages: RoadmapStage[] }[] {
@@ -2550,6 +2812,11 @@ export function roadmapStageFor(age: PuppyAge): RoadmapStage | null {
 /**
  * How a stage names the reader's age in a headline.
  *
+ * Only ever used where the stage label names a single exact value — which,
+ * after the ranges were introduced, means the single-month stages alone.
+ * `journeyHeadlineAge` decides that, and every range falls back to the exact
+ * age rather than coming through here.
+ *
  * The Journey stage is the primary label and the calculated age is secondary
  * context, because the two do not always agree and a page must never show two
  * competing answers to "how old is my puppy". A thirteen-week-old resolves to
@@ -2561,9 +2828,6 @@ export function roadmapStageFor(age: PuppyAge): RoadmapStage | null {
  * string at the call site.
  */
 export function stageAgePhrase(stage: RoadmapStage): string {
-  if (stage.range.unit === "months" && stage.range.maxMonths === undefined) {
-    return "a young adult";
-  }
   return `${stage.label} old`;
 }
 
@@ -2645,6 +2909,46 @@ export function stageFor(age: PuppyAge): PuppyStage | null {
 /* --------------------------------------------------------------- modifiers */
 
 export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
+  {
+    sizeGroup: "toy",
+    stageSlug: "beyond-the-first-year",
+    sectionId: "growth",
+    body: [
+      "A toy-breed dog is comfortably past the eight-to-twelve-month range Merck gives for skeletal maturity in small dogs, so the growth questions this page keeps qualifying are almost certainly closed for yours. Food, exercise and sterilisation are individual decisions now rather than growth ones.",
+    ],
+  },
+  {
+    sizeGroup: "small",
+    stageSlug: "beyond-the-first-year",
+    sectionId: "growth",
+    body: [
+      "A small-breed dog has very likely finished growing by this point — Merck puts skeletal maturity at roughly eight to twelve months in small and medium dogs. That closes most of the questions this page hedges, and turns the rest into ordinary adult decisions about this particular animal.",
+    ],
+  },
+  {
+    sizeGroup: "medium",
+    stageSlug: "beyond-the-first-year",
+    sectionId: "growth",
+    body: [
+      "A medium-breed dog sits inside Merck's eight-to-twelve-month range for skeletal maturity, so it has probably finished growing — though \u201cprobably\u201d is doing real work in that sentence, and the dog in front of your veterinarian is better evidence than the category.",
+    ],
+  },
+  {
+    sizeGroup: "large",
+    stageSlug: "beyond-the-first-year",
+    sectionId: "growth",
+    body: [
+      "A large-breed dog may or may not be finished, and this stage straddles the line. Merck notes that for some large and giant breeds skeletal maturity may not arrive until closer to fifteen or sixteen months, which is inside this stage rather than behind it — so growth food, exercise restraint and, occasionally, the sterilisation decision can all still be live. Ask rather than assume.",
+    ],
+  },
+  {
+    sizeGroup: "giant",
+    stageSlug: "beyond-the-first-year",
+    sectionId: "growth",
+    body: [
+      "A giant-breed dog is the reason this page refuses to say \u201cfully grown\u201d. Merck puts skeletal maturity in some giant breeds at closer to fifteen or sixteen months, and yours will have looked entirely adult for months before reaching it. Treat growth food, exercise progression and any remaining sterilisation decision as open until your veterinarian says otherwise.",
+    ],
+  },
   {
     sizeGroup: "toy",
     stageSlug: "9-12-months",
@@ -3216,6 +3520,28 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
  * like. Spring and autumn do not, and get nothing rather than an adjective.
  */
 export const seasonModifiers: readonly SeasonModifier[] = [
+  {
+    season: "winter",
+    stageSlug: "beyond-the-first-year",
+    sectionId: "exercise",
+    heading: "Building through a Canadian winter",
+    body: [
+      "Cold suits sustained work better than heat does, so winter is a reasonable time to be adding duration — with the surface as the limiting factor rather than the dog. Ice is where a fit young dog hurts itself, and more so if it is still growing, so choose routes for traction and keep the pace self-chosen.",
+      "Rinse the paws after treated pavements and check between the toes if the dog starts slowing. Short daylight means more of this happens in the dark: a light and something reflective are worth having before you need them.",
+    ],
+    guide: { slug: "winter-dog-care-in-canada", label: "Winter care, paws and road salt" },
+  },
+  {
+    season: "summer",
+    stageSlug: "beyond-the-first-year",
+    sectionId: "exercise",
+    heading: "Building through a Canadian summer",
+    body: [
+      "A fitter dog goes further before it flags, which means heat becomes the limit before tiredness does — and a dog enjoying itself will not be the one to stop. Go at the ends of the day, test pavement with the back of your hand, carry water on anything longer than a stroll, and treat a hot week as a reason to hold the current level rather than add to it.",
+      "Building fitness and building heat tolerance are not the same project, and the second one has a much lower ceiling than people expect.",
+    ],
+    guide: { slug: "summer-heat-safety-for-dogs-in-canada", label: "Heat, pavement and wildfire smoke" },
+  },
   {
     season: "summer",
     stageSlug: "9-12-months",
