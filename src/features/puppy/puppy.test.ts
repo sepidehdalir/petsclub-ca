@@ -3283,6 +3283,12 @@ function violations(sentence: string): string[] {
   return found;
 }
 
+/** A sitemap URL that is a Journey route, matched on pathname not substring. */
+function isJourneyRoute(url: string): boolean {
+  const path = new URL(url).pathname;
+  return path === "/puppy" || path.startsWith("/puppy/") || path.startsWith("/my-puppy");
+}
+
 /** Every reader-facing string on a stage, including its modifier layers. */
 function readerFacingStrings(stage: (typeof stages)[number]): string[] {
   const out = [stage.deck, stage.metaDescription, stage.mediaAlt];
@@ -3470,7 +3476,10 @@ describe("Journey sitemap membership", () => {
 
   it("adds no Journey route while every stage is in review", () => {
     expect(indexableJourneyPaths()).toEqual([]);
-    expect(urls().filter((url) => url.includes("/puppy"))).toEqual([]);
+    // Pathname, not substring: /guides/puppy-socialisation-checklist and
+    // /guides/puppy-vaccination-schedule-in-canada are published guides, not
+    // Journey routes, and a substring test would count them as leaks.
+    expect(urls().filter((url) => isJourneyRoute(url))).toEqual([]);
   });
 
   it("adds exactly one entry for a published, indexable stage", () => {
@@ -4016,8 +4025,7 @@ describe("personalised canonical", () => {
 describe("indexing", () => {
   it("keeps every Puppy Journey route out of the sitemap in this milestone", () => {
     const urls = buildSitemapEntries().map((entry) => entry.url);
-    expect(urls.some((url) => url.includes("/puppy"))).toBe(false);
-    expect(urls.some((url) => url.includes("/my-puppy"))).toBe(false);
+    expect(urls.filter((url) => isJourneyRoute(url))).toEqual([]);
   });
 
   it("adds no route to the site beyond the three the Journey needs", () => {

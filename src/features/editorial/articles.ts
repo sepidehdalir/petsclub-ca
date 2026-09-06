@@ -317,7 +317,8 @@ export const articles: readonly Article[] = [
       "Two dogs standing among snow-covered pines on a still winter day in the forest.",
     tags: ["winter", "seasonal-care", "paw-care", "safety", "dogs"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "Read the dog, not the thermometer: coat type, size, age, health and acclimatisation matter more than the number.",
@@ -494,7 +495,8 @@ export const articles: readonly Article[] = [
     tags: ["puppies", "new-owners", "house-training", "socialisation", "dogs"],
     featured: true,
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "Sleep, toilet trips, socialisation and alone-time training are the whole first month — recall and lead work can wait.",
@@ -558,7 +560,8 @@ export const articles: readonly Article[] = [
     mediaId: "dogs-golden-in-leaves",
     tags: ["puppies", "vaccination", "preventative-care", "socialisation", "dogs"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "The series exists because nobody can see when maternal antibodies fade, so it takes several attempts spaced two to four weeks apart.",
@@ -639,7 +642,8 @@ export const articles: readonly Article[] = [
       "A dog dozing on a cushion inside an open wire crate — the thing the guide is trying to build.",
     tags: ["puppies", "crate-training", "training", "alone-time", "dogs"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "Buy the crate for the adult dog and use the divider — a crate a puppy can toilet at one end of loses the house-training benefit.",
@@ -714,7 +718,8 @@ export const articles: readonly Article[] = [
     mediaId: "dogs-white-dog-leaves",
     tags: ["money", "budgeting", "pet-insurance", "vet-costs", "dogs"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "This guide quotes no dollar figures on purpose: veterinary fees, food and municipal charges vary too much for a national average to be plannable.",
@@ -1127,7 +1132,8 @@ export const articles: readonly Article[] = [
       "A veterinarian listening to a small dog's chest during a routine consultation.",
     tags: ["veterinary-care", "choosing-a-vet", "vet-costs", "canada", "planning"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "Register with a practice while nothing is wrong. A clinic that already holds the history is worth more than one that is marginally closer.",
@@ -1183,7 +1189,8 @@ export const articles: readonly Article[] = [
     tags: ["emergency-care", "veterinary-care", "preparedness", "safety", "canada"],
     featured: true,
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "Confirm your after-hours destination by phone in daylight, then write the name, address, phone and winter drive time somewhere you can find in the dark.",
@@ -1350,7 +1357,8 @@ export const articles: readonly Article[] = [
       "A dog shoulder-deep in long meadow grass \u2014 which is exactly where the ticks are.",
     tags: ["parasites", "ticks", "heartworm", "fleas", "preventative-care", "canada"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "Blacklegged ticks are established in southern Manitoba, southern and southeastern Ontario, southern Quebec and Nova Scotia \u2014 and the range is expanding.",
@@ -1434,7 +1442,8 @@ export const articles: readonly Article[] = [
       "A golden retriever in a recovery cone resting on the floor \u2014 the fortnight that decides how the surgery goes.",
     tags: ["spay-neuter", "surgery", "preventative-care", "money", "canada"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "Small dogs: around six months for males, and before the first heat \u2014 roughly five to six months \u2014 for females.",
@@ -1620,7 +1629,8 @@ export const articles: readonly Article[] = [
       "A dog drinking from a water container on dry grass in strong summer sun.",
     tags: ["summer", "seasonal-care", "heatstroke", "wildfire-smoke", "safety", "dogs"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "There is no safe temperature, for the same reason there is no \u201ctoo cold\u201d number: coat, body fat, activity level and health decide it.",
@@ -1763,7 +1773,8 @@ export const articles: readonly Article[] = [
       "A small dog having its teeth brushed \u2014 the only home-care measure that reliably works.",
     tags: ["dental", "preventative-care", "surgery", "money", "dogs", "cats"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "By three years of age most dogs and cats have some periodontal disease, and it usually goes unnoticed \u2014 animals adapt rather than stop eating.",
@@ -1874,7 +1885,8 @@ export const articles: readonly Article[] = [
     tags: ["licensing", "bylaws", "municipal", "identification", "canada"],
     featured: true,
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     keyTakeaways: [
       "Licensing is municipal. Your city decides it, and neighbouring cities genuinely differ.",
       "Toronto, Ottawa, Calgary and Edmonton all license cats as well as dogs. Many municipalities do not.",
@@ -2021,7 +2033,8 @@ export const articles: readonly Article[] = [
       "A puppy on a lead taking in a street \u2014 the world at a distance it can handle.",
     tags: ["puppies", "socialisation", "training", "behaviour", "dogs"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "The primary period is the first three months, so it is largely over by the time most owners feel ready to start.",
@@ -2223,7 +2236,8 @@ export const articles: readonly Article[] = [
       "Dry food being poured from an unbranded paper bag into a bowl.",
     tags: ["nutrition", "labelling", "regulation", "food", "canada"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "No Canadian federal body sets nutritional standards for retail pet food or approves a formulation before sale.",
@@ -2633,7 +2647,8 @@ export const articles: readonly Article[] = [
     tags: ["training", "recall", "lead-walking", "behaviour", "dogs"],
     featured: true,
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "AVSAB recommends only reward-based methods for all dog training, and holds that aversive methods should not be used under any circumstances.",

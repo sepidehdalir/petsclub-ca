@@ -411,10 +411,29 @@ function withState(
 describe("article publication dates", () => {
   const real = articles[0]!;
 
-  it("keeps every article in review, with no publication date at all", () => {
+  it("publishes exactly the fifteen dependency articles, and holds the other twenty", () => {
     expect(articles).toHaveLength(35);
-    for (const article of articles) {
-      expect(article.status, article.slug).toBe("in-review");
+    const published = articles.filter((a) => a.status === "published").map((a) => a.slug);
+    expect([...published].sort()).toEqual([...JOURNEY_DEPENDENCIES].sort());
+    expect(published).toHaveLength(15);
+    expect(articles.filter((a) => a.status === "in-review")).toHaveLength(20);
+  });
+
+  it("dates all fifteen to one real first-publication day, and revises none", () => {
+    const published = articles.filter((a) => a.status === "published");
+    // One launch, one date. Fifteen different dates would mean fifteen guesses.
+    expect(new Set(published.map((a) => a.publishedAt))).toEqual(new Set([LAUNCH_DATE]));
+    for (const article of published) {
+      expect(article.updatedAt, `${article.slug} carries a revision date`).toBeUndefined();
+      expect(articlePublicationDates(article)).toEqual({
+        datePublished: LAUNCH_DATE,
+        dateModified: LAUNCH_DATE,
+      });
+    }
+  });
+
+  it("leaves every held article dateless, in every surface", () => {
+    for (const article of articles.filter((a) => a.status === "in-review")) {
       expect(article.publishedAt, `${article.slug} carries a publication date`).toBeUndefined();
       expect(article.updatedAt, `${article.slug} carries a revision date`).toBeUndefined();
       expect(articlePublicationDates(article)).toEqual({});
@@ -433,7 +452,11 @@ describe("article publication dates", () => {
     for (const date of ["2026-09-01", "2026-09-02", "2026-09-03", "2026-09-05"]) {
       expect(registry, `${date} still appears in the registry`).not.toContain(`"${date}"`);
     }
-    expect(registry).not.toMatch(/\n {4}publishedAt:/);
+    // Publication dates now exist, but only the real launch day may appear —
+    // and only on a published article. No revision date exists yet at all.
+    const dates = [...registry.matchAll(/\n {4}publishedAt: "([^"]+)"/g)].map((m) => m[1]);
+    expect(dates).toHaveLength(15);
+    expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE]));
     expect(registry).not.toMatch(/\n {4}updatedAt:/);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
   });
@@ -459,7 +482,7 @@ describe("article publication dates", () => {
   it("fails loudly if an article is published without a publication date", () => {
     // The union makes this a compile error; the cast is how a build could still
     // reach it. It must throw rather than silently omit the field.
-    const broken = { ...real, status: "published" } as unknown as Article;
+    const broken = { ...real, status: "published", publishedAt: undefined } as unknown as Article;
     expect(() => articlePublicationDates(broken)).toThrow(/published with no publishedAt/);
     expect(() => articlePublicationDates(broken)).toThrow(/not a publication date/);
   });
@@ -500,12 +523,13 @@ describe("article index policy", () => {
     ).toBe(true);
   });
 
-  it("carries no SEO-level hold today, and indexes nothing", () => {
-    // Every article is `indexable`, meaning none is held back for search
-    // reasons. What holds all 35 is `status`, which is the honest reason.
+  it("carries no SEO-level hold, and indexes exactly the published fifteen", () => {
+    // Every article is still `indexable`, meaning none is held back for search
+    // reasons. What holds the other twenty is `status` — the honest reason.
     for (const article of articles) expect(article.indexable, article.slug).toBe(true);
-    expect(indexableArticles()).toEqual([]);
-    expect(publishedArticles()).toEqual([]);
+    expect(indexableArticles().map((a) => a.slug).sort()).toEqual([...JOURNEY_DEPENDENCIES].sort());
+    expect(indexableArticles()).toHaveLength(15);
+    expect(publishedArticles()).toHaveLength(15);
   });
 
   it("drives the sitemap and the meta tag from one predicate", () => {
@@ -524,11 +548,22 @@ describe("article index policy", () => {
     expect(sitemap).not.toMatch(/publishedArticles\(\)/);
   });
 
-  it("puts no article, and no query-string variant, in the sitemap", () => {
+  it("puts exactly the fifteen guides, and no query-string variant, in the sitemap", () => {
     const all = urls();
-    expect(all.filter((u) => u.includes("/guides/"))).toEqual([]);
+    const guides = all
+      .filter((u) => new URL(u).pathname.startsWith("/guides/"))
+      .map((u) => new URL(u).pathname.replace("/guides/", ""));
+    expect([...guides].sort()).toEqual([...JOURNEY_DEPENDENCIES].sort());
+    expect(guides).toHaveLength(15);
+
+    // And none of the twenty held articles leaked in.
+    const held = articles.filter((a) => a.status === "in-review").map((a) => a.slug);
+    expect(held).toHaveLength(20);
+    for (const slug of held) expect(guides, `${slug} leaked into the sitemap`).not.toContain(slug);
+
     expect(all.some((u) => u.includes("?"))).toBe(false);
-    expect(new Set(all).size).toBe(all.length);
+    expect(new Set(all).size, "duplicate sitemap URL").toBe(all.length);
+    expect(all).toHaveLength(56);
   });
 
   it("would emit sitemap URLs that match each article's own canonical", () => {
@@ -543,8 +578,13 @@ describe("article index policy", () => {
     const paths = articles.map((a) => articlePath(a.slug));
     expect(paths.some((p) => p.startsWith("/puppy"))).toBe(false);
     expect(paths).not.toContain("/my-puppy");
-    expect(urls().some((u) => u.includes("my-puppy"))).toBe(false);
-    expect(urls().some((u) => u.includes("/puppy"))).toBe(false);
+    // Compared on pathname, not substring: two guide slugs legitimately begin
+    // "puppy-", and `includes("/puppy")` would match /guides/puppy-... .
+    const journeyRoutes = urls().filter((u) => {
+      const path = new URL(u).pathname;
+      return path === "/puppy" || path.startsWith("/puppy/") || path.startsWith("/my-puppy");
+    });
+    expect(journeyRoutes).toEqual([]);
   });
 });
 
@@ -1407,6 +1447,14 @@ describe("Batch A — Canadian legal and regulatory evidence", () => {
   });
 });
 
+/**
+ * The day the dependency cluster first went public.
+ *
+ * Not a drafting, commit or remediation date. If a later launch moves it, this
+ * constant and the registry move together — the tests below compare the two.
+ */
+const LAUNCH_DATE = "2026-09-06";
+
 /** The fifteen articles the Puppy Journey links from its stages. */
 const JOURNEY_DEPENDENCIES = [
   "bringing-home-a-puppy-first-30-days",
@@ -1718,12 +1766,27 @@ describe("Puppy Journey dependency set", () => {
     }
   });
 
-  it("keeps all fifteen unpublished and unindexed", () => {
+  it("publishes and indexes all fifteen, on the real launch date", () => {
     for (const slug of JOURNEY_DEPENDENCIES) {
       const article = articles.find((a) => a.slug === slug)!;
-      expect(article.status, slug).toBe("in-review");
-      expect(article.publishedAt, slug).toBeUndefined();
-      expect(isArticleIndexable(article), slug).toBe(false);
+      expect(article.status, slug).toBe("published");
+      expect(article.publishedAt, slug).toBe(LAUNCH_DATE);
+      expect(article.updatedAt, slug).toBeUndefined();
+      expect(article.indexable, slug).toBe(true);
+      expect(isArticleIndexable(article), slug).toBe(true);
+    }
+  });
+
+  it("renders index,follow for a published dependency article", () => {
+    // The route derives its robots directive from the same predicate the
+    // sitemap uses, so a published+indexable article cannot be told to noindex.
+    const route = readFileSync(
+      fileURLToPath(new URL("../../app/guides/[slug]/page.tsx", import.meta.url)),
+      "utf8",
+    );
+    expect(route).toContain("noIndex: !isArticleIndexable(article)");
+    for (const slug of JOURNEY_DEPENDENCIES) {
+      expect(isArticleIndexable(articles.find((a) => a.slug === slug)!), slug).toBe(true);
     }
   });
 });
