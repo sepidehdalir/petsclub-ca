@@ -34,7 +34,8 @@ export const nineToElevenWeeks: PuppyStage = {
     "A pale yellow Labrador puppy sitting on a tiled floor indoors, ears soft, looking up and slightly past the camera.",
   reviewBy: "2027-09-01",
   indexable: true,
-  status: "in-review",
+  status: "published",
+  publishedAt: "2026-09-06",
 
   sections: [
     {
@@ -348,7 +349,8 @@ export const twelveWeeks: PuppyStage = {
     "A husky-type puppy in a plain harness sitting on a paved street, lead slack, looking straight at the camera.",
   reviewBy: "2027-09-01",
   indexable: true,
-  status: "in-review",
+  status: "published",
+  publishedAt: "2026-09-06",
 
   sections: [
     {
@@ -683,7 +685,8 @@ export const eightWeeks: PuppyStage = {
     "A small, cream-coloured puppy in a plain collar lying settled in a soft bed indoors, with a pen panel just visible behind it.",
   reviewBy: "2027-09-01",
   indexable: true,
-  status: "in-review",
+  status: "published",
+  publishedAt: "2026-09-06",
 
   sections: [
     {
@@ -1014,7 +1017,8 @@ export const threeMonths: PuppyStage = {
   // owns the maternal-antibody explanation. Revisit once Search Console shows
   // which URL is actually selected.
   indexable: false,
-  status: "in-review",
+  status: "published",
+  publishedAt: "2026-09-06",
 
   sections: [
     {
@@ -1364,7 +1368,8 @@ export const fourToSixMonths: PuppyStage = {
     "A young black-and-white dog in a plain harness standing on a paved park path, looking out across the grass.",
   reviewBy: "2027-09-01",
   indexable: true,
-  status: "in-review",
+  status: "published",
+  publishedAt: "2026-09-06",
 
   sections: [
     {
@@ -1728,7 +1733,8 @@ export const sevenToEightMonths: PuppyStage = {
     "A lean dog in a plain harness standing on open heathland at the end of a long line, attention fixed on something out of frame.",
   reviewBy: "2027-09-01",
   indexable: true,
-  status: "in-review",
+  status: "published",
+  publishedAt: "2026-09-06",
 
   sections: [
     {
@@ -2041,7 +2047,8 @@ export const nineToTwelveMonths: PuppyStage = {
     "A dark, lean dog in a plain harness standing alert in a frosted field of young tree planting, looking off to one side.",
   reviewBy: "2027-09-01",
   indexable: true,
-  status: "in-review",
+  status: "published",
+  publishedAt: "2026-09-06",
 
   sections: [
     {
@@ -2371,7 +2378,8 @@ export const beyondTheFirstYear: PuppyStage = {
   // exists to end the series rather than to be found. Index only if the site
   // starts acquiring impressions for the questions it answers.
   indexable: false,
-  status: "in-review",
+  status: "published",
+  publishedAt: "2026-09-06",
 
   sections: [
     {
@@ -2642,11 +2650,14 @@ export function isStageIndexable(stage: PuppyStage): boolean {
  * being forced into the stage model. It lives here so the Journey's whole
  * index policy is readable in one place.
  *
- * `false` today. The launch gate recommended indexing it in the first wave;
- * flipping this is that decision, taken deliberately and on its own. It has no
- * bearing on `/my-puppy`, which is unconditionally `noindex` at the route.
+ * `true` since the Wave 1 launch on 2026-09-06. The hub is indexed on its own
+ * merits \u2014 an onboarding form, the roadmap, and the editorial case for why
+ * the Journey is shaped the way it is \u2014 not merely as a route to the stages.
+ * It has no bearing on `/my-puppy`, which is unconditionally `noindex` at the
+ * route, and it carries no publication date: the hub is not an article and
+ * inventing a `datePublished` for it would be a claim nothing supports.
  */
-export const JOURNEY_HUB_INDEXABLE = false;
+export const JOURNEY_HUB_INDEXABLE = true;
 
 /**
  * How search engines should treat this stage.
@@ -2687,7 +2698,9 @@ export function stageRobotsPolicy(stage: PuppyStage): RobotsPolicy {
  * construction: nothing here can produce a path that is not a public stage or
  * the hub.
  *
- * Empty today, and a test asserts it.
+ * Seven entries since Wave 1: the hub and the six indexed stages. The two
+ * published-but-held stages are absent, which is the whole point of keeping
+ * `indexable` separate from `status`.
  */
 export function indexableJourneyPaths(): readonly string[] {
   return [

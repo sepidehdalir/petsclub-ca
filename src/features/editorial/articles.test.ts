@@ -565,7 +565,8 @@ describe("article index policy", () => {
 
     expect(all.some((u) => u.includes("?"))).toBe(false);
     expect(new Set(all).size, "duplicate sitemap URL").toBe(all.length);
-    expect(all).toHaveLength(56);
+    // 41 original + 15 guides + the Journey hub and its six indexed stages.
+    expect(all).toHaveLength(63);
   });
 
   it("would emit sitemap URLs that match each article's own canonical", () => {
@@ -582,11 +583,15 @@ describe("article index policy", () => {
     expect(paths).not.toContain("/my-puppy");
     // Compared on pathname, not substring: two guide slugs legitimately begin
     // "puppy-", and `includes("/puppy")` would match /guides/puppy-... .
+    // Journey routes are in the sitemap now, but the article list cannot be
+    // what put them there — and /my-puppy is in neither.
     const journeyRoutes = urls().filter((u) => {
       const path = new URL(u).pathname;
-      return path === "/puppy" || path.startsWith("/puppy/") || path.startsWith("/my-puppy");
+      return path === "/puppy" || path.startsWith("/puppy/");
     });
-    expect(journeyRoutes).toEqual([]);
+    expect(journeyRoutes).toHaveLength(7);
+    expect(urls().some((u) => new URL(u).pathname.startsWith("/my-puppy"))).toBe(false);
+    expect(indexableArticles().some((a) => articlePath(a.slug).startsWith("/puppy"))).toBe(false);
   });
 });
 
@@ -1856,9 +1861,9 @@ describe("article robots policy", () => {
     expect(articles.filter((a) => articleRobotsPolicy(a) === "public-noindex")).toEqual([]);
   });
 
-  it("15. leaves the sitemap at exactly 56", () => {
+  it("15. leaves the article half of the sitemap at exactly 15", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
-    expect(urls).toHaveLength(56);
     expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(15);
+    expect(urls).toHaveLength(63);
   });
 });

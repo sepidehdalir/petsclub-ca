@@ -2888,7 +2888,9 @@ describe("launch-readiness copy and media invariants", () => {
     const hub = readFileSync(fileURLToPath(new URL("../../app/puppy/page.tsx", import.meta.url)), "utf8");
     const copy = hub.slice(hub.indexOf("const principles"));
 
-    expect(stages.every((stage) => stage.status === "in-review")).toBe(true);
+    // Publication is not review. The stages are live, and the hub still may
+    // not claim an editorial review process they have not had.
+    expect(stages.every((stage) => stage.status === "published")).toBe(true);
     expect(copy).not.toMatch(/written and reviewed|reviewed and (?:published|sourced)|fully reviewed|peer[- ]reviewed by/i);
     expect(copy).toMatch(/stages are written/);
   });
@@ -3285,6 +3287,14 @@ function violations(sentence: string): string[] {
   return found;
 }
 
+/**
+ * The day the Puppy Journey first went public.
+ *
+ * Not a drafting date, not a reviewBy, not a commit date. Every stage shares
+ * it because they launched together.
+ */
+const JOURNEY_LAUNCH_DATE = "2026-09-06";
+
 /** A sitemap URL that is a Journey route, matched on pathname not substring. */
 function isJourneyRoute(url: string): boolean {
   const path = new URL(url).pathname;
@@ -3347,14 +3357,23 @@ describe("publication dates", () => {
     expect(dates.datePublished).toBe("2026-09-06");
   });
 
-  it("emits no publication dates while a stage is in review", () => {
+  it("emits one real first-publication date for every stage, and no revision", () => {
     for (const stage of stages) {
-      expect(stage.status).toBe("in-review");
-      expect(stagePublicationDates(stage)).toEqual({});
-      // And the union forbids a date existing at all in this state.
-      expect(stage.publishedAt).toBeUndefined();
-      expect(stage.updatedAt).toBeUndefined();
+      expect(stage.status, stage.slug).toBe("published");
+      expect(stage.publishedAt, stage.slug).toBe(JOURNEY_LAUNCH_DATE);
+      expect(stage.updatedAt, `${stage.slug} carries a revision date`).toBeUndefined();
+      expect(stagePublicationDates(stage), stage.slug).toEqual({
+        datePublished: JOURNEY_LAUNCH_DATE,
+        dateModified: JOURNEY_LAUNCH_DATE,
+      });
     }
+    // One launch, one date. Eight different dates would mean eight guesses.
+    expect(new Set(stages.map((s) => s.publishedAt))).toEqual(new Set([JOURNEY_LAUNCH_DATE]));
+  });
+
+  it("emits no publication dates for a stage still in review", () => {
+    const held = withState(real, { status: "in-review" });
+    expect(stagePublicationDates(held)).toEqual({});
   });
 
   it("uses publishedAt for datePublished once published", () => {
@@ -3379,7 +3398,7 @@ describe("publication dates", () => {
   it("fails loudly if a stage is published without a publication date", () => {
     // The type union makes this a compile error; the cast is how a build could
     // still reach it. It must throw rather than silently omit the field.
-    const broken = { ...real, status: "published" } as unknown as PuppyStage;
+    const broken = { ...real, status: "published", publishedAt: undefined } as unknown as PuppyStage;
     expect(() => stagePublicationDates(broken)).toThrow(/published with no publishedAt/);
     expect(() => stagePublicationDates(broken)).toThrow(/reviewBy is a re-check deadline/);
   });
@@ -3397,8 +3416,12 @@ describe("publication dates", () => {
         section: "Puppy Journey",
       }) as Record<string, unknown>;
 
-      expect(schema.datePublished).toBeUndefined();
-      expect(schema.dateModified).toBeUndefined();
+      // The dates that appear are the real launch date, never the re-check
+      // deadline — which is what reviewBy is and has always been.
+      expect(schema.datePublished).toBe(JOURNEY_LAUNCH_DATE);
+      expect(schema.dateModified).toBe(JOURNEY_LAUNCH_DATE);
+      expect(schema.datePublished).not.toBe(stage.reviewBy);
+      expect(schema.dateModified).not.toBe(stage.reviewBy);
       expect(JSON.stringify(schema)).not.toContain(stage.reviewBy);
     }
 
@@ -3454,12 +3477,21 @@ describe("index policy", () => {
       "9-12-months": true,
       "beyond-the-first-year": false,
     });
-    // None of it takes effect while every stage is in review.
-    expect(stages.filter(isStageIndexable)).toEqual([]);
+    // And it now takes effect: six stages indexed, two published and held.
+    expect(stages.filter(isStageIndexable).map((s) => s.slug).sort()).toEqual([
+      "12-weeks",
+      "4-6-months",
+      "7-8-months",
+      "8-weeks",
+      "9-11-weeks",
+      "9-12-months",
+    ]);
+    expect(stages.filter((s) => s.status === "published" && !s.indexable).map((s) => s.slug).sort())
+      .toEqual(["3-months", "beyond-the-first-year"]);
   });
 
   it("keeps the hub's index policy separate from the stages and from /my-puppy", () => {
-    expect(JOURNEY_HUB_INDEXABLE).toBe(false);
+    expect(JOURNEY_HUB_INDEXABLE).toBe(true);
     // The hub is not a stage and must not be modelled as one.
     expect(stages.some((s) => s.slug === "puppy")).toBe(false);
     // Flipping the hub cannot pull /my-puppy in: it has no flag to flip.
@@ -3481,12 +3513,20 @@ describe("Journey sitemap membership", () => {
   const real = stages[0]!;
   const urls = () => buildSitemapEntries().map((entry) => entry.url);
 
-  it("adds no Journey route while every stage is in review", () => {
-    expect(indexableJourneyPaths()).toEqual([]);
+  it("adds exactly the hub and the six indexed stages", () => {
+    expect([...indexableJourneyPaths()].sort()).toEqual([
+      "/puppy",
+      "/puppy/12-weeks",
+      "/puppy/4-6-months",
+      "/puppy/7-8-months",
+      "/puppy/8-weeks",
+      "/puppy/9-11-weeks",
+      "/puppy/9-12-months",
+    ]);
     // Pathname, not substring: /guides/puppy-socialisation-checklist and
     // /guides/puppy-vaccination-schedule-in-canada are published guides, not
     // Journey routes, and a substring test would count them as leaks.
-    expect(urls().filter((url) => isJourneyRoute(url))).toEqual([]);
+    expect(urls().filter((url) => isJourneyRoute(url))).toHaveLength(7);
   });
 
   it("adds exactly one entry for a published, indexable stage", () => {
@@ -3847,10 +3887,12 @@ describe("content integrity", () => {
     expect(findProvince("XX")).toBeNull();
   });
 
-  it("carries a review date and stays in review during this milestone", () => {
+  it("keeps a re-check deadline on every stage, now that all eight are live", () => {
     for (const stage of stages) {
-      expect(stage.reviewBy).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      expect(stage.status).toBe("in-review");
+      expect(stage.reviewBy, stage.slug).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(stage.status, stage.slug).toBe("published");
+      // A re-check deadline is not a publication date and never becomes one.
+      expect(stage.reviewBy, stage.slug).not.toBe(stage.publishedAt);
     }
   });
 
@@ -4030,9 +4072,18 @@ describe("personalised canonical", () => {
 });
 
 describe("indexing", () => {
-  it("keeps every Puppy Journey route out of the sitemap in this milestone", () => {
-    const urls = buildSitemapEntries().map((entry) => entry.url);
-    expect(urls.filter((url) => isJourneyRoute(url))).toEqual([]);
+  it("keeps the held stages, /my-puppy and both redirect sources out of the sitemap", () => {
+    const paths = buildSitemapEntries().map((entry) => new URL(entry.url).pathname);
+    for (const excluded of [
+      "/puppy/3-months",
+      "/puppy/beyond-the-first-year",
+      "/my-puppy",
+      "/puppy/11-weeks",
+      "/puppy/4-5-months",
+    ]) {
+      expect(paths, `${excluded} leaked into the sitemap`).not.toContain(excluded);
+    }
+    expect(paths.filter((p) => p === "/puppy" || p.startsWith("/puppy/"))).toHaveLength(7);
   });
 
   it("adds no route to the site beyond the three the Journey needs", () => {
@@ -4170,11 +4221,13 @@ describe("indexing", () => {
     expect(articles.length).toBe(35);
   });
 
-  it("keeps the stage in review, which is what drives noindex on the route", () => {
-    // The route sets `noIndex: stage.status !== "published"`, so this is the
-    // single source of truth for both the meta robots tag and the sitemap.
+  it("drives robots and sitemap from the same two stage fields", () => {
+    // `stageRobotsPolicy` and `isStageIndexable` read `status` and `indexable`,
+    // so the meta tag and sitemap membership cannot disagree.
     for (const stage of stages) {
-      expect(stage.status).toBe("in-review");
+      expect(stage.status, stage.slug).toBe("published");
+      expect(isStageIndexable(stage), stage.slug).toBe(stage.indexable);
+      expect(stageRobotsPolicy(stage), stage.slug).toBe(stage.indexable ? "index" : "public-noindex");
     }
   });
 });
@@ -4339,19 +4392,52 @@ describe("stage robots policy", () => {
     });
   });
 
-  it("14. leaves all eight real stages in review, and unfollowed", () => {
+  it("14. renders no published stage as noindex, nofollow", () => {
     expect(stages).toHaveLength(8);
+    expect(stages.filter((s) => s.status === "published")).toHaveLength(8);
     for (const stage of stages) {
-      expect(stage.status, stage.slug).toBe("in-review");
-      expect(stageRobotsPolicy(stage), stage.slug).toBe("private-noindex");
+      const policy = stageRobotsPolicy(stage);
+      expect(policy, `${stage.slug} is published and unfollowable`).not.toBe("private-noindex");
+      expect(emitted(stage), stage.slug).toMatchObject({ follow: true });
     }
-    expect(stages.filter((s) => s.publishedAt)).toEqual([]);
+    expect(stages.filter((s) => stageRobotsPolicy(s) === "index")).toHaveLength(6);
+    expect(stages.filter((s) => stageRobotsPolicy(s) === "public-noindex")).toHaveLength(2);
   });
 
-  it("16. adds no Journey route to the sitemap, which stays at 56", () => {
+  it("18. keeps every one of the eight stages self-canonical", () => {
+    for (const stage of stages) {
+      const metadata = createMetadata({
+        path: `/puppy/${stage.slug}`,
+        robots: stageRobotsPolicy(stage),
+      });
+      expect(metadata.alternates?.canonical, stage.slug).toBe(canonicalUrl(`/puppy/${stage.slug}`));
+    }
+  });
+
+  it("18b. never canonicalises 3-months to 12-weeks", () => {
+    // The launch decision was to index one of the pair and hold the other.
+    // That is an indexing decision. Merging the canonical would be a different
+    // decision entirely, and nobody took it.
+    const held = stages.find((s) => s.slug === "3-months")!;
+    const canonical = createMetadata({
+      path: "/puppy/3-months",
+      robots: stageRobotsPolicy(held),
+    }).alternates?.canonical;
+    expect(canonical).toBe(canonicalUrl("/puppy/3-months"));
+    expect(canonical).not.toBe(canonicalUrl("/puppy/12-weeks"));
+    expect(String(canonical)).not.toContain("12-weeks");
+    // And it is genuinely published and followable, not quietly held back.
+    expect(held.status).toBe("published");
+    expect(held.indexable).toBe(false);
+    expect(stageRobotsPolicy(held)).toBe("public-noindex");
+  });
+
+  it("16. brings the sitemap to 63: 15 guides and 7 Journey routes", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
-    expect(urls.filter((url) => isJourneyRoute(url))).toEqual([]);
-    expect(urls).toHaveLength(56);
+    expect(urls.filter((url) => isJourneyRoute(url))).toHaveLength(7);
+    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(15);
+    expect(urls).toHaveLength(63);
+    expect(new Set(urls).size, "duplicate sitemap URL").toBe(urls.length);
   });
 
   it("8. leaves every private and utility route noindex, nofollow", () => {
