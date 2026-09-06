@@ -20,6 +20,7 @@ import {
   journeyMeta,
   roadmapStageFor,
   stageFor,
+  stages,
 } from "@/features/puppy/stages";
 import type { JourneyPhaseId } from "@/features/puppy/stages";
 import { articlePath } from "@/features/editorial/articles";
@@ -265,8 +266,8 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
         facts={journeyMeta(age, roadmap)}
         body={
           roadmap
-            ? "We have not written this stage yet. The 11-week stage is the only finished one so far — researched and sourced to the same standard as the rest of the site, and the others are following."
-            : "We have not written a stage for this age yet. The 11-week stage is finished, and the rest are being researched to the same standard."
+            ? `We have not written this stage yet. ${stages.length} stages are finished so far — researched and sourced to the same standard as the rest of the site, and the others are following.`
+            : `We have not written a stage for this age yet. ${stages.length} are finished, and the rest are being researched to the same standard.`
         }
       >
         <p className="mt-4 text-body text-foreground-muted">

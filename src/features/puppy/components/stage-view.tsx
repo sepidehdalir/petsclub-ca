@@ -26,7 +26,7 @@ export interface StageViewProps {
 /**
  * The shared rendering of a stage.
  *
- * Used by both the public `/puppy/11-weeks` page and the personalised
+ * Used by every public stage page and by the personalised
  * `/my-puppy` view, so the two cannot drift apart in content — the only
  * differences are the headline, the fact row, and the banner. That matters
  * for more than tidiness: if the personalised route rendered its own copy,

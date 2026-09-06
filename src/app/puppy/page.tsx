@@ -6,8 +6,12 @@ import { Card, CardBody } from "@/components/ui/card";
 import { Container, Section, SectionHeading } from "@/components/ui/layout-primitives";
 import { OnboardingForm } from "@/features/puppy/components/onboarding-form";
 import { JourneyTimeline } from "@/features/puppy/components/journey-timeline";
+import { stages } from "@/features/puppy/stages";
 import { createMetadata } from "@/lib/seo/metadata";
 import { getMediaAsset } from "@/media/manifest";
+
+/** The earliest stage that has a page — where an anonymous reader should start. */
+const firstStage = stages[0]!;
 
 export const metadata: Metadata = createMetadata({
   title: "Puppy Journey",
@@ -66,18 +70,18 @@ export default function PuppyJourneyPage() {
             <div className="lg:col-span-5">
               <div className="rounded-card border border-border bg-surface-muted p-6 sm:p-7">
                 {/* No puppy has been entered yet, so no row is "you are here".
-                    The 11-week row still reads as the finished one — it is the
-                    only entry without a "soon" badge. */}
+                    The written stages still read as the finished ones — they
+                    are the entries without a "soon" badge. */}
                 <JourneyTimeline currentSlug="" />
               </div>
 
               <p className="mt-5 text-body-sm text-foreground-muted">
-                The 11-week stage is written and reviewed. You can{" "}
+                {stages.length} stages are written and reviewed. You can{" "}
                 <Link
-                  href="/puppy/11-weeks"
+                  href={`/puppy/${firstStage.slug}`}
                   className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"
                 >
-                  read it without entering anything
+                  start at {firstStage.label} without entering anything
                 </Link>
                 .
               </p>

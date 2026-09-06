@@ -103,8 +103,8 @@ export function JourneyTimeline({ currentSlug, className }: JourneyTimelineProps
       </div>
 
       <p className="mt-5 px-2.5 text-caption text-foreground-subtle">
-        One stage is written so far. The rest are being researched to the same standard, and a
-        stage only becomes a page when there is something distinct to say about it.
+        So far {implemented.size} of these are written. The rest are being researched to the same
+        standard, and a stage only becomes a page when there is something distinct to say about it.
       </p>
     </nav>
   );

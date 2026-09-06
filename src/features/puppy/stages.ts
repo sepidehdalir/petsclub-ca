@@ -126,10 +126,10 @@ export const nineToElevenWeeks: PuppyStage = {
     },
     {
       id: "teething",
-      title: "Teething",
-      summary: "Starting, and increasing across these weeks. Manage it rather than train it away.",
+      title: "Chewing and mouthing",
+      summary: "Constant, sharp, and not a behaviour problem. Manage it rather than train it away.",
       body: [
-        "Adult teeth start moving through towards the end of this period and into the weeks after it, and chewing increases with them — expect more of it at eleven weeks than at nine. This is not a behaviour problem and it does not respond to being told off.",
+        "A puppy this age explores with its mouth and chews a great deal, and the deciduous teeth it is doing it with are needle-sharp. That is not teething — the permanent teeth are still months away — and it is not disobedience either. It does not respond to being told off.",
         "Provide things that are legal to chew, rotate them so they stay interesting, and manage the environment so the illegal options are not available. A frozen stuffed toy is genuinely useful at this age.",
         "Mouthing skin is separate and worth handling now: when teeth land on you, the fun stops for a moment — hands still, attention off, no drama — and then redirect onto something appropriate.",
       ],
@@ -235,7 +235,7 @@ export const nineToElevenWeeks: PuppyStage = {
       title: "What's next",
       summary: "The window narrows, the teeth arrive, and the series finishes later than you think.",
       body: [
-        "At twelve weeks the socialisation window closes, teething moves from beginning to obvious, and the vaccination series reaches the dose that carries most of the weight — which lands later than most owners expect, past sixteen weeks rather than at twelve. Many owners are told at an appointment around twelve weeks that the puppy is finished. It is not.",
+        "At twelve weeks the socialisation window closes and the vaccination series reaches the dose that carries most of the weight — which lands later than most owners expect, past sixteen weeks rather than at twelve. Many owners are told at an appointment around twelve weeks that the puppy is finished. It is not.",
         "The other thing that arrives, usually without warning, is adolescence. It is a long way from here but it is worth knowing it is coming, because a dog that seems to forget everything it learned at six or seven months is developmentally normal rather than broken.",
       ],
     },
@@ -269,6 +269,11 @@ export const nineToElevenWeeks: PuppyStage = {
       publisher: "World Small Animal Veterinary Association",
       url: "https://wsava.org/wp-content/uploads/2024/05/2024-Guidelines-for-the-Vaccination-of-Dogs-and-Cats.pdf",
     },
+    {
+      label: "Dental development of dogs — permanent teeth appear at around four to five months, complete by about seven",
+      publisher: "Merck Veterinary Manual",
+      url: "https://www.merckvetmanual.com/dog-owners/digestive-disorders-of-dogs/dental-development-of-dogs",
+    },
   ],
 
   resources: [
@@ -283,7 +288,7 @@ export const nineToElevenWeeks: PuppyStage = {
     "The developmental description (bladder capacity, attention span, sleep requirement) is written qualitatively and quotes no figure. Attach a source before any number is added — the 16–18 hours figure carried in the article library is still unsourced there too.",
     "That a second period of wariness commonly appears in this window is described as normal development, with no week attached. Widely reported in behaviour literature; source it before publication, and do not pin it to a week without one.",
     "That three to four meals a day is typical at this age — stated as what most puppies are on rather than as a recommendation. Confirm against a veterinary nutrition source or soften further.",
-    "Teething is described as starting towards the end of this window and increasing, with no week number. The direction is safe; the timing is not sourced. Do not make it specific without one.",
+    "This stage deliberately makes no claim about permanent teeth. Merck places the start of permanent eruption at around four to five months, so at nine to eleven weeks a puppy is chewing with its deciduous teeth and nothing is being replaced. Do not reintroduce eruption language here.",
     "The growth-plate reasoning behind limiting repetitive forced exercise is stated generally and names no age or distance rule. Attach a source before it is made more specific.",
     "No vaccination schedule appears anywhere in this stage, by design. The section is questions only. Do not let a future edit turn the question list into a timetable.",
     "This stage covers three weeks because the differentiation gate found no sourceable developmental difference between them. If one is later found, it belongs in this register before it appears in the prose.",
@@ -311,7 +316,7 @@ export const twelveWeeks: PuppyStage = {
   label: "12 weeks",
   title: "Your 12-Week-Old Puppy",
   deck:
-    "The week a lot of owners are told the puppy is finished. The series usually is not over, the socialisation window is closing rather than open, and the teeth are about to arrive in earnest.",
+    "The week a lot of owners are told the puppy is finished. The series usually is not over, the socialisation window is closing rather than open, and the chewing is getting worse before it gets better.",
   metaDescription:
     "What matters at 12 weeks: why your puppy is probably not fully vaccinated yet, what socialisation is left, teething, first walks, and what to ask your veterinarian.",
   mediaId: "puppy-twelve-weeks",
@@ -332,7 +337,7 @@ export const twelveWeeks: PuppyStage = {
       points: [
         "A vaccine appointment around twelve weeks is very rarely the last one.",
         "The socialisation window is closing. What has not been covered by now is harder to cover later.",
-        "Teething moves from occasional to constant over the next few weeks.",
+        "Chewing gets heavier. It is a physical need, not a training problem.",
         "Short lead walks usually become reasonable around now — short being the operative word.",
         "Confidence is arriving faster than judgement. Both are normal; only one is useful.",
       ],
@@ -391,12 +396,12 @@ export const twelveWeeks: PuppyStage = {
     },
     {
       id: "teething",
-      title: "Teething and chewing",
+      title: "Chewing",
       summary: "This is the section that will matter most over the next month.",
       body: [
-        "Around now, and increasingly over the following weeks, the baby teeth start being replaced. You may find one in the carpet, or a spot of blood on a chew toy, or nothing at all — most puppies swallow them and nobody notices. The gums are sore, and chewing is the relief.",
-        "Two things follow. First, chewing is going to increase, and it is not disobedience — a puppy cannot be trained out of a physical need. Manage the environment so the wrong options are not reachable, keep a rotation of things that are legal to chew so they stay interesting, and use cold: a wet flannel frozen into a twist, or a stuffed toy from the freezer, does more for a sore mouth than any correction.",
-        "Second, mouthing you has to stop being funny. At nine weeks the teeth were needles and it was tolerable. At twelve they hurt, at six months they will do damage, and the household that laughed at it will be the one asking why the dog still does it. When teeth land on skin, everything stops — hands still, attention off, no drama — and then a legal chew appears.",
+        "Chewing typically gets heavier from here, and it is worth being clear about what is and is not happening. The permanent teeth are not through yet — Merck puts the start of that at around four to five months — so what you are dealing with now is a puppy that investigates with its mouth and has a great deal of energy for it.",
+        "Two things follow. First, chewing is not disobedience — a puppy cannot be trained out of a physical need. Manage the environment so the wrong options are not reachable, keep a rotation of things that are legal to chew so they stay interesting, and use cold: a wet flannel frozen into a twist, or a stuffed toy from the freezer, does more for a sore mouth than any correction.",
+        "Second, mouthing you has to stop being funny. At nine weeks it was tolerable. At twelve it hurts, at six months it will do damage, and the household that laughed at it will be the one asking why the dog still does it. When teeth land on skin, everything stops — hands still, attention off, no drama — and then a legal chew appears.",
         "On what to give: hardness is worth asking your veterinarian about directly. Chews that do not give at all are a common cause of fractured teeth, and \u201cnatural\u201d is not the same as safe.",
       ],
       guide: {
@@ -577,6 +582,11 @@ export const twelveWeeks: PuppyStage = {
       publisher: "World Small Animal Veterinary Association",
       url: "https://wsava.org/wp-content/uploads/2024/05/2024-Guidelines-for-the-Vaccination-of-Dogs-and-Cats.pdf",
     },
+    {
+      label: "Dental development of dogs — permanent teeth appear at around four to five months, complete by about seven",
+      publisher: "Merck Veterinary Manual",
+      url: "https://www.merckvetmanual.com/dog-owners/digestive-disorders-of-dogs/dental-development-of-dogs",
+    },
   ],
 
   resources: [
@@ -591,7 +601,7 @@ export const twelveWeeks: PuppyStage = {
     "Ontario's threshold is 'over three months of age', quoted from ontario.ca/page/rabies-pets and confirmed verbatim. Neither that page nor the regulation it cites (R.R.O. 1990, Reg. 567) defines three months as a number of days, so nothing here converts it into one — twelve weeks is 84 days and three calendar months is never 84 days. The e-Laws and CanLII copies of the regulation could not be retrieved directly; re-check the primary text before this wording is published.",
     "The socialisation window closing around twelve weeks follows the AVSAB position statement's first-three-months framing and is sourced. Do not let a future edit turn 'closing' into a hard cut-off date — the statement does not say that.",
     "The final-dose ages (AAHA past sixteen weeks, preferring eighteen to twenty in high-risk settings; WSAVA sixteen weeks or older) are sourced and must stay attributed to the body that says them. This section must never become a schedule.",
-    "Teething is described as starting around now and increasing, with no eruption order and no week numbers. Attach a veterinary dentistry source before making it specific.",
+    "The permanent teeth are explicitly described as not yet through, attributed to Merck. Chewing is described as getting heavier without a cause being asserted. Do not reintroduce a replacement or eruption claim at this age.",
     "That hard chews are a common cause of fractured teeth is stated qualitatively and directed to the veterinarian. Source it before it is made stronger or given examples.",
     "The move from four meals to three is stated as what most puppies do, not as a recommendation. Confirm against a veterinary nutrition source or soften further.",
     "That growth finishes later in large breeds, and that switching to adult food early carries risk, is stated generally with no age or weight. Attach a source before it is made specific.",
@@ -950,7 +960,7 @@ export const threeMonths: PuppyStage = {
   deck:
     "Around three months, the job changes. The first weeks were about collecting experiences; this month is about repeating them until they hold up somewhere other than your kitchen.",
   metaDescription:
-    "What matters around three months: consolidating training, generalising to new places, the end of the vaccination series, teething at its peak, and building the habits that carry into adolescence.",
+    "What matters around three months: consolidating training, generalising to new places, the end of the vaccination series, managing heavy chewing, and building the habits that carry into adolescence.",
   mediaId: "puppy-three-months",
   mediaAlt:
     "A leggy young dog in a plain harness sitting attentively on grass — around the age this stage covers.",
@@ -969,7 +979,7 @@ export const threeMonths: PuppyStage = {
       points: [
         "Practise what the puppy already knows, in more places, rather than teaching more things.",
         "The primary vaccination series usually finishes during this stage — later than most people expect.",
-        "Chewing peaks. It is a physical need, not a training problem.",
+        "Chewing is heavy, and heaviest is still ahead. It is a physical need, not a training problem.",
         "House-training progress is uneven, and going backwards for a few days is normal.",
         "Alone-time practice gets quietly dropped around now, and that is how it becomes a problem later.",
       ],
@@ -1031,10 +1041,10 @@ export const threeMonths: PuppyStage = {
     },
     {
       id: "teething",
-      title: "Teething and chewing",
-      summary: "The dominant physical fact of this month, and not a behaviour problem.",
+      title: "Chewing",
+      summary: "Heavy, about to get heavier, and not a behaviour problem.",
       body: [
-        "Chewing is at or near its heaviest through this period as adult teeth come through. It is a physical need with a physical cause, and no amount of instruction will train it away — a household that treats it as disobedience will spend the next two months losing an argument.",
+        "Chewing is substantial at this age and the part driven by teething has not started yet. Merck puts the appearance of the permanent teeth at around four to five months, with the full set in by about seven, so what is ahead of you is more of this rather than less. No amount of instruction will train it away — a household that treats it as disobedience will spend the next few months losing an argument.",
         "The work is management rather than correction. Keep a rotation of things that are legal to chew so they stay interesting, put the illegal options out of reach rather than relying on supervision, and use cold — a wet flannel frozen into a twist, or a stuffed toy from the freezer — because it helps a sore mouth in a way nothing else on the list does.",
         "Two things are worth separating. Chewing is normal; swallowing is the risk. The most likely serious accident of the next few months is an object going down rather than being chewed, so what the puppy chews should be too large to swallow and should be checked as it wears down. On hardness, ask your veterinarian directly: chews that do not give at all are a recognised cause of fractured teeth, and \u201cnatural\u201d is not a synonym for safe.",
         "Mouthing you should now be firmly on its way out. Teeth on skin ends the fun for a moment — hands still, attention off, no drama — then a legal chew appears. Consistency across everyone in the house matters more than what any one person does.",
@@ -1096,7 +1106,7 @@ export const threeMonths: PuppyStage = {
       summary: "Often the appointment where the series finishes. Go with the record.",
       body: [
         "There is usually at least one appointment in this stage, and for many puppies it is the one that completes the primary vaccination series. Take the record and everything added since, because what happens next depends on what has actually been given rather than on what a schedule says should have been.",
-        "It is a good appointment for the unglamorous questions too: weight and growth, what the puppy should be eating and how much, when parasite prevention starts or changes, and whether anything in the mouth needs watching as the adult teeth come in.",
+        "It is a good appointment for the unglamorous questions too: weight and growth, what the puppy should be eating and how much, when parasite prevention starts or changes, and whether there is anything in the mouth worth keeping an eye on before the permanent teeth arrive.",
       ],
       guide: {
         slug: "finding-a-veterinarian-in-canada",
@@ -1212,6 +1222,11 @@ export const threeMonths: PuppyStage = {
       publisher: "World Small Animal Veterinary Association",
       url: "https://wsava.org/wp-content/uploads/2024/05/2024-Guidelines-for-the-Vaccination-of-Dogs-and-Cats.pdf",
     },
+    {
+      label: "Dental development of dogs — permanent teeth appear at around four to five months, complete by about seven",
+      publisher: "Merck Veterinary Manual",
+      url: "https://www.merckvetmanual.com/dog-owners/digestive-disorders-of-dogs/dental-development-of-dogs",
+    },
   ],
 
   resources: [
@@ -1227,7 +1242,7 @@ export const threeMonths: PuppyStage = {
     "The final-dose ages (AAHA past sixteen weeks, preferring eighteen to twenty in high-risk settings; WSAVA sixteen weeks or older) are sourced and must stay attributed. That sixteen weeks usually falls inside this stage is arithmetic on those figures, not a separate claim. This section must never become a schedule.",
     "That the primary socialisation period runs through the first three months follows the AVSAB position statement and is sourced. The claim that learning continues afterwards with more repetition is stated qualitatively and is not in that statement; soften or source it before it is made stronger.",
     "That generalisation is poor at this age, and that behaviour learned in one context does not transfer, is described qualitatively with no mechanism and no figures. It is well established in learning theory; attach a source before it is stated as a finding.",
-    "Chewing being at or near its heaviest in this period is stated without an eruption order, a tooth count or a week number. Attach a veterinary dentistry source before making it specific.",
+    "Permanent eruption is attributed to Merck (around four to five months, complete by about seven) and is explicitly placed *after* this stage. Chewing at three months is described as heavy without a cause being asserted. No eruption order, tooth count or peak-chewing age appears, and none should be added without a source.",
     "That hard chews are a recognised cause of fractured teeth is stated qualitatively and directed to the veterinarian. Source it before naming products or examples.",
     "Three meals a day is stated as what most puppies are on rather than as a recommendation, and quantity is deferred to the veterinarian. No amounts, no calories, no breed-specific figures appear.",
     "That growth finishes later in large breeds and that moving to adult food early carries risk is stated generally with no age, weight or breed. Attach a source before it is made specific.",
@@ -1418,8 +1433,17 @@ export const roadmapStages: readonly RoadmapStage[] = [
   // own anniversary. That is a content-stage assignment, not an age claim, and
   // `journeyHeadlineAge` refuses to turn it into one.
   { slug: "3-months", label: "3 months", phase: "early-development", range: { unit: "months", minMonths: 3, maxMonths: 3 } },
-  { slug: "4-months", label: "4 months", phase: "early-development", range: { unit: "months", minMonths: 4, maxMonths: 4 } },
-  { slug: "5-months", label: "5 months", phase: "early-development", range: { unit: "months", minMonths: 5, maxMonths: 5 } },
+  // Four and five months are one stage, not two. The differentiation gate
+  // found nothing that separates them: permanent eruption spans both (Merck
+  // puts it at around four to five months, complete by about seven), the
+  // neutering decision spans four to six by size, and the freedom that
+  // follows the vaccination series simply continues. The behavioural
+  // landmarks people reach for here are not here at all — Asher et al. place
+  // the adolescent trainability dip at eight months and call five months
+  // *pre*-adolescence — so splitting these would have meant writing the same
+  // page twice. Six months stays separate: it carries the ~26-week dose,
+  // the small-breed neuter age, and the handover into adolescence.
+  { slug: "4-5-months", label: "4–5 months", phase: "early-development", range: { unit: "months", minMonths: 4, maxMonths: 5 } },
   { slug: "6-months", label: "6 months", phase: "early-development", range: { unit: "months", minMonths: 6, maxMonths: 6 } },
 
   // Adolescence — paired months, because the things that define this period
@@ -1556,6 +1580,15 @@ export function stageAgePhrase(stage: RoadmapStage): string {
  */
 export function journeyHeadlineAge(age: PuppyAge, roadmap: RoadmapStage | null): string {
   if (!roadmap || roadmap.range.unit === "weeks") {
+    return age.label;
+  }
+
+  // A stage that spans more than one month names a band, not an age. We know
+  // which month the reader is in, so saying "4–5 months old" to the owner of a
+  // four-month-old is less precise than what we have — the same objection that
+  // keeps "9–11 weeks old" out of a ten-week-old's headline. The band still
+  // appears, in the eyebrow, as the name of the section being read.
+  if (roadmap.range.maxMonths !== undefined && roadmap.range.maxMonths !== roadmap.range.minMonths) {
     return age.label;
   }
 

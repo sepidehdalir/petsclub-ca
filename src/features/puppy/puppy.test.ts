@@ -700,10 +700,13 @@ describe("hybrid age resolution", () => {
     expect(slugOn(dob, "2026-09-17")).toBe("3-months");
     expect(slugOn(dob, "2026-09-18")).toBe("3-months");
     expect(slugOn(dob, "2026-10-17")).toBe("3-months");
-    expect(slugOn(dob, "2026-10-18")).toBe("4-months");
-    expect(slugOn(dob, "2026-11-17")).toBe("4-months");
-    expect(slugOn(dob, "2026-11-18")).toBe("5-months");
-    expect(slugOn(dob, "2026-12-17")).toBe("5-months");
+    // Four and five months share a stage, so the boundary between them is
+    // gone and the next move is at six months. Exact age stays precise —
+    // see the display test below.
+    expect(slugOn(dob, "2026-10-18")).toBe("4-5-months");
+    expect(slugOn(dob, "2026-11-17")).toBe("4-5-months");
+    expect(slugOn(dob, "2026-11-18")).toBe("4-5-months");
+    expect(slugOn(dob, "2026-12-17")).toBe("4-5-months");
     expect(slugOn(dob, "2026-12-18")).toBe("6-months");
     expect(slugOn(dob, "2027-01-17")).toBe("6-months");
     expect(slugOn(dob, "2027-01-18")).toBe("7-8-months");
@@ -735,7 +738,7 @@ describe("hybrid age resolution", () => {
     const dob = "2026-08-31";
     expect(slugOn(dob, "2026-11-30")).toBe("3-months");
     expect(slugOn(dob, "2026-12-30")).toBe("3-months");
-    expect(slugOn(dob, "2026-12-31")).toBe("4-months");
+    expect(slugOn(dob, "2026-12-31")).toBe("4-5-months");
     expect(slugOn(dob, "2027-02-28")).toBe("6-months"); // clamped from 31 February
     expect(slugOn(dob, "2027-03-30")).toBe("6-months");
     expect(slugOn(dob, "2027-03-31")).toBe("7-8-months");
@@ -850,8 +853,7 @@ describe("hybrid age resolution", () => {
       "9-11-weeks",
       "12-weeks",
       "3-months",
-      "4-months",
-      "5-months",
+      "4-5-months",
       "6-months",
       "7-8-months",
       "9-10-months",
@@ -864,8 +866,7 @@ describe("hybrid age resolution", () => {
       "9–11 weeks",
       "12 weeks",
       "3 months",
-      "4 months",
-      "5 months",
+      "4–5 months",
       "6 months",
       "7\u20138 months",
       "9\u201310 months",
@@ -961,10 +962,12 @@ describe("hybrid age resolution", () => {
       ["2026-06-06", "2026-09-06", "3 months old", ["13 weeks", "Early development"]],
       // Exactly on the anniversary the two agree, so the age is not repeated.
       ["2026-05-05", "2026-09-05", "4 months old", ["Early development"]],
-      // Part-way through the month it says something the headline does not.
-      ["2026-04-20", "2026-09-05", "4 months old", ["4 months and 2 weeks", "Early development"]],
-      ["2026-01-31", "2026-09-05", "7\u20138 months old", ["7 months", "Adolescence"]],
-      ["2025-08-31", "2026-09-05", "11\u201312 months old", ["1 year", "Adolescence"]],
+      // A range stage, so the headline is the month the reader is actually in
+      // rather than the band the section is named after.
+      ["2026-04-20", "2026-09-05", "4 months and 2 weeks old", ["Early development"]],
+      // A range names a band, so the headline gives the month we actually know.
+      ["2026-01-31", "2026-09-05", "7 months old", ["Adolescence"]],
+      ["2025-08-31", "2026-09-05", "1 year old", ["Adolescence"]],
       ["2024-02-29", "2026-09-05", "a young adult", ["2 years and 6 months", "Maturity"]],
     ];
 
@@ -992,9 +995,11 @@ describe("hybrid age resolution", () => {
 
     // Anywhere the two differ, the exact age is kept — and it is never the
     // same string as the headline, which is what "competing labels" would be.
+    // Only a single-month stage or maturity can name an age the exact figure
+    // does not already state — a range stage puts the exact figure in the
+    // headline, so there is nothing left for the meta row to add.
     for (const [birth, today] of [
       ["2026-06-06", "2026-09-06"],
-      ["2026-01-31", "2026-09-05"],
       ["2024-02-29", "2026-09-05"],
     ]) {
       const age = ageOn(birth!, today!);
@@ -1018,6 +1023,13 @@ describe("hybrid age resolution", () => {
     expect(stageAgePhrase(findRoadmapStage("9-11-weeks")!)).toBe("9–11 weeks old");
     expect(stageAgePhrase(findRoadmapStage("3-months")!)).toBe("3 months old");
     expect(stageAgePhrase(findRoadmapStage("9-10-months")!)).toBe("9\u201310 months old");
+
+    // But a band is never the headline: the reader is told the month they are
+    // actually in, and the band stays in the eyebrow.
+    const sevenMonths = ageOn("2026-01-31", "2026-09-05");
+    const band = roadmapStageFor(sevenMonths)!;
+    expect(band.slug).toBe("7-8-months");
+    expect(journeyHeadlineAge(sevenMonths, band)).toBe("7 months old");
   });
 
   it("keeps the exact age available bare and in a sentence", () => {
@@ -1453,6 +1465,185 @@ describe("hybrid age resolution", () => {
     expect(roadmapStageFor.length).toBe(1);
   });
 
+  it("makes no permanent-tooth claim before the age the source supports", () => {
+    // Merck places the appearance of the permanent teeth at around four to
+    // five months, complete by about seven. Three stages sit entirely before
+    // that, so none of them may describe eruption, replacement or teething as
+    // under way — which three of them previously did.
+    const early = [eightWeeks, nineToElevenWeeks, twelveWeeks, threeMonths];
+    const forbidden = [
+      /adult teeth (start|come|are coming) (moving )?(through|in)/i,
+      /baby teeth start being replaced/i,
+      /permanent teeth (are|start) (erupting|coming through|appearing)/i,
+      /teething (moves|is under way|has (started|begun))/i,
+      /chewing (peaks|is at its peak)/i,
+      /at (or near )?its heaviest/i,
+    ];
+
+    for (const stage of early) {
+      const prose = [
+        stage.deck,
+        stage.metaDescription,
+        ...stage.sections.flatMap((section) => [
+          section.title,
+          section.summary,
+          ...(section.body ?? []),
+          ...(section.points ?? []),
+        ]),
+      ].join(" ");
+
+      for (const pattern of forbidden) {
+        expect(pattern.test(prose), `${stage.slug} matches ${pattern}`).toBe(false);
+      }
+    }
+  });
+
+  it("cites Merck wherever eruption timing is named", () => {
+    // Two stages now state when the permanent teeth arrive, in order to say
+    // that it has not happened yet. A claim about timing carries its source.
+    const MERCK = "merckvetmanual.com";
+    for (const stage of [nineToElevenWeeks, twelveWeeks, threeMonths]) {
+      const prose = stage.sections
+        .flatMap((section) => [...(section.body ?? []), ...(section.points ?? [])])
+        .join(" ");
+      if (/four to five months|Merck/i.test(prose)) {
+        expect(
+          stage.sources.some((source) => source.url.includes(MERCK)),
+          `${stage.slug} names eruption timing without citing Merck`,
+        ).toBe(true);
+      }
+    }
+
+    // And the register records the source rather than an open question.
+    for (const stage of [nineToElevenWeeks, twelveWeeks, threeMonths]) {
+      expect(stage.needsVerification.join(" ")).toMatch(/Merck/);
+    }
+  });
+
+  it("resolves four and five months to one shared content stage", () => {
+    const dob = "2026-06-18";
+
+    // Every day of the fourth and fifth months, for a date of birth whose
+    // anniversaries are unremarkable.
+    for (let days = 122; days <= 182; days += 1) {
+      expect(slugAtDay(dob, days)).toBe("4-5-months");
+    }
+
+    // The neighbours are unmoved.
+    expect(slugAtDay(dob, 121)).toBe("3-months");
+    expect(slugAtDay(dob, 183)).toBe("6-months");
+
+    // And on the anniversaries themselves, which is what actually moves it.
+    expect(slugOn(dob, "2026-10-17")).toBe("3-months");
+    expect(slugOn(dob, "2026-10-18")).toBe("4-5-months"); // 4 months
+    expect(slugOn(dob, "2026-11-18")).toBe("4-5-months"); // 5 months
+    expect(slugOn(dob, "2026-12-18")).toBe("6-months"); // 6 months
+  });
+
+  it("keeps the exact month in the headline across the shared 4–5 stage", () => {
+    // The point of the merge: one editorial unit, two precise ages.
+    const dob = "2026-06-18";
+    const cases: [string, number, string][] = [
+      ["2026-10-18", 4, "4 months old"],
+      // Four weeks past the anniversary the label drops the weeks clause, by
+      // design — "4 months and 4 weeks" is a worse way of saying five months
+      // is nearly here.
+      ["2026-11-17", 4, "4 months old"],
+      ["2026-11-18", 5, "5 months old"],
+      ["2026-12-17", 5, "5 months old"],
+    ];
+
+    for (const [today, months, headline] of cases) {
+      const age = ageOn(dob, today);
+      const stage = roadmapStageFor(age)!;
+      expect(stage.slug, today).toBe("4-5-months");
+      expect(age.months, today).toBe(months);
+      expect(journeyHeadlineAge(age, stage), today).toBe(headline);
+      // Never the band.
+      expect(journeyHeadlineAge(age, stage)).not.toContain("4–5");
+    }
+  });
+
+  it("leaves no gap or overlap where the two months used to meet", () => {
+    // The merged range must tile exactly what the two separate ranges did.
+    const merged = findRoadmapStage("4-5-months")!;
+    if (merged.range.unit !== "months") {
+      throw new Error("4-5-months is not a month range");
+    }
+    expect(merged.range.minMonths).toBe(4);
+    expect(merged.range.maxMonths).toBe(5);
+
+    expect(findRoadmapStage("4-months")).toBeNull();
+    expect(findRoadmapStage("5-months")).toBeNull();
+    expect(findRoadmapStage("3-months")).not.toBeNull();
+    expect(findRoadmapStage("6-months")).not.toBeNull();
+
+    // Early development is now three entries, in order.
+    const earlyDevelopment = roadmapStages.filter((stage) => stage.phase === "early-development");
+    expect(earlyDevelopment.map((stage) => stage.slug)).toEqual([
+      "3-months",
+      "4-5-months",
+      "6-months",
+    ]);
+  });
+
+  it("has no route for any early-development stage yet", () => {
+    const appDir = fileURLToPath(new URL("../../app/", import.meta.url));
+    const puppyRoutes = readdirSync(join(appDir, "puppy"), { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name);
+
+    for (const slug of ["4-months", "5-months", "4-5-months", "6-months"]) {
+      expect(puppyRoutes).not.toContain(slug);
+    }
+    expect(puppyRoutes).toHaveLength(4);
+  });
+
+  it("links no reader at a path that only redirects", async () => {
+    // Found the hard way: `/puppy` went on linking `/puppy/11-weeks` after the
+    // rename, so the one link offered to an anonymous reader was a 308. A
+    // redirect source must not appear as an href anywhere in the feature or
+    // its routes.
+    const { default: config } = (await import("../../../next.config")) as {
+      default: { redirects?: () => Promise<{ source: string }[]> };
+    };
+    const retired = (await config.redirects!()).map((rule) => rule.source);
+    expect(retired.length).toBeGreaterThan(0);
+
+    const appDir = fileURLToPath(new URL("../../app/", import.meta.url));
+    const files = [
+      join(FEATURE_DIR, "components/journey-timeline.tsx"),
+      join(FEATURE_DIR, "components/stage-view.tsx"),
+      join(appDir, "puppy/page.tsx"),
+      join(appDir, "my-puppy/page.tsx"),
+    ];
+
+    for (const file of files) {
+      const source = readFileSync(file, "utf8");
+      for (const path of retired) {
+        // Not as an href, and not as a bare literal either — the hrefs here
+        // are built from slugs, so a retired path should not appear at all.
+        expect(source.includes(`"${path}"`), `${file} mentions ${path}`).toBe(false);
+        expect(source.includes(`'${path}'`), `${file} mentions ${path}`).toBe(false);
+      }
+    }
+  });
+
+  it("does not tell the reader a stale number of finished stages", () => {
+    // The count is derived rather than written down, because it was wrong for
+    // three shipped stages before anyone noticed.
+    const appDir = fileURLToPath(new URL("../../app/", import.meta.url));
+    for (const file of [
+      join(FEATURE_DIR, "components/journey-timeline.tsx"),
+      join(appDir, "puppy/page.tsx"),
+      join(appDir, "my-puppy/page.tsx"),
+    ]) {
+      const source = readFileSync(file, "utf8");
+      expect(source).not.toMatch(/One stage is written/);
+      expect(source).not.toMatch(/The 11-week stage is (written|finished|the only)/);
+    }
+  });
+
   it("keeps the implemented stage a strict subset of the roadmap", () => {
     // A page is not minted because an interval elapsed. Every implemented
     // stage must appear on the roadmap; the reverse must not hold.
@@ -1462,7 +1653,7 @@ describe("hybrid age resolution", () => {
     }
     expect(stages.length).toBeLessThan(roadmapStages.length);
     expect(stages).toHaveLength(4);
-    expect(roadmapStages).toHaveLength(11);
+    expect(roadmapStages).toHaveLength(10);
   });
 
   it("takes its age range from the roadmap rather than restating it", () => {
@@ -1863,8 +2054,10 @@ describe("indexing", () => {
     expect([...puppyRoutes].sort()).toEqual(["12-weeks", "3-months", "8-weeks", "9-11-weeks"]);
     expect(puppyRoutes).toHaveLength(4);
 
-    // Four months is deliberately still roadmap-only.
-    expect(puppyRoutes).not.toContain("4-months");
+    // The whole of early development is still roadmap-only.
+    for (const slug of ["4-months", "5-months", "4-5-months", "6-months"]) {
+      expect(puppyRoutes).not.toContain(slug);
+    }
 
     // The roadmap grew to thirteen entries and the route count did not move.
     // An entry is a position on a journey; a page is a piece of writing that
