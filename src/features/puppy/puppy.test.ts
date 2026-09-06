@@ -2870,37 +2870,6 @@ describe("size is an answer, never an inference from \"not sure\"", () => {
   });
 });
 
-/**
- * Vaccine *prescription*, as opposed to vaccine discussion.
- *
- * The stages must be free to cite AAHA and WSAVA ranges, to explain the
- * conditional 26-week option, and to ask what a puppy's records show. What
- * they may never do is tell a reader something is due because their puppy has
- * reached an age. So `PRESCRIPTIVE` looks for an instruction or an assertion
- * of due-ness, and `DESCRIPTIVE` is the hedging, attribution or refusal that
- * turns a match back into a description. A sentence fails only when it matches
- * the first and not the second.
- */
-const PRESCRIPTIVE = [
-  /\bat \d+\s*(?:weeks?|months?)[^.]{0,50}\b(?:give|administer|vaccinate|inject)\b/i,
-  /\b(?:give|administer|vaccinate|inject)\b[^.]{0,60}\bat \d+\s*(?:weeks?|months?)/i,
-  /\bevery (?:puppy|dog|animal)\b[^.]{0,60}\b(?:needs|requires|must have|should have)\b[^.]{0,40}vaccin/i,
-  /\bvaccin\w*[^.]{0,40}\bis due\b[^.]{0,30}\bat\b\s*\d+/i,
-  /\b(?:is|are) due\b[^.]{0,25}\bat\s+(?:six|seven|eight|nine|ten|twelve|sixteen|\d+)\s*(?:weeks?|months?)/i,
-  /\ball puppies\b[^.]{0,60}\b(?:same|one|single)\b[^.]{0,20}(?:schedule|timetable)/i,
-  /\bdose (?:one|two|three|1|2|3)\b/i,
-  /\bmg\/kg\b|\bml per\b/i,
-  /\b(?:booster|vaccine|dose) (?:is|will be) (?:given|required|administered) at \d+/i,
-];
-
-const DESCRIPTIVE =
-  /\b(?:not|never|no)\b|usually|typically|often|may|might|can |depends|guideline|recommends?|advises?|puts? (?:the|it)|American Animal Hospital|World Small Animal|AAHA|WSAVA|ask|question|your veterinarian|clinic|records|varies|rather than|instead of|conditional|considering/i;
-
-/** Whether one sentence prescribes a vaccine rather than describing one. */
-function prescribesVaccine(sentence: string): boolean {
-  return PRESCRIPTIVE.some((pattern) => pattern.test(sentence)) && !DESCRIPTIVE.test(sentence);
-}
-
 describe("launch-readiness copy and media invariants", () => {
   it("claims no review the stages have not had", () => {
     // Every stage is `in-review`, so nothing may tell a reader they are
@@ -2990,6 +2959,52 @@ describe("launch-readiness copy and media invariants", () => {
     }
   });
 
+  it("makes no unsupported negative legal claim for British Columbia", () => {
+    // Ontario's requirement was verified by reading the regulation. British
+    // Columbia's *absence* of one cannot be verified the same way — proving no
+    // law exists is a different exercise from reading one, and the BCCDC page,
+    // the BC Rabies Guidance for Veterinarians and the CVBC summary table were
+    // all retrieved without finding a statement of it. So the copy states what
+    // BCCDC actually recommends and stops there.
+    const bc = provinceModifiers.filter((m) => m.provinces.includes("BC"));
+    expect(bc.length).toBeGreaterThan(0);
+
+    for (const block of bc) {
+      const prose = [block.heading, ...block.body].join(" ");
+
+      // The claim we could not support, in any of its phrasings.
+      expect(prose, block.stageSlug).not.toMatch(/law does not compel|does not compel it/i);
+      expect(prose, block.stageSlug).not.toMatch(/not legally required|no provincial law|law does not require/i);
+      expect(prose, block.stageSlug).not.toMatch(/recommended rather than required/i);
+      expect(prose, block.stageSlug).not.toMatch(/there is no legal (?:requirement|renewal)/i);
+
+      // What BCCDC does say, quoted.
+      expect(prose, block.stageSlug).toMatch(/should be vaccinated, and their immunizations should be kept up to date/);
+      expect(prose, block.stageSlug).toMatch(/BC Centre for Disease Control/);
+
+      // Said plainly as our position rather than as a finding of law.
+      expect(prose, block.stageSlug).toMatch(/not presenting a province-wide legal/i);
+
+      // And it must not imply nothing else can apply.
+      expect(prose, block.stageSlug).toMatch(/municipalit/i);
+      expect(prose, block.stageSlug).toMatch(/travel|import/i);
+
+      // It stays guidance, never law.
+      expect(block.kind, block.stageSlug).toBe("guidance");
+      expect(block.sources.some((x) => x.url.includes("bccdc.ca")), block.stageSlug).toBe(true);
+    }
+
+    // Ontario is unaffected: that one *is* a verified legal requirement.
+    const on = provinceModifiers.filter((m) => m.provinces.includes("ON"));
+    expect(on.every((m) => m.kind === "legal")).toBe(true);
+    expect(on.some((m) => m.body.join(" ").includes("three months of age or over"))).toBe(true);
+
+    // The decision is recorded where the next editor will find it.
+    const registers = stages.flatMap((stage) => stage.needsVerification).join(" ");
+    expect(registers).toMatch(/negative legal claim/i);
+    expect(registers).toMatch(/Do not restore the stronger wording without a named statute/i);
+  });
+
   it("sources or removes the wariness claim at nine to eleven weeks", () => {
     const section = nineToElevenWeeks.sections.find((s) => s.id === "development")!;
     const prose = [section.summary, ...section.body, ...(section.points ?? [])].join(" ");
@@ -3050,6 +3065,365 @@ describe("launch-readiness copy and media invariants", () => {
     // The replacement is a fact about the teeth, not a duration to recompute.
     expect(prose).toMatch(/since well before this stage began/i);
     expect(prose).toMatch(/about seven months/i);
+  });
+});
+
+/**
+ * ## Content safety guards
+ *
+ * The V2 gate proved the previous version of this was theatre. It checked one
+ * stage of eight despite its name, its patterns only matched imperative verbs
+ * and the literal phrase "is due at", and its exemption cleared a sentence if
+ * *any* hedging word appeared anywhere in it. Ten realistic unsafe sentences
+ * were fed through it and all ten passed, including "Puppies are vaccinated at
+ * 8, 12 and 16 weeks" and "Give the second vaccine at 12 weeks, then ask your
+ * veterinarian".
+ *
+ * Three things changed.
+ *
+ * **Rule families rather than one regex.** Six topics, each a small set of
+ * patterns with its own characterisation test. A family can be tightened
+ * without touching the others, and a failure names the topic it belongs to.
+ *
+ * **Hard and soft.** A `hard` pattern is never acceptable in any context —
+ * dosing units, numbered doses, "all puppies follow one schedule". A `soft`
+ * pattern is prescriptive-*shaped* and can be legitimate when it is attributed,
+ * hedged, refused, asked as a question, or reported as something other people
+ * say. Most of this publication's real prose never matches either.
+ *
+ * **Exemptions are clause-scoped.** This is the fix that matters. The old
+ * escape hatch was that "ask your veterinarian" at the end of a sentence
+ * cleared a prescription at the start of it. An exemption now has to appear in
+ * the same clause as the thing it is supposed to be qualifying, so attribution
+ * governs the actual claim rather than sitting in the neighbourhood of it.
+ */
+
+/** Attribution, hedging, refusal, questioning or reporting — in one clause. */
+const EXEMPT = [
+  // Attributed to a body that actually said it.
+  /American Animal Hospital|World Small Animal|Merck|Veterinary Manual|AAHA|WSAVA|Asher|McEvoy|BC Centre|Centre for Disease Control|AVSAB|American Veterinary Society/i,
+  /\b(?:recommends?|advises?|guidelines?|guidance|puts? (?:the|it|them)|notes? that|found that|reports?|position statement)\b/i,
+  // Hedged as typical rather than prescribed. Deliberately excludes "about",
+  // "around" and "roughly": those soften a number without making a universal
+  // instruction any less of an instruction.
+  /\b(?:usually|typically|often|may|might|depends|varies|most|some|many|tends? to|conventional)\b/i,
+  // Refused, negated or deferred.
+  /\b(?:not|never|no|nothing|neither|rather than|instead of|too early|too soon|there is no)\b/i,
+  // Asked rather than asserted.
+  /\?|\bask\b|\bquestions?\b|\bworth raising\b|\bconversation\b/i,
+  // Reported as something other people say, then rejected.
+  /\b(?:are|is) told\b|\bpeople (?:say|call|assume|are told)\b|\byou will hear\b|\bfolklore\b|\bmisreading\b|\bmyth\b|\bwidely (?:said|believed)\b/i,
+];
+
+/** Splits a sentence into clauses, so an exemption cannot act at a distance. */
+function clauses(sentence: string): string[] {
+  return sentence
+    .split(/\s*[;—]\s*|,\s+(?:then|and then|but|so|which|where)\s+/)
+    .filter((part) => part.trim().length > 0);
+}
+
+function exempt(clause: string): boolean {
+  return EXEMPT.some((pattern) => pattern.test(clause));
+}
+
+interface RuleFamily {
+  id: string;
+  /** Never acceptable, whatever surrounds it. */
+  hard: RegExp[];
+  /** Prescriptive in shape; acceptable only if its own clause is exempt. */
+  soft: RegExp[];
+}
+
+const RULE_FAMILIES: readonly RuleFamily[] = [
+  {
+    id: "vaccination",
+    hard: [
+      /\bdose (?:one|two|three|1|2|3)\b/i,
+      /\bmg\/kg\b|\bml per\b/i,
+      /\ball (?:puppies|dogs)\b[^.]{0,60}\b(?:same|one|single)\b[^.]{0,25}(?:schedule|timetable)/i,
+    ],
+    soft: [
+      /\b(?:give|administer|inject|book|schedule)\b[^.]{0,60}\b(?:vaccin\w*|booster|shot|dose|appointment)\b[^.]{0,40}\bat\b\s*(?:\d+|three|six|eight|nine|ten|twelve|sixteen)\b/i,
+      /\b(?:vaccin\w*|booster|shot|dose)\b[^.]{0,50}\b(?:is|are)\s+(?:given|due|administered|required)\b[^.]{0,30}\bat\b\s*(?:\d+|three|six|eight|twelve|sixteen)\b/i,
+      /\b(?:should|must|needs? to|has to)\s+(?:have|get|receive|be given)\b[^.]{0,50}\b(?:vaccin\w*|booster|shot|dose)\b[^.]{0,40}\bat\b\s*(?:\d+|three|six|eight|twelve|sixteen)\b/i,
+      /\b(?:puppies|dogs|they)\s+are\s+vaccinated\b[^.]{0,40}\bat\b\s*\d/i,
+      /\bevery (?:puppy|dog|animal)\b[^.]{0,60}\b(?:needs|requires|must have|should have|gets|receives)\b[^.]{0,40}(?:vaccin|booster|dose|shot)/i,
+      /\b(?:book|schedule)\b[^.]{0,30}(?:the\s+)?\d+[-\s](?:week|month)\b[^.]{0,25}(?:vaccin|booster|shot|appointment)/i,
+    ],
+  },
+  {
+    id: "adult-food",
+    hard: [],
+    soft: [
+      /\b(?:switch|move|change|transition)\w*\s+to\s+adult\s+food\s+(?:at|after|on)\s+(?:\d+|one|a year|twelve)/i,
+      /\badult\s+food\b[^.]{0,30}\b(?:at|on)\s+(?:the\s+)?(?:first\s+)?birthday/i,
+      /\ball\s+(?:dogs|puppies)\b[^.]{0,50}\badult\s+food\b[^.]{0,30}\bat\b\s*(?:\d+|one|twelve)/i,
+      /\bgrowth\s+food\s+(?:stops|ends)\s+at\s+(?:\d+|one|twelve)/i,
+    ],
+  },
+  {
+    id: "exercise",
+    hard: [],
+    soft: [
+      /\b(?:five|5|\d+)\s*minutes?\s+per\s+month\b/i,
+      /\bminutes?[-\s]per[-\s]month\b/i,
+      /\b(?:safe|ready|cleared?)\s+(?:to|for)\s+(?:run|jog|running|jogging|adult exercise)\b[^.]{0,25}\b(?:at|from)\b/i,
+      /\b(?:can|may)\s+(?:start|begin)\s+(?:running|jogging)\s+(?:at|from)\b/i,
+      /\badult\s+exercise\b[^.]{0,30}\bat\s+(?:\d+|one|twelve)\b/i,
+    ],
+  },
+  {
+    id: "dentition",
+    hard: [],
+    soft: [
+      /\bteething\s+(?:ends|is over|finishes|stops|is done)\s+(?:at|by)\s+(?:\d+|six|seven|eight)\s*months?/i,
+      /\b(?:by|at)\s+(?:\d+|six|seven|eight)\s*months?\b[^.]{0,30}\bteething\s+(?:is\s+(?:over|done|finished)|ends|stops)/i,
+      /\bpermanent\s+teeth\b[^.]{0,40}\b(?:start|begin|appear|erupt|come\s+(?:in|through))\w*\b[^.]{0,25}\bat\b\s*(?:two|three|2|3)\s*months?/i,
+      /\ball\s+(?:the\s+)?adult\s+teeth\b[^.]{0,30}\bby\s+(?:four|five|4|5)\s*months?/i,
+    ],
+  },
+  {
+    id: "behaviour-folklore",
+    hard: [],
+    soft: [
+      /\bsecond\s+fear\s+(?:period|stage|phase)\b/i,
+      /\bpack\s+leader\b|\balpha\s+(?:dog|role|status)\b/i,
+      /\b(?:establish|assert|show)\w*\s+dominance\b/i,
+      /\b(?:is|are|was|were|being)\s+(?:testing|pushing)\s+(?:the\s+|his\s+|her\s+|your\s+)?boundaries\b/i,
+      /\b(?:is|are|was|were|being)\s+(?:dominant|stubborn|spiteful|wilful|defiant)\b/i,
+      /\bfear\s+(?:period|stage)\s+(?:arrives|begins|starts|happens)\b/i,
+    ],
+  },
+  {
+    id: "neutering",
+    hard: [],
+    soft: [
+      /\b(?:neuter|spay|castrate)\w*\s+at\s+(?:\d+|six|nine|twelve)\s*months?\b/i,
+      /\b(?:should|must)\s+be\s+(?:neutered|spayed|castrated)\s+at\s+(?:\d+|six|nine|twelve)/i,
+      /\ball\s+(?:dogs|puppies|bitches)\b[^.]{0,45}\b(?:neutered|spayed)\b[^.]{0,25}\bat\b/i,
+      /\bthe\s+(?:right|correct|proper)\s+age\s+to\s+(?:neuter|spay)\s+is\b/i,
+    ],
+  },
+];
+
+/** Every rule violation in one sentence, as `family: matched text`. */
+function violations(sentence: string): string[] {
+  const found: string[] = [];
+  for (const family of RULE_FAMILIES) {
+    for (const pattern of family.hard) {
+      const hit = pattern.exec(sentence);
+      if (hit) found.push(`${family.id} (hard): ${hit[0]}`);
+    }
+    for (const pattern of family.soft) {
+      for (const clause of clauses(sentence)) {
+        const hit = pattern.exec(clause);
+        if (hit && !exempt(clause)) found.push(`${family.id}: ${hit[0]}`);
+      }
+    }
+  }
+  return found;
+}
+
+/** Every reader-facing string on a stage, including its modifier layers. */
+function readerFacingStrings(stage: (typeof stages)[number]): string[] {
+  const out = [stage.deck, stage.metaDescription, stage.mediaAlt];
+  for (const section of stage.sections) {
+    out.push(section.title, section.summary, ...section.body, ...(section.points ?? []));
+    if (section.guide) out.push(section.guide.label);
+  }
+  for (const item of stage.checklist) out.push(item.label, item.detail ?? "");
+  for (const m of sizeGroupModifiers.filter((x) => x.stageSlug === stage.slug)) out.push(...m.body);
+  for (const m of breedModifiers.filter((x) => x.stageSlug === stage.slug)) out.push(...m.body);
+  for (const m of seasonModifiers.filter((x) => x.stageSlug === stage.slug)) out.push(m.heading, ...m.body);
+  for (const m of provinceModifiers.filter((x) => x.stageSlug === stage.slug)) {
+    out.push(m.heading, ...m.body);
+    for (const v of [m.ageThreshold?.before, m.ageThreshold?.reached]) {
+      if (v) out.push(v.heading, ...v.body);
+    }
+  }
+  return out.filter(Boolean);
+}
+
+describe("content safety guards", () => {
+  it("scans every reader-facing string on all eight stages", () => {
+    // The guard that replaced this one checked a single stage while its name
+    // claimed all of them. Assert the coverage itself, so shrinking it fails.
+    expect(stages).toHaveLength(8);
+    const counts = stages.map((stage) => readerFacingStrings(stage).length);
+    for (const [i, n] of counts.entries()) {
+      expect(n, `${stages[i]!.slug} contributes too little to be the whole stage`).toBeGreaterThan(40);
+    }
+    // Modifier layers are in scope, not just section prose.
+    const eight = readerFacingStrings(stages.find((s) => s.slug === "8-weeks")!).join(" ");
+    expect(eight).toMatch(/Quebec|Ontario/);
+  });
+
+  it("finds no prescription of any kind in the current stages", () => {
+    const offenders: string[] = [];
+    for (const stage of stages) {
+      for (const text of readerFacingStrings(stage)) {
+        for (const sentence of text.split(/(?<=[.?!])\s+/)) {
+          for (const v of violations(sentence)) {
+            offenders.push(`${stage.slug} — ${v} — "${sentence.trim().slice(0, 100)}"`);
+          }
+        }
+      }
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it("catches every unsafe sentence the V2 audit slipped past it", () => {
+    // Verbatim from the gate report. All ten passed the previous guard.
+    const wereMissed = [
+      "Your puppy should have its second vaccination at 12 weeks.",
+      "Puppies are vaccinated at 8, 12 and 16 weeks.",
+      "Book the 16-week appointment for the final shot.",
+      "The rabies vaccine is given at three months in every province.",
+      "Neuter at six months.",
+      "Switch to adult food at twelve months.",
+      "Walk five minutes per month of age, twice a day.",
+      "By six months teething is over.",
+      "A second fear period arrives around eight months.",
+      "Give the second vaccine at 12 weeks, then ask your veterinarian about the next one.",
+    ];
+    for (const sentence of wereMissed) {
+      expect(violations(sentence), `still slips through: ${sentence}`).not.toEqual([]);
+    }
+  });
+
+  it("does not let attribution act at a distance", () => {
+    // The escape hatch: a prescription in one clause, a reassuring phrase in
+    // the next. The exemption has to sit with the claim it qualifies.
+    expect(violations("Give the booster at 16 weeks, then ask your veterinarian.")).not.toEqual([]);
+    expect(violations("Neuter at six months; your clinic will confirm the date.")).not.toEqual([]);
+    expect(violations("Switch to adult food at twelve months — most dogs cope well.")).not.toEqual([]);
+    // But attribution in the same clause is exactly what makes prose legitimate.
+    expect(violations("AAHA recommends neutering at six months for dogs expected to stay under 45 lb.")).toEqual([]);
+    expect(violations("Merck puts the switch to adult food at twelve months in some small dogs.")).toEqual([]);
+  });
+});
+
+describe("content safety guards, per family", () => {
+  const family = (id: string) => RULE_FAMILIES.find((f) => f.id === id)!;
+  const only = (id: string) => (sentence: string) =>
+    violations(sentence).some((v) => v.startsWith(id));
+
+  it("has a characterisation test for every family", () => {
+    expect(RULE_FAMILIES.map((f) => f.id).sort()).toEqual(
+      ["adult-food", "behaviour-folklore", "dentition", "exercise", "neutering", "vaccination"].sort(),
+    );
+    for (const f of RULE_FAMILIES) expect(f.hard.length + f.soft.length).toBeGreaterThan(0);
+    expect(family("vaccination").hard.length).toBeGreaterThan(0);
+  });
+
+  it("vaccination: rejects age-alone prescription, allows sourced discussion", () => {
+    const reject = [
+      "Your puppy should have its second vaccination at 12 weeks.",
+      "Puppies are vaccinated at 8, 12 and 16 weeks.",
+      "Book the 16-week vaccine appointment now.",
+      "The rabies vaccine is given at three months.",
+      "Every puppy needs a booster at six months.",
+      "Administer the final dose at 16 weeks.",
+      "All puppies follow the same schedule.",
+      "Dose one is followed by dose two.",
+    ];
+    const allow = [
+      "The American Animal Hospital Association recommends continuing the series until the puppy is older than sixteen weeks, and prefers eighteen to twenty weeks where distemper or parvovirus risk is high.",
+      "The World Small Animal Veterinary Association advises considering revaccination at or after 26 weeks of age as an alternative to waiting until twelve to sixteen months, not as an addition to it.",
+      "Which vaccines are core for this puppy, and which depend on where we live and what it will do?",
+      "It is not that a dose is due, and it is not an extra vaccine bolted onto the schedule.",
+      "Most puppies have at least one vaccination appointment somewhere in these three weeks.",
+      "Do you follow the newer advice for a further dose at around six months, or the twelve-month booster?",
+    ];
+    for (const s of reject) expect(only("vaccination")(s), `missed: ${s}`).toBe(true);
+    for (const s of allow) expect(violations(s), `false positive: ${s}`).toEqual([]);
+  });
+
+  it("adult food: rejects a calendar switch, allows skeletal-maturity guidance", () => {
+    for (const s of [
+      "Switch to adult food at twelve months.",
+      "All dogs move to adult food at one year.",
+      "Move to adult food at 12 months.",
+      "Growth food stops at twelve months.",
+      "Adult food starts on the first birthday.",
+    ]) expect(only("adult-food")(s), `missed: ${s}`).toBe(true);
+
+    for (const s of [
+      "Merck's guidance is to keep feeding a diet formulated for growth until skeletal maturity is reached — not until growth appears to have stopped, and not on a calendar.",
+      "Merck puts skeletal maturity at roughly eight to twelve months in small and medium dogs, and notes that for some large and giant breeds it may not be reached until closer to fifteen or sixteen months.",
+      "It is too early to move to adult food, and how much longer depends on how big this dog will be.",
+      "Adult food becomes appropriate for some dogs during this stage and not others.",
+    ]) expect(violations(s), `false positive: ${s}`).toEqual([]);
+  });
+
+  it("exercise: rejects formulas and clearance ages, allows progressive guidance", () => {
+    for (const s of [
+      "Walk five minutes per month of age, twice a day.",
+      "Use the minutes-per-month rule.",
+      "Your dog is safe to run at twelve months.",
+      "You can start jogging at 12 months.",
+      "Adult exercise begins at twelve months.",
+    ]) expect(only("exercise")(s), `missed: ${s}`).toBe(true);
+
+    for (const s of [
+      "We are not going to give you a minutes-per-month formula, because there is not a sound one.",
+      "There is no minutes-per-month formula worth giving you, and no universal age at which running becomes appropriate.",
+      "Exercise can increase across this stage, and the safe way to do it is progressively — more duration before more intensity, and more variety before either.",
+      "There is no age at which a dog is issued a licence for adult exercise, and this page is not going to invent one.",
+    ]) expect(violations(s), `false positive: ${s}`).toEqual([]);
+  });
+
+  it("dentition: rejects premature or terminal claims, preserves the sourced range", () => {
+    for (const s of [
+      "By six months teething is over.",
+      "Teething ends at six months.",
+      "The permanent teeth start at three months.",
+      "All the adult teeth are in by four months.",
+    ]) expect(only("dentition")(s), `missed: ${s}`).toBe(true);
+
+    for (const s of [
+      "Merck puts the appearance of the permanent teeth at around four to five months, with the full set in by about seven, so what is ahead of you is more of this rather than less.",
+      "The permanent teeth are not through yet — Merck puts the start of that at around four to five months.",
+      "Merck puts the full set of permanent teeth in place by about seven months, so for most dogs this is the far side of teething rather than the middle of it.",
+    ]) expect(violations(s), `false positive: ${s}`).toEqual([]);
+
+    // And the sourced range must still be present in the shipped prose.
+    const prose = stages.flatMap(readerFacingStrings).join(" ");
+    expect(prose).toMatch(/four to five months/i);
+    expect(prose).toMatch(/by about seven/i);
+  });
+
+  it("behaviour folklore: rejects affirmative claims, allows naming and rejecting them", () => {
+    for (const s of [
+      "A second fear period arrives around eight months.",
+      "You need to be the pack leader.",
+      "Establish dominance early.",
+      "Your dog is testing boundaries.",
+      "He is being stubborn.",
+    ]) expect(only("behaviour-folklore")(s), `missed: ${s}`).toBe(true);
+
+    for (const s of [
+      "It feels like the training has come undone, and it is the point at which a great many people are told their dog is being dominant, stubborn or spiteful.",
+      "“He knows it, he is just being stubborn” is the most common and most costly misreading of this age.",
+      "There is no second fear period in the evidence, and we are not going to invent one.",
+      "Chewing usually continues, but it should no longer be the dominant fact of the household.",
+    ]) expect(violations(s), `false positive: ${s}`).toEqual([]);
+  });
+
+  it("neutering: rejects a universal age, allows the AAHA size split", () => {
+    for (const s of [
+      "Neuter at six months.",
+      "Spay at six months.",
+      "All dogs should be neutered at six months.",
+      "The right age to neuter is six months.",
+    ]) expect(only("neutering")(s), `missed: ${s}`).toBe(true);
+
+    for (const s of [
+      "The American Animal Hospital Association's guidance splits on projected adult bodyweight, at 45 pounds.",
+      "For a dog expected to be under that, the recommended timing is around six months for castration and before the anticipated first heat — five to six months — for spaying.",
+      "If your dog is going to be neutered, this is roughly when the conversation starts, and the single most important thing to know is that there is no universal age.",
+      "Adolescent behaviour is not by itself a reason to neuter, and the guidelines are explicit that findings in one breed may not transfer to another.",
+    ]) expect(violations(s), `false positive: ${s}`).toEqual([]);
   });
 });
 
@@ -3118,66 +3492,6 @@ describe("content integrity", () => {
     }
     expect(findBreed("chihuahua")).toBeNull();
     expect(findProvince("XX")).toBeNull();
-  });
-
-  it("prescribes no vaccine, on any stage, at any age", () => {
-    // The safety rule this product is built on, and the guard used to check
-    // one stage of eight while its name claimed all of them.
-    //
-    // The line is not "never mention an age". Stages legitimately cite AAHA
-    // and WSAVA ranges, discuss the 26-week option conditionally, and ask what
-    // a puppy's records already show. What is forbidden is *prescription*:
-    // telling a reader something is due because their puppy has reached an
-    // age. So the patterns below look for an imperative or an assertion of
-    // due-ness, and every sentence that matches is then checked for the
-    // hedging or attribution that makes it a description instead.
-    const offenders: string[] = [];
-    for (const stage of stages) {
-      const strings = [
-        stage.deck,
-        stage.metaDescription,
-        ...stage.sections.flatMap((section) => [
-          section.summary,
-          ...section.body,
-          ...(section.points ?? []),
-        ]),
-        ...stage.checklist.flatMap((item) => [item.label, item.detail ?? ""]),
-      ];
-      for (const text of strings) {
-        for (const sentence of text.split(/(?<=[.?!])\s+/)) {
-          for (const pattern of PRESCRIPTIVE) {
-            if (pattern.test(sentence) && !DESCRIPTIVE.test(sentence)) {
-              offenders.push(`${stage.slug}: ${sentence.slice(0, 110)}`);
-            }
-          }
-        }
-      }
-    }
-    expect(offenders).toEqual([]);
-  });
-
-  it("still allows the discussion the stages actually need", () => {
-    // A guard that rejected these would be useless, because they are the
-    // content. Proving it accepts them is what stops the next person from
-    // loosening the prose to satisfy the test.
-    const allowed = [
-      "The American Animal Hospital Association recommends continuing the series until the puppy is older than sixteen weeks, and prefers eighteen to twenty weeks where distemper or parvovirus risk is high.",
-      "The World Small Animal Veterinary Association advises considering revaccination at or after 26 weeks of age as an alternative to waiting until twelve to sixteen months, not as an addition to it.",
-      "Which vaccines are core for this puppy, and which depend on where we live and what it will do?",
-      "It is not that a dose is due, and it is not an extra vaccine bolted onto the schedule.",
-      "Some have had a first vaccine from the breeder, some have not.",
-    ];
-    const rejected = [
-      "Give the second vaccine at 12 weeks.",
-      "Every puppy needs a booster vaccine at six months.",
-      "The next vaccination is due at 16 weeks.",
-      "All puppies follow the same schedule: dose one, dose two, dose three.",
-    ];
-
-    const flags = prescribesVaccine;
-
-    for (const sentence of allowed) expect(flags(sentence), `wrongly rejected: ${sentence}`).toBe(false);
-    for (const sentence of rejected) expect(flags(sentence), `wrongly allowed: ${sentence}`).toBe(true);
   });
 
   it("carries a review date and stays in review during this milestone", () => {

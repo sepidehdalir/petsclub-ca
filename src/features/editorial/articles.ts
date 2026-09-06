@@ -531,7 +531,8 @@ export const articles: readonly Article[] = [
         url: "https://www.ontario.ca/page/rabies-pets",
       },
       {
-        label: "Rabies — vaccination is recommended in British Columbia, not legally required",
+        label:
+          "Rabies — “your pets should be vaccinated, and their immunizations should be kept up to date”",
         publisher: "BC Centre for Disease Control",
         url: "https://www.bccdc.ca/health-info/diseases-conditions/rabies",
       },
@@ -767,7 +768,8 @@ export const articles: readonly Article[] = [
         url: "https://www.ontario.ca/page/rabies-pets",
       },
       {
-        label: "Rabies — vaccination is recommended in British Columbia, not legally required",
+        label:
+          "Rabies — “your pets should be vaccinated, and their immunizations should be kept up to date”",
         publisher: "BC Centre for Disease Control",
         url: "https://www.bccdc.ca/health-info/diseases-conditions/rabies",
       },
@@ -1918,7 +1920,8 @@ export const articles: readonly Article[] = [
         url: "https://www.ontario.ca/page/rabies-pets",
       },
       {
-        label: "Rabies \u2014 vaccination is recommended in British Columbia, not legally required",
+        label:
+          "Rabies — “your pets should be vaccinated, and their immunizations should be kept up to date”",
         publisher: "BC Centre for Disease Control",
         url: "https://www.bccdc.ca/health-info/diseases-conditions/rabies",
       },

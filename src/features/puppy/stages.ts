@@ -298,6 +298,7 @@ export const nineToElevenWeeks: PuppyStage = {
   ],
 
   needsVerification: [
+    "British Columbia is a *positive* claim only, as of 2026-09-06. The BCCDC page was read and says verbatim that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. The earlier copy went further and said provincial law does not compel vaccination \u2014 a negative legal claim, and no authoritative source could be found that states it. Proving the absence of a law is a different exercise from reading one, and the BCCDC page, the BC Rabies Guidance for Veterinarians and the CVBC summary table were all retrieved and none of them says it. The copy now states what BCCDC recommends, says plainly that we are not presenting a province-wide legal requirement, and explicitly leaves municipal, travel, import and bite-investigation rules open. Do not restore the stronger wording without a named statute or regulation.",
     "The developmental description (bladder capacity, attention span, sleep requirement) is written qualitatively and quotes no figure. Attach a source before any number is added — the 16–18 hours figure carried in the article library is still unsourced there too.",
     "The wariness claim was rewritten and sourced on 2026-09-06. The unsourced version said new wariness in this window is 'a normal part of development'; nothing found supports that as a claim about nine to eleven weeks specifically. What is sourced is the trajectory: McEvoy et al. 2022 put the peak tendency to approach novelty at three to five weeks with a decline after it, and Merck places heightened avoidance from about twelve weeks. Both are attributed, both are framed as a gradual shift rather than a stage, individual variation is stated, and a physical cause is named. No fear-period or fear-stage language appears, and none may be added \u2014 the differentiation gate found no peer-reviewed basis for one at any age.",
     "That three to four meals a day is typical at this age — stated as what most puppies are on rather than as a recommendation. Confirm against a veterinary nutrition source or soften further.",
@@ -611,6 +612,7 @@ export const twelveWeeks: PuppyStage = {
   ],
 
   needsVerification: [
+    "British Columbia is a *positive* claim only, as of 2026-09-06. The BCCDC page was read and says verbatim that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. The earlier copy went further and said provincial law does not compel vaccination \u2014 a negative legal claim, and no authoritative source could be found that states it. Proving the absence of a law is a different exercise from reading one, and the BCCDC page, the BC Rabies Guidance for Veterinarians and the CVBC summary table were all retrieved and none of them says it. The copy now states what BCCDC recommends, says plainly that we are not presenting a province-wide legal requirement, and explicitly leaves municipal, travel, import and bite-investigation rules open. Do not restore the stronger wording without a named statute or regulation.",
     "Ontario's threshold was verified against the primary regulation on 2026-09-06: R.R.O. 1990, Reg. 567 (Rabies Immunization) under the Health Protection and Promotion Act, consolidation period from 2023-07-01, last amendment O. Reg. 67/23. Section 1 reads \u201ca cat, dog or ferret three months of age or over\u201d, so the anniversary day itself is inside the duty and the resolver's `today >= anniversary` test is correct. The regulation defines the threshold in calendar months and nowhere in days, so nothing here converts it into one \u2014 twelve weeks is 84 days and three calendar months is never 84 days. Reimmunisation is s. 3 (by the date on the certificate) and s. 6 (i) and (l) (that date carries the product monograph interval); the \u201cwithin a year, then every one to three years\u201d shape and the fines warning are the province\u2019s plain-language guidance rather than the regulation, and are attributed as such. Re-check before publication if the currency date moves.",
     "The socialisation window closing around twelve weeks follows the AVSAB position statement's first-three-months framing and is sourced. Do not let a future edit turn 'closing' into a hard cut-off date — the statement does not say that.",
     "The final-dose ages (AAHA past sixteen weeks, preferring eighteen to twenty in high-risk settings; WSAVA sixteen weeks or older) are sourced and must stay attributed to the body that says them. This section must never become a schedule.",
@@ -1251,6 +1253,7 @@ export const threeMonths: PuppyStage = {
   ],
 
   needsVerification: [
+    "British Columbia is a *positive* claim only, as of 2026-09-06. The BCCDC page was read and says verbatim that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. The earlier copy went further and said provincial law does not compel vaccination \u2014 a negative legal claim, and no authoritative source could be found that states it. Proving the absence of a law is a different exercise from reading one, and the BCCDC page, the BC Rabies Guidance for Veterinarians and the CVBC summary table were all retrieved and none of them says it. The copy now states what BCCDC recommends, says plainly that we are not presenting a province-wide legal requirement, and explicitly leaves municipal, travel, import and bite-investigation rules open. Do not restore the stronger wording without a named statute or regulation.",
     "This stage opens on day 91, which can precede a reader's own three-calendar-month anniversary by a day or two. All public prose says 'around three months' or 'at this stage' and never asserts the reader's puppy is exactly three months old. Do not let an edit introduce that claim — the headline is the only place a month is named, and it checks the calendar first.",
     "The final-dose ages (AAHA past sixteen weeks, preferring eighteen to twenty in high-risk settings; WSAVA sixteen weeks or older) are sourced and must stay attributed. That sixteen weeks usually falls inside this stage is arithmetic on those figures, not a separate claim. This section must never become a schedule.",
     "That the primary socialisation period runs through the first three months follows the AVSAB position statement and is sourced. The claim that learning continues afterwards with more repetition is stated qualitatively and is not in that statement; soften or source it before it is made stronger.",
@@ -1612,6 +1615,7 @@ export const fourToSixMonths: PuppyStage = {
   ],
 
   needsVerification: [
+    "British Columbia is a *positive* claim only, as of 2026-09-06. The BCCDC page was read and says verbatim that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. The earlier copy went further and said provincial law does not compel vaccination \u2014 a negative legal claim, and no authoritative source could be found that states it. Proving the absence of a law is a different exercise from reading one, and the BCCDC page, the BC Rabies Guidance for Veterinarians and the CVBC summary table were all retrieved and none of them says it. The copy now states what BCCDC recommends, says plainly that we are not presenting a province-wide legal requirement, and explicitly leaves municipal, travel, import and bite-investigation rules open. Do not restore the stronger wording without a named statute or regulation.",
     "Permanent eruption is attributed to Merck (around four to five months, complete by about seven). No eruption order, tooth count or peak-chewing age appears and none should be added without a source.",
     "Retained deciduous teeth are described as worth a veterinary look, without a prevalence, a breed pattern or a treatment. The AAHA life stage guidelines mention correcting persistent deciduous teeth; that is the basis for raising it, not for advising on it.",
     "Sterilization timing is quoted from the 2019 AAHA Canine Life Stage Guidelines, Textbox 1, including the 45 lb projected-adult-bodyweight split. No universal age appears, the guidelines' own caution that findings in one breed may not transfer to another is carried, and the page books nothing.",
@@ -2249,6 +2253,7 @@ export const nineToTwelveMonths: PuppyStage = {
   ],
 
   needsVerification: [
+    "British Columbia is a *positive* claim only, as of 2026-09-06. The BCCDC page was read and says verbatim that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. The earlier copy went further and said provincial law does not compel vaccination \u2014 a negative legal claim, and no authoritative source could be found that states it. Proving the absence of a law is a different exercise from reading one, and the BCCDC page, the BC Rabies Guidance for Veterinarians and the CVBC summary table were all retrieved and none of them says it. The copy now states what BCCDC recommends, says plainly that we are not presenting a province-wide legal requirement, and explicitly leaves municipal, travel, import and bite-investigation rules open. Do not restore the stronger wording without a named statute or regulation.",
     "The recovery claim is attributed to Asher et al. and stated as what that study found in its population — dogs rated more trainable at twelve months than at eight — never as a date adolescence ends. The guide-dog sample and the study's own note that age groupings would need reconsidering for different breeds are both carried in reader-facing prose. Do not convert this into 'adolescence ends at twelve months'.",
     "Nine months is never described as a developmental milestone. The gate found no source marking one there; what is new at nine is the opening of AAHA's large-breed sterilisation window, which is a decision rather than a change in the dog.",
     "AAHA's life stage definitions are quoted — puppy as birth to cessation of rapid growth at approximately six to nine months varying with breed and size, young adult through to physical and social maturation by three to four years in most dogs. That framework differs from this Journey's own stage naming, which is an editorial arc rather than a clinical one; the difference is deliberate and worth resolving explicitly before the maturity stage is written.",
@@ -2545,9 +2550,16 @@ export const stages: readonly PuppyStage[] = [
  * same advice reworded. A month is the right unit.
  *
  * Through adolescence it slows again, and what matters stops being age at all
- * and starts being *events* — the second fear period, sexual maturity, growth
- * plates closing, the collapse of a recall that worked fine at six months.
- * Those do not land on a calendar, so the stages are ranges.
+ * and starts being events — sexual maturity, growth plates closing, the
+ * collapse of a recall that worked fine at six months. Those do not land on a
+ * calendar, so the stages are ranges.
+ *
+ * This comment used to list "the second fear period" among those events. It
+ * does not any more, and that is not a wording preference: four verification
+ * registers state that the differentiation gate found no peer-reviewed basis
+ * for one at any age, and the content guards reject the phrase outright. A
+ * design note asserting it as a real driver contradicted the policy the rest
+ * of the file enforces.
  *
  * So the cadence widens as development slows. That is the whole idea, and it
  * is a content decision before it is a data-modelling one.
@@ -3315,15 +3327,16 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
     provinces: ["BC"],
     stageSlug: "9-12-months",
     sectionId: "vaccine-questions",
-    heading: "In British Columbia, rabies vaccination is recommended rather than required",
+    heading: "In British Columbia, public health recommends rabies vaccination",
     kind: "guidance",
     body: [
-      "The BC Centre for Disease Control recommends rabies vaccination for pets; provincial law does not compel it. That is a genuine difference from provinces such as Ontario, and it means there is no legal renewal date to track here — only a veterinary recommendation to keep current.",
+      "The BC Centre for Disease Control says that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. That is public health guidance. Unlike Ontario, described elsewhere in this Journey, we are not presenting a province-wide legal vaccination requirement for British Columbia \u2014 which is not the same as saying no legal obligation could ever apply to you: municipalities set their own licensing and animal-control rules, and travel, import and bite-investigation rules are separate again. Ask your veterinarian what applies where you live.",
       "It still matters at the first-year appointment. Rabies vaccination comes up when boarding, when travelling, and above all if a dog is ever exposed or involved in a bite incident, where a documented current vaccination puts an animal in a materially different position.",
     ],
     sources: [
       {
-        label: "Rabies — vaccination is recommended in British Columbia, not legally required",
+        label:
+          "Rabies — “your pets should be vaccinated, and their immunizations should be kept up to date”",
         publisher: "BC Centre for Disease Control",
         url: "https://www.bccdc.ca/health-info/diseases-conditions/rabies",
       },
@@ -3374,15 +3387,16 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
     provinces: ["BC"],
     stageSlug: "4-6-months",
     sectionId: "vaccine-questions",
-    heading: "In British Columbia, rabies vaccination is recommended rather than required",
+    heading: "In British Columbia, public health recommends rabies vaccination",
     kind: "guidance",
     body: [
-      "The BC Centre for Disease Control recommends rabies vaccination for pets; provincial law does not compel it. That is a real difference from provinces such as Ontario, where three months of age is a legal threshold.",
+      "The BC Centre for Disease Control says that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. That is public health guidance. Unlike Ontario, described elsewhere in this Journey, we are not presenting a province-wide legal vaccination requirement for British Columbia \u2014 which is not the same as saying no legal obligation could ever apply to you: municipalities set their own licensing and animal-control rules, and travel, import and bite-investigation rules are separate again. Ask your veterinarian what applies where you live.",
       "Recommended is not optional, and it matters more as a dog goes further afield. It comes up when boarding, when travelling, and above all if a dog is ever exposed or involved in a bite incident, where a documented current vaccination puts an animal in a materially different position.",
     ],
     sources: [
       {
-        label: "Rabies — vaccination is recommended in British Columbia, not legally required",
+        label:
+          "Rabies — “your pets should be vaccinated, and their immunizations should be kept up to date”",
         publisher: "BC Centre for Disease Control",
         url: "https://www.bccdc.ca/health-info/diseases-conditions/rabies",
       },
@@ -3433,15 +3447,16 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
     provinces: ["BC"],
     stageSlug: "3-months",
     sectionId: "vaccine-questions",
-    heading: "In British Columbia, rabies vaccination is recommended rather than required",
+    heading: "In British Columbia, public health recommends rabies vaccination",
     kind: "guidance",
     body: [
-      "The BC Centre for Disease Control recommends rabies vaccination for pets; provincial law does not compel it. That is a genuine difference from provinces such as Ontario, where three months of age is a legal threshold, and it is why a checklist written for one province does not transfer to another.",
+      "The BC Centre for Disease Control says that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. That is public health guidance. Unlike Ontario, described elsewhere in this Journey, we are not presenting a province-wide legal vaccination requirement for British Columbia \u2014 which is not the same as saying no legal obligation could ever apply to you: municipalities set their own licensing and animal-control rules, and travel, import and bite-investigation rules are separate again. Ask your veterinarian what applies where you live.",
       "Recommended is not optional. It comes up when boarding, when travelling, and above all if a dog is ever exposed or involved in a bite incident, where a documented current vaccination puts an animal in a materially different position. Raise it rather than waiting for it to be raised with you.",
     ],
     sources: [
       {
-        label: "Rabies — vaccination is recommended in British Columbia, not legally required",
+        label:
+          "Rabies — “your pets should be vaccinated, and their immunizations should be kept up to date”",
         publisher: "BC Centre for Disease Control",
         url: "https://www.bccdc.ca/health-info/diseases-conditions/rabies",
       },
@@ -3560,15 +3575,16 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
     provinces: ["BC"],
     stageSlug: "12-weeks",
     sectionId: "vaccine-questions",
-    heading: "In British Columbia, rabies vaccination is recommended rather than required",
+    heading: "In British Columbia, public health recommends rabies vaccination",
     kind: "guidance",
     body: [
-      "The BC Centre for Disease Control recommends rabies vaccination for pets; provincial law does not compel it. That is a real difference from provinces such as Ontario, where three months of age is a legal threshold — and it is the reason a checklist written for one province does not transfer to another.",
+      "The BC Centre for Disease Control says that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. That is public health guidance. Unlike Ontario, described elsewhere in this Journey, we are not presenting a province-wide legal vaccination requirement for British Columbia \u2014 which is not the same as saying no legal obligation could ever apply to you: municipalities set their own licensing and animal-control rules, and travel, import and bite-investigation rules are separate again. Ask your veterinarian what applies where you live.",
       "Recommended is not optional. Rabies vaccination comes up when boarding, when travelling, and above all if a dog is ever exposed or involved in a bite incident, where a documented current vaccination puts an animal in a materially different position. Raise it explicitly rather than waiting for it to be raised with you.",
     ],
     sources: [
       {
-        label: "Rabies — vaccination is recommended in British Columbia, not legally required",
+        label:
+          "Rabies — “your pets should be vaccinated, and their immunizations should be kept up to date”",
         publisher: "BC Centre for Disease Control",
         url: "https://www.bccdc.ca/health-info/diseases-conditions/rabies",
       },
@@ -3619,15 +3635,16 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
     provinces: ["BC"],
     stageSlug: "9-11-weeks",
     sectionId: "vaccine-questions",
-    heading: "In British Columbia, rabies vaccination is recommended rather than required",
+    heading: "In British Columbia, public health recommends rabies vaccination",
     kind: "guidance",
     body: [
-      "The BC Centre for Disease Control recommends rabies vaccination for pets; provincial law does not compel it. That is a genuine difference from provinces such as Ontario, where it is a legal requirement — and it is the reason advice written for one province does not transfer to another.",
+      "The BC Centre for Disease Control says that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. That is public health guidance. Unlike Ontario, described elsewhere in this Journey, we are not presenting a province-wide legal vaccination requirement for British Columbia \u2014 which is not the same as saying no legal obligation could ever apply to you: municipalities set their own licensing and animal-control rules, and travel, import and bite-investigation rules are separate again. Ask your veterinarian what applies where you live.",
       "Recommended is not the same as optional. Rabies also comes up when boarding, when travelling, and if a dog is ever exposed or involved in a bite incident, so it is worth an explicit conversation rather than an assumption.",
     ],
     sources: [
       {
-        label: "Rabies — vaccination is recommended in British Columbia, not legally required",
+        label:
+          "Rabies — “your pets should be vaccinated, and their immunizations should be kept up to date”",
         publisher: "BC Centre for Disease Control",
         url: "https://www.bccdc.ca/health-info/diseases-conditions/rabies",
       },
