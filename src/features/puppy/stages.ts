@@ -1926,6 +1926,330 @@ export const sevenToEightMonths: PuppyStage = {
   ],
 };
 
+
+/**
+ * Nine to twelve months — out of adolescence and into adult care.
+ *
+ * ## Why this stage is four months long
+ *
+ * Because nothing separates them. Asher et al. sampled at five, eight and
+ * twelve months; there is no measurement at nine or ten, and no authoritative
+ * source marks a developmental event there. A 9–10 month page would have been
+ * the 7–8 month page again.
+ *
+ * What *is* new across this span is a cluster of decisions rather than a
+ * developmental change: the large-breed sterilisation window opens at nine
+ * months, the adult-food transition becomes appropriate at different times
+ * depending on how big the dog will be, and the first-year veterinary
+ * conversation arrives at the end of it. That is one coherent unit.
+ *
+ * ## The thing this stage has to hold
+ *
+ * Almost all of its distinct content is **size-dependent**, and a public stage
+ * page renders with no size context at all. So the universal prose has to
+ * explain the split honestly — "here is where the answer forks, and here is
+ * how to tell which side you are on" — and the modifiers carry the specifics.
+ * Writing "switch to adult food now" or "book the neuter now" as universal
+ * prose would be wrong for roughly half of readers either way.
+ *
+ * ## What it must not take
+ *
+ * The 7–8 month stage owns the adolescent trainability dip, the freedom
+ * question and the carer-specific finding. Young adult owns the settled adult
+ * routine, the preventive-care cadence and long-term maintenance. This stage
+ * is the bridge and should read like one.
+ */
+export const nineToTwelveMonths: PuppyStage = {
+  slug: "9-12-months",
+  label: "9–12 months",
+  title: "Your 9 to 12-Month-Old Dog",
+  deck:
+    "The hardest part of adolescence is usually behind you, and the questions change from behaviour to decisions — most of which have different answers depending on how big your dog is going to be.",
+  metaDescription:
+    "What changes between nine months and the first birthday: coming out of peak adolescence, when larger dogs are neutered, when adult food becomes appropriate, how exercise changes by size, and the first-year veterinary conversation.",
+  mediaId: "puppy-nine-twelve-months",
+  mediaAlt:
+    "A dark, lean dog in a plain harness standing alert in a frosted field — an animal that looks grown and is not finished.",
+  reviewBy: "2027-09-01",
+  status: "in-review",
+
+  sections: [
+    {
+      id: "this-week",
+      title: "Where you are now",
+      summary: "The behaviour questions ease. The decisions arrive.",
+      body: [
+        "Something shifts across these four months, and it is less dramatic than what came before. The hardest stretch of adolescence is usually easing — in the Asher study, owner-rated trainability had recovered by twelve months, having dipped around eight — and what replaces it is not another behavioural problem but a set of decisions.",
+        "That is the honest shape of this stage. Less about what your dog is doing and more about what you and your veterinarian decide: whether it is time to neuter, whether it is time to change the food, how much exercise this body can now take, and what the first-year appointment should cover.",
+        "The complication is that almost none of those questions has one answer. They fork on how big your dog is going to be, and the fork is wide — the same decision that is already settled for a terrier may be six months away for a mastiff. Most of what follows tells you where the fork is rather than which branch to take.",
+      ],
+      points: [
+        "Expect the behaviour to get easier rather than harder, gradually and unevenly.",
+        "Neutering timing for larger dogs opens up in this window. For smaller dogs it is usually already done.",
+        "Adult food becomes appropriate for some dogs during this stage and not others.",
+        "Exercise can build, and how much depends on how much growing is left.",
+        "The first-year veterinary conversation is the one appointment in here worth preparing for.",
+      ],
+    },
+    {
+      id: "development",
+      title: "What is changing",
+      summary: "One age, several timetables.",
+      body: [
+        "Up to now the Journey has been able to say roughly the same thing to everyone. From here it cannot, because this is the point at which dogs of different sizes genuinely stop being on the same schedule.",
+        "The American Animal Hospital Association's life stage guidelines describe the puppy stage as running from birth to the cessation of rapid growth, which they put at approximately six to nine months, \u201cvarying with breed and size\u201d — and everything after that as young adult, through to the completion of physical and social maturation \u201cwhich occurs in most dogs by 3 to 4 yr of age\u201d. So a small dog in this window may be structurally finished and behaviourally settling, while a giant-breed dog of exactly the same age is neither.",
+        "Behaviourally, the direction of travel is towards easier. The evidence for that is narrow but real: dogs in the Asher study were rated more trainable at twelve months than at eight. It is worth repeating that the study followed guide dogs — German shepherds, golden and Labrador retrievers and crosses of them — rather than a cross-section of pet dogs, and that it says the age groupings would need reconsidering for different breeds. Treat twelve months as where recovery had happened in that population, not as a date anything completes on.",
+      ],
+    },
+    {
+      id: "training",
+      title: "Training",
+      summary: "Consolidation. Practise more, test less.",
+      body: [
+        "Training matters here and it is no longer the whole story, which is why this section is shorter than the one before it. The work is consolidation rather than repair: reliability comes back unevenly, and the useful response is to raise what you are asking for gradually rather than to find out how much the dog can now do.",
+      ],
+      points: [
+        "Raise criteria in small steps — a little more distraction, a little more distance, a little more duration, and only one of those at a time.",
+        "Keep recall in the weekly routine even when it is going well. Recall is maintained rather than achieved, and this is the age at which people stop practising it because it stopped failing.",
+        "Keep paying properly. Reinforcement thinning out is the commonest reason a recall that came back quietly goes again.",
+        "Practise more than you test. A behaviour rehearsed where it succeeds is being banked; the same behaviour tried somewhere it fails is being spent.",
+        "Do not assume transfer. Reliability at this age is still context-bound — a dog solid in three places is solid in three places, not everywhere.",
+      ],
+      guide: {
+        slug: "loose-leash-walking-and-recall",
+        label: "Lead work and recall, built properly",
+      },
+    },
+    {
+      id: "neutering",
+      title: "Neutering, for the dogs it was deferred for",
+      summary: "This is where the large-breed window opens — and it is a window, not a date.",
+      body: [
+        "If your dog is small and was going to be neutered, it almost certainly has been. If it is large, this is the stage the decision comes back.",
+        "The American Animal Hospital Association splits its guidance on projected adult bodyweight at 45 pounds. Below that line: around six months for castration, and before the anticipated first heat — five to six months — for spaying. Above it: waiting until growth is complete, which they put at usually nine to fifteen months for males, with a wider individualised window for females, and an explicit instruction to use clinical discretion in balancing the benefits of doing it earlier against the risks of doing it later.",
+        "So for a bigger dog, nine months is the start of a range rather than an appointment. What that range is for is the individual conversation: this dog's growth, its sex, its lifestyle and its breed. The guidelines say plainly that findings in one breed may not transfer to another, which is the reason this is settled with your own veterinarian rather than from a table or a friend's experience.",
+        "Adolescent behaviour is not by itself a reason to bring it forward. If something about your dog's behaviour is driving the timing question, that is worth discussing as a behaviour question first.",
+      ],
+      guide: {
+        slug: "spaying-and-neutering-in-canada",
+        label: "Why the timing question has changed, and what to weigh",
+      },
+    },
+    {
+      id: "feeding",
+      title: "Feeding, and when growth food stops",
+      summary: "The trigger is skeletal maturity, and that is not a birthday.",
+      body: [
+        "This is the stage where the adult-food question becomes live, and the answer is genuinely different for different dogs. Merck's guidance is to keep feeding a diet formulated for growth until skeletal maturity is reached — not until growth appears to have stopped, and not on a calendar.",
+        "Where that lands varies a great deal. Merck puts skeletal maturity at roughly eight to twelve months in small and medium dogs, and notes that for some large and giant breeds it may not be reached until closer to fifteen or sixteen months. So a small dog may be ready during this stage; a giant-breed dog of the same age is probably several months short of it, and moving early is a real risk rather than a saving.",
+        "Ask at the next appointment rather than deciding from a bag. And in the meantime the more useful habit is reading the dog: ribs that can be felt without pressing hard, a waist visible from above, and adjustments made against that rather than against a chart. Appetite at this age swings, and so does activity.",
+      ],
+      guide: {
+        slug: "reading-a-canadian-pet-food-label",
+        label: "What the label does and does not tell you",
+      },
+    },
+    {
+      id: "exercise",
+      title: "Exercise",
+      summary: "It can build. How fast depends on how much growing is left.",
+      body: [
+        "Exercise can increase across this stage, and the safe way to do it is progressively — more duration before more intensity, and more variety before either. The thing to avoid is the step change: a dog that has been doing forty minutes on the lead does not become a running companion on a Saturday.",
+        "How much restraint is still needed depends on size, because growth plates close later in larger dogs than smaller ones and the radiographic picture varies by breed rather than following a single age. A smaller dog in this window may be approaching what it will be capable of as an adult; a large or giant one is still growing, and repetitive forced exercise — running alongside a bicycle, long stair sessions, jumping down from height, throwing a ball until the dog stops — remains the thing to be careful with.",
+        "There is no minutes-per-month formula worth giving you, and no universal age at which running becomes appropriate. What there is, usefully, is a veterinarian who has examined your dog and knows how big it will get. Ask them, in those terms.",
+        "Mental work has not stopped mattering. A dog that is worked out but not thought out is a dog that gets fitter and no easier to live with.",
+      ],
+    },
+    {
+      id: "veterinary-care",
+      title: "The first-year conversation",
+      summary: "One appointment worth preparing for, covering more than a vaccine.",
+      body: [
+        "Somewhere around the first birthday there is usually an appointment that does more than one job, and it is worth going in with a list rather than a question.",
+        "The obvious item is vaccination, covered below. The less obvious ones matter as much. Weight and body condition, now that growth is finishing at whatever rate this dog grows. Whether the diet should change and when. A proper look at the mouth, now that the adult teeth have been in for months. The parasite plan for the year ahead rather than the season behind. And, if it is still open, the neutering decision.",
+        "It is also the point at which the shape of veterinary care starts to change: from a series of puppy appointments to a routine that will run annually for years. What that routine looks like is a conversation for the appointment itself, and it is the beginning of adult care rather than the end of puppy care.",
+      ],
+      guide: {
+        slug: "finding-a-veterinarian-in-canada",
+        label: "Choosing a practice before you need one",
+      },
+    },
+    {
+      id: "vaccine-questions",
+      title: "Vaccination at the first year",
+      summary: "Which path your clinic took determines what happens now.",
+      tone: "caution",
+      body: [
+        "What is due at the first birthday depends on a decision that was made months ago, so the useful first question is which path your dog is on.",
+        "The World Small Animal Veterinary Association's guidance offers two routes after the puppy series finishes at sixteen weeks or later. One is revaccination at or after 26 weeks — around six months — which some clinics adopt to shorten the window for the minority of puppies that may still have had interfering maternal antibody at their final puppy dose. The other is the longer-standing route of waiting until twelve to sixteen months. If your dog had a dose at around six months, it took the first path; if it did not, this appointment is where the second one lands.",
+        "Either way, WSAVA's position after that point is that core revaccination happens at three years of age and thereafter no more frequently than every three years — so this is not the start of an annual core vaccine. Non-core vaccines decided by lifestyle and geography are a separate conversation and may be annual; rabies follows its own rules, legal and otherwise, which differ by province.",
+        "There is no single schedule this page can give you, and the interval that applies depends on the products your clinic uses and on your dog. These are the questions that get you the answer.",
+      ],
+      points: [
+        "Which path did we take — the 26-week dose, or waiting until now?",
+        "What is due at this appointment, and what is not?",
+        "When is the next core vaccination actually due after this one?",
+        "Which non-core vaccines apply given where we live and what this dog does?",
+        "Is the rabies record current, and when is the next one due?",
+        "Would serology be useful here, or is it not something you offer?",
+      ],
+      guide: {
+        slug: "puppy-vaccination-schedule-in-canada",
+        label: "Why it is a series, what core means, and how the provinces differ",
+      },
+    },
+    {
+      id: "teething",
+      title: "Dental care",
+      summary: "Maintenance now, not teething.",
+      body: [
+        "The adult teeth have been in for months — Merck puts the full set in place by about seven months — so anything outstanding from that process should already have been looked at. What replaces teething management is maintenance, and the first-year appointment is a sensible point to have the mouth assessed properly and to agree what home care should look like from here.",
+        "Chewing usually continues, because dogs chew. It just stops being a household emergency.",
+      ],
+      guide: {
+        slug: "dental-care-for-dogs-and-cats",
+        label: "What actually works, and what to do at home",
+      },
+    },
+    {
+      id: "parasite-prevention",
+      title: "Parasite prevention",
+      summary: "Stop renewing the plan. Review it.",
+      body: [
+        "The plan you are on was written for a puppy that went round the block. It has quietly kept running while the dog it was written for became something else — further, longer, off paths, possibly at a cottage or on a trail. The first-year appointment is the natural point to rebuild it from the dog's actual life rather than extend it by habit.",
+        "Two questions do most of the work. What is this dog now doing that it was not doing at six months? And has anything about where it does it changed — a move, a new route, a place it now visits regularly? Those answers change the plan more than the calendar does.",
+        "Ask for it back as dates rather than a product, and ask what to do about a missed dose, because a year is long enough that one will be missed.",
+      ],
+      guide: {
+        slug: "parasite-prevention-for-pets-in-canada",
+        label: "Region and season, and what actually drives the timing",
+      },
+    },
+    {
+      id: "social-behaviour",
+      title: "Behaviour and other dogs",
+      summary: "Steadier, usually. Changes that are not steadier are worth asking about.",
+      body: [
+        "Most dogs are easier company across this stage than they were at eight months — calmer around other dogs, more able to disengage, better at settling somewhere new. That is the ordinary direction and it happens gradually rather than on a particular week.",
+        "What is worth separating from that is a change in the other direction. A dog that is becoming more reactive, more fearful, or less able to cope with things it used to manage is not going through a phase to be waited out. Reduce the pressure, give it more distance, and ask — your veterinarian first, because discomfort and pain change behaviour, and a qualified behaviour professional where the answer is behavioural.",
+        "That is not an escalation. It is the same instinct as having a limp looked at, and problems at this age are considerably easier to address than the same problems at three.",
+      ],
+      guide: {
+        slug: "puppy-socialisation-checklist",
+        label: "Reading the dog, and what good exposure looks like",
+      },
+    },
+    {
+      id: "safety",
+      title: "Safety",
+      summary: "A capable animal, and the habits that will last.",
+      body: [
+        "The risk list is shorter than it was, mostly because the dog is more predictable. What remains is worth keeping deliberate rather than assumed.",
+      ],
+      points: [
+        "Recall around wildlife, livestock and roads, which will be the last thing to become dependable and the first thing that matters.",
+        "Identification: a legible tag, and a microchip registration in your name with a phone number that works.",
+        "Municipal licensing, which in most places renews annually and is easy to let lapse after the first year.",
+        "Swallowed objects, still worth taking seriously in a dog that chews.",
+        "Vehicle restraint, now that the dog is heavy enough to matter in a stop.",
+        "Heat and cold tolerance, which change with coat and condition rather than with age.",
+      ],
+      guide: {
+        slug: "pet-licensing-across-canada",
+        label: "What licensing involves, and how much it varies",
+      },
+    },
+    {
+      id: "red-flags",
+      title: "When to call a veterinarian",
+      summary: "The threshold is lower than most owners of a grown-looking dog assume.",
+      tone: "caution",
+      body: [
+        "Contact your veterinary clinic — rather than waiting to see whether it settles — if a dog will not eat, is repeatedly vomiting or has persistent diarrhoea, is unusually limp or unresponsive, is breathing with effort, has not urinated in an unusually long stretch, is straining without producing anything, or you have any reason to think it has swallowed something it should not have.",
+        "The specific trap at this age is that the dog looks grown, so owners give it adult latitude on symptoms as well as on freedom. A dog that is off in itself for more than a day, is eating less than usual, or has changed how it moves is worth a phone call rather than a week of watching.",
+        "Lameness and reluctance to bear weight should be examined rather than rested and hoped over, particularly in a larger dog that is still growing. And a behaviour change that arrives suddenly — new fear, new irritability, new reluctance to be touched somewhere — is a reason to look for a physical cause before assuming a behavioural one.",
+        "This describes what to look for so you know when to call. It does not diagnose, and it is not a substitute for examining your dog — only a veterinarian who has seen it can do that.",
+      ],
+      guide: {
+        slug: "emergency-vet-visits-in-canada",
+        label: "The hour of preparation that decides how the worst night goes",
+      },
+    },
+    {
+      id: "whats-next",
+      title: "What's next",
+      summary: "Adulthood, arriving at different times for different dogs.",
+      body: [
+        "What follows this is not another developmental stage so much as a settling. AAHA describes young adulthood as running from the end of rapid growth all the way to the completion of physical and social maturation, which they put at three to four years in most dogs — so the first birthday is a milestone in the calendar rather than in the animal.",
+        "Practically, the next thing that changes is the shape of the routine: an annual rhythm of preventive care instead of a run of puppy appointments, a diet that stays put for years rather than months, and exercise that can finally be built rather than restrained. For a large or giant dog, some of that is still months away.",
+        "The training does not stop mattering, and it gets easier. What you keep doing now is what the dog is at four.",
+      ],
+    },
+  ],
+
+  checklist: [
+    { id: "book", label: "Book the first-year appointment and go with a list", detail: "Vaccination, weight, diet, mouth, parasites — and the neutering plan if it is still open." },
+    { id: "path", label: "Ask which vaccination path your clinic took", detail: "The 26-week dose or the twelve-to-sixteen-month one. It decides what is due now." },
+    { id: "neuter", label: "If your dog is large and still entire, reopen the timing conversation" },
+    { id: "food", label: "Ask whether growth food should continue", detail: "The trigger is skeletal maturity, which is much later in bigger dogs." },
+    { id: "exercise", label: "Build exercise in steps rather than in one jump" },
+    { id: "recall", label: "Keep practising recall even though it stopped failing" },
+    { id: "condition", label: "Learn to read body condition rather than follow a chart" },
+    { id: "id", label: "Check the tag, the microchip registration and the licence renewal" },
+    { id: "parasites", label: "Review the parasite plan for the year, not the season" },
+  ],
+
+  sources: [
+    {
+      label: "2019 AAHA Canine Life Stage Guidelines — puppy defined as birth to cessation of rapid growth at approximately 6–9 months varying with breed and size, and sterilization timing split at 45 lb projected adult bodyweight",
+      publisher: "American Animal Hospital Association",
+      url: "https://www.aaha.org/wp-content/uploads/globalassets/02-guidelines/canine-life-stage-2019/2019-aaha-canine-life-stage-guidelines-final.pdf",
+    },
+    {
+      label: "Feeding practices in small animals — growth diets until skeletal maturity, roughly 8–12 months in small and medium dogs and later in large and giant breeds",
+      publisher: "Merck Veterinary Manual",
+      url: "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/feeding-practices-in-small-animals",
+    },
+    {
+      label: "2024 Guidelines for the Vaccination of Dogs and Cats — revaccination at or after 26 weeks rather than at 12 to 16 months, and core revaccination thereafter no more often than every three years",
+      publisher: "World Small Animal Veterinary Association",
+      url: "https://wsava.org/wp-content/uploads/2024/04/WSAVA-Vaccination-guidelines-2024.pdf",
+    },
+    {
+      label: "Teenage dogs? Evidence for adolescent-phase conflict behaviour — carer-rated trainability lower at approximately eight months than at five or twelve",
+      publisher: "Asher et al., Biology Letters (2020)",
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7280042",
+    },
+    {
+      label: "Dental development of dogs — all permanent teeth present by about seven months",
+      publisher: "Merck Veterinary Manual",
+      url: "https://www.merckvetmanual.com/dog-owners/digestive-disorders-of-dogs/dental-development-of-dogs",
+    },
+  ],
+
+  resources: [
+    {
+      label: "Your provincial or territorial veterinary regulator, and what it licenses",
+      publisher: "Canadian Veterinary Medical Association",
+      url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+    },
+  ],
+
+  needsVerification: [
+    "The recovery claim is attributed to Asher et al. and stated as what that study found in its population — dogs rated more trainable at twelve months than at eight — never as a date adolescence ends. The guide-dog sample and the study's own note that age groupings would need reconsidering for different breeds are both carried in reader-facing prose. Do not convert this into 'adolescence ends at twelve months'.",
+    "Nine months is never described as a developmental milestone. The gate found no source marking one there; what is new at nine is the opening of AAHA's large-breed sterilisation window, which is a decision rather than a change in the dog.",
+    "AAHA's life stage definitions are quoted — puppy as birth to cessation of rapid growth at approximately six to nine months varying with breed and size, young adult through to physical and social maturation by three to four years in most dogs. That framework differs from this Journey's own stage naming, which is an editorial arc rather than a clinical one; the difference is deliberate and worth resolving explicitly before the maturity stage is written.",
+    "Sterilization timing is quoted from the 2019 AAHA guidelines with the 45 lb projected-adult-bodyweight split, the nine-to-fifteen-month male range, the wider individualised female window, and AAHA's own caution about applying findings across breeds. No universal age appears and nothing is booked.",
+    "The adult-food transition is tied to skeletal maturity per Merck — roughly eight to twelve months in small and medium dogs and up to fifteen or sixteen in some large and giant breeds — and is explicitly not given a universal age. No quantities, calorie tables or adult-weight predictions appear.",
+    "Body condition is described qualitatively (ribs felt without pressing, waist visible from above). Attach a body-condition-score source before making it more precise.",
+    "Growth-plate closure is described as later in larger dogs, with the explicit statement that the radiographic picture varies by breed rather than following a single age. No age, distance, minutes-per-month rule or running-clearance age appears, and none should be added without a source.",
+    "The two vaccination paths follow WSAVA 2024: revaccination at or after 26 weeks as an alternative to waiting until twelve to sixteen months, and core revaccination thereafter at three years and then no more frequently than every three years. The page states which questions to ask rather than which interval applies, and must not become a schedule.",
+    "Rabies is referred to as following its own provincial rules and is not given a timetable in universal prose. Provincial legal timing is carried in the province modifiers and computed from dates on the record rather than from the reader's stage.",
+    "No dominance, boundary-testing, second fear period or universal sexual-maturity claim appears anywhere. Behaviour changes in the wrong direction are described as reasons to ask rather than as a developmental phase.",
+    "The hero photograph is not captioned with an age. The source page describes the dog as an adult and the age could not be verified; the alt text describes the animal and the setting instead.",
+  ],
+};
+
 export const stages: readonly PuppyStage[] = [
   eightWeeks,
   nineToElevenWeeks,
@@ -1933,6 +2257,7 @@ export const stages: readonly PuppyStage[] = [
   threeMonths,
   fourToSixMonths,
   sevenToEightMonths,
+  nineToTwelveMonths,
 ];
 
 /* ------------------------------------------------------------- the roadmap */
@@ -2131,8 +2456,16 @@ export const roadmapStages: readonly RoadmapStage[] = [
   // Adolescence — paired months, because the things that define this period
   // arrive on their own schedule and not on a monthly one.
   { slug: "7-8-months", label: "7–8 months", phase: "adolescence", range: { unit: "months", minMonths: 7, maxMonths: 8 } },
-  { slug: "9-10-months", label: "9–10 months", phase: "adolescence", range: { unit: "months", minMonths: 9, maxMonths: 10 } },
-  { slug: "11-12-months", label: "11–12 months", phase: "adolescence", range: { unit: "months", minMonths: 11, maxMonths: 12 } },
+  // Nine to twelve is one stage. The gate found no developmental identity at
+  // nine or ten months at all: Asher et al. sampled at five, eight and twelve
+  // and never in between, so anything written there would have been the
+  // 7–8 month page again. What is genuinely new across this span — the
+  // large-breed sterilisation window opening at nine, the adult-food
+  // transition arriving at different times by size, and the first-year
+  // veterinary conversation — is one coherent unit and, crucially, mostly
+  // size-dependent. A public stage page renders with no size context at all,
+  // so a stage whose only distinct content is size-dependent cannot carry one.
+  { slug: "9-12-months", label: "9–12 months", phase: "adolescence", range: { unit: "months", minMonths: 9, maxMonths: 12 } },
 
   // Maturity — open-ended, and a *navigation* boundary rather than a claim
   // about biology. See `boundaryVariesBySize`.
@@ -2312,6 +2645,62 @@ export function stageFor(age: PuppyAge): PuppyStage | null {
 /* --------------------------------------------------------------- modifiers */
 
 export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
+  {
+    sizeGroup: "toy",
+    stageSlug: "9-12-months",
+    sectionId: "feeding",
+    body: [
+      "A toy-breed dog is at the early end of Merck's eight-to-twelve-month range for skeletal maturity, so the move off growth food may be appropriate during this stage. It is still a question for the appointment rather than a date — small dogs finish at different times too — but it is a live one now rather than one for later.",
+    ],
+  },
+  {
+    sizeGroup: "small",
+    stageSlug: "9-12-months",
+    sectionId: "feeding",
+    body: [
+      "A small-breed dog sits inside Merck's eight-to-twelve-month range for skeletal maturity, so the transition off growth food becomes a reasonable thing to raise during this stage. Ask at the next appointment, where the dog can be weighed and looked at, rather than deciding from the bag.",
+    ],
+  },
+  {
+    sizeGroup: "medium",
+    stageSlug: "9-12-months",
+    sectionId: "feeding",
+    body: [
+      "A medium-breed dog falls within the eight-to-twelve-month range Merck gives for skeletal maturity in small and medium dogs, which puts the transition somewhere in this stage or shortly after it. Where exactly is individual, and it is worth asking rather than assuming the first birthday is the trigger.",
+    ],
+  },
+  {
+    sizeGroup: "large",
+    stageSlug: "9-12-months",
+    sectionId: "neutering",
+    body: [
+      "This is the stage the decision comes back for a large-breed dog. AAHA's window for a male expected to finish over 45 lb is usually nine to fifteen months — waiting until growth is complete — with a wider individualised window for females and explicit advice to use clinical discretion. Nine months is the start of that range, not the end, so there is time to have the conversation properly.",
+    ],
+  },
+  {
+    sizeGroup: "giant",
+    stageSlug: "9-12-months",
+    sectionId: "neutering",
+    body: [
+      "A giant-breed dog grows for longer than almost any other, which places it at the far end of AAHA's nine-to-fifteen-month window rather than the near one. There is no urgency here at nine or ten months, and the guidelines caution that findings in one breed may not transfer to another — so this is a conversation about your own dog's growth with the veterinarian who has examined it.",
+    ],
+  },
+  {
+    sizeGroup: "large",
+    stageSlug: "9-12-months",
+    sectionId: "exercise",
+    body: [
+      "A large-breed dog is still growing through much of this stage, so build duration and variety before intensity and impact. Repetitive forced exercise — running alongside a bicycle, long stair sessions, jumping down from height — is still the thing to hold back on, and when it becomes reasonable is a question for the veterinarian who knows how big this dog will get.",
+    ],
+  },
+  {
+    sizeGroup: "giant",
+    stageSlug: "9-12-months",
+    sectionId: "exercise",
+    body: [
+      "A giant-breed dog will look entirely grown well before it is, and this is the stage where that mismatch costs the most — because the dog now has the stamina to do damage to itself. Keep building gradually, keep impact low, and treat any question about running or jumping as a veterinary one rather than a judgement call. Merck puts skeletal maturity in some giant breeds closer to fifteen or sixteen months.",
+    ],
+  },
   {
     sizeGroup: "large",
     stageSlug: "7-8-months",
@@ -2504,6 +2893,46 @@ export const breedModifiers: readonly BreedModifier[] = [
  * to be a provincial fact.
  */
 export const provinceModifiers: readonly ProvinceModifier[] = [
+  {
+    provinces: ["ON"],
+    stageSlug: "9-12-months",
+    sectionId: "vaccine-questions",
+    heading: "In Ontario, the rabies booster runs from the vaccination date",
+    kind: "legal",
+    // Deliberately no `ageThreshold`. Ontario's booster is due within a year
+    // of the *previous vaccination*, which is a date on the record and not a
+    // function of the dog's age — so nothing here may be triggered by the
+    // reader entering this stage.
+    body: [
+      "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies, and your dog passed that threshold months ago. What matters now is the second part: the province states that after a first vaccination an animal must get a booster within one year of the date it was vaccinated, and then be vaccinated every one to three years depending on the type of vaccine used.",
+      "That clock runs from the vaccination date on the record rather than from your dog's birthday, so the two will rarely line up. Check the certificate for the date the last one was given and ask your clinic when the next is due. There are fines for non-compliance, and this is a legal obligation rather than a veterinary recommendation.",
+    ],
+    sources: [
+      {
+        label: "Rabies and your pets — booster within one year, then every one to three years",
+        publisher: "Government of Ontario",
+        url: "https://www.ontario.ca/page/rabies-pets",
+      },
+    ],
+  },
+  {
+    provinces: ["BC"],
+    stageSlug: "9-12-months",
+    sectionId: "vaccine-questions",
+    heading: "In British Columbia, rabies vaccination is recommended rather than required",
+    kind: "guidance",
+    body: [
+      "The BC Centre for Disease Control recommends rabies vaccination for pets; provincial law does not compel it. That is a genuine difference from provinces such as Ontario, and it means there is no legal renewal date to track here — only a veterinary recommendation to keep current.",
+      "It still matters at the first-year appointment. Rabies vaccination comes up when boarding, when travelling, and above all if a dog is ever exposed or involved in a bite incident, where a documented current vaccination puts an animal in a materially different position.",
+    ],
+    sources: [
+      {
+        label: "Rabies — vaccination is recommended in British Columbia, not legally required",
+        publisher: "BC Centre for Disease Control",
+        url: "https://www.bccdc.ca/health-info/diseases-conditions/rabies",
+      },
+    ],
+  },
   {
     provinces: ["ON"],
     stageSlug: "4-6-months",
@@ -2787,6 +3216,28 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
  * like. Spring and autumn do not, and get nothing rather than an adjective.
  */
 export const seasonModifiers: readonly SeasonModifier[] = [
+  {
+    season: "summer",
+    stageSlug: "9-12-months",
+    sectionId: "exercise",
+    heading: "Building in summer",
+    body: [
+      "This is the stage where owners start extending walks, and summer is the worst season to do it in without thinking. A fitter dog goes further before it flags, which means heat becomes the limit before tiredness does — and a dog that is enjoying itself will not be the one to call time.",
+      "Go early or late, test pavement with the back of your hand, carry water on anything longer than a stroll, and treat a hot week as a reason to hold the current level rather than to add to it. Building fitness and building heat tolerance are not the same project.",
+    ],
+    guide: { slug: "summer-heat-safety-for-dogs-in-canada", label: "Heat, pavement and wildfire smoke" },
+  },
+  {
+    season: "winter",
+    stageSlug: "9-12-months",
+    sectionId: "exercise",
+    heading: "Building in winter",
+    body: [
+      "Winter is kinder to a dog building stamina than summer is — cold weather suits sustained work far better than heat does — but the surface is the problem. Ice turns a growing dog's enthusiasm into an injury risk, particularly for a bigger dog with more mass behind a bad turn, so choose routes for traction rather than for scenery.",
+      "Rinse the paws after treated pavements and check between the toes if the dog starts slowing or refusing. Short daylight also means more of the walk happens in the dark: a light and a reflective harness are worth having before you need them.",
+    ],
+    guide: { slug: "winter-dog-care-in-canada", label: "Winter care, paws and road salt" },
+  },
   {
     season: "summer",
     stageSlug: "7-8-months",

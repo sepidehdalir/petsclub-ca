@@ -21,6 +21,7 @@ import puppyEightWeeks from "./photos/puppy-eight-weeks.jpg";
 import puppyThreeMonths from "./photos/puppy-three-months.jpg";
 import puppyFourFiveMonths from "./photos/puppy-four-five-months.jpg";
 import puppySevenEightMonths from "./photos/puppy-seven-eight-months.jpg";
+import puppyNineTwelveMonths from "./photos/puppy-nine-twelve-months.jpg";
 import catsLeavingLitterBox from "./photos/cats-leaving-litter-box.jpg";
 import catsDrinkingRunningWater from "./photos/cats-drinking-running-water.jpg";
 import healthVetConsultationDiscussion from "./photos/health-vet-consultation-discussion.jpg";
@@ -443,6 +444,17 @@ const assets = {
     photographer: "Rahul Katare",
     source: "Pexels",
     sourceUrl: "https://www.pexels.com/photo/adorable-labrador-puppy-sitting-indoors-35942005/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "puppy-nine-twelve-months": {
+    id: "puppy-nine-twelve-months",
+    src: puppyNineTwelveMonths,
+    file: "photos/puppy-nine-twelve-months.jpg",
+    alt: "A dark, lean dog in a plain harness stands alert in a frosted field of young tree planting, looking off to one side.",
+    photographer: "Karl Byron",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/black-dog-standing-in-snowy-field-outdoors-30143915/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },
