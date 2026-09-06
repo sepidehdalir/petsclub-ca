@@ -45,6 +45,7 @@ import {
   stageAgePhrase,
   stageFor,
   fourToSixMonths,
+  sevenToEightMonths,
   stages,
   threeMonths,
   twelveWeeks,
@@ -364,9 +365,10 @@ describe("stage resolution", () => {
     const dob = "2026-06-18";
     expect(slugAtDay(dob, 60)).toBe("8-weeks");
     expect(slugOn(dob, "2027-01-18")).toBe("7-8-months");
-    // Adolescence is on the roadmap and has no page — the reader is placed
-    // without being sent anywhere that does not exist.
-    expect(stageFor(ageOn(dob, "2027-01-18"))).toBeNull();
+    // Later adolescence is on the roadmap and has no page — the reader is
+    // placed without being sent anywhere that does not exist.
+    expect(slugOn(dob, "2027-03-18")).toBe("9-10-months");
+    expect(stageFor(ageOn(dob, "2027-03-18"))).toBeNull();
   });
 
   it("keeps the weekly table contiguous in days and the monthly one in months", () => {
@@ -407,6 +409,7 @@ describe("stage resolution", () => {
       "12-weeks",
       "3-months",
       "4-6-months",
+      "7-8-months",
     ]);
   });
 });
@@ -1587,17 +1590,18 @@ describe("hybrid age resolution", () => {
     expect(earlyDevelopment.map((stage) => stage.slug)).toEqual(["3-months", "4-6-months"]);
   });
 
-  it("gives the merged stage a route and the split months none", () => {
+  it("gives the merged stage a route, and later adolescence none yet", () => {
     const appDir = fileURLToPath(new URL("../../app/", import.meta.url));
     const puppyRoutes = readdirSync(join(appDir, "puppy"), { withFileTypes: true })
       .filter((entry) => entry.isDirectory())
       .map((entry) => entry.name);
 
     expect(puppyRoutes).toContain("4-6-months");
-    for (const slug of ["4-months", "5-months", "6-months"]) {
+    expect(puppyRoutes).toContain("7-8-months");
+    for (const slug of ["4-months", "5-months", "6-months", "9-10-months", "11-12-months"]) {
       expect(puppyRoutes).not.toContain(slug);
     }
-    expect(puppyRoutes).toHaveLength(5);
+    expect(puppyRoutes).toHaveLength(6);
   });
 
   it("links no reader at a path that only redirects", async () => {
@@ -1652,6 +1656,27 @@ describe("hybrid age resolution", () => {
     // collapse that belongs to it — and no stage may use "second fear period"
     // language, for which the gate found no peer-reviewed basis at any age.
     const beforeAdolescence = [eightWeeks, nineToElevenWeeks, twelveWeeks, threeMonths, fourToSixMonths];
+
+    // Dominance framing is banned everywhere, adolescence included — except
+    // where a stage names it as a misreading and rejects it, which is exactly
+    // what the adolescence page opens by doing.
+    for (const stage of stages) {
+      const prose = stage.sections
+        .flatMap((section) => [section.summary, ...(section.body ?? []), ...(section.points ?? [])])
+        .join(" ");
+      expect(prose, stage.slug).not.toMatch(/\balpha (?:dog|role)\b|pack leader/i);
+
+      const sentences = prose.split(/(?<=[.?!])\s+/);
+      for (const [index, sentence] of sentences.entries()) {
+        if (!/\bdominan/i.test(sentence)) continue;
+        // Either the sentence itself rejects it, or the next one does.
+        const window = `${sentence} ${sentences[index + 1] ?? ""}`;
+        expect(
+          /none of those|\bnot\b|misread|mistake|wrong|rather than/i.test(window),
+          `${stage.slug} uses dominance framing unrejected: ${sentence}`,
+        ).toBe(true);
+      }
+    }
 
     for (const stage of beforeAdolescence) {
       const prose = [
@@ -1808,6 +1833,110 @@ describe("hybrid age resolution", () => {
     expect(fourToSixMonths.sources.some((s) => s.url.includes("PMC7280042"))).toBe(true);
   });
 
+  it("resolves months seven and eight to the adolescence stage", () => {
+    // Born 18 June, so the seventh anniversary is day 214 and the ninth is
+    // day 273 — day counts and calendar anniversaries do not line up, which
+    // is the whole reason months are resolved on the calendar.
+    const dob = "2026-06-18";
+    for (let days = 214; days <= 272; days += 1) {
+      expect(slugAtDay(dob, days)).toBe("7-8-months");
+    }
+    expect(slugAtDay(dob, 213)).toBe("4-6-months");
+    expect(slugAtDay(dob, 273)).toBe("9-10-months");
+
+    // On the anniversaries, which is what actually moves it.
+    expect(slugOn(dob, "2027-01-17")).toBe("4-6-months");
+    expect(slugOn(dob, "2027-01-18")).toBe("7-8-months"); // 7 months
+    expect(slugOn(dob, "2027-02-18")).toBe("7-8-months"); // 8 months
+    expect(slugOn(dob, "2027-03-18")).toBe("9-10-months"); // 9 months
+  });
+
+  it("keeps the exact month in the headline across adolescence", () => {
+    const dob = "2026-06-18";
+    for (const [today, months, headline] of [
+      ["2027-01-18", 7, "7 months old"],
+      ["2027-02-18", 8, "8 months old"],
+    ] as const) {
+      const age = ageOn(dob, today);
+      const stage = roadmapStageFor(age)!;
+      expect(stage.slug).toBe("7-8-months");
+      expect(age.months).toBe(months);
+      expect(journeyHeadlineAge(age, stage)).toBe(headline);
+      expect(journeyHeadlineAge(age, stage)).not.toContain("7–8");
+      expect(journeyMeta(age, stage)).toEqual(["Adolescence"]);
+    }
+  });
+
+  it("states the adolescence evidence as a finding, never as a universal age", () => {
+    const prose = sevenToEightMonths.sections
+      .flatMap((section) => [section.summary, ...(section.body ?? []), ...(section.points ?? [])])
+      .join(" ");
+
+    // Attributed, hedged, and limited.
+    expect(prose).toMatch(/Asher/);
+    expect(prose).toMatch(/approximately eight months|around adolescence/i);
+    expect(prose).toMatch(/guide dogs/i);
+    expect(prose).toMatch(/German shepherds?|Labrador/i);
+    expect(sevenToEightMonths.sources.some((s) => s.url.includes("PMC7280042"))).toBe(true);
+
+    // Never a schedule.
+    expect(prose).not.toMatch(/adolescence (?:begins|starts) at (?:seven|eight|7|8) months/i);
+    expect(prose).not.toMatch(/every dog (?:becomes|is) adolescent/i);
+    expect(prose).not.toMatch(/all dogs (?:lose|will lose) (?:their )?recall/i);
+    expect(prose).not.toMatch(/by (?:seven|eight) months (?:every|all) dogs?/i);
+
+    // The carer-specific finding is the page's spine and must stay.
+    expect(prose).toMatch(/stranger/i);
+    expect(prose).toMatch(/trainers? rated|professional trainers/i);
+  });
+
+  it("promises no recall reliability and no universal maturity", () => {
+    const prose = sevenToEightMonths.sections
+      .flatMap((section) => [section.summary, ...(section.body ?? []), ...(section.points ?? [])])
+      .join(" ");
+
+    expect(prose).not.toMatch(/reliable (?:off[- ]l(?:ea|)sh|recall) by/i);
+    expect(prose).not.toMatch(/(?:will|should) have (?:a )?reliable recall/i);
+    expect(prose).toMatch(/Nothing on this list produces a reliable dog/i);
+
+    // Sexual maturity is never given a universal age, and is separated from
+    // adolescence explicitly.
+    expect(prose).not.toMatch(/(?:sexually mature|sexual maturity) (?:at|by) \d/i);
+    expect(prose).toMatch(/adolescence and sexual maturity are not the same/i);
+
+    // No adult-food transition, and physical maturity is not claimed.
+    expect(prose).not.toMatch(/adult food at (?:seven|eight|8|7) months/i);
+    expect(prose).toMatch(/skeletal maturity rather than a number of months/i);
+    expect(prose).toMatch(/Physical maturity has not arrived/i);
+
+    // And the teeth section stays short — the hard part is over.
+    const teeth = sevenToEightMonths.sections.find((s) => s.id === "teething")!;
+    const teethWords = [...(teeth.body ?? []), ...(teeth.points ?? [])].join(" ").split(/\s+/).length;
+    const fourToSix = fourToSixMonths.sections.find((s) => s.id === "teething")!;
+    const fourToSixWords = [...(fourToSix.body ?? []), ...(fourToSix.points ?? [])].join(" ").split(/\s+/).length;
+    expect(teethWords).toBeLessThan(fourToSixWords / 2);
+  });
+
+  it("owns adolescence without repeating the stage before it", () => {
+    // The two sections that exist only here.
+    const ids = sevenToEightMonths.sections.map((section) => section.id);
+    expect(ids).toContain("freedom");
+    expect(ids).toContain("social-behaviour");
+    for (const other of stages.filter((stage) => stage.slug !== "7-8-months")) {
+      for (const id of ["freedom", "social-behaviour"] as const) {
+        expect(other.sections.some((section) => section.id === id), `${other.slug}/${id}`).toBe(false);
+      }
+    }
+
+    // And it does not re-run 4–6 months' material.
+    const prose = sevenToEightMonths.sections
+      .flatMap((section) => [section.summary, ...(section.body ?? []), ...(section.points ?? [])])
+      .join(" ");
+    expect(prose).not.toMatch(/26 weeks/);
+    expect(prose).not.toMatch(/permanent teeth (?:start|begin) (?:coming through|appearing)/i);
+    expect(prose).not.toMatch(/primary (?:vaccination )?series is (?:complete|finished|finishing)/i);
+  });
+
   it("keeps the implemented stage a strict subset of the roadmap", () => {
     // A page is not minted because an interval elapsed. Every implemented
     // stage must appear on the roadmap; the reverse must not hold.
@@ -1816,7 +1945,7 @@ describe("hybrid age resolution", () => {
       expect(roadmapSlugs.has(stage.slug)).toBe(true);
     }
     expect(stages.length).toBeLessThan(roadmapStages.length);
-    expect(stages).toHaveLength(5);
+    expect(stages).toHaveLength(6);
     expect(roadmapStages).toHaveLength(9);
   });
 
@@ -2118,9 +2247,18 @@ describe("personalised canonical", () => {
     }
   });
 
-  it("still sends a 7-month puppy to the hub, because adolescence has no page", async () => {
-    // Day 230 is inside the seventh month for any date of birth.
-    const canonical = await canonicalFor({ dob: dobForAge(230, "ON"), province: "ON" });
+  it("canonicalises 7- and 8-month dogs to the adolescence stage", async () => {
+    // Day 230 is inside the seventh month and day 260 the eighth, for any
+    // date of birth.
+    for (const days of [230, 260]) {
+      const canonical = await canonicalFor({ dob: dobForAge(days, "ON"), province: "ON" });
+      expect(canonical.endsWith("/puppy/7-8-months")).toBe(true);
+    }
+  });
+
+  it("still sends a 9-month dog to the hub, because that stage has no page", async () => {
+    // Day 290 is inside the ninth month for any date of birth.
+    const canonical = await canonicalFor({ dob: dobForAge(290, "ON"), province: "ON" });
     expect(canonical.endsWith("/puppy")).toBe(true);
   });
 
@@ -2148,7 +2286,7 @@ describe("personalised canonical", () => {
   it("canonicalises a puppy of any other age to the Journey hub, not to a stage", async () => {
     // Day 76 is one day short of week 11; day 84 is one day past it; the rest
     // are ages we have written no stage for at all.
-    for (const days of [1, 40, 55, 230, 300]) {
+    for (const days of [1, 40, 55, 290, 400]) {
       const canonical = await canonicalFor({ dob: dobForAge(days, "ON"), province: "ON" });
       expect(canonical.endsWith("/puppy")).toBe(true);
       expect(canonical).not.toContain("9-11-weeks");
@@ -2228,13 +2366,14 @@ describe("indexing", () => {
       "12-weeks",
       "3-months",
       "4-6-months",
+      "7-8-months",
       "8-weeks",
       "9-11-weeks",
     ]);
-    expect(puppyRoutes).toHaveLength(5);
+    expect(puppyRoutes).toHaveLength(6);
 
-    // The split months never became routes, and six months is still to come.
-    for (const slug of ["4-months", "5-months", "6-months"]) {
+    // Merged-away months never became routes, and later adolescence has not.
+    for (const slug of ["4-months", "5-months", "6-months", "9-10-months", "11-12-months"]) {
       expect(puppyRoutes).not.toContain(slug);
     }
 
@@ -2269,6 +2408,7 @@ describe("indexing", () => {
       "12-weeks",
       "3-months",
       "4-6-months",
+      "7-8-months",
       "8-weeks",
       "9-11-weeks",
     ]);

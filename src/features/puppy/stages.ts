@@ -1615,12 +1615,324 @@ export const fourToSixMonths: PuppyStage = {
   ],
 };
 
+
+/**
+ * Seven to eight months — adolescence.
+ *
+ * ## The one thing this stage exists to say
+ *
+ * A dog that was reliable at five months and is not at eight has not
+ * forgotten anything, and is not being stubborn or dominant or defiant. Asher
+ * et al. found something more specific and more useful than any of those: the
+ * drop in obedience was **carer-specific**. Dogs responded less to a "sit"
+ * from their own carer during adolescence — and *more* to the same cue from a
+ * stranger. Carers rated trainability lower at eight months than at five or
+ * twelve; professional trainers working with the same dogs rated it *higher*.
+ *
+ * That reframes the whole experience. It is not a capability that has gone. It
+ * is a relationship under load, at the same time as the world has become far
+ * more interesting than you are.
+ *
+ * So the theme is: **adolescence changes the test, not the training
+ * principles.** Everything that worked still works. It has to be run at a
+ * difficulty the dog can currently pass.
+ *
+ * ## How the evidence is handled
+ *
+ * Carefully, because it is easy to over-read. The study followed guide dogs —
+ * German shepherds, golden and Labrador retrievers and crosses — not a
+ * representative sample of pet dogs, and it says itself that "age groupings
+ * would need to be reconsidered for different breeds". So this stage never
+ * says adolescence begins at seven months, or at eight, or that every dog
+ * goes through it on a schedule. It says a measurable dip was found around
+ * adolescence, in one longitudinal study, at approximately eight months.
+ */
+export const sevenToEightMonths: PuppyStage = {
+  slug: "7-8-months",
+  label: "7–8 months",
+  title: "Your 7 to 8-Month-Old Dog",
+  deck:
+    "The stage where a dog that knew things appears to stop knowing them. It has not forgotten, and it is not being difficult — the research points somewhere far more useful than that.",
+  metaDescription:
+    "Why an adolescent dog seems to lose its training around seven and eight months, what the research actually found, and how to train and manage a dog whose reliability has dipped.",
+  mediaId: "puppy-seven-eight-months",
+  mediaAlt:
+    "A lean dog on a long line in open heathland, attention on something out of frame — which is both the problem and the tool at this stage.",
+  reviewBy: "2027-09-01",
+  status: "in-review",
+
+  sections: [
+    {
+      id: "this-week",
+      title: "Where you are now",
+      summary: "Adolescence changes the test, not the training.",
+      body: [
+        "Something happens around this age that almost every owner experiences and almost nobody is warned about properly. A dog that came when called at five months stops coming. A dog that walked reasonably starts pulling. The sit that was solid in the kitchen is suddenly optional. It feels like the training has come undone, and it is the point at which a great many people are told their dog is being dominant, stubborn or spiteful.",
+        "It is none of those. The best evidence available on this is a longitudinal study of guide dogs by Asher and colleagues, and what it found is oddly specific: around adolescence — at approximately eight months in that study — carers rated their dogs as less trainable than at five months or at twelve. But the dogs' professional trainers rated the same dogs as *more* trainable at that age. And when obedience was tested directly, the dogs responded less to a cue from their own carer while responding *better* to the same cue from a stranger.",
+        "So nothing has been lost. What has changed is the difficulty of the test — a much more interesting world, a body that can act on that interest, and a relationship going through something. The training principles do not change at all. What has to change is the level you are asking at.",
+        "Two caveats worth carrying. That study followed guide dogs — German shepherds, golden and Labrador retrievers and crosses of them — rather than a cross-section of pet dogs, and it says plainly that the age groupings would need reconsidering for different breeds. So treat eight months as where a measurable dip was found in that population, not as a date your dog is due on. When adolescence arrives, and how obvious it is, varies by breed, by size and by the individual animal.",
+      ],
+      points: [
+        "Reliability dropping is expected here. It is not evidence that the earlier work failed.",
+        "The dip is temporary — in that study dogs were rated more trainable again by twelve months.",
+        "Lower the difficulty rather than raising the pressure.",
+        "This is the worst possible moment to increase a dog's freedom.",
+        "Nothing here is a reason to punish a dog, and punishment at this age tends to cost you the recall you are trying to rebuild.",
+      ],
+    },
+    {
+      id: "development",
+      title: "What is actually changing",
+      summary: "More interest, more capability, and a relationship under load.",
+      body: [
+        "Three things arrive at once. The environment has become genuinely more compelling — other dogs, scent, movement, distance. The body can now act on that: this is a dog that can cover ground, get through a gap and be forty metres away before the thought has finished. And the attachment relationship itself is doing something.",
+        "That last point is the one worth sitting with, because it is where the evidence is most interesting. The reduced responsiveness in the Asher study was directed at the carer specifically, not at people in general. There is also a reported association between separation-related behaviour at eight months and lower obedience to the carer at the same age — which reads less like a dog that has stopped caring and more like one whose relationship with you is the thing under strain.",
+        "The practical consequence is that pushing harder tends to make it worse, and that the answer is more reinforcement and less confrontation rather than the reverse.",
+      ],
+    },
+    {
+      id: "training",
+      title: "Training through the dip",
+      summary: "Everything still works. Run it at a level the dog can pass.",
+      body: [
+        "This is the section that matters most at this age, and its whole content is one instruction applied in several places: when reliability drops, lower the difficulty. That is not a retreat. A behaviour rehearsed successfully at an easy level is being strengthened; the same behaviour failed repeatedly at a hard one is being weakened, and the dog is also learning that your cue can be ignored without consequence.",
+        "Nothing on this list produces a reliable dog by nine months, and treating any of it as finished is how the next six months go badly.",
+      ],
+      points: [
+        "Go back a rung, deliberately. If recall fails in the park, it is not a park behaviour yet — take it to the garden, then the quiet end of the road, and build back up.",
+        "Rebuild recall on a long line so that it can never fail without consequence and never be tested before it is ready. A recall you cannot back up is a recall you are teaching the dog to ignore.",
+        "Raise the reinforcement, considerably. What worked at four months does not pay for coming away from another dog at eight. This is the age to be generous rather than principled about it.",
+        "Shorten sessions when the dog is wound up. An aroused adolescent is not learning much, and stopping early is a training decision rather than a failure of one.",
+        "Generalise again from scratch. Cues that transferred easily at five months may need re-teaching in each context now, and that is ordinary rather than a sign anything is wrong.",
+        "Manage the environment so the dog cannot practise what you do not want. A long line, a closed door and a bit of distance do more this month than any correction.",
+        "One set of rules across the household. Inconsistency was survivable at four months; it is expensive now.",
+        "Do not punish deterioration. It does not restore the behaviour, and it costs you the willingness to come back to you that recall is built on.",
+      ],
+      guide: {
+        slug: "loose-leash-walking-and-recall",
+        label: "Lead work and recall, built properly",
+      },
+    },
+    {
+      id: "freedom",
+      title: "Freedom, and how much has been earned",
+      summary: "The commonest mistake here is treating a big dog as a finished one.",
+      body: [
+        "An adolescent looks adult, and it is tempting to give it adult freedom — off the lead in open space, out of sight in the garden, loose near a road. This is precisely the period in which that goes wrong, because the dog's interest in the world has outrun its willingness to check in with you.",
+        "The useful principle is that freedom follows demonstrated recall rather than age or size. If the recall is not working today, today is not the day for the unfenced field. A long line lets you give a dog space without giving it a choice you cannot influence, and it is the single most useful piece of equipment of this stage.",
+        "Be sceptical of a good week. Adolescent reliability is intermittent by nature, and one successful outing is not evidence of a pattern — it is one data point among several that went the other way. The dogs that end up in trouble at this age are usually the ones whose owners were persuaded by a good Tuesday.",
+      ],
+      points: [
+        "Recall first, freedom second, in that order and not the other one.",
+        "Use a long line where it is appropriate and permitted, rather than hoping.",
+        "Doors, gates and car doors deserve active management. Confidence has arrived; road sense has not.",
+        "Wildlife, livestock and other dogs are the three things most likely to beat your recall. Plan routes accordingly.",
+        "Local rules on where a dog may be off-lead vary by municipality and are worth actually checking.",
+      ],
+      guide: {
+        slug: "pet-licensing-across-canada",
+        label: "What municipalities regulate, and how much it varies",
+      },
+    },
+    {
+      id: "social-behaviour",
+      title: "Other dogs, and the wider world",
+      summary: "More interest, higher arousal, and no need to interact with everything.",
+      body: [
+        "Interest in other dogs typically increases at this age, and so does arousal around them. A dog that used to walk past another dog may now pull, vocalise or fixate — which is frustrating rather than sinister, and is usually about excitement and poor impulse control rather than anything darker.",
+        "The instinct is to let them greet, or to head for a dog park to burn it off. Both tend to make it worse. Rehearsed excitement on approach teaches a dog that other dogs mean an explosion of activity, and a busy dog park is a room full of strangers with mismatched play styles and no supervision. The more useful currency at this age is neutrality: being near other dogs, calmly, without interacting.",
+        "Good social experience still matters. It just looks like a walk alongside a known, well-mannered adult dog, or sitting at a distance and being paid for noticing another dog without reacting — rather than an hour of unsupervised free-for-all.",
+        "If something genuinely new appears — a dog that was fine with something and now finds it frightening — treat it as an individual change rather than a phase to wait out. Reduce the pressure, increase the distance, and rebuild the confidence gently. If it is severe, persistent, or getting worse, that is a conversation with your veterinarian and, if appropriate, a qualified behaviour professional rather than something to push through.",
+      ],
+      guide: {
+        slug: "puppy-socialisation-checklist",
+        label: "Reading the dog, and what good exposure looks like",
+      },
+    },
+    {
+      id: "exercise",
+      title: "Exercise and activity",
+      summary: "More capable than it was. Not yet a finished animal.",
+      body: [
+        "An adolescent can do more than a four-month-old, and the temptation is to solve the behaviour with mileage. It rarely works: a fitter dog is a dog that needs more the following week, and exhaustion is not the same as satisfaction.",
+        "Vary it instead. Sniffing, exploring, new surfaces and problem-solving tire an adolescent in a way that repetition does not, and a walk where the dog gets to make decisions does more for the relationship than one where it is marched.",
+        "Physical maturity has not arrived. Growth plates take longer to close in larger dogs than smaller ones, and repetitive forced exercise — running alongside a bicycle, long stair sessions, throwing a ball until the dog drops — is still the thing to be careful with. Building endurance deliberately is a conversation to have with your veterinarian, in the context of how big this dog will be.",
+      ],
+    },
+    {
+      id: "feeding",
+      title: "Feeding",
+      summary: "Still growth food for most, and the trigger is not a birthday.",
+      body: [
+        "The question that arrives at this age is when to move to adult food, and the honest answer is that the trigger is skeletal maturity rather than a number of months. Merck puts that at roughly eight to twelve months in small and medium dogs and, for some large and giant breeds, closer to fifteen or sixteen — so a dog of this age is at the earliest edge of it if it is small, and nowhere near it if it is not.",
+        "Ask, rather than deciding. And in the meantime the useful skill is body condition rather than quantity: ribs that can be felt without pressing hard, a waist visible from above. Adolescent appetites swing, and adjusting against the dog in front of you beats adjusting against a chart.",
+      ],
+      guide: {
+        slug: "reading-a-canadian-pet-food-label",
+        label: "What the label does and does not tell you",
+      },
+    },
+    {
+      id: "teething",
+      title: "Teeth",
+      summary: "Short, because the hard part is over.",
+      body: [
+        "Merck puts the full set of permanent teeth in place by about seven months, so for most dogs this is the far side of teething rather than the middle of it. Chewing usually continues — it is a normal thing for dogs to do and a useful thing to give them — but it should no longer be the dominant fact of the household.",
+        "What is worth raising rather than watching: a baby tooth still in place beside its adult replacement, a broken tooth, or a mouth that seems sore. Those are veterinary questions and this is a reasonable point to have the mouth looked at properly.",
+      ],
+      guide: {
+        slug: "dental-care-for-dogs-and-cats",
+        label: "The mouth you are looking after for the next decade",
+      },
+    },
+    {
+      id: "neutering",
+      title: "Neutering, if it has not happened",
+      summary: "For larger dogs the window is approaching rather than open.",
+      body: [
+        "If your dog was going to be neutered early it usually has been by now, and if it is a larger dog it usually has not. The American Animal Hospital Association's guidance splits on projected adult bodyweight at 45 pounds: below it, around six months for castration and before the first heat for spaying; above it, waiting until growth is complete, which it puts at usually nine to fifteen months for males with a wider individualised window for females.",
+        "So for a bigger dog this stage is the run-up rather than the decision point, and there is no need to bring it forward because the dog is being difficult. Adolescent behaviour is not by itself a reason to neuter, and the guidelines are explicit that findings in one breed may not transfer to another — which is why this is a conversation with your own veterinarian rather than something to settle from a table.",
+        "One thing worth separating: adolescence and sexual maturity are not the same thing and do not arrive together on a fixed schedule. When an individual dog matures depends on its size, its breed and itself.",
+      ],
+      guide: {
+        slug: "spaying-and-neutering-in-canada",
+        label: "Why the timing question has changed, and what to weigh",
+      },
+    },
+    {
+      id: "veterinary-care",
+      title: "Veterinary care",
+      summary: "A quieter period, with a short list worth raising.",
+      body: [
+        "There is often no routine appointment in this window, which makes it worth being deliberate about the things that would otherwise wait. The mouth, now that the adult teeth are in. The neutering plan, if it is still open. Weight and body condition, because adolescent growth and adolescent appetite do not always move together.",
+        "And behaviour, if something is genuinely worrying you. A sudden change — new fear, new reactivity, a dog that is off in itself — is worth mentioning rather than filing under adolescence, because \u201cit is just his age\u201d is a comfortable explanation that occasionally hides a physical one.",
+      ],
+      guide: {
+        slug: "finding-a-veterinarian-in-canada",
+        label: "Choosing a practice before you need one",
+      },
+    },
+    {
+      id: "parasite-prevention",
+      title: "Parasite prevention",
+      summary: "More range, more exposure, same plan — checked.",
+      body: [
+        "A dog covering more ground, in longer grass and further from paths, has a different exposure profile from the one walking round the block six months ago. The plan should follow that rather than the postcode alone.",
+        "It is worth checking the dates rather than assuming continuity, particularly at the ends of the season: heartworm prevention is seasonal in most of Canada and follows the local mosquito season, and tick activity runs longer at both ends of the year than most people expect.",
+      ],
+      guide: {
+        slug: "parasite-prevention-for-pets-in-canada",
+        label: "Region and season, and what actually drives the timing",
+      },
+    },
+    {
+      id: "safety",
+      title: "Safety",
+      summary: "A fast, confident dog with unreliable brakes.",
+      body: [
+        "The risk profile at this age is dominated by one thing: a dog that can move quickly and decide independently, attached to a recall that is not currently dependable.",
+      ],
+      points: [
+        "Roads, and the gap between a dog that has never run into one and a dog that will not.",
+        "Doors, gates and car doors — the three places an adolescent gets loose.",
+        "Wildlife and livestock, which will beat your recall on the day it matters.",
+        "Swallowed objects, still a real risk in a dog that chews.",
+        "Identification: a collar tag that is current, and a microchip registration in your name with a phone number that works. This is the age at which it gets used.",
+        "Off-lead spaces chosen for their boundaries rather than their convenience.",
+      ],
+    },
+    {
+      id: "red-flags",
+      title: "When to call a veterinarian",
+      summary: "Adolescence explains a lot. It does not explain everything.",
+      tone: "caution",
+      body: [
+        "Contact your veterinary clinic — rather than waiting to see whether it settles — if a dog will not eat, is repeatedly vomiting or has persistent diarrhoea, is unusually limp or unresponsive, is breathing with effort, has not urinated in an unusually long stretch, is straining without producing anything, or you have any reason to think it has swallowed something it should not have.",
+        "The specific risk at this age is attribution. A behaviour change that arrives suddenly is easy to file under adolescence and occasionally has a physical cause — pain, most often. A dog that has become reluctant to jump, is snappy about being touched somewhere it was not before, has changed how it moves, or is off in itself as well as being difficult, is worth examining rather than training through.",
+        "Limping or reluctance to bear weight should be looked at rather than rested and hoped over; a growing skeleton is not a small adult one. And a dog that was reliably house-trained and abruptly is not — particularly with straining, urgency or blood — is a medical question before it is a training one.",
+        "If a behaviour change is severe, is getting worse, or involves aggression or genuine fear, ask your veterinarian and, where appropriate, a qualified behaviour professional. That is not an escalation; it is the same as asking about a limp.",
+        "This describes what to look for so you know when to call. It does not diagnose, and it is not a substitute for examining your dog — only a veterinarian who has seen it can do that.",
+      ],
+      guide: {
+        slug: "emergency-vet-visits-in-canada",
+        label: "The hour of preparation that decides how the worst night goes",
+      },
+    },
+    {
+      id: "whats-next",
+      title: "What's next",
+      summary: "It passes. The timing is individual and the direction is not.",
+      body: [
+        "The most useful thing to know about this period is that it is a phase rather than a new baseline. In the Asher study the dogs rated least trainable at eight months were rated more trainable again at twelve, and the effect was strongest in dogs whose attachment to their carer looked less secure — which is an argument for spending this period building the relationship rather than testing it.",
+        "Nine and ten months bring the next part of it: more physical maturity, the later reproductive decisions for larger dogs, and the beginning of the shift towards an adult routine. None of that needs anything from you today beyond continuing to make coming back to you the best available option.",
+      ],
+    },
+  ],
+
+  checklist: [
+    { id: "longline", label: "Put a long line back on before you need one", detail: "It lets you give space without giving a choice you cannot influence." },
+    { id: "lower", label: "Take one failing behaviour back a rung", detail: "Rehearse it where it succeeds, then rebuild. Failing repeatedly weakens it." },
+    { id: "pay", label: "Raise what you are paying for recall", detail: "What worked at four months does not pay for leaving another dog at eight." },
+    { id: "neutral", label: "Practise being near other dogs without meeting them" },
+    { id: "freedom", label: "Decide freedom by today's recall, not by the dog's size" },
+    { id: "rules", label: "Agree one set of rules across the household again" },
+    { id: "id", label: "Check the collar tag and the microchip registration", detail: "This is the age at which they get used." },
+    { id: "mouth", label: "Have the mouth looked at now the adult teeth are in" },
+    { id: "pain", label: "Treat a sudden behaviour change as a possible physical one" },
+  ],
+
+  sources: [
+    {
+      label: "Teenage dogs? Evidence for adolescent-phase conflict behaviour — carer-rated trainability lower at approximately eight months than at five or twelve, with reduced responding to the carer but not to a stranger",
+      publisher: "Asher et al., Biology Letters (2020)",
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7280042",
+    },
+    {
+      label: "Dental development of dogs — all permanent teeth present by about seven months",
+      publisher: "Merck Veterinary Manual",
+      url: "https://www.merckvetmanual.com/dog-owners/digestive-disorders-of-dogs/dental-development-of-dogs",
+    },
+    {
+      label: "Feeding practices in small animals — growth diets until skeletal maturity, which is later in large and giant breeds",
+      publisher: "Merck Veterinary Manual",
+      url: "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/feeding-practices-in-small-animals",
+    },
+    {
+      label: "2019 AAHA Canine Life Stage Guidelines — recommended timing for canine sterilization, split at 45 lb projected adult bodyweight",
+      publisher: "American Animal Hospital Association",
+      url: "https://www.aaha.org/wp-content/uploads/globalassets/02-guidelines/canine-life-stage-2019/2019-aaha-canine-life-stage-guidelines-final.pdf",
+    },
+  ],
+
+  resources: [
+    {
+      label: "Your provincial or territorial veterinary regulator, and what it licenses",
+      publisher: "Canadian Veterinary Medical Association",
+      url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+    },
+  ],
+
+  needsVerification: [
+    "Every adolescence claim is attributed to Asher et al. 2020 and stated as what that study found rather than as a universal timeline. The page never says adolescence begins at seven or eight months, never says every dog loses its recall, and never gives a breed-independent schedule. Do not let an edit convert 'a measurable dip around adolescence, at approximately eight months in one study' into 'adolescence starts at eight months'.",
+    "The study followed guide dogs — German shepherds, golden and Labrador retrievers and crosses — not a representative sample of pet dogs, and states that age groupings would need reconsidering for different breeds. That limitation is carried in the prose and must stay.",
+    "The carer-specific finding (reduced responding to the carer's cue but not a stranger's, and trainers rating the same dogs higher) is the page's central claim and is quoted from the study. It is the reason no 'stubborn', 'dominant' or 'defiant' framing appears anywhere.",
+    "No 'second fear period' appears, in any wording. The differentiation gate found no peer-reviewed basis for it at any age. New fear is described as an individual change with a route to professional help, not as a developmental stage.",
+    "The association between separation-related behaviour at eight months and lower obedience to the carer is reported as an association, not a cause, and no mechanism is asserted.",
+    "No universal sexual-maturity age appears. Adolescence and sexual maturity are explicitly separated, and timing is left to size, breed and the individual.",
+    "Sterilization timing is quoted from AAHA's 2019 life stage guidelines with the 45 lb split and their own cross-breed caution. Nothing is booked and adolescent behaviour is explicitly not given as a reason to neuter.",
+    "No adult-food transition is recommended. Merck ties it to skeletal maturity — roughly eight to twelve months in small and medium dogs, up to fifteen or sixteen in some large and giant breeds — and the page defers to the veterinarian. No quantities, calorie tables or adult-weight predictions appear.",
+    "No exercise formula appears, and physical maturity is explicitly not claimed. The growth-plate reasoning names no age, distance or rule.",
+    "The hero photograph is not captioned with an age. The source page describes the dog as adult and the age could not be verified; the alt text describes the long line and the dog's attention, which is what the image is being used for, rather than asserting a life stage.",
+  ],
+};
+
 export const stages: readonly PuppyStage[] = [
   eightWeeks,
   nineToElevenWeeks,
   twelveWeeks,
   threeMonths,
   fourToSixMonths,
+  sevenToEightMonths,
 ];
 
 /* ------------------------------------------------------------- the roadmap */
@@ -2000,6 +2312,30 @@ export function stageFor(age: PuppyAge): PuppyStage | null {
 /* --------------------------------------------------------------- modifiers */
 
 export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
+  {
+    sizeGroup: "large",
+    stageSlug: "7-8-months",
+    sectionId: "exercise",
+    body: [
+      "A large-breed dog at this age looks capable of far more than it should be doing. Growth is not finished, and the restraint on repetitive forced exercise — running alongside a bicycle, long stair sessions, endless ball-throwing — still applies. Let the work go into variety and problem-solving rather than distance, and take any question about building endurance to your veterinarian rather than to a rule of thumb.",
+    ],
+  },
+  {
+    sizeGroup: "giant",
+    stageSlug: "7-8-months",
+    sectionId: "exercise",
+    body: [
+      "A giant-breed dog is nowhere near physically finished at seven or eight months, however adult it looks — and it will look adult to everyone who meets it. That mismatch is the risk: people expect more of the dog than its body is ready for. Keep exercise varied and self-paced rather than sustained, and treat endurance work as a veterinary conversation rather than a judgement call.",
+    ],
+  },
+  {
+    sizeGroup: "toy",
+    stageSlug: "7-8-months",
+    sectionId: "freedom",
+    body: [
+      "A small adolescent gets less latitude from the world, not more. It is harder to see, easier to lose in undergrowth, and a great deal more vulnerable if the recall fails near a road or around a larger dog that is playing too hard. The long line matters at least as much here as it does for a big dog, and \u201che is only little\u201d is not a safety plan.",
+    ],
+  },
   {
     sizeGroup: "toy",
     stageSlug: "4-6-months",
@@ -2451,6 +2787,28 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
  * like. Spring and autumn do not, and get nothing rather than an adjective.
  */
 export const seasonModifiers: readonly SeasonModifier[] = [
+  {
+    season: "summer",
+    stageSlug: "7-8-months",
+    sectionId: "exercise",
+    heading: "An adolescent in summer",
+    body: [
+      "Adolescents push past their own limits more readily than puppies or adults do, and heat is the condition in which that matters most — a dog chasing something in thirty degrees will not stop because it is too hot. Walk at the ends of the day, test pavement with the back of your hand, and be the one who calls time rather than waiting for the dog to.",
+      "Summer also raises the distraction level everywhere: more people, more dogs, more wildlife, more going on. A recall that was holding in May can come apart in July for no reason other than that the world got busier. That is a reason to drop back a rung, not to conclude the training has failed.",
+    ],
+    guide: { slug: "summer-heat-safety-for-dogs-in-canada", label: "Heat, pavement and wildfire smoke" },
+  },
+  {
+    season: "winter",
+    stageSlug: "7-8-months",
+    sectionId: "training",
+    heading: "Training an adolescent in winter",
+    body: [
+      "Short daylight is the real constraint. The rebuilding this stage asks for needs repetitions in ordinary places, and in a Canadian winter most of those places are dark by the time anyone is free. Go for frequency over duration — three five-minute sessions beat one long one — and accept that some of the work moves indoors.",
+      "Ice adds a second reason to keep a long line short. A fast adolescent turning hard on a frozen path is a genuine injury risk, and traction is worth choosing routes for. Rinse the paws after treated pavements, and check between the toes if a dog starts refusing to walk.",
+    ],
+    guide: { slug: "winter-dog-care-in-canada", label: "Winter care, paws and road salt" },
+  },
   {
     season: "summer",
     stageSlug: "4-6-months",

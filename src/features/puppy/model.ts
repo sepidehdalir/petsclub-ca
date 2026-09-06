@@ -182,6 +182,10 @@ export type SectionId =
   | "vaccine-questions"
   /** The spay/neuter timing decision — a discussion window, never a date. */
   | "neutering"
+  /** How much freedom an adolescent dog has earned, and how to tell. */
+  | "freedom"
+  /** Interest in other dogs and the world, and what changes about it. */
+  | "social-behaviour"
   | "parasite-prevention"
   | "safety"
   /** Records, identification and licensing — an audit, not a to-do list. */

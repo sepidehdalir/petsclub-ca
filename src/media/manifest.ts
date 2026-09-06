@@ -20,6 +20,7 @@ import puppyTwelveWeeks from "./photos/puppy-twelve-weeks.jpg";
 import puppyEightWeeks from "./photos/puppy-eight-weeks.jpg";
 import puppyThreeMonths from "./photos/puppy-three-months.jpg";
 import puppyFourFiveMonths from "./photos/puppy-four-five-months.jpg";
+import puppySevenEightMonths from "./photos/puppy-seven-eight-months.jpg";
 import catsLeavingLitterBox from "./photos/cats-leaving-litter-box.jpg";
 import catsDrinkingRunningWater from "./photos/cats-drinking-running-water.jpg";
 import healthVetConsultationDiscussion from "./photos/health-vet-consultation-discussion.jpg";
@@ -442,6 +443,17 @@ const assets = {
     photographer: "Rahul Katare",
     source: "Pexels",
     sourceUrl: "https://www.pexels.com/photo/adorable-labrador-puppy-sitting-indoors-35942005/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "puppy-seven-eight-months": {
+    id: "puppy-seven-eight-months",
+    src: puppySevenEightMonths,
+    file: "photos/puppy-seven-eight-months.jpg",
+    alt: "A lean dog in a plain harness stands on open heathland at the end of a long line, attention fixed on something out of frame.",
+    photographer: "Laura Paredis",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/happy-dog-walking-in-field-13076160/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },
