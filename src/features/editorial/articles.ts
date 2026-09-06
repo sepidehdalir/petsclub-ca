@@ -514,6 +514,11 @@ export const articles: readonly Article[] = [
     ],
     sources: [
       {
+        label: "Pediatric patients need proportionally more fluid than adults and can progress rapidly from mild dehydration to hypovolaemia",
+        publisher: "Lee JA, Cohn LA, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017 (PMID 27939859)",
+        url: "https://doi.org/10.1016/j.cvsm.2016.09.010",
+      },
+      {
         label:
           "Sleep Duration and Behaviours: A Descriptive Analysis of a Cohort of Dogs up to 12 Months of Age \u2014 owner-reported mean total sleep of 11.2 h at sixteen weeks",
         publisher: "Generation Pup, Animals 2020;10(7):1172",
@@ -533,6 +538,7 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
+      "RESOLVED \u2014 NARROWED, 2026-09-06. The VetNote previously said very young puppies \u201chave little reserve, and a problem that would be minor in an adult dog can become serious quickly\u201d \u2014 an unregistered general claim about physiological reserve, for which no source was found. It now names dehydration and low blood sugar specifically. Sourced to Lee JA and Cohn LA, \u201cFluid Therapy for Pediatric Patients\u201d, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017, PMID 27939859, verified 2026-09-06: \u201cpediatric patients have a higher fluid requirement compared with adults and can rapidly progress from mild dehydration to hypovolemia\u201d, and pediatric fluid therapy \u201cmust address hydration, vascular fluid volume, electrolyte disturbances, or hypoglycemia\u201d. LIMITATION \u2014 fluid and glucose only, not reserve across every organ system. See the standing guardrail on the emergency guide; the three articles must not drift apart.",
       "RESOLVED 2026-09-06 \u2014 the sixteen-to-eighteen-hours sleep figure, shared with the crate guide and resolved identically. Both articles now cite the Generation Pup cohort study, carry its owner-reported limitation, and use compatible wording. Neither states a precise daily total as fact.",
       "STANDING GUARDRAIL \u2014 the two puppy guides state sleep the same way. Do not let one drift to a precise number the other does not carry, and do not introduce the age-in-months-plus-one-hour rule here; it was removed from the crate guide for want of a source.",
       "STANDING GUARDRAIL \u2014 That most Canadian municipalities require dogs to be licensed — stated generally rather than enumerated; confirm before naming a proportion.",
@@ -817,6 +823,11 @@ export const articles: readonly Article[] = [
     relatedCategorySlugs: ["kittens", "general-cat-discussion", "cat-behaviour"],
     sources: [
       {
+        label: "Pediatric patients need proportionally more fluid than adults and can progress rapidly from mild dehydration to hypovolaemia",
+        publisher: "Lee JA, Cohn LA, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017 (PMID 27939859)",
+        url: "https://doi.org/10.1016/j.cvsm.2016.09.010",
+      },
+      {
         label: "Which lilies are toxic to cats, and why pollen and vase water count",
         publisher: "ASPCA Animal Poison Control Center",
         url: "https://www.aspca.org/news/which-lilies-are-toxic-pets",
@@ -830,6 +841,7 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
+      "RESOLVED \u2014 NARROWED, 2026-09-06. The VetNote previously said kittens \u201chave very little reserve and can go downhill quickly\u201d \u2014 an unregistered general claim about physiological reserve, for which no source was found. It now names dehydration and low blood sugar specifically. Sourced to Lee JA and Cohn LA, \u201cFluid Therapy for Pediatric Patients\u201d, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017, PMID 27939859, verified 2026-09-06: \u201cpediatric patients have a higher fluid requirement compared with adults and can rapidly progress from mild dehydration to hypovolemia\u201d, and pediatric fluid therapy \u201cmust address hydration, vascular fluid volume, electrolyte disturbances, or hypoglycemia\u201d. LIMITATION \u2014 fluid and glucose only, not reserve across every organ system. See the standing guardrail on the emergency guide; the three articles must not drift apart.",
       "That litter box problems are the most common behavioural reason cats lose their homes — widely repeated, currently written as a general claim; source it or soften it.",
       "The kitten socialisation period, described here as earlier and shorter than a puppy’s without naming weeks; attach a source before adding figures.",
       "That most cats past kittenhood digest cow’s milk poorly — well established, but attach a veterinary source.",
@@ -1187,6 +1199,21 @@ export const articles: readonly Article[] = [
     relatedCategorySlugs: ["vet-costs", "pet-insurance"],
     sources: [
       {
+        label: "Pediatric patients need proportionally more fluid than adults and can progress rapidly from mild dehydration to hypovolaemia",
+        publisher: "Lee JA, Cohn LA, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017 (PMID 27939859)",
+        url: "https://doi.org/10.1016/j.cvsm.2016.09.010",
+      },
+      {
+        label: "The neonatal period is the first 21 days; no thermoregulation until four weeks; neonates lack glucose reserves, so even minimal fasting can cause hypoglycaemia",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/management-and-nutrition/management-of-the-neonate/management-of-the-neonate-in-dogs-and-cats",
+      },
+      {
+        label: "\u201cPediatric\u201d in small-animal practice conventionally means birth to six months of age",
+        publisher: "Hoskins JD, Veterinary Clinics of North America: Small Animal Practice 29(4), 1999 (PMID 10390787)",
+        url: "https://pubmed.ncbi.nlm.nih.gov/10390787/",
+      },
+      {
         label: "Animal emergencies that require immediate veterinary consultation or care",
         publisher: "American Veterinary Medical Association",
         url: "https://www.avma.org/resources/pet-owners/emergencycare/13-animal-emergencies-require-immediate-veterinary-consultation-andor-care",
@@ -1215,7 +1242,8 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "That very young animals have less physiological reserve and deteriorate faster than adults \u2014 widely repeated, not yet sourced here. Written as a reason to lower the threshold for calling, never as a physiological claim.",
+      "RESOLVED \u2014 NARROWED, 2026-09-06. The article previously said very young animals \u201chave far less reserve than an adult and deteriorate faster\u201d. No source was found for that as a general physiological claim, and it is not asserted any more. What replaced it is scoped to the mechanisms that are actually sourced. Lee JA and Cohn LA, \u201cFluid Therapy for Pediatric Patients\u201d, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017, PMID 27939859, doi 10.1016/j.cvsm.2016.09.010, verified 2026-09-06 via Europe PMC, states verbatim that \u201cyoung puppies and kittens have unique physiologic needs in regards to fluid therapy, which must address hydration, vascular fluid volume, electrolyte disturbances, or hypoglycemia\u201d and that \u201cpediatric patients have a higher fluid requirement compared with adults and can rapidly progress from mild dehydration to hypovolemia\u201d. The Merck Veterinary Manual, Management of the Neonate in Dogs and Cats, verified 2026-09-06, states that \u201cthe neonatal period in dogs and cats encompasses the first 21 days of life\u201d, that \u201cpuppies and kittens lack thermoregulatory mechanisms until 4 weeks of age\u201d, and that \u201cneonates lack glucose reserves and have minimal capacity for gluconeogenesis\u201d so that \u201ceven minimal fasting can result in hypoglycemia\u201d. Hoskins JD, \u201cPediatric health care and management\u201d, Veterinary Clinics of North America: Small Animal Practice 29(4), 1999, PMID 10390787, verified 2026-09-06, anchors the age scope: pediatric care covers puppies and kittens \u201cfrom birth to 6 months of age\u201d. LIMITATION \u2014 what is supported is fluid, glucose and temperature, not reserve across every organ system, and the thermoregulation and glycogen findings are neonatal rather than pediatric. Nothing supports a blanket claim that young animals deteriorate faster in every illness, and the article now says so explicitly. No numeric threshold for calling was added; the ages quoted define the source populations and are not action cutoffs.",
+      "STANDING GUARDRAIL \u2014 Do not restore a broad \u201cyoung animals deteriorate faster\u201d statement without evidence supporting the exact scope. The claim is licensed for fluid loss, hypoglycaemia and (under four weeks) thermoregulation, and for pediatric animals to about six months; it is not licensed as a general statement about physiological reserve. The two 30-days guides carry the same narrowed claim and must not drift apart from this one.",
       "That payment is generally expected at the time of service at Canadian emergency hospitals, and that a deposit may be requested on admission \u2014 described as what to ask about rather than as a rule.",
       "That emergency hospitals treat in order of severity rather than arrival. Kept descriptive rather than stated as a Canada-wide rule.",
       "That cats conceal illness \u2014 carried over from the cat cost guide, and flagged there too.",

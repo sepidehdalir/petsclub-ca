@@ -1538,55 +1538,163 @@ describe("Puppy Journey dependency set", () => {
     }
   });
 
-  /**
-   * One register item across the fifteen still reads as unsourced, and it is
-   * named here rather than relabelled quietly.
-   *
-   * `emergency-vet-visits-in-canada` records that very young animals have less
-   * physiological reserve and deteriorate faster, "not yet sourced here" — and
-   * in the same item, that it is "written as a reason to lower the threshold
-   * for calling, never as a physiological claim". The independent V2 gate read
-   * the article and classified it as carrying no publication blocker for that
-   * reason: the claim is conservative in direction, it makes a reader more
-   * likely to seek care rather than less, and the register already constrains
-   * how it may be written.
-   *
-   * It was outside this batch's scope, so it was not edited. Closing it by
-   * changing its label would be exactly the move the batch brief forbids, so
-   * the exception is written down instead: visible, attributed, and easy to
-   * remove once a source is attached.
-   */
-  const KNOWN_UNSOURCED = new Map([
-    ["emergency-vet-visits-in-canada", /less physiological reserve/i],
-  ]);
-
-  it("leaves zero publication blockers across all fifteen, bar one documented item", () => {
+  it("leaves zero publication blockers across all fifteen", () => {
     const blockers: string[] = [];
     for (const slug of JOURNEY_DEPENDENCIES) {
       const items = articles.find((a) => a.slug === slug)!.needsVerification ?? [];
       for (const item of items) {
         if (!BLOCKING_ITEM.test(item)) continue;
         if (/^(?:RESOLVED|STANDING GUARDRAIL|OPEN \(NON-BLOCKING\))/.test(item)) continue;
-        const known = KNOWN_UNSOURCED.get(slug);
-        if (known?.test(item)) continue;
         blockers.push(`${slug}: ${item.slice(0, 120)}`);
       }
     }
     expect(blockers).toEqual([]);
   });
 
-  it("keeps the one documented exception genuinely present and genuinely safe", () => {
-    // If somebody sources it, this test fails and the allowlist entry goes.
-    const items =
-      articles.find((a) => a.slug === "emergency-vet-visits-in-canada")!.needsVerification ?? [];
-    const item = items.find((x) => /less physiological reserve/i.test(x));
-    expect(item, "the documented exception has changed — update KNOWN_UNSOURCED").toBeDefined();
-    // The constraint that makes it safe must still be recorded beside it.
-    expect(item!).toMatch(/never as a physiological claim/i);
+  /**
+   * The last blocker was the claim that very young animals have less
+   * physiological reserve and deteriorate faster than adults.
+   *
+   * These tests are deliberately written against the prose and the sources
+   * rather than against the register label, because a register label can be
+   * changed by hand and prose cannot be changed without changing what the
+   * reader is told. Relabelling the item would not make any of them pass.
+   */
+  describe("the physiological-reserve claim", () => {
+    const RESERVE_ARTICLES = [
+      "emergency-vet-visits-in-canada",
+      "bringing-home-a-puppy-first-30-days",
+      "bringing-home-a-kitten-first-30-days",
+    ] as const;
 
-    // And the article must still use it only to lower the calling threshold.
-    const body = ARTICLE_BODIES.find((a) => a.slug === "emergency-vet-visits-in-canada")!.body;
-    expect(body).toMatch(/threshold for calling should be lower/i);
+    const body = (slug: string) => ARTICLE_BODIES.find((a) => a.slug === slug)!.body;
+    const sourceText = (slug: string) =>
+      (articles.find((a) => a.slug === slug)!.sources ?? [])
+        .map((x) => `${x.label} ${x.publisher} ${x.url}`)
+        .join(" ");
+
+    it("1. asserts the broad reserve claim in no article in the library", () => {
+      // The unsourced generalisation, in any of the three phrasings it had.
+      const broad =
+        /(?:far )?less reserve than an adult|little reserve\b|lacks? (?:the )?reserves? of an adult|deteriorates? faster than (?:an )?adults?|go(?:es)? downhill quickly/i;
+      const offenders = ARTICLE_BODIES.filter(({ body }) => broad.test(body)).map((a) => a.slug);
+      expect(offenders).toEqual([]);
+    });
+
+    it("2. states no universal claim about reserve across every organ system", () => {
+      for (const slug of RESERVE_ARTICLES) {
+        expect(body(slug), slug).not.toMatch(/physiological(?:ly)? reserve/i);
+        expect(body(slug), slug).not.toMatch(/weak immune system|immature immune system/i);
+        // No "every"/"any" symptom generalisation — asserted. A sentence that
+        // *denies* the generalisation ("not that every symptom is more
+        // dangerous") is the opposite of the failure, so the clause is only a
+        // violation when nothing negates it.
+        const claim =
+          /(?:every|any|all) (?:symptom|illness|problem)s? (?:is|are) (?:more|far more) (?:dangerous|serious)/i;
+        for (const clause of body(slug).split(/(?<=[.?!])\s+|(?:, | \u2014 )/)) {
+          if (!claim.test(clause)) continue;
+          expect(clause, `${slug}: ${clause}`).toMatch(/\bnot\b|\bnever\b|\brather than\b/i);
+        }
+      }
+    });
+
+    it("3. keeps only the mechanisms the sources actually establish", () => {
+      const b = body("emergency-vet-visits-in-canada");
+      // Fluid — Lee & Cohn, pediatric.
+      expect(b).toMatch(/mild dehydration to hypovolaemia/i);
+      expect(b).toMatch(/more fluid than adults/i);
+      // Glucose and temperature — Merck, neonatal.
+      expect(b).toMatch(/hypoglycaemia/i);
+      expect(b).toMatch(/thermoregulatory mechanisms until four weeks/i);
+    });
+
+    it("4. carries the real age scope beside each mechanism, not a vague 'very young'", () => {
+      const b = body("emergency-vet-visits-in-canada");
+      // Pediatric is defined, and the neonatal findings are marked as neonatal.
+      expect(b).toMatch(/pediatric patients .{0,120}six months/is);
+      expect(b).toMatch(/neonatal period at the first 21 days/i);
+      expect(b).toMatch(/neonates/i);
+    });
+
+    it("5. explicitly denies the overbroad reading it used to imply", () => {
+      expect(body("emergency-vet-visits-in-canada")).toMatch(
+        /not that every symptom is more dangerous in a young animal/i,
+      );
+    });
+
+    it("6. retains the actionable advice: call sooner for a young animal", () => {
+      const b = body("emergency-vet-visits-in-canada");
+      expect(b).toMatch(/earns a call sooner than the same thing would in an adult/i);
+      expect(b).toMatch(/same lower threshold applies/i);
+      expect(body("bringing-home-a-puppy-first-30-days")).toMatch(/worth a call sooner/i);
+    });
+
+    it("7. attaches a real source to the claim in every article that makes it", () => {
+      for (const slug of RESERVE_ARTICLES) {
+        // The peer-reviewed pediatric fluid-therapy paper.
+        expect(sourceText(slug), slug).toMatch(/27939859/);
+      }
+      // The emergency guide additionally carries Merck and the scope anchor.
+      const emergency = sourceText("emergency-vet-visits-in-canada");
+      expect(emergency).toMatch(/management-of-the-neonate/);
+      expect(emergency).toMatch(/10390787/);
+    });
+
+    it("8. keeps the three articles from drifting apart on the same claim", () => {
+      for (const slug of RESERVE_ARTICLES) {
+        // Each names dehydration, and none reverts to a bare reserve claim.
+        expect(body(slug), slug).toMatch(/dehydration/i);
+      }
+      // Both 30-days guides name low blood sugar in plain words, as they must.
+      for (const slug of RESERVE_ARTICLES.slice(1)) {
+        expect(body(slug), slug).toMatch(/low blood sugar/i);
+      }
+    });
+
+    it("9. adds no numeric threshold for when to call", () => {
+      const b = body("emergency-vet-visits-in-canada");
+      // Hours/times that would read as an action cutoff.
+      expect(b).not.toMatch(
+        /(?:call|phone|seek|go)[^.]{0,60}\bwithin \d+\s*(?:hours?|minutes?)/i,
+      );
+      expect(b).not.toMatch(/\bmore than \d+\s*(?:hours?|times?)[^.]{0,40}(?:call|emergency)/i);
+      // The only figures near the young-animal passage are source age scopes.
+      const passage = b.slice(b.indexOf("Two smaller notes"), b.indexOf("Two smaller notes") + 1400);
+      for (const n of passage.match(/\b\d+\b/g) ?? []) {
+        expect(["21", "4"], `unexpected figure ${n}`).toContain(n);
+      }
+    });
+  });
+
+  /**
+   * The safety sweep over the emergency advice that was already there. These
+   * are the properties the brief names, checked against the prose rather than
+   * assumed from the earlier gate.
+   */
+  it("keeps the emergency advice free of diagnosis, doses and home treatment", () => {
+    const b = ARTICLE_BODIES.find((a) => a.slug === "emergency-vet-visits-in-canada")!.body;
+    // No instruction *to* induce vomiting. The article does discuss induced
+    // vomiting — to forbid it without veterinary direction, and to explain why
+    // for corrosives and petroleum distillates — so the check is on direction,
+    // not on the phrase. Every mention must be negated or conditioned.
+    for (const clause of b.split(/(?<=[.?!])\s+/)) {
+      if (!/induce vomiting|making an animal vomit|make (?:your|the) (?:dog|cat|pet) (?:vomit|sick)/i.test(clause)) {
+        continue;
+      }
+      expect(clause, `unqualified emesis instruction: ${clause}`).toMatch(
+        /\bdo not\b|\bnever\b|\bunless\b|\bcontraindicated\b|\bdanger\b|\bbrings the corrosive\b/i,
+      );
+    }
+    expect(b).not.toMatch(/hydrogen peroxide/i);
+    // No medication or dose.
+    expect(b).not.toMatch(
+      /\b\d+\s*(?:mg|ml|mcg|g)\b|\bper (?:kg|kilogram|pound|lb)\b|benadryl|diphenhydramine|ibuprofen|acetaminophen|aspirin/i,
+    );
+    // No home treatment offered as an alternative to care.
+    expect(b).not.toMatch(/instead of (?:calling|seeing) (?:a|your) vet/i);
+    expect(b).not.toMatch(/wait (?:it )?out (?:overnight|until morning)/i);
+    // The disclaimer that it does not diagnose is still present.
+    expect(b).toMatch(/Nothing here is a diagnosis/i);
   });
 
   it("holds every earlier batch's guard across the whole dependency set", () => {
