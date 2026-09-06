@@ -14,7 +14,13 @@ import { StageView } from "@/features/puppy/components/stage-view";
 import { JourneyTimeline } from "@/features/puppy/components/journey-timeline";
 import { findBreed, findProvince, sizeGroups } from "@/features/puppy/model";
 import type { BreedSlug, ProvinceCode } from "@/features/puppy/model";
-import { findPhase, roadmapStageFor, stageFor } from "@/features/puppy/stages";
+import {
+  findPhase,
+  journeyMeta,
+  roadmapStageFor,
+  stageAgePhrase,
+  stageFor,
+} from "@/features/puppy/stages";
 import type { JourneyPhaseId } from "@/features/puppy/stages";
 import { articlePath } from "@/features/editorial/articles";
 import type { ArticleSlug } from "@/features/editorial/articles";
@@ -127,11 +133,14 @@ function Placeholder({
   title,
   body,
   children,
+  facts,
   currentSlug = "",
 }: {
   title: string;
   body: string;
   children?: React.ReactNode;
+  /** The quiet meta row — exact age and phase, never a second headline. */
+  facts?: readonly string[];
   /**
    * The rail row to mark as "you are here", where the age resolves to one.
    *
@@ -150,6 +159,11 @@ function Placeholder({
             <div className="max-w-xl">
               <p className="font-sans text-label uppercase text-pine-700">Puppy Journey</p>
               <h1 className="mt-3 text-display-3 text-foreground sm:text-display-2">{title}</h1>
+              {facts && facts.length > 0 ? (
+                <p className="mt-3 font-sans text-body-sm text-foreground-muted">
+                  {facts.join(" · ")}
+                </p>
+              ) : null}
               <p className="mt-4 text-body-lg text-foreground-muted">{body}</p>
               {children}
               <div className="mt-8">
@@ -247,10 +261,11 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
     return (
       <Placeholder
         currentSlug={roadmap?.slug ?? ""}
-        title={`Your puppy is ${age.label}`}
+        title={`Your puppy is ${roadmap ? stageAgePhrase(roadmap) : age.label}`}
+        facts={journeyMeta(age, roadmap)}
         body={
-          roadmap && phase
-            ? `That puts you at ${roadmap.label}, in ${phase.label.toLowerCase()}. We have not written that stage yet — the 11-week stage is the only finished one so far, researched and sourced to the same standard as the rest of the site.`
+          roadmap
+            ? "We have not written this stage yet. The 11-week stage is the only finished one so far — researched and sourced to the same standard as the rest of the site, and the others are following."
             : "We have not written a stage for this age yet. The 11-week stage is finished, and the rest are being researched to the same standard."
         }
       >
@@ -276,11 +291,16 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
   }
 
   const sizeGroup = breed?.sizeGroup;
+  const roadmap = roadmapStageFor(age);
+
+  // The stage names the age; the exact figure goes quietly in the meta row.
+  const agePhrase = roadmap ? stageAgePhrase(roadmap) : age.label;
   const headline = breed && breed.slug !== "mixed"
-    ? `Your ${breed.name} is ${age.label}`
-    : `Your puppy is ${age.label}`;
+    ? `Your ${breed.name} is ${agePhrase}`
+    : `Your puppy is ${agePhrase}`;
 
   const facts = [
+    ...journeyMeta(age, roadmap),
     `Born ${formatCivilDate(birth)}`,
     ...(sizeGroup ? [`${sizeGroups[sizeGroup].label} breed · ${sizeGroups[sizeGroup].adultWeight}`] : []),
     ...(province ? [province.name] : []),

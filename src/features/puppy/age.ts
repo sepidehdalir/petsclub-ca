@@ -329,7 +329,9 @@ export interface PuppyAge {
   months: number;
   /** Days since the most recent monthly anniversary. */
   remainderDaysInMonth: number;
-  /** "11 weeks", "4 months and 2 weeks" — the phrase the UI shows. */
+  /** "11 weeks", "4 months and 2 weeks" — the age with no trailing "old". */
+  exact: string;
+  /** `exact` plus "old", for a sentence. */
   label: string;
 }
 
@@ -346,31 +348,39 @@ export type AgeResult =
  */
 export const MAX_PLAUSIBLE_DAYS = 365 * 3;
 
+/**
+ * The exact age as a noun phrase, with no trailing "old".
+ *
+ * Returned bare because the interface needs it both ways: "Your puppy is 11
+ * weeks old" in a sentence, and a plain "13 weeks" in a meta row beside a
+ * stage label. Appending "old" at the call site is cheaper and safer than
+ * stripping it off again.
+ */
 function describe(days: number, months: number, remainderDaysInMonth: number): string {
   if (days < 7) {
-    return days === 1 ? "1 day old" : `${days} days old`;
+    return days === 1 ? "1 day" : `${days} days`;
   }
 
   if (days < 112) {
     // Under 16 weeks, weeks are the unit everyone actually uses.
     const weeks = Math.floor(days / 7);
-    return weeks === 1 ? "1 week old" : `${weeks} weeks old`;
+    return weeks === 1 ? "1 week" : `${weeks} weeks`;
   }
 
   if (months < 12) {
     const leftoverWeeks = Math.floor(remainderDaysInMonth / 7);
     if (leftoverWeeks >= 1 && leftoverWeeks <= 3) {
-      return `${months} months and ${leftoverWeeks} week${leftoverWeeks === 1 ? "" : "s"} old`;
+      return `${months} months and ${leftoverWeeks} week${leftoverWeeks === 1 ? "" : "s"}`;
     }
-    return `${months} months old`;
+    return `${months} months`;
   }
 
   const years = Math.floor(months / 12);
   const leftoverMonths = months % 12;
   if (leftoverMonths === 0) {
-    return years === 1 ? "1 year old" : `${years} years old`;
+    return years === 1 ? "1 year" : `${years} years`;
   }
-  return `${years} year${years === 1 ? "" : "s"} and ${leftoverMonths} month${leftoverMonths === 1 ? "" : "s"} old`;
+  return `${years} year${years === 1 ? "" : "s"} and ${leftoverMonths} month${leftoverMonths === 1 ? "" : "s"}`;
 }
 
 /**
@@ -392,6 +402,7 @@ export function resolveAge(birth: CivilDate, today: CivilDate): AgeResult {
 
   const months = completedCalendarMonths(birth, today);
   const remainderDaysInMonth = daysBetween(addCalendarMonths(birth, months), today);
+  const exact = describe(days, months, remainderDaysInMonth);
 
   return {
     ok: true,
@@ -401,7 +412,8 @@ export function resolveAge(birth: CivilDate, today: CivilDate): AgeResult {
       remainderDays: days % 7,
       months,
       remainderDaysInMonth,
-      label: describe(days, months, remainderDaysInMonth),
+      exact,
+      label: `${exact} old`,
     },
   };
 }

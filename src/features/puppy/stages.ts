@@ -535,6 +535,46 @@ export function roadmapStageFor(age: PuppyAge): RoadmapStage | null {
   );
 }
 
+/**
+ * How a stage names the reader's age in a headline.
+ *
+ * The Journey stage is the primary label and the calculated age is secondary
+ * context, because the two do not always agree and a page must never show two
+ * competing answers to "how old is my puppy". A thirteen-week-old resolves to
+ * the 3-month stage: the headline says three months, and "13 weeks" sits
+ * quietly in the meta row beside it.
+ *
+ * Maturity is phrased rather than suffixed — "a young adult", not "Young adult
+ * old" — which is the whole reason this is a function and not a template
+ * string at the call site.
+ */
+export function stageAgePhrase(stage: RoadmapStage): string {
+  if (stage.range.unit === "months" && stage.range.maxMonths === undefined) {
+    return "a young adult";
+  }
+  return `${stage.label} old`;
+}
+
+/**
+ * The secondary context beneath a Journey headline.
+ *
+ * `stageAgePhrase` supplies the headline; this supplies the quiet row under
+ * it — the exact calculated age, then the phase. The exact age is dropped when
+ * it would only repeat the headline: a puppy on the 11-week stage is eleven
+ * weeks old, and saying so twice is noise rather than precision.
+ *
+ * The invariant this exists to hold: the page shows one primary age label and
+ * one only. Everything else is context.
+ */
+export function journeyMeta(age: PuppyAge, roadmap: RoadmapStage | null): string[] {
+  if (!roadmap) {
+    return [];
+  }
+
+  const phase = findPhase(roadmap.phase);
+  return age.exact === roadmap.label ? [phase.label] : [age.exact, phase.label];
+}
+
 /** The implemented stage for a resolved age, or `null` if it has no page. */
 export function stageFor(age: PuppyAge): PuppyStage | null {
   const roadmap = roadmapStageFor(age);

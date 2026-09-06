@@ -32,9 +32,11 @@ import {
   elevenWeeks,
   findPhase,
   findRoadmapStage,
+  journeyMeta,
   roadmapByPhase,
   roadmapStageFor,
   roadmapStages,
+  stageAgePhrase,
   stageFor,
   stages,
 } from "@/features/puppy/stages";
@@ -826,6 +828,91 @@ describe("hybrid age resolution", () => {
 
     const adolescence = table.slice(table.indexOf("adolescence:"), table.indexOf("maturity:"));
     expect(adolescence).not.toContain("first-30-days");
+  });
+
+  it("names the age by its stage, and never twice", () => {
+    // The rule: the Journey stage is the primary label, the calculated age is
+    // secondary context, and the page never shows two competing answers to
+    // "how old is my puppy".
+    const cases: [string, string, string, string[]][] = [
+      // dob, today, headline phrase, meta row
+      ["2026-06-18", "2026-09-05", "11 weeks old", ["Early puppy"]],
+      ["2026-06-06", "2026-09-05", "3 months old", ["13 weeks", "Early development"]],
+      // Exactly on the anniversary the two agree, so the age is not repeated.
+      ["2026-05-05", "2026-09-05", "4 months old", ["Early development"]],
+      // Part-way through the month it says something the headline does not.
+      ["2026-04-20", "2026-09-05", "4 months old", ["4 months and 2 weeks", "Early development"]],
+      ["2026-01-31", "2026-09-05", "7\u20138 months old", ["7 months", "Adolescence"]],
+      ["2025-08-31", "2026-09-05", "11\u201312 months old", ["1 year", "Adolescence"]],
+      ["2024-02-29", "2026-09-05", "a young adult", ["2 years and 6 months", "Maturity"]],
+    ];
+
+    for (const [dob, today, phrase, meta] of cases) {
+      const age = ageOn(dob, today);
+      const roadmap = roadmapStageFor(age);
+      expect(roadmap).not.toBeNull();
+      expect(stageAgePhrase(roadmap!)).toBe(phrase);
+      expect(journeyMeta(age, roadmap)).toEqual(meta);
+    }
+  });
+
+  it("drops the exact age from the meta row only when it repeats the stage", () => {
+    // Weekly stages: headline and stage label say the same thing, so the meta
+    // row carries the phase alone.
+    const dob = "2026-06-18";
+    for (const days of [56, 63, 70, 77, 84, 90]) {
+      const age = ageOn(dob, dayAfter(dob, days));
+      const roadmap = roadmapStageFor(age)!;
+      expect(age.exact).toBe(roadmap.label);
+      expect(journeyMeta(age, roadmap)).toEqual(["Early puppy"]);
+    }
+
+    // Anywhere the two differ, the exact age is kept — and it is never the
+    // same string as the headline, which is what "competing labels" would be.
+    for (const [birth, today] of [
+      ["2026-06-06", "2026-09-05"],
+      ["2026-01-31", "2026-09-05"],
+      ["2024-02-29", "2026-09-05"],
+    ]) {
+      const age = ageOn(birth!, today!);
+      const roadmap = roadmapStageFor(age)!;
+      const meta = journeyMeta(age, roadmap);
+      expect(meta).toHaveLength(2);
+      expect(meta[0]).toBe(age.exact);
+      expect(stageAgePhrase(roadmap)).not.toContain(age.exact);
+    }
+  });
+
+  it("phrases every stage so it can finish the sentence it is put in", () => {
+    // "Your puppy is …" has to read as English for all thirteen, which is why
+    // maturity is phrased rather than suffixed.
+    for (const stage of roadmapStages) {
+      const sentence = `Your puppy is ${stageAgePhrase(stage)}`;
+      expect(sentence).not.toContain("Young adult old");
+      expect(sentence.endsWith("old") || sentence.endsWith("a young adult")).toBe(true);
+    }
+    expect(stageAgePhrase(findRoadmapStage("young-adult")!)).toBe("a young adult");
+    expect(stageAgePhrase(findRoadmapStage("11-weeks")!)).toBe("11 weeks old");
+    expect(stageAgePhrase(findRoadmapStage("3-months")!)).toBe("3 months old");
+    expect(stageAgePhrase(findRoadmapStage("9-10-months")!)).toBe("9\u201310 months old");
+  });
+
+  it("keeps the exact age available bare and in a sentence", () => {
+    // `exact` is the meta-row form and `label` the sentence form. Splitting
+    // them is what lets the meta row read "13 weeks" beside a "3 months"
+    // headline without stripping a suffix back off.
+    for (const [dob, today, exact] of [
+      ["2026-09-04", "2026-09-05", "1 day"],
+      ["2026-08-29", "2026-09-05", "1 week"],
+      ["2026-06-06", "2026-09-05", "13 weeks"],
+      ["2026-01-31", "2026-09-05", "7 months"],
+      ["2025-09-05", "2026-09-05", "1 year"],
+    ]) {
+      const age = ageOn(dob!, today!);
+      expect(age.exact).toBe(exact);
+      expect(age.label).toBe(`${exact} old`);
+      expect(age.exact.endsWith("old")).toBe(false);
+    }
   });
 
   it("keeps the implemented stage a strict subset of the roadmap", () => {
