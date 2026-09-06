@@ -15,6 +15,7 @@ import {
   resolveAge,
   resolveAgeFromInput,
   hasRepresentativeTimeZone,
+  MAX_PLAUSIBLE_DAYS,
   resolveToday,
   seasonOf,
   todayInZone,
@@ -24,6 +25,8 @@ import { allBreeds, findBreed, findProvince, provinces } from "@/features/puppy/
 import { resolveSources, resolveStage } from "@/features/puppy/resolve";
 import {
   elevenWeeks,
+  findPhase,
+  roadmapByPhase,
   roadmapStageForDays,
   roadmapStages,
   stageForDays,
@@ -318,6 +321,197 @@ describe("stage resolution", () => {
   });
 });
 
+/**
+ * The hybrid model.
+ *
+ * The cadence widens as development slows — a week early on, a month through
+ * early development, paired months through adolescence. These tests pin every
+ * boundary, because the whole model is boundaries and an off-by-one anywhere
+ * puts a reader on the wrong stage.
+ */
+describe("hybrid age resolution", () => {
+  const slugFor = (days: number) => roadmapStageForDays(days)?.slug ?? null;
+
+  it("steps week by week from 8 to 12 weeks", () => {
+    const weekly: [number, number, string][] = [
+      [56, 62, "8-weeks"],
+      [63, 69, "9-weeks"],
+      [70, 76, "10-weeks"],
+      [77, 83, "11-weeks"],
+      [84, 90, "12-weeks"],
+    ];
+
+    for (const [min, max, slug] of weekly) {
+      expect(max - min).toBe(6); // seven inclusive days, i.e. an actual week
+      expect(slugFor(min)).toBe(slug);
+      expect(slugFor(max)).toBe(slug);
+      expect(slugFor(min - 1)).not.toBe(slug);
+      expect(slugFor(max + 1)).not.toBe(slug);
+    }
+  });
+
+  it("hands over from the weekly phase to the monthly one at thirteen weeks", () => {
+    // Day 90 is the last day of week 12; day 91 is exactly thirteen weeks and
+    // also the first day of the third month. The two schemes meet with no seam
+    // and no overlap, which is the join most likely to be got wrong.
+    expect(slugFor(90)).toBe("12-weeks");
+    expect(slugFor(91)).toBe("3-months");
+    expect(roadmapStageForDays(90)?.phase).toBe("early-puppy");
+    expect(roadmapStageForDays(91)?.phase).toBe("early-development");
+  });
+
+  it("steps month by month from 3 to 6 months", () => {
+    const monthly: [number, number, string][] = [
+      [91, 121, "3-months"],
+      [122, 152, "4-months"],
+      [153, 182, "5-months"],
+      [183, 212, "6-months"],
+    ];
+
+    for (const [min, max, slug] of monthly) {
+      expect(slugFor(min)).toBe(slug);
+      expect(slugFor(max)).toBe(slug);
+      expect(slugFor(min - 1)).not.toBe(slug);
+      expect(slugFor(max + 1)).not.toBe(slug);
+      // A month, not a four-week block: every one of these is 30 or 31 days.
+      expect(max - min + 1).toBeGreaterThanOrEqual(30);
+      expect(max - min + 1).toBeLessThanOrEqual(31);
+    }
+  });
+
+  it("uses paired-month ranges through adolescence", () => {
+    const ranges: [number, number, string][] = [
+      [213, 273, "7-8-months"],
+      [274, 334, "9-10-months"],
+      [335, 395, "11-12-months"],
+    ];
+
+    for (const [min, max, slug] of ranges) {
+      expect(slugFor(min)).toBe(slug);
+      expect(slugFor(max)).toBe(slug);
+      expect(slugFor(min - 1)).not.toBe(slug);
+      expect(slugFor(max + 1)).not.toBe(slug);
+      expect(roadmapStageForDays(min)?.phase).toBe("adolescence");
+    }
+
+    // The bucket that used to swallow everything from five months to nine.
+    expect(slugFor(200)).toBe("6-months");
+    expect(slugFor(220)).toBe("7-8-months");
+  });
+
+  it("falls through to young adult past the last adolescent range, and no further", () => {
+    expect(slugFor(395)).toBe("11-12-months");
+    expect(slugFor(396)).toBe("young-adult");
+    expect(slugFor(700)).toBe("young-adult");
+    expect(slugFor(MAX_PLAUSIBLE_DAYS)).toBe("young-adult");
+
+    // The roadmap stops exactly where the age engine stops accepting a date
+    // of birth at all, so there is no age that resolves to nothing in between.
+    expect(slugFor(MAX_PLAUSIBLE_DAYS + 1)).toBeNull();
+    expect(resolveAge({ year: 2020, month: 1, day: 1 }, { year: 2026, month: 9, day: 5 }).ok).toBe(
+      false,
+    );
+  });
+
+  it("marks maturity as the one boundary that genuinely depends on size", () => {
+    // Not implemented, and deliberately not promised to the reader — but the
+    // place where a size-aware answer belongs is recorded rather than lost.
+    const sizeDependent = roadmapStages.filter((stage) => stage.boundaryVariesBySize);
+    expect(sizeDependent.map((stage) => stage.slug)).toEqual(["young-adult"]);
+  });
+
+  it("resolves every plausible age from eight weeks on to exactly one stage", () => {
+    for (let days = 56; days <= MAX_PLAUSIBLE_DAYS; days += 1) {
+      const matches = roadmapStages.filter(
+        (stage) => days >= stage.ageMinDays && days <= stage.ageMaxDays,
+      );
+      expect(matches).toHaveLength(1);
+    }
+  });
+
+  it("resolves nothing before eight weeks, rather than guessing a stage", () => {
+    // Under eight weeks a puppy is normally still with its breeder. That is
+    // the one age the Journey declines to place, and it degrades to the
+    // "not written yet" state rather than to a wrong week.
+    for (const days of [0, 20, 55]) {
+      expect(roadmapStageForDays(days)).toBeNull();
+      expect(stageForDays(days)).toBeNull();
+    }
+  });
+
+  it("groups the roadmap into four phases whose cadence widens in order", () => {
+    const groups = roadmapByPhase();
+    expect(groups.map((group) => group.phase.id)).toEqual([
+      "early-puppy",
+      "early-development",
+      "adolescence",
+      "maturity",
+    ]);
+    expect(groups.map((group) => group.phase.cadence)).toEqual([
+      "weekly",
+      "monthly",
+      "milestone",
+      "maturity",
+    ]);
+
+    // Grouping must not drop or duplicate an entry.
+    expect(groups.flatMap((group) => group.stages)).toEqual([...roadmapStages]);
+
+    // Each phase's stages are longer than the last phase's, which is the
+    // entire premise of the hybrid model stated as an assertion.
+    const spans = groups.map((group) =>
+      Math.min(...group.stages.map((stage) => stage.ageMaxDays - stage.ageMinDays + 1)),
+    );
+    for (let i = 1; i < spans.length; i += 1) {
+      expect(spans[i]!).toBeGreaterThan(spans[i - 1]!);
+    }
+  });
+
+  it("gives every roadmap entry a unique slug and a real phase", () => {
+    const slugs = roadmapStages.map((stage) => stage.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+    for (const stage of roadmapStages) {
+      expect(() => findPhase(stage.phase)).not.toThrow();
+      expect(stage.label.trim()).not.toBe("");
+    }
+  });
+
+  it("offers every phase reading that exists and suits the age", () => {
+    // The coming-soon state hands the reader two articles chosen by phase.
+    // Both must be real slugs, and an adolescent must not be sent to the
+    // guide about a puppy's first month home.
+    const source = readFileSync(join(FEATURE_DIR, "../../app/my-puppy/page.tsx"), "utf8");
+    const table = source.slice(source.indexOf("const MEANTIME_READING"), source.indexOf("/** A page state"));
+    const slugs = [...table.matchAll(/slug: "([a-z0-9-]+)"/g)].map((match) => match[1]);
+
+    expect(slugs.length).toBe(8);
+    for (const slug of slugs) {
+      expect(articles.some((article) => article.slug === slug)).toBe(true);
+    }
+
+    const adolescence = table.slice(table.indexOf("adolescence:"), table.indexOf("maturity:"));
+    expect(adolescence).not.toContain("first-30-days");
+  });
+
+  it("keeps the implemented stage a strict subset of the roadmap", () => {
+    // A page is not minted because an interval elapsed. Every implemented
+    // stage must appear on the roadmap; the reverse must not hold.
+    const roadmapSlugs = new Set(roadmapStages.map((stage) => stage.slug));
+    for (const stage of stages) {
+      expect(roadmapSlugs.has(stage.slug)).toBe(true);
+    }
+    expect(stages.length).toBeLessThan(roadmapStages.length);
+  });
+
+  it("agrees with the implemented stage wherever both resolve", () => {
+    for (const stage of stages) {
+      for (const days of [stage.ageMinDays, stage.ageMaxDays]) {
+        expect(roadmapStageForDays(days)?.slug).toBe(stage.slug);
+      }
+    }
+  });
+});
+
 describe("modifier composition", () => {
   it("returns universal content when no context is supplied", () => {
     const sections = resolveStage(elevenWeeks);
@@ -606,6 +800,14 @@ describe("indexing", () => {
       .map((entry) => entry.name);
     expect(puppyRoutes).toEqual(["11-weeks"]);
 
+    // The roadmap grew to thirteen entries and the route count did not move.
+    // An entry is a position on a journey; a page is a piece of writing that
+    // earned one. Nothing here generates the second from the first.
+    const implemented = new Set(stages.map((stage) => stage.slug));
+    for (const stage of roadmapStages) {
+      expect(puppyRoutes.includes(stage.slug)).toBe(implemented.has(stage.slug));
+    }
+
     // No dynamic segment anywhere under the Journey, which is what a
     // breed × age surface would need in order to exist at all.
     expect(puppyRoutes.some((name) => name.includes("["))).toBe(false);
@@ -613,6 +815,20 @@ describe("indexing", () => {
       readdirSync(join(appDir, "my-puppy"), { withFileTypes: true })
         .some((entry) => entry.isDirectory()),
     ).toBe(false);
+  });
+
+  it("links only to stages that have a page, so the rail has no broken routes", () => {
+    // The rail renders every roadmap entry, but only an implemented one may
+    // become an `<a>`. Anything else must be inert text — a link to
+    // `/puppy/young-adult` would be a 404 offered to a reader and a crawler.
+    const source = readFileSync(join(FEATURE_DIR, "components/journey-timeline.tsx"), "utf8");
+    expect(source).toContain("implemented.has(stage.slug)");
+    expect(source).toContain("isLive && !isCurrent ? (");
+
+    // And the one route that exists is the one the rail can reach.
+    const implemented = stages.map((stage) => stage.slug);
+    expect(implemented).toEqual(["11-weeks"]);
+    expect(roadmapStages.some((stage) => stage.slug === "11-weeks")).toBe(true);
   });
 
   it("leaves the article library at exactly the 35 of this milestone", () => {

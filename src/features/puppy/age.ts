@@ -261,7 +261,7 @@ export type AgeResult =
  * dog than a puppy, and quietly rendering a "156 weeks old" Journey would be
  * worse than saying so.
  */
-const MAX_PLAUSIBLE_DAYS = 365 * 3;
+export const MAX_PLAUSIBLE_DAYS = 365 * 3;
 
 /** Completed calendar months between two civil dates. */
 function completedMonths(birth: CivilDate, today: CivilDate): number {

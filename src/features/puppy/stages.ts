@@ -1,3 +1,4 @@
+import { MAX_PLAUSIBLE_DAYS } from "@/features/puppy/age";
 import type {
   BreedModifier,
   ProvinceModifier,
@@ -14,7 +15,9 @@ import type {
  * would double the correction cost of anything the first gets wrong.
  *
  * `roadmapStages` below carries the shape of the rest so the timeline can show
- * where a reader sits without pretending those pages exist.
+ * where a reader sits without pretending those pages exist. It is a hybrid
+ * model — weekly, then monthly, then milestone ranges — for reasons set out
+ * above the roadmap itself.
  */
 
 export const elevenWeeks: PuppyStage = {
@@ -290,30 +293,172 @@ export const elevenWeeks: PuppyStage = {
 
 export const stages: readonly PuppyStage[] = [elevenWeeks];
 
+/* ------------------------------------------------------------- the roadmap */
+
 /**
- * The stages the timeline shows but which have no page yet.
+ * ## Why the roadmap is not a uniform grid of weeks
  *
- * These exist so a reader can see where they are in a journey rather than a
- * single orphaned page — and so nothing links anywhere broken. The timeline
- * renders these as inert.
+ * The first version of this file stepped through puppyhood in weeks and then
+ * gave up, lumping everything from five months to nine into a single bucket
+ * labelled "6 months". Both halves of that were wrong, and wrong in opposite
+ * directions.
+ *
+ * A puppy changes enormously between its eighth and twelfth weeks. The
+ * socialisation window is closing, the vaccination series is mid-course,
+ * house-training is being established, and the answer to "what should I be
+ * doing" genuinely differs from one week to the next. A week is the right
+ * unit there.
+ *
+ * By four months that has slowed. The difference between a sixteen-week-old
+ * and a seventeen-week-old is not something anyone can write a distinct page
+ * about without padding, and a reader who came back weekly would find the
+ * same advice reworded. A month is the right unit.
+ *
+ * Through adolescence it slows again, and what matters stops being age at all
+ * and starts being *events* — the second fear period, sexual maturity, growth
+ * plates closing, the collapse of a recall that worked fine at six months.
+ * Those do not land on a calendar, so the stages are ranges.
+ *
+ * So the cadence widens as development slows. That is the whole idea, and it
+ * is a content decision before it is a data-modelling one.
+ *
+ * ## The rule about pages
+ *
+ * **A roadmap entry is not a page.** An entry exists so a reader can see
+ * where they sit in a journey and where they are going. A *page* should exist
+ * only where there is genuinely differentiated guidance and a distinct thing
+ * a person is trying to find out — never because an interval elapsed. Thirteen
+ * entries here must not become thirteen routes; `stages` stays a deliberate,
+ * much shorter subset, and a test asserts that no route exists for a roadmap
+ * slug that has not been written.
+ */
+
+/** How finely a phase is divided, and therefore what a stage in it means. */
+export type StageCadence = "weekly" | "monthly" | "milestone" | "maturity";
+
+export type JourneyPhaseId =
+  | "early-puppy"
+  | "early-development"
+  | "adolescence"
+  | "maturity";
+
+export interface JourneyPhase {
+  id: JourneyPhaseId;
+  label: string;
+  cadence: StageCadence;
+  /** Shown under the phase label in the rail. One line, no hedging. */
+  note: string;
+}
+
+export const journeyPhases: readonly JourneyPhase[] = [
+  {
+    id: "early-puppy",
+    label: "Early puppy",
+    cadence: "weekly",
+    note: "Week by week, while things change that fast.",
+  },
+  {
+    id: "early-development",
+    label: "Early development",
+    cadence: "monthly",
+    note: "Month by month, once a week stops making a difference.",
+  },
+  {
+    id: "adolescence",
+    label: "Adolescence",
+    cadence: "milestone",
+    note: "By what happens, not by the calendar.",
+  },
+  {
+    id: "maturity",
+    label: "Maturity",
+    cadence: "maturity",
+    note: "When a dog stops being a puppy depends on how big it got.",
+  },
+];
+
+export function findPhase(id: JourneyPhaseId): JourneyPhase {
+  const phase = journeyPhases.find((p) => p.id === id);
+  if (!phase) {
+    throw new Error(`Unknown journey phase: ${id}`);
+  }
+  return phase;
+}
+
+/**
+ * A point on the journey, whether or not it has been written.
+ *
+ * Day ranges are inclusive on both ends and must tile the span with no gap
+ * and no overlap — a test enforces it, because a gap here is a reader who
+ * resolves to nothing and a overlap is a reader who resolves to two things.
+ *
+ * Month boundaries use the mean calendar month of 30.44 days rather than
+ * 4-week blocks, so "four months old" means what an owner means by it. The
+ * weekly phase ends at day 90 and the monthly phase opens at day 91, which is
+ * exactly thirteen weeks — the two schemes meet without a seam.
  */
 export interface RoadmapStage {
   slug: string;
   label: string;
+  phase: JourneyPhaseId;
   ageMinDays: number;
   ageMaxDays: number;
+  /**
+   * Whether this stage's boundary is genuinely a function of adult size.
+   *
+   * True only for maturity, where it is a real effect rather than a caveat: a
+   * toy breed is structurally and behaviourally adult long before a giant
+   * breed is. We do not yet have sourced per-size boundaries, so one
+   * conservative boundary is used for everyone and this flag marks the place
+   * where a size-aware answer belongs once it can be cited. It changes no
+   * behaviour today, and it is deliberately not a promise to the reader.
+   */
+  boundaryVariesBySize?: true;
 }
 
 export const roadmapStages: readonly RoadmapStage[] = [
-  { slug: "8-weeks", label: "8 weeks", ageMinDays: 56, ageMaxDays: 62 },
-  { slug: "9-weeks", label: "9 weeks", ageMinDays: 63, ageMaxDays: 69 },
-  { slug: "10-weeks", label: "10 weeks", ageMinDays: 70, ageMaxDays: 76 },
-  { slug: "11-weeks", label: "11 weeks", ageMinDays: 77, ageMaxDays: 83 },
-  { slug: "12-weeks", label: "12 weeks", ageMinDays: 84, ageMaxDays: 90 },
-  { slug: "13-16-weeks", label: "13–16 weeks", ageMinDays: 91, ageMaxDays: 118 },
-  { slug: "4-months", label: "4 months", ageMinDays: 119, ageMaxDays: 152 },
-  { slug: "6-months", label: "6 months", ageMinDays: 153, ageMaxDays: 273 },
+  // Early puppy — weekly. Starts at eight weeks because that is when most
+  // puppies come home; anything earlier is the breeder's week, not the
+  // owner's, and resolves to no stage rather than a guessed one.
+  { slug: "8-weeks", label: "8 weeks", phase: "early-puppy", ageMinDays: 56, ageMaxDays: 62 },
+  { slug: "9-weeks", label: "9 weeks", phase: "early-puppy", ageMinDays: 63, ageMaxDays: 69 },
+  { slug: "10-weeks", label: "10 weeks", phase: "early-puppy", ageMinDays: 70, ageMaxDays: 76 },
+  { slug: "11-weeks", label: "11 weeks", phase: "early-puppy", ageMinDays: 77, ageMaxDays: 83 },
+  { slug: "12-weeks", label: "12 weeks", phase: "early-puppy", ageMinDays: 84, ageMaxDays: 90 },
+
+  // Early development — monthly, on mean-calendar-month boundaries.
+  { slug: "3-months", label: "3 months", phase: "early-development", ageMinDays: 91, ageMaxDays: 121 },
+  { slug: "4-months", label: "4 months", phase: "early-development", ageMinDays: 122, ageMaxDays: 152 },
+  { slug: "5-months", label: "5 months", phase: "early-development", ageMinDays: 153, ageMaxDays: 182 },
+  { slug: "6-months", label: "6 months", phase: "early-development", ageMinDays: 183, ageMaxDays: 212 },
+
+  // Adolescence — paired months, because the things that define this period
+  // arrive on their own schedule and not on a monthly one.
+  { slug: "7-8-months", label: "7–8 months", phase: "adolescence", ageMinDays: 213, ageMaxDays: 273 },
+  { slug: "9-10-months", label: "9–10 months", phase: "adolescence", ageMinDays: 274, ageMaxDays: 334 },
+  { slug: "11-12-months", label: "11–12 months", phase: "adolescence", ageMinDays: 335, ageMaxDays: 395 },
+
+  // Maturity — the terminal entry, and the one whose boundary is a lie for
+  // both ends of the size range. See `boundaryVariesBySize`.
+  {
+    slug: "young-adult",
+    label: "Young adult",
+    phase: "maturity",
+    ageMinDays: 396,
+    ageMaxDays: MAX_PLAUSIBLE_DAYS,
+    boundaryVariesBySize: true,
+  },
 ];
+
+/** The roadmap grouped for rendering, phases in order, empty phases dropped. */
+export function roadmapByPhase(): readonly { phase: JourneyPhase; stages: RoadmapStage[] }[] {
+  return journeyPhases
+    .map((phase) => ({
+      phase,
+      stages: roadmapStages.filter((stage) => stage.phase === phase.id),
+    }))
+    .filter((group) => group.stages.length > 0);
+}
 
 export function findStage(slug: string): PuppyStage | null {
   return stages.find((stage) => stage.slug === slug) ?? null;

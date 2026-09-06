@@ -88,9 +88,15 @@ export function StageView({
                 `top` has to clear the site masthead, which is itself sticky at
                 the top of the viewport and about 81px tall — at a smaller
                 offset the rail's heading and first stages scroll underneath
-                it and are simply not readable. */}
+                it and are simply not readable.
+
+                The hybrid roadmap made this taller than a laptop viewport
+                (thirteen stages across four phases, ~1000px), so it is capped
+                and scrolls internally. Without that, adolescence and maturity
+                are permanently below the fold and unreachable. `overscroll-contain`
+                stops that scroll chaining back into the article. */}
             <div className="lg:col-span-3">
-              <div className="lg:sticky lg:top-28">
+              <div className="lg:sticky lg:top-28 lg:max-h-[calc(100vh-9rem)] lg:overflow-y-auto lg:overscroll-contain">
                 <JourneyTimeline currentSlug={stage.slug} className="hidden lg:block" />
               </div>
             </div>

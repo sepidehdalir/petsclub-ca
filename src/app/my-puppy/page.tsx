@@ -14,7 +14,10 @@ import { StageView } from "@/features/puppy/components/stage-view";
 import { JourneyTimeline } from "@/features/puppy/components/journey-timeline";
 import { findBreed, findProvince, sizeGroups } from "@/features/puppy/model";
 import type { BreedSlug, ProvinceCode } from "@/features/puppy/model";
-import { roadmapStageForDays, stageForDays } from "@/features/puppy/stages";
+import { findPhase, roadmapStageForDays, stageForDays } from "@/features/puppy/stages";
+import type { JourneyPhaseId } from "@/features/puppy/stages";
+import { articlePath } from "@/features/editorial/articles";
+import type { ArticleSlug } from "@/features/editorial/articles";
 import { createMetadata } from "@/lib/seo/metadata";
 
 interface MyPuppyPageProps {
@@ -86,6 +89,38 @@ export async function generateMetadata({
     noIndex: true,
   });
 }
+
+/**
+ * What to offer a reader whose stage has not been written yet.
+ *
+ * The Journey now spans eight weeks to young adulthood, so a single pair of
+ * links cannot serve it. Sending the owner of an eight-month-old adolescent to
+ * "the first thirty days" is worse than sending them nowhere: it reads as a
+ * product that did not understand the age it just calculated.
+ *
+ * These are all existing articles. Nothing here promises a stage page.
+ */
+const MEANTIME_READING: Record<
+  JourneyPhaseId,
+  readonly [{ slug: ArticleSlug; label: string }, { slug: ArticleSlug; label: string }]
+> = {
+  "early-puppy": [
+    { slug: "bringing-home-a-puppy-first-30-days", label: "the first thirty days" },
+    { slug: "puppy-socialisation-checklist", label: "puppy socialisation" },
+  ],
+  "early-development": [
+    { slug: "puppy-socialisation-checklist", label: "puppy socialisation" },
+    { slug: "crate-training-a-puppy-in-canada", label: "crate training" },
+  ],
+  adolescence: [
+    { slug: "loose-leash-walking-and-recall", label: "lead work and recall" },
+    { slug: "spaying-and-neutering-in-canada", label: "spaying and neutering" },
+  ],
+  maturity: [
+    { slug: "loose-leash-walking-and-recall", label: "lead work and recall" },
+    { slug: "dental-care-for-dogs-and-cats", label: "dental care" },
+  ],
+};
 
 /** A page state that is not a stage — no DOB, a bad one, or an age we have not written. */
 function Placeholder({
@@ -197,36 +232,44 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
   const province = provinceParam ? findProvince(provinceParam) : null;
   const stage = stageForDays(age.days);
 
-  // An age we have not written yet. Say so rather than routing anywhere
-  // that does not exist, and show where they sit in the journey.
+  // An age we have not written yet. Say so rather than routing anywhere that
+  // does not exist, and show where they sit in the journey.
+  //
+  // The Journey resolves a puppy to a hybrid stage — a week early on, a month
+  // through early development, a milestone range through adolescence — whether
+  // or not that stage has a page. The reader gets told where they are; they do
+  // not get sent to a different age's page, and nothing here claims to be a
+  // duplicate of one. The canonical for this state is the Journey hub.
   if (!stage) {
     const roadmap = roadmapStageForDays(age.days);
+    const phase = roadmap ? findPhase(roadmap.phase) : null;
+    const meantime = MEANTIME_READING[phase?.id ?? "early-puppy"];
     return (
       <Placeholder
         currentSlug={roadmap?.slug ?? ""}
         title={`Your puppy is ${age.label}`}
         body={
-          roadmap
-            ? `We are writing the ${roadmap.label} stage now. Only the 11-week stage is finished so far — it is researched and sourced to the same standard as the rest of the site, and the others are following.`
+          roadmap && phase
+            ? `That puts you at ${roadmap.label}, in ${phase.label.toLowerCase()}. We have not written that stage yet — the 11-week stage is the only finished one so far, researched and sourced to the same standard as the rest of the site.`
             : "We have not written a stage for this age yet. The 11-week stage is finished, and the rest are being researched to the same standard."
         }
       >
         <p className="mt-4 text-body text-foreground-muted">
           In the meantime,{" "}
           <Link
-            href="/guides/bringing-home-a-puppy-first-30-days"
+            href={articlePath(meantime[0].slug)}
             className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"
           >
-            the first thirty days
+            {meantime[0].label}
           </Link>{" "}
           and{" "}
           <Link
-            href="/guides/puppy-socialisation-checklist"
+            href={articlePath(meantime[1].slug)}
             className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"
           >
-            puppy socialisation
+            {meantime[1].label}
           </Link>{" "}
-          cover most of what matters early on.
+          are the closest things we have written.
         </p>
       </Placeholder>
     );
