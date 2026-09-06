@@ -234,6 +234,87 @@ export function resolveToday({
   return { date: todayInZone("UTC", now), source: "utc" };
 }
 
+/* --------------------------------------------- calendar-month arithmetic */
+
+/**
+ * ## Why months are not 30.44 days
+ *
+ * An owner asked "how old is your puppy" answers in calendar months, not in
+ * thirtieths of a year. A puppy born on 3 June is three months old on
+ * 3 September — not on 2 September because ninety-one and a third days have
+ * elapsed, and not on 4 September either. The mean month is a fine unit for
+ * an *average*; it is the wrong unit for an anniversary, and this product's
+ * whole input is a specific date of birth.
+ *
+ * The difference is not cosmetic. Depending on which months a puppy's life
+ * happens to span, a mean-month rule lands its three-month anniversary
+ * anywhere from a day early to two days late, and every later boundary drifts
+ * further. A reader who checks on the morning of the anniversary and is told
+ * they are still in last month's stage has been told something they can see
+ * is wrong.
+ *
+ * So the anniversary is computed on the calendar, in civil dates, with no
+ * `Date` object anywhere in it.
+ */
+
+/** Days in a civil month. Leap years by the proleptic Gregorian rule. */
+export function daysInMonth(year: number, month: number): number {
+  if (month === 2) {
+    const leap = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    return leap ? 29 : 28;
+  }
+  return month === 4 || month === 6 || month === 9 || month === 11 ? 30 : 31;
+}
+
+/**
+ * A date `months` calendar months later, clamped to the end of the month.
+ *
+ * The clamp is the standard rule and the only one that keeps the sequence
+ * monotonic: where the target month has no such day-of-month, the last day of
+ * that month is used.
+ *
+ *   31 January + 1 month → 28 February (29 February in a leap year)
+ *   30 January + 1 month → 28 February — the same day, and deliberately so
+ *   31 August  + 1 month → 30 September
+ *   29 February 2024 + 12 months → 28 February 2025
+ *
+ * The consequence worth stating out loud: two different dates of birth can
+ * share an anniversary. A puppy born on 30 January and one born on 31 January
+ * both turn one month old on 28 February. That is not a bug to be worked
+ * around — it is what "a month later" means when the month is short, and the
+ * alternative (rolling into March) would claim a puppy is a month old on a day
+ * *after* the anniversary of a puppy born a day later.
+ */
+export function addCalendarMonths(date: CivilDate, months: number): CivilDate {
+  const zeroBased = date.year * 12 + (date.month - 1) + months;
+  const year = Math.floor(zeroBased / 12);
+  const month = zeroBased - year * 12 + 1;
+  return { year, month, day: Math.min(date.day, daysInMonth(year, month)) };
+}
+
+/**
+ * Completed calendar months between two civil dates, never negative.
+ *
+ * Defined against `addCalendarMonths` rather than by arithmetic on the day
+ * fields, so the month-end clamp is applied once and cannot disagree with
+ * itself: a puppy born on 31 January *is* one month old on 28 February,
+ * which a naive `today.day < birth.day` test gets wrong.
+ */
+export function completedCalendarMonths(birth: CivilDate, today: CivilDate): number {
+  const approximate = (today.year - birth.year) * 12 + (today.month - birth.month);
+  const months =
+    daysFromCivil(today) < daysFromCivil(addCalendarMonths(birth, approximate))
+      ? approximate - 1
+      : approximate;
+  return Math.max(0, months);
+}
+
+/** Days since the most recent monthly anniversary. */
+export function daysSinceMonthAnniversary(birth: CivilDate, today: CivilDate): number {
+  const months = completedCalendarMonths(birth, today);
+  return daysBetween(addCalendarMonths(birth, months), today);
+}
+
 /** Why an age could not be resolved. Rendered as a message, never thrown. */
 export type AgeProblem = "invalid" | "future" | "implausible";
 
@@ -244,8 +325,10 @@ export interface PuppyAge {
   weeks: number;
   /** Days past the last completed week, 0–6. */
   remainderDays: number;
-  /** Completed calendar months, for older puppies. */
+  /** Completed calendar months, on calendar anniversaries rather than a mean month. */
   months: number;
+  /** Days since the most recent monthly anniversary. */
+  remainderDaysInMonth: number;
   /** "11 weeks", "4 months and 2 weeks" — the phrase the UI shows. */
   label: string;
 }
@@ -263,16 +346,7 @@ export type AgeResult =
  */
 export const MAX_PLAUSIBLE_DAYS = 365 * 3;
 
-/** Completed calendar months between two civil dates. */
-function completedMonths(birth: CivilDate, today: CivilDate): number {
-  let months = (today.year - birth.year) * 12 + (today.month - birth.month);
-  if (today.day < birth.day) {
-    months -= 1;
-  }
-  return Math.max(0, months);
-}
-
-function describe(days: number, months: number): string {
+function describe(days: number, months: number, remainderDaysInMonth: number): string {
   if (days < 7) {
     return days === 1 ? "1 day old" : `${days} days old`;
   }
@@ -284,7 +358,7 @@ function describe(days: number, months: number): string {
   }
 
   if (months < 12) {
-    const leftoverWeeks = Math.floor((days - months * 30.44) / 7);
+    const leftoverWeeks = Math.floor(remainderDaysInMonth / 7);
     if (leftoverWeeks >= 1 && leftoverWeeks <= 3) {
       return `${months} months and ${leftoverWeeks} week${leftoverWeeks === 1 ? "" : "s"} old`;
     }
@@ -316,7 +390,8 @@ export function resolveAge(birth: CivilDate, today: CivilDate): AgeResult {
     return { ok: false, problem: "implausible" };
   }
 
-  const months = completedMonths(birth, today);
+  const months = completedCalendarMonths(birth, today);
+  const remainderDaysInMonth = daysBetween(addCalendarMonths(birth, months), today);
 
   return {
     ok: true,
@@ -325,7 +400,8 @@ export function resolveAge(birth: CivilDate, today: CivilDate): AgeResult {
       weeks: Math.floor(days / 7),
       remainderDays: days % 7,
       months,
-      label: describe(days, months),
+      remainderDaysInMonth,
+      label: describe(days, months, remainderDaysInMonth),
     },
   };
 }

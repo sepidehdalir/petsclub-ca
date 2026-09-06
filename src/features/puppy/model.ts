@@ -204,11 +204,15 @@ export interface ChecklistItem {
 }
 
 export interface PuppyStage {
+  /**
+   * Matches a `RoadmapStage` slug, which is where the age range lives.
+   *
+   * A stage deliberately does not restate its own bounds. It used to, and a
+   * duplicated range is a range that can disagree with itself — the more so
+   * now that early stages are measured in days and later ones in calendar
+   * anniversaries, so a stage page cannot express its own span in one unit.
+   */
   slug: string;
-  /** Inclusive lower bound in days. */
-  ageMinDays: number;
-  /** Inclusive upper bound in days. */
-  ageMaxDays: number;
   /** "11 weeks" */
   label: string;
   title: string;

@@ -14,7 +14,7 @@ import { StageView } from "@/features/puppy/components/stage-view";
 import { JourneyTimeline } from "@/features/puppy/components/journey-timeline";
 import { findBreed, findProvince, sizeGroups } from "@/features/puppy/model";
 import type { BreedSlug, ProvinceCode } from "@/features/puppy/model";
-import { findPhase, roadmapStageForDays, stageForDays } from "@/features/puppy/stages";
+import { findPhase, roadmapStageFor, stageFor } from "@/features/puppy/stages";
 import type { JourneyPhaseId } from "@/features/puppy/stages";
 import { articlePath } from "@/features/editorial/articles";
 import type { ArticleSlug } from "@/features/editorial/articles";
@@ -60,7 +60,7 @@ function canonicalPathFor(
     return "/puppy";
   }
 
-  const stage = stageForDays(age.age.days);
+  const stage = stageFor(age.age);
   return stage ? `/puppy/${stage.slug}` : "/puppy";
 }
 
@@ -230,7 +230,7 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
   const { age } = result;
   const breed = breedParam ? findBreed(breedParam) : null;
   const province = provinceParam ? findProvince(provinceParam) : null;
-  const stage = stageForDays(age.days);
+  const stage = stageFor(age);
 
   // An age we have not written yet. Say so rather than routing anywhere that
   // does not exist, and show where they sit in the journey.
@@ -241,7 +241,7 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
   // not get sent to a different age's page, and nothing here claims to be a
   // duplicate of one. The canonical for this state is the Journey hub.
   if (!stage) {
-    const roadmap = roadmapStageForDays(age.days);
+    const roadmap = roadmapStageFor(age);
     const phase = roadmap ? findPhase(roadmap.phase) : null;
     const meantime = MEANTIME_READING[phase?.id ?? "early-puppy"];
     return (

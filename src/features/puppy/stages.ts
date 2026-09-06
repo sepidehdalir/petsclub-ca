@@ -1,4 +1,4 @@
-import { MAX_PLAUSIBLE_DAYS } from "@/features/puppy/age";
+import type { PuppyAge } from "@/features/puppy/age";
 import type {
   BreedModifier,
   ProvinceModifier,
@@ -22,8 +22,6 @@ import type {
 
 export const elevenWeeks: PuppyStage = {
   slug: "11-weeks",
-  ageMinDays: 77,
-  ageMaxDays: 83,
   label: "11 weeks",
   title: "Your 11-Week-Old Puppy",
   deck:
@@ -386,66 +384,84 @@ export function findPhase(id: JourneyPhaseId): JourneyPhase {
 }
 
 /**
+ * How a stage's age range is expressed.
+ *
+ * Two units, because the journey genuinely uses two. Early on a stage is a
+ * *week of life* and a day count is exactly right. From three months on, a
+ * stage is a span between calendar anniversaries of the date of birth, and a
+ * day count is an approximation that drifts — see the note above
+ * `addCalendarMonths` in the age engine.
+ *
+ * `maxMonths` is an inclusive count of completed months, so "3 months" is
+ * `{ minMonths: 3, maxMonths: 3 }`: it begins on the third monthly anniversary
+ * and ends the day before the fourth. Omitting `maxMonths` makes the stage
+ * open-ended, which exactly one stage is.
+ */
+export type StageRange =
+  | { unit: "weeks"; minDays: number; maxDays: number }
+  | { unit: "months"; minMonths: number; maxMonths?: number };
+
+/**
  * A point on the journey, whether or not it has been written.
  *
- * Day ranges are inclusive on both ends and must tile the span with no gap
- * and no overlap — a test enforces it, because a gap here is a reader who
- * resolves to nothing and a overlap is a reader who resolves to two things.
- *
- * Month boundaries use the mean calendar month of 30.44 days rather than
- * 4-week blocks, so "four months old" means what an owner means by it. The
- * weekly phase ends at day 90 and the monthly phase opens at day 91, which is
- * exactly thirteen weeks — the two schemes meet without a seam.
+ * Ranges must tile the journey with no gap and no overlap — a test enforces
+ * it, because a gap is a reader who resolves to nothing and an overlap is a
+ * reader who resolves to two things.
  */
 export interface RoadmapStage {
   slug: string;
   label: string;
   phase: JourneyPhaseId;
-  ageMinDays: number;
-  ageMaxDays: number;
+  range: StageRange;
   /**
    * Whether this stage's boundary is genuinely a function of adult size.
    *
    * True only for maturity, where it is a real effect rather than a caveat: a
    * toy breed is structurally and behaviourally adult long before a giant
    * breed is. We do not yet have sourced per-size boundaries, so one
-   * conservative boundary is used for everyone and this flag marks the place
-   * where a size-aware answer belongs once it can be cited. It changes no
-   * behaviour today, and it is deliberately not a promise to the reader.
+   * conservative navigation boundary is used for everyone and this flag marks
+   * the place where a size-aware answer belongs once it can be cited. It
+   * changes no behaviour today, and it is deliberately not a promise to the
+   * reader — nothing in the product claims a dog matures at thirteen months.
    */
   boundaryVariesBySize?: true;
 }
 
-export const roadmapStages: readonly RoadmapStage[] = [
-  // Early puppy — weekly. Starts at eight weeks because that is when most
-  // puppies come home; anything earlier is the breeder's week, not the
-  // owner's, and resolves to no stage rather than a guessed one.
-  { slug: "8-weeks", label: "8 weeks", phase: "early-puppy", ageMinDays: 56, ageMaxDays: 62 },
-  { slug: "9-weeks", label: "9 weeks", phase: "early-puppy", ageMinDays: 63, ageMaxDays: 69 },
-  { slug: "10-weeks", label: "10 weeks", phase: "early-puppy", ageMinDays: 70, ageMaxDays: 76 },
-  { slug: "11-weeks", label: "11 weeks", phase: "early-puppy", ageMinDays: 77, ageMaxDays: 83 },
-  { slug: "12-weeks", label: "12 weeks", phase: "early-puppy", ageMinDays: 84, ageMaxDays: 90 },
+/** The last day the weekly table decides. See `roadmapStageFor`. */
+export const LAST_WEEKLY_DAY = 90;
 
-  // Early development — monthly, on mean-calendar-month boundaries.
-  { slug: "3-months", label: "3 months", phase: "early-development", ageMinDays: 91, ageMaxDays: 121 },
-  { slug: "4-months", label: "4 months", phase: "early-development", ageMinDays: 122, ageMaxDays: 152 },
-  { slug: "5-months", label: "5 months", phase: "early-development", ageMinDays: 153, ageMaxDays: 182 },
-  { slug: "6-months", label: "6 months", phase: "early-development", ageMinDays: 183, ageMaxDays: 212 },
+/** The first monthly stage, in completed calendar months. */
+export const FIRST_MONTHLY_MONTH = 3;
+
+export const roadmapStages: readonly RoadmapStage[] = [
+  // Early puppy — weekly, in days of life. Starts at eight weeks because that
+  // is when most puppies come home; anything earlier is the breeder's week,
+  // not the owner's, and resolves to no stage rather than a guessed one.
+  { slug: "8-weeks", label: "8 weeks", phase: "early-puppy", range: { unit: "weeks", minDays: 56, maxDays: 62 } },
+  { slug: "9-weeks", label: "9 weeks", phase: "early-puppy", range: { unit: "weeks", minDays: 63, maxDays: 69 } },
+  { slug: "10-weeks", label: "10 weeks", phase: "early-puppy", range: { unit: "weeks", minDays: 70, maxDays: 76 } },
+  { slug: "11-weeks", label: "11 weeks", phase: "early-puppy", range: { unit: "weeks", minDays: 77, maxDays: 83 } },
+  { slug: "12-weeks", label: "12 weeks", phase: "early-puppy", range: { unit: "weeks", minDays: 84, maxDays: LAST_WEEKLY_DAY } },
+
+  // Early development — one calendar month each, on anniversaries of the DOB.
+  { slug: "3-months", label: "3 months", phase: "early-development", range: { unit: "months", minMonths: 3, maxMonths: 3 } },
+  { slug: "4-months", label: "4 months", phase: "early-development", range: { unit: "months", minMonths: 4, maxMonths: 4 } },
+  { slug: "5-months", label: "5 months", phase: "early-development", range: { unit: "months", minMonths: 5, maxMonths: 5 } },
+  { slug: "6-months", label: "6 months", phase: "early-development", range: { unit: "months", minMonths: 6, maxMonths: 6 } },
 
   // Adolescence — paired months, because the things that define this period
   // arrive on their own schedule and not on a monthly one.
-  { slug: "7-8-months", label: "7–8 months", phase: "adolescence", ageMinDays: 213, ageMaxDays: 273 },
-  { slug: "9-10-months", label: "9–10 months", phase: "adolescence", ageMinDays: 274, ageMaxDays: 334 },
-  { slug: "11-12-months", label: "11–12 months", phase: "adolescence", ageMinDays: 335, ageMaxDays: 395 },
+  { slug: "7-8-months", label: "7–8 months", phase: "adolescence", range: { unit: "months", minMonths: 7, maxMonths: 8 } },
+  { slug: "9-10-months", label: "9–10 months", phase: "adolescence", range: { unit: "months", minMonths: 9, maxMonths: 10 } },
+  { slug: "11-12-months", label: "11–12 months", phase: "adolescence", range: { unit: "months", minMonths: 11, maxMonths: 12 } },
 
-  // Maturity — the terminal entry, and the one whose boundary is a lie for
-  // both ends of the size range. See `boundaryVariesBySize`.
+  // Maturity — open-ended, and a *navigation* boundary rather than a claim
+  // about biology. See `boundaryVariesBySize`.
   {
     slug: "young-adult",
     label: "Young adult",
     phase: "maturity",
-    ageMinDays: 396,
-    ageMaxDays: MAX_PLAUSIBLE_DAYS,
+    range: { unit: "months", minMonths: 13 },
     boundaryVariesBySize: true,
   },
 ];
@@ -464,14 +480,65 @@ export function findStage(slug: string): PuppyStage | null {
   return stages.find((stage) => stage.slug === slug) ?? null;
 }
 
-/** The implemented stage covering an age in days, or `null`. */
-export function stageForDays(days: number): PuppyStage | null {
-  return stages.find((s) => days >= s.ageMinDays && days <= s.ageMaxDays) ?? null;
+/** The roadmap entry for a slug, implemented or not. */
+export function findRoadmapStage(slug: string): RoadmapStage | null {
+  return roadmapStages.find((stage) => stage.slug === slug) ?? null;
 }
 
-/** The roadmap entry covering an age, implemented or not. */
-export function roadmapStageForDays(days: number): RoadmapStage | null {
-  return roadmapStages.find((s) => days >= s.ageMinDays && days <= s.ageMaxDays) ?? null;
+/**
+ * The roadmap entry a resolved age falls in.
+ *
+ * ## The precedence rule
+ *
+ * Two schemes meet here, and they do not meet at a fixed number of days.
+ * Twelve weeks always ends on day 90, but the third monthly anniversary lands
+ * somewhere between day 89 and day 92 depending on which months the puppy has
+ * lived through — a puppy born on 31 December reaches three calendar months on
+ * day 90, one born on 31 May not until day 92. So the two boundaries genuinely
+ * cross, in both directions, and a naive "whichever matches" would leave some
+ * puppies in two stages and others in none.
+ *
+ * The rule, stated once:
+ *
+ *  1. **Through day 90, the weekly table wins outright.** A puppy whose
+ *     three-month anniversary arrives on day 89 or 90 stays on the 12-week
+ *     stage until the twelfth week is actually over. Early-puppy guidance is
+ *     week-shaped, and cutting a week short mid-way serves nobody.
+ *  2. **From day 91 the calendar decides**, with the month count floored at
+ *     three. A puppy whose anniversary has not yet arrived on day 91 is placed
+ *     on the 3-month stage rather than falling back into a weekly stage it has
+ *     already left. The floor is what closes the gap.
+ *
+ * Both directions are covered by tests, day by day, across every date of birth
+ * in a four-year window.
+ */
+export function roadmapStageFor(age: PuppyAge): RoadmapStage | null {
+  if (age.days <= LAST_WEEKLY_DAY) {
+    return (
+      roadmapStages.find(
+        (stage) =>
+          stage.range.unit === "weeks" &&
+          age.days >= stage.range.minDays &&
+          age.days <= stage.range.maxDays,
+      ) ?? null
+    );
+  }
+
+  const months = Math.max(FIRST_MONTHLY_MONTH, age.months);
+  return (
+    roadmapStages.find(
+      (stage) =>
+        stage.range.unit === "months" &&
+        months >= stage.range.minMonths &&
+        (stage.range.maxMonths === undefined || months <= stage.range.maxMonths),
+    ) ?? null
+  );
+}
+
+/** The implemented stage for a resolved age, or `null` if it has no page. */
+export function stageFor(age: PuppyAge): PuppyStage | null {
+  const roadmap = roadmapStageFor(age);
+  return roadmap ? findStage(roadmap.slug) : null;
 }
 
 /* --------------------------------------------------------------- modifiers */

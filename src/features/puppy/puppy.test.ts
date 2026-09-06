@@ -7,9 +7,13 @@ import { describe, expect, it } from "vitest";
 import { articles } from "@/features/editorial/articles";
 import { generateMetadata as myPuppyMetadata } from "@/app/my-puppy/page";
 import {
+  addCalendarMonths,
   civilFromDays,
+  completedCalendarMonths,
   daysBetween,
   daysFromCivil,
+  daysInMonth,
+  daysSinceMonthAnniversary,
   formatCivilDate,
   parseCivilDate,
   resolveAge,
@@ -21,17 +25,20 @@ import {
   todayInZone,
   todayLocal,
 } from "@/features/puppy/age";
+import type { PuppyAge } from "@/features/puppy/age";
 import { allBreeds, findBreed, findProvince, provinces } from "@/features/puppy/model";
 import { resolveSources, resolveStage } from "@/features/puppy/resolve";
 import {
   elevenWeeks,
   findPhase,
+  findRoadmapStage,
   roadmapByPhase,
-  roadmapStageForDays,
+  roadmapStageFor,
   roadmapStages,
-  stageForDays,
+  stageFor,
   stages,
 } from "@/features/puppy/stages";
+import type { RoadmapStage } from "@/features/puppy/stages";
 import { buildSitemapEntries } from "@/lib/seo/sitemap";
 
 const FEATURE_DIR = fileURLToPath(new URL("./", import.meta.url));
@@ -290,29 +297,92 @@ describe("age engine", () => {
   });
 });
 
+/**
+ * Fixtures.
+ *
+ * Stage resolution is a function of a *resolved age*, not of a raw day count,
+ * because from three months on a stage is a span between calendar
+ * anniversaries of a specific date of birth. So the tests go through the same
+ * front door the product does: a date of birth, a today, `resolveAge`.
+ */
+function ageOn(dob: string, today: string): PuppyAge {
+  const birth = parseCivilDate(dob);
+  const now = parseCivilDate(today);
+  if (!birth || !now) {
+    throw new Error(`bad fixture date: ${dob} / ${today}`);
+  }
+  const result = resolveAge(birth, now);
+  if (!result.ok) {
+    throw new Error(`fixture age did not resolve: ${dob} → ${today} (${result.problem})`);
+  }
+  return result.age;
+}
+
+/** The resolved stage slug for a date of birth observed on a given day. */
+function slugOn(dob: string, today: string): string | null {
+  return roadmapStageFor(ageOn(dob, today))?.slug ?? null;
+}
+
+/** A civil date `days` after a date of birth, as `YYYY-MM-DD`. */
+function dayAfter(dob: string, days: number): string {
+  const birth = parseCivilDate(dob);
+  if (!birth) {
+    throw new Error(`bad fixture date: ${dob}`);
+  }
+  const { year, month, day } = civilFromDays(daysFromCivil(birth) + days);
+  return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+}
+
+/** The resolved stage slug on a puppy's nth day of life. */
+function slugAtDay(dob: string, days: number): string | null {
+  return slugOn(dob, dayAfter(dob, days));
+}
+
 describe("stage resolution", () => {
-  it("resolves the implemented stage from an age in days, and nothing outside it", () => {
-    expect(stageForDays(77)?.slug).toBe("11-weeks");
-    expect(stageForDays(83)?.slug).toBe("11-weeks");
-    expect(stageForDays(76)).toBeNull();
-    expect(stageForDays(84)).toBeNull();
+  it("resolves the implemented stage from an age, and nothing outside it", () => {
+    const dob = "2026-06-18";
+    expect(stageFor(ageOn(dob, dayAfter(dob, 77)))?.slug).toBe("11-weeks");
+    expect(stageFor(ageOn(dob, dayAfter(dob, 83)))?.slug).toBe("11-weeks");
+    expect(stageFor(ageOn(dob, dayAfter(dob, 76)))).toBeNull();
+    expect(stageFor(ageOn(dob, dayAfter(dob, 84)))).toBeNull();
   });
 
   it("still places an unimplemented age on the roadmap, so the reader is not stranded", () => {
-    expect(roadmapStageForDays(60)?.slug).toBe("8-weeks");
-    expect(roadmapStageForDays(200)?.slug).toBe("6-months");
-    expect(stageForDays(60)).toBeNull();
+    const dob = "2026-06-18";
+    expect(slugAtDay(dob, 60)).toBe("8-weeks");
+    expect(slugOn(dob, "2027-01-18")).toBe("7-8-months");
+    expect(stageFor(ageOn(dob, dayAfter(dob, 60)))).toBeNull();
   });
 
-  it("keeps roadmap ranges contiguous and non-overlapping", () => {
-    for (let i = 1; i < roadmapStages.length; i += 1) {
-      const current = roadmapStages[i];
-      const previous = roadmapStages[i - 1];
-      if (!current || !previous) {
-        throw new Error("roadmap index out of range");
+  it("keeps the weekly table contiguous in days and the monthly one in months", () => {
+    const weekly = roadmapStages.filter((stage) => stage.range.unit === "weeks");
+    const monthly = roadmapStages.filter((stage) => stage.range.unit === "months");
+
+    for (let i = 1; i < weekly.length; i += 1) {
+      const current = weekly[i]!.range;
+      const previous = weekly[i - 1]!.range;
+      if (current.unit !== "weeks" || previous.unit !== "weeks") {
+        throw new Error("weekly partition is not weekly");
       }
-      expect(current.ageMinDays).toBe(previous.ageMaxDays + 1);
+      expect(current.minDays).toBe(previous.maxDays + 1);
     }
+
+    for (let i = 1; i < monthly.length; i += 1) {
+      const current = monthly[i]!.range;
+      const previous = monthly[i - 1]!.range;
+      if (current.unit !== "months" || previous.unit !== "months") {
+        throw new Error("monthly partition is not monthly");
+      }
+      expect(previous.maxMonths).toBeDefined();
+      expect(current.minMonths).toBe(previous.maxMonths! + 1);
+    }
+
+    // Exactly one open-ended stage, and it is the last one.
+    const openEnded = roadmapStages.filter(
+      (stage) => stage.range.unit === "months" && stage.range.maxMonths === undefined,
+    );
+    expect(openEnded.map((stage) => stage.slug)).toEqual(["young-adult"]);
+    expect(roadmapStages.at(-1)?.slug).toBe("young-adult");
   });
 
   it("has exactly one implemented stage in this milestone", () => {
@@ -322,17 +392,154 @@ describe("stage resolution", () => {
 });
 
 /**
+ * Calendar-month arithmetic.
+ *
+ * These test the engine rather than the roadmap: whether "three months later"
+ * means what an owner means by it, including in the months where the answer is
+ * not obvious.
+ */
+describe("calendar months", () => {
+  it("counts the days in a month, leap years included", () => {
+    expect(daysInMonth(2026, 2)).toBe(28);
+    expect(daysInMonth(2024, 2)).toBe(29); // divisible by 4
+    expect(daysInMonth(1900, 2)).toBe(28); // divisible by 100, not 400
+    expect(daysInMonth(2000, 2)).toBe(29); // divisible by 400
+    expect(daysInMonth(2026, 4)).toBe(30);
+    expect(daysInMonth(2026, 8)).toBe(31);
+  });
+
+  it("clamps to the last day of the month where the day-of-month does not exist", () => {
+    const jan31 = { year: 2026, month: 1, day: 31 };
+    expect(addCalendarMonths(jan31, 1)).toEqual({ year: 2026, month: 2, day: 28 });
+    expect(addCalendarMonths(jan31, 3)).toEqual({ year: 2026, month: 4, day: 30 });
+    expect(addCalendarMonths(jan31, 2)).toEqual({ year: 2026, month: 3, day: 31 });
+
+    // Leap year: the clamp lands a day later.
+    expect(addCalendarMonths({ year: 2024, month: 1, day: 31 }, 1)).toEqual({
+      year: 2024,
+      month: 2,
+      day: 29,
+    });
+
+    expect(addCalendarMonths({ year: 2026, month: 8, day: 31 }, 1)).toEqual({
+      year: 2026,
+      month: 9,
+      day: 30,
+    });
+
+    // A leap-day birthday has an anniversary every year, clamped in three of four.
+    expect(addCalendarMonths({ year: 2024, month: 2, day: 29 }, 12)).toEqual({
+      year: 2025,
+      month: 2,
+      day: 28,
+    });
+    expect(addCalendarMonths({ year: 2024, month: 2, day: 29 }, 48)).toEqual({
+      year: 2028,
+      month: 2,
+      day: 29,
+    });
+  });
+
+  it("crosses the year boundary and accepts a zero or large offset", () => {
+    expect(addCalendarMonths({ year: 2026, month: 11, day: 15 }, 3)).toEqual({
+      year: 2027,
+      month: 2,
+      day: 15,
+    });
+    expect(addCalendarMonths({ year: 2026, month: 6, day: 18 }, 0)).toEqual({
+      year: 2026,
+      month: 6,
+      day: 18,
+    });
+    expect(addCalendarMonths({ year: 2026, month: 6, day: 18 }, 30)).toEqual({
+      year: 2028,
+      month: 12,
+      day: 18,
+    });
+  });
+
+  it("treats the anniversary itself as the day the month completes", () => {
+    const birth = { year: 2026, month: 6, day: 18 };
+    expect(completedCalendarMonths(birth, { year: 2026, month: 9, day: 17 })).toBe(2);
+    expect(completedCalendarMonths(birth, { year: 2026, month: 9, day: 18 })).toBe(3);
+    expect(completedCalendarMonths(birth, { year: 2026, month: 9, day: 19 })).toBe(3);
+    expect(completedCalendarMonths(birth, birth)).toBe(0);
+  });
+
+  it("gets the month-end dates right, which naive day comparison does not", () => {
+    // Born 31 January. A `today.day < birth.day` test says this puppy is not
+    // one month old on 28 February, because 28 < 31. It is.
+    const jan31 = { year: 2026, month: 1, day: 31 };
+    expect(completedCalendarMonths(jan31, { year: 2026, month: 2, day: 27 })).toBe(0);
+    expect(completedCalendarMonths(jan31, { year: 2026, month: 2, day: 28 })).toBe(1);
+    expect(completedCalendarMonths(jan31, { year: 2026, month: 3, day: 30 })).toBe(1);
+    expect(completedCalendarMonths(jan31, { year: 2026, month: 3, day: 31 })).toBe(2);
+
+    // Born 30 January. Shares the 28 February anniversary with 31 January —
+    // the documented consequence of the clamp, asserted so it stays deliberate.
+    const jan30 = { year: 2026, month: 1, day: 30 };
+    expect(completedCalendarMonths(jan30, { year: 2026, month: 2, day: 27 })).toBe(0);
+    expect(completedCalendarMonths(jan30, { year: 2026, month: 2, day: 28 })).toBe(1);
+
+    // Born 28 February. No clamping needed anywhere, and the month after is 28 March.
+    const feb28 = { year: 2026, month: 2, day: 28 };
+    expect(completedCalendarMonths(feb28, { year: 2026, month: 3, day: 27 })).toBe(0);
+    expect(completedCalendarMonths(feb28, { year: 2026, month: 3, day: 28 })).toBe(1);
+
+    // Born 29 February in a leap year.
+    const feb29 = { year: 2024, month: 2, day: 29 };
+    expect(completedCalendarMonths(feb29, { year: 2024, month: 3, day: 28 })).toBe(0);
+    expect(completedCalendarMonths(feb29, { year: 2024, month: 3, day: 29 })).toBe(1);
+    expect(completedCalendarMonths(feb29, { year: 2025, month: 2, day: 27 })).toBe(11);
+    expect(completedCalendarMonths(feb29, { year: 2025, month: 2, day: 28 })).toBe(12);
+
+    // Born 31 August.
+    const aug31 = { year: 2026, month: 8, day: 31 };
+    expect(completedCalendarMonths(aug31, { year: 2026, month: 9, day: 29 })).toBe(0);
+    expect(completedCalendarMonths(aug31, { year: 2026, month: 9, day: 30 })).toBe(1);
+    expect(completedCalendarMonths(aug31, { year: 2026, month: 10, day: 30 })).toBe(1);
+    expect(completedCalendarMonths(aug31, { year: 2026, month: 10, day: 31 })).toBe(2);
+  });
+
+  it("never goes backwards as the day advances", () => {
+    // Monotonicity is what the clamp buys, and the property most likely to
+    // break if someone "simplifies" the rule later. Checked across four years
+    // of dates of birth, day by day, for three years each.
+    for (let offset = 0; offset < 366 * 4; offset += 37) {
+      const birth = civilFromDays(daysFromCivil({ year: 2024, month: 1, day: 1 }) + offset);
+      let previous = 0;
+      for (let days = 0; days <= MAX_PLAUSIBLE_DAYS; days += 1) {
+        const months = completedCalendarMonths(birth, civilFromDays(daysFromCivil(birth) + days));
+        expect(months).toBeGreaterThanOrEqual(previous);
+        expect(months - previous).toBeLessThanOrEqual(1);
+        previous = months;
+      }
+    }
+  });
+
+  it("reports the remainder since the anniversary, not since a mean month", () => {
+    const birth = { year: 2026, month: 1, day: 31 };
+    expect(daysSinceMonthAnniversary(birth, { year: 2026, month: 2, day: 28 })).toBe(0);
+    expect(daysSinceMonthAnniversary(birth, { year: 2026, month: 3, day: 5 })).toBe(5);
+
+    // And it feeds the label, so a headline cannot disagree with the stage.
+    const age = ageOn("2026-01-31", "2026-06-14");
+    expect(age.months).toBe(4);
+    expect(age.remainderDaysInMonth).toBe(14);
+    expect(age.label).toBe("4 months and 2 weeks old");
+  });
+});
+
+/**
  * The hybrid model.
  *
- * The cadence widens as development slows — a week early on, a month through
- * early development, paired months through adolescence. These tests pin every
- * boundary, because the whole model is boundaries and an off-by-one anywhere
- * puts a reader on the wrong stage.
+ * The cadence widens as development slows — a week early on, a calendar month
+ * through early development, paired calendar months through adolescence. These
+ * tests pin every boundary, because the whole model is boundaries and an
+ * off-by-one anywhere puts a reader on the wrong stage.
  */
 describe("hybrid age resolution", () => {
-  const slugFor = (days: number) => roadmapStageForDays(days)?.slug ?? null;
-
-  it("steps week by week from 8 to 12 weeks", () => {
+  it("steps week by week from 8 to 12 weeks, whatever the date of birth", () => {
     const weekly: [number, number, string][] = [
       [56, 62, "8-weeks"],
       [63, 69, "9-weeks"],
@@ -341,76 +548,133 @@ describe("hybrid age resolution", () => {
       [84, 90, "12-weeks"],
     ];
 
-    for (const [min, max, slug] of weekly) {
-      expect(max - min).toBe(6); // seven inclusive days, i.e. an actual week
-      expect(slugFor(min)).toBe(slug);
-      expect(slugFor(max)).toBe(slug);
-      expect(slugFor(min - 1)).not.toBe(slug);
-      expect(slugFor(max + 1)).not.toBe(slug);
+    // Four dates of birth chosen so their three-month anniversaries land on
+    // different days of life: 31 December reaches three months on day 90,
+    // 31 May not until day 92.
+    for (const dob of ["2026-06-18", "2025-12-31", "2026-05-31", "2024-02-29"]) {
+      for (const [min, max, slug] of weekly) {
+        expect(max - min).toBe(6); // seven inclusive days, i.e. an actual week
+        expect(slugAtDay(dob, min)).toBe(slug);
+        expect(slugAtDay(dob, max)).toBe(slug);
+      }
     }
   });
 
-  it("hands over from the weekly phase to the monthly one at thirteen weeks", () => {
-    // Day 90 is the last day of week 12; day 91 is exactly thirteen weeks and
-    // also the first day of the third month. The two schemes meet with no seam
-    // and no overlap, which is the join most likely to be got wrong.
-    expect(slugFor(90)).toBe("12-weeks");
-    expect(slugFor(91)).toBe("3-months");
-    expect(roadmapStageForDays(90)?.phase).toBe("early-puppy");
-    expect(roadmapStageForDays(91)?.phase).toBe("early-development");
+  it("keeps the weekly stage in charge through day 90, even past the anniversary", () => {
+    // Born 31 December 2025: three calendar months arrives on 31 March, which
+    // is day 90 — inside the twelfth week. The weekly stage takes precedence
+    // rather than cutting the week short.
+    const dob = "2025-12-31";
+    expect(ageOn(dob, "2026-03-31").days).toBe(90);
+    expect(ageOn(dob, "2026-03-31").months).toBe(3);
+    expect(slugOn(dob, "2026-03-31")).toBe("12-weeks");
+    expect(slugOn(dob, "2026-04-01")).toBe("3-months");
+
+    // Born 30 November 2025: three months arrives on 28 February, day 90 again.
+    expect(ageOn("2025-11-30", "2026-02-28").days).toBe(90);
+    expect(slugOn("2025-11-30", "2026-02-28")).toBe("12-weeks");
+    expect(slugOn("2025-11-30", "2026-03-01")).toBe("3-months");
   });
 
-  it("steps month by month from 3 to 6 months", () => {
-    const monthly: [number, number, string][] = [
-      [91, 121, "3-months"],
-      [122, 152, "4-months"],
-      [153, 182, "5-months"],
-      [183, 212, "6-months"],
-    ];
-
-    for (const [min, max, slug] of monthly) {
-      expect(slugFor(min)).toBe(slug);
-      expect(slugFor(max)).toBe(slug);
-      expect(slugFor(min - 1)).not.toBe(slug);
-      expect(slugFor(max + 1)).not.toBe(slug);
-      // A month, not a four-week block: every one of these is 30 or 31 days.
-      expect(max - min + 1).toBeGreaterThanOrEqual(30);
-      expect(max - min + 1).toBeLessThanOrEqual(31);
-    }
+  it("floors day 91 at three months when the anniversary has not arrived yet", () => {
+    // Born 31 May 2026: three calendar months is 31 August, which is day 92.
+    // On days 91 and 92 the calendar still says two months. The floor puts the
+    // reader on the 3-month stage rather than back into a week they have left.
+    const dob = "2026-05-31";
+    expect(ageOn(dob, dayAfter(dob, 91)).months).toBe(2);
+    expect(slugAtDay(dob, 90)).toBe("12-weeks");
+    expect(slugAtDay(dob, 91)).toBe("3-months");
+    expect(slugAtDay(dob, 92)).toBe("3-months");
+    expect(ageOn(dob, "2026-08-31").months).toBe(3);
+    expect(slugOn(dob, "2026-08-31")).toBe("3-months");
   });
 
-  it("uses paired-month ranges through adolescence", () => {
-    const ranges: [number, number, string][] = [
-      [213, 273, "7-8-months"],
-      [274, 334, "9-10-months"],
-      [335, 395, "11-12-months"],
-    ];
-
-    for (const [min, max, slug] of ranges) {
-      expect(slugFor(min)).toBe(slug);
-      expect(slugFor(max)).toBe(slug);
-      expect(slugFor(min - 1)).not.toBe(slug);
-      expect(slugFor(max + 1)).not.toBe(slug);
-      expect(roadmapStageForDays(min)?.phase).toBe("adolescence");
-    }
-
-    // The bucket that used to swallow everything from five months to nine.
-    expect(slugFor(200)).toBe("6-months");
-    expect(slugFor(220)).toBe("7-8-months");
+  it("moves on calendar anniversaries through early development", () => {
+    const dob = "2026-06-18";
+    // Born 18 June, so day 90 is 16 September and the three-month anniversary
+    // is 18 September. Day 91 falls in between: the weekly phase is over, and
+    // the floor places the reader on the 3-month stage a day early rather than
+    // leaving them in a gap.
+    expect(slugOn(dob, "2026-09-16")).toBe("12-weeks");
+    expect(slugOn(dob, "2026-09-17")).toBe("3-months");
+    expect(slugOn(dob, "2026-09-18")).toBe("3-months");
+    expect(slugOn(dob, "2026-10-17")).toBe("3-months");
+    expect(slugOn(dob, "2026-10-18")).toBe("4-months");
+    expect(slugOn(dob, "2026-11-17")).toBe("4-months");
+    expect(slugOn(dob, "2026-11-18")).toBe("5-months");
+    expect(slugOn(dob, "2026-12-17")).toBe("5-months");
+    expect(slugOn(dob, "2026-12-18")).toBe("6-months");
+    expect(slugOn(dob, "2027-01-17")).toBe("6-months");
+    expect(slugOn(dob, "2027-01-18")).toBe("7-8-months");
   });
 
-  it("falls through to young adult past the last adolescent range, and no further", () => {
-    expect(slugFor(395)).toBe("11-12-months");
-    expect(slugFor(396)).toBe("young-adult");
-    expect(slugFor(700)).toBe("young-adult");
-    expect(slugFor(MAX_PLAUSIBLE_DAYS)).toBe("young-adult");
+  it("uses paired-month ranges through adolescence, on anniversaries", () => {
+    const dob = "2026-06-18";
+    // 7 → 8 stays put; 8 → 9 moves.
+    expect(slugOn(dob, "2027-01-18")).toBe("7-8-months"); // 7 months
+    expect(slugOn(dob, "2027-02-17")).toBe("7-8-months");
+    expect(slugOn(dob, "2027-02-18")).toBe("7-8-months"); // 8 months
+    expect(slugOn(dob, "2027-03-17")).toBe("7-8-months");
+    expect(slugOn(dob, "2027-03-18")).toBe("9-10-months"); // 9 months
 
-    // The roadmap stops exactly where the age engine stops accepting a date
-    // of birth at all, so there is no age that resolves to nothing in between.
-    expect(slugFor(MAX_PLAUSIBLE_DAYS + 1)).toBeNull();
-    expect(resolveAge({ year: 2020, month: 1, day: 1 }, { year: 2026, month: 9, day: 5 }).ok).toBe(
-      false,
-    );
+    // 10 → 11 moves.
+    expect(slugOn(dob, "2027-04-18")).toBe("9-10-months"); // 10 months
+    expect(slugOn(dob, "2027-05-17")).toBe("9-10-months");
+    expect(slugOn(dob, "2027-05-18")).toBe("11-12-months"); // 11 months
+
+    // 12 → 13 moves into maturity.
+    expect(slugOn(dob, "2027-06-18")).toBe("11-12-months"); // 12 months
+    expect(slugOn(dob, "2027-07-17")).toBe("11-12-months");
+    expect(slugOn(dob, "2027-07-18")).toBe("young-adult"); // 13 months
+    expect(ageOn(dob, "2027-07-18").months).toBe(13);
+  });
+
+  it("holds those boundaries for a month-end date of birth too", () => {
+    // Born 31 August: every anniversary in a 30-day month is clamped.
+    const dob = "2026-08-31";
+    expect(slugOn(dob, "2026-11-30")).toBe("3-months");
+    expect(slugOn(dob, "2026-12-30")).toBe("3-months");
+    expect(slugOn(dob, "2026-12-31")).toBe("4-months");
+    expect(slugOn(dob, "2027-02-28")).toBe("6-months"); // clamped from 31 February
+    expect(slugOn(dob, "2027-03-30")).toBe("6-months");
+    expect(slugOn(dob, "2027-03-31")).toBe("7-8-months");
+    // Thirteen months from 31 August is 30 September, clamped.
+    expect(slugOn(dob, "2027-09-29")).toBe("11-12-months");
+    expect(slugOn(dob, "2027-09-30")).toBe("young-adult");
+    expect(ageOn(dob, "2027-09-30").months).toBe(13);
+  });
+
+  it("resolves a leap-day date of birth without falling into a gap", () => {
+    const dob = "2024-02-29";
+
+    // Three months is 29 May, which is this puppy's day 90 — inside the
+    // twelfth week, so the weekly stage takes precedence for one more day.
+    expect(ageOn(dob, "2024-05-29").days).toBe(90);
+    expect(ageOn(dob, "2024-05-29").months).toBe(3);
+    expect(slugOn(dob, "2024-05-29")).toBe("12-weeks");
+    expect(slugOn(dob, "2024-05-30")).toBe("3-months");
+
+    expect(slugOn(dob, "2024-08-29")).toBe("6-months");
+    expect(slugOn(dob, "2025-01-28")).toBe("9-10-months"); // 11 months is 29 January
+    expect(slugOn(dob, "2025-01-29")).toBe("11-12-months");
+
+    // Twelve months lands on 28 February, clamped; thirteen on 29 March, not.
+    expect(ageOn(dob, "2025-02-28").months).toBe(12);
+    expect(slugOn(dob, "2025-03-28")).toBe("11-12-months");
+    expect(slugOn(dob, "2025-03-29")).toBe("young-adult");
+  });
+
+  it("falls through to young adult and stays there to the engine's own limit", () => {
+    const dob = "2026-06-18";
+    expect(slugOn(dob, "2027-07-18")).toBe("young-adult");
+    expect(slugAtDay(dob, 800)).toBe("young-adult");
+    expect(slugAtDay(dob, MAX_PLAUSIBLE_DAYS)).toBe("young-adult");
+
+    // Past the engine's limit there is no age to resolve at all, so the
+    // roadmap does not need — and must not have — an entry for it.
+    const birth = parseCivilDate(dob)!;
+    const past = civilFromDays(daysFromCivil(birth) + MAX_PLAUSIBLE_DAYS + 1);
+    expect(resolveAge(birth, past).ok).toBe(false);
   });
 
   it("marks maturity as the one boundary that genuinely depends on size", () => {
@@ -420,12 +684,31 @@ describe("hybrid age resolution", () => {
     expect(sizeDependent.map((stage) => stage.slug)).toEqual(["young-adult"]);
   });
 
-  it("resolves every plausible age from eight weeks on to exactly one stage", () => {
-    for (let days = 56; days <= MAX_PLAUSIBLE_DAYS; days += 1) {
-      const matches = roadmapStages.filter(
-        (stage) => days >= stage.ageMinDays && days <= stage.ageMaxDays,
-      );
-      expect(matches).toHaveLength(1);
+  it("resolves exactly one stage for every day of every date of birth in a leap year", () => {
+    // The property that matters: no gap and no overlap, for any date of birth,
+    // on any day of life from eight weeks to the engine's limit — including
+    // across the weekly-to-monthly handover, which does not land on a fixed day.
+    const firstOf2024 = daysFromCivil({ year: 2024, month: 1, day: 1 });
+
+    for (let offset = 0; offset < 366; offset += 1) {
+      const birth = civilFromDays(firstOf2024 + offset);
+      let previousIndex = -1;
+
+      for (let days = 56; days <= MAX_PLAUSIBLE_DAYS; days += 1) {
+        const result = resolveAge(birth, civilFromDays(daysFromCivil(birth) + days));
+        if (!result.ok) {
+          throw new Error("age did not resolve inside the plausible range");
+        }
+
+        const stage = roadmapStageFor(result.age);
+        expect(stage).not.toBeNull();
+
+        // And the sequence only ever moves forwards: a reader never sees the
+        // journey go backwards a stage because a boundary crossed badly.
+        const index = roadmapStages.findIndex((entry) => entry.slug === stage!.slug);
+        expect(index).toBeGreaterThanOrEqual(previousIndex);
+        previousIndex = index;
+      }
     }
   });
 
@@ -433,10 +716,50 @@ describe("hybrid age resolution", () => {
     // Under eight weeks a puppy is normally still with its breeder. That is
     // the one age the Journey declines to place, and it degrades to the
     // "not written yet" state rather than to a wrong week.
+    const dob = "2026-06-18";
     for (const days of [0, 20, 55]) {
-      expect(roadmapStageForDays(days)).toBeNull();
-      expect(stageForDays(days)).toBeNull();
+      expect(roadmapStageFor(ageOn(dob, dayAfter(dob, days)))).toBeNull();
+      expect(stageFor(ageOn(dob, dayAfter(dob, days)))).toBeNull();
     }
+  });
+
+  it("orders the timeline exactly as the journey runs", () => {
+    expect(roadmapStages.map((stage) => stage.slug)).toEqual([
+      "8-weeks",
+      "9-weeks",
+      "10-weeks",
+      "11-weeks",
+      "12-weeks",
+      "3-months",
+      "4-months",
+      "5-months",
+      "6-months",
+      "7-8-months",
+      "9-10-months",
+      "11-12-months",
+      "young-adult",
+    ]);
+
+    expect(roadmapStages.map((stage) => stage.label)).toEqual([
+      "8 weeks",
+      "9 weeks",
+      "10 weeks",
+      "11 weeks",
+      "12 weeks",
+      "3 months",
+      "4 months",
+      "5 months",
+      "6 months",
+      "7\u20138 months",
+      "9\u201310 months",
+      "11\u201312 months",
+      "Young adult",
+    ]);
+
+    // And the rendered order matches the declared order, phase headings and all.
+    expect(roadmapByPhase().flatMap((group) => group.stages.map((stage) => stage.slug))).toEqual(
+      roadmapStages.map((stage) => stage.slug),
+    );
   });
 
   it("groups the roadmap into four phases whose cadence widens in order", () => {
@@ -457,11 +780,23 @@ describe("hybrid age resolution", () => {
     // Grouping must not drop or duplicate an entry.
     expect(groups.flatMap((group) => group.stages)).toEqual([...roadmapStages]);
 
-    // Each phase's stages are longer than the last phase's, which is the
-    // entire premise of the hybrid model stated as an assertion.
-    const spans = groups.map((group) =>
-      Math.min(...group.stages.map((stage) => stage.ageMaxDays - stage.ageMinDays + 1)),
-    );
+    // The premise of the hybrid model, stated as an assertion: each phase's
+    // stages span more of a puppy's life than the last phase's did.
+    const dob = "2026-06-18";
+    const spanOf = (stage: RoadmapStage): number => {
+      if (stage.range.unit === "weeks") {
+        return stage.range.maxDays - stage.range.minDays + 1;
+      }
+      const birth = parseCivilDate(dob)!;
+      const from = addCalendarMonths(birth, stage.range.minMonths);
+      const to =
+        stage.range.maxMonths === undefined
+          ? civilFromDays(daysFromCivil(birth) + MAX_PLAUSIBLE_DAYS)
+          : addCalendarMonths(birth, stage.range.maxMonths + 1);
+      return daysBetween(from, to);
+    };
+
+    const spans = groups.map((group) => Math.min(...group.stages.map(spanOf)));
     for (let i = 1; i < spans.length; i += 1) {
       expect(spans[i]!).toBeGreaterThan(spans[i - 1]!);
     }
@@ -503,12 +838,21 @@ describe("hybrid age resolution", () => {
     expect(stages.length).toBeLessThan(roadmapStages.length);
   });
 
-  it("agrees with the implemented stage wherever both resolve", () => {
+  it("takes its age range from the roadmap rather than restating it", () => {
+    // A stage carries no bounds of its own, so a stage and its roadmap entry
+    // cannot drift apart — and a future monthly stage page needs no day range
+    // it could not express.
     for (const stage of stages) {
-      for (const days of [stage.ageMinDays, stage.ageMaxDays]) {
-        expect(roadmapStageForDays(days)?.slug).toBe(stage.slug);
-      }
+      const roadmap = findRoadmapStage(stage.slug);
+      expect(roadmap).not.toBeNull();
+      expect(stage).not.toHaveProperty("ageMinDays");
+      expect(stage).not.toHaveProperty("ageMaxDays");
     }
+
+    // The one implemented stage still covers exactly the eleventh week.
+    const dob = "2026-06-18";
+    expect(stageFor(ageOn(dob, dayAfter(dob, 77)))?.slug).toBe("11-weeks");
+    expect(stageFor(ageOn(dob, dayAfter(dob, 83)))?.slug).toBe("11-weeks");
   });
 });
 
