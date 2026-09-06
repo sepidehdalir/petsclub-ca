@@ -506,17 +506,27 @@ describe("calendar months", () => {
   it("never goes backwards as the day advances", () => {
     // Monotonicity is what the clamp buys, and the property most likely to
     // break if someone "simplifies" the rule later. Checked across four years
-    // of dates of birth, day by day, for three years each.
+    // of dates of birth, day by day, for three years each — collecting
+    // violations rather than asserting per day, for the reason set out on the
+    // exhaustive stage sweep below.
+    const start = daysFromCivil({ year: 2024, month: 1, day: 1 });
+    const violations: string[] = [];
+
     for (let offset = 0; offset < 366 * 4; offset += 37) {
-      const birth = civilFromDays(daysFromCivil({ year: 2024, month: 1, day: 1 }) + offset);
+      const birth = civilFromDays(start + offset);
+      const birthDay = daysFromCivil(birth);
       let previous = 0;
+
       for (let days = 0; days <= MAX_PLAUSIBLE_DAYS; days += 1) {
-        const months = completedCalendarMonths(birth, civilFromDays(daysFromCivil(birth) + days));
-        expect(months).toBeGreaterThanOrEqual(previous);
-        expect(months - previous).toBeLessThanOrEqual(1);
+        const months = completedCalendarMonths(birth, civilFromDays(birthDay + days));
+        if (months < previous || months - previous > 1) {
+          violations.push(`${formatCivilDate(birth)} day ${days}: ${previous} → ${months}`);
+        }
         previous = months;
       }
     }
+
+    expect(violations).toEqual([]);
   });
 
   it("reports the remainder since the anniversary, not since a mean month", () => {
@@ -690,28 +700,48 @@ describe("hybrid age resolution", () => {
     // The property that matters: no gap and no overlap, for any date of birth,
     // on any day of life from eight weeks to the engine's limit — including
     // across the weekly-to-monthly handover, which does not land on a fixed day.
+    //
+    // Written as a sweep that collects violations and asserts once, rather than
+    // asserting inside the loop. That is not a style preference: this covers
+    // roughly 380,000 (birth, day) pairs, and an `expect` per pair spends more
+    // time building assertion objects than resolving ages — enough to blow
+    // Vitest's five-second default on a CI runner while passing on a faster
+    // laptop. A property test should be cheap enough that nobody is tempted to
+    // shrink its input space to make it finish.
     const firstOf2024 = daysFromCivil({ year: 2024, month: 1, day: 1 });
+    const order = new Map(roadmapStages.map((stage, index) => [stage.slug, index]));
+    const unresolved: string[] = [];
+    const wentBackwards: string[] = [];
 
     for (let offset = 0; offset < 366; offset += 1) {
       const birth = civilFromDays(firstOf2024 + offset);
+      const birthDay = daysFromCivil(birth);
       let previousIndex = -1;
 
       for (let days = 56; days <= MAX_PLAUSIBLE_DAYS; days += 1) {
-        const result = resolveAge(birth, civilFromDays(daysFromCivil(birth) + days));
+        const result = resolveAge(birth, civilFromDays(birthDay + days));
         if (!result.ok) {
           throw new Error("age did not resolve inside the plausible range");
         }
 
         const stage = roadmapStageFor(result.age);
-        expect(stage).not.toBeNull();
+        if (!stage) {
+          unresolved.push(`${formatCivilDate(birth)} on day ${days}`);
+          continue;
+        }
 
         // And the sequence only ever moves forwards: a reader never sees the
         // journey go backwards a stage because a boundary crossed badly.
-        const index = roadmapStages.findIndex((entry) => entry.slug === stage!.slug);
-        expect(index).toBeGreaterThanOrEqual(previousIndex);
+        const index = order.get(stage.slug)!;
+        if (index < previousIndex) {
+          wentBackwards.push(`${formatCivilDate(birth)} on day ${days} → ${stage.slug}`);
+        }
         previousIndex = index;
       }
     }
+
+    expect(unresolved).toEqual([]);
+    expect(wentBackwards).toEqual([]);
   });
 
   it("resolves nothing before eight weeks, rather than guessing a stage", () => {
