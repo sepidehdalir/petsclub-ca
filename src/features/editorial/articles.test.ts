@@ -600,3 +600,293 @@ describe("rabies legal copy in the vaccination guides", () => {
     }
   });
 });
+
+/**
+ * ## Behaviour folklore, in the article library
+ *
+ * The Puppy Journey has guards for this. The dependency audit found they would
+ * not have caught either of the two contradictions in Batch B, for the same
+ * reason in both cases: the articles never used a banned phrase. The
+ * socialisation guide said "a second period of increased wariness during
+ * adolescence" — the second fear period, in other words — and the training
+ * guide asserted a six-to-eighteen-month regression window. A phrase list
+ * would have missed both.
+ *
+ * So this scans for the *assertions* rather than the vocabulary, and it is
+ * deliberately narrower than the Journey's six families: only the behavioural
+ * claims that the Journey has taken a position on, applied to all 35 articles.
+ *
+ * Attribution and rejection are clause-scoped, exactly as in the Journey
+ * guard, so "people are told their dog is being dominant" and "we could not
+ * find a source for a second fear period" both pass while the bare assertions
+ * do not.
+ */
+const FOLKLORE = [
+  // A scheduled fear event, however it is worded.
+  /\bsecond\s+(?:fear|wariness)\s+(?:period|stage|phase|window)\b/i,
+  /\b(?:period|stage|phase)\s+of\s+(?:increased\s+)?(?:fear|wariness|fearfulness)\b/i,
+  /\bfear\s+(?:period|stage)\s+(?:arrives|begins|starts|happens|sets in)\b/i,
+  // A universal adolescent regression window.
+  /\b(?:six|6)\s*(?:to|–|-)\s*(?:eighteen|18)\s*months\b[^.]{0,60}\b(?:regress|worse|decline|lose|undone)\b/i,
+  /\b(?:regress\w*|worse|decline\w*|deteriorat\w*)\b[^.]{0,60}\bbetween\s+(?:roughly\s+)?(?:six|6)\s*(?:to|and|–|-)\s*(?:eighteen|18)\s*months\b/i,
+  /\ball\s+(?:adolescent\s+)?dogs\b[^.]{0,50}\bregress\b/i,
+  // Dominance and its family.
+  /\bpack\s+leader\b|\balpha\s+(?:dog|male|role|status)\b/i,
+  /\b(?:establish|assert|show|maintain)\w*\s+dominance\b/i,
+  /\b(?:is|are|was|were|being)\s+(?:testing|pushing)\s+(?:the\s+|his\s+|her\s+|your\s+|its\s+)?boundaries\b/i,
+  // Stubbornness as a developmental explanation.
+  /\b(?:is|are|being)\s+(?:just\s+)?stubborn\b[^.]{0,40}\b(?:because|adolescen|developmental|age)\b/i,
+  /\b(?:adolescen\w+|developmental)\b[^.]{0,40}\b(?:stubbornness|being stubborn)\b/i,
+];
+
+/** Attribution, rejection or reported speech, in the same clause as the claim. */
+const FOLKLORE_EXEMPT =
+  /\b(?:not|never|no|nothing|nobody)\b|\bcould not find\b|\brather than\b|\binstead of\b|\bmyth\b|\bfolklore\b|\bmisreading\b|\b(?:are|is)\s+told\b|\bpeople\s+(?:say|call|assume|are told)\b|\byou will hear\b|\bAsher\b|\bMcEvoy\b|\bMerck\b|\bAVSAB\b|\bstudy\b|\bguide[- ]dog\b|\bwe have taken it out\b|\bremoved\b/i;
+
+function folkloreClauses(sentence: string): string[] {
+  return sentence
+    .split(/\s*[;—]\s*|,\s+(?:then|and then|but|so|which|where)\s+/)
+    .filter((part) => part.trim().length > 0);
+}
+
+/** Every folklore assertion in one sentence, unexcused by its own clause. */
+function folkloreViolations(sentence: string): string[] {
+  const found: string[] = [];
+  for (const pattern of FOLKLORE) {
+    for (const clause of folkloreClauses(sentence)) {
+      const hit = pattern.exec(clause);
+      if (hit && !FOLKLORE_EXEMPT.test(clause)) found.push(hit[0]);
+    }
+  }
+  return found;
+}
+
+const ARTICLE_BODIES = articles.map((article) => ({
+  slug: article.slug,
+  body: readFileSync(
+    fileURLToPath(new URL(`../../content/articles/${article.slug}.mdx`, import.meta.url)),
+    "utf8",
+  ),
+}));
+
+describe("behaviour folklore across the article library", () => {
+  it("scans every article body, not a sample", () => {
+    expect(ARTICLE_BODIES).toHaveLength(35);
+    for (const { slug, body } of ARTICLE_BODIES) {
+      expect(body.length, `${slug} body is empty`).toBeGreaterThan(2000);
+    }
+  });
+
+  it("asserts no behaviour folklore in any article", () => {
+    const offenders: string[] = [];
+    for (const { slug, body } of ARTICLE_BODIES) {
+      for (const sentence of body.split(/(?<=[.?!])\s+/)) {
+        for (const hit of folkloreViolations(sentence)) {
+          offenders.push(`${slug}: "${hit}" in "${sentence.trim().slice(0, 110)}"`);
+        }
+      }
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it("catches the two claims the Journey guards would have missed", () => {
+    // Verbatim from the articles before this batch. Neither used a banned
+    // phrase, which is why a vocabulary list would not have found them.
+    for (const sentence of [
+      "Many dogs go through a second period of increased wariness during adolescence, when things they previously accepted suddenly become suspicious.",
+      "Many dogs get noticeably worse between roughly six and eighteen months.",
+    ]) {
+      expect(folkloreViolations(sentence), `still slips through: ${sentence}`).not.toEqual([]);
+    }
+  });
+
+  it("catches the rest of the family", () => {
+    for (const sentence of [
+      "A second fear period arrives around eight months.",
+      "You need to be the pack leader.",
+      "Establish dominance early or the dog will.",
+      "Your dog is testing boundaries at this age.",
+      "He is being stubborn because he is adolescent.",
+      "All adolescent dogs regress for a while.",
+    ]) {
+      expect(folkloreViolations(sentence), `missed: ${sentence}`).not.toEqual([]);
+    }
+  });
+
+  it("allows rejection, reported speech and attributed findings", () => {
+    for (const sentence of [
+      "It is the point at which a great many people are told their dog is being dominant, stubborn or spiteful.",
+      "We could not find a source for a second fear period, so it is not in this guide.",
+      "There is no evidence for a scheduled adolescent fear stage.",
+      "Asher and colleagues found that at around eight months carers rated their dogs as less trainable than at five or twelve.",
+      "That was a guide-dog population, so it is not a six-to-eighteen-month timetable your dog is due on.",
+      "AVSAB names forceful manipulation such as alpha rolls or dominance downs among the techniques to avoid.",
+      "A dog finding new things harder later is worth reading as that curve continuing, rather than as a second window opening on a timetable.",
+    ]) {
+      expect(folkloreViolations(sentence), `false positive: ${sentence}`).toEqual([]);
+    }
+  });
+});
+
+describe("Batch B — puppy behaviour and training evidence", () => {
+  const body = (slug: string) => ARTICLE_BODIES.find((a) => a.slug === slug)!.body;
+  const register = (slug: string) =>
+    (articles.find((a) => a.slug === slug)!.needsVerification ?? []).join(" ");
+  const sourceUrls = (slug: string) =>
+    (articles.find((a) => a.slug === slug)!.sources ?? []).map((x) => x.url).join(" ");
+
+  it("replaces the socialisation wariness claim with a sourced trajectory", () => {
+    const b = body("puppy-socialisation-checklist");
+    expect(b).not.toMatch(/second period of increased wariness/i);
+    expect(b).not.toMatch(/second fear (?:period|stage|phase)/i);
+
+    // What replaced it is attributed, gradual, and individual.
+    expect(b).toMatch(/McEvoy/);
+    expect(b).toMatch(/three to five weeks/i);
+    expect(b).toMatch(/Merck Veterinary Manual/);
+    expect(b).toMatch(/juvenile period/i);
+    expect(b).toMatch(/Neither is a stage with dates on it/i);
+    expect(b).toMatch(/varies enormously from dog to dog|individual/i);
+    // Pain and illness named, with a route to help.
+    expect(b).toMatch(/pain and illness/i);
+    expect(b).toMatch(/qualified behaviour professional/i);
+
+    expect(sourceUrls("puppy-socialisation-checklist")).toContain("PMC9655304");
+    expect(register("puppy-socialisation-checklist")).toMatch(/RESOLVED 2026-09-06/);
+  });
+
+  it("makes the body-language signals sourced and explicitly non-specific", () => {
+    const b = body("puppy-socialisation-checklist");
+    expect(b).toMatch(/Merck Veterinary Manual lists low body posture/i);
+    expect(b).toMatch(/piloerection/);
+    expect(b).toMatch(/displacement/i);
+    // The point that matters: no single signal is a verdict.
+    expect(b).toMatch(/None of these is a fear signal on its own/i);
+    expect(b).toMatch(/combination|context/i);
+    expect(b).not.toMatch(/\bmeans your (?:dog|puppy) is afraid\b/i);
+    expect(sourceUrls("puppy-socialisation-checklist")).toMatch(/merckvetmanual\.com\/behavior/);
+  });
+
+  it("replaces the adolescence window with what Asher actually measured", () => {
+    const b = body("loose-leash-walking-and-recall");
+    expect(b).not.toMatch(/get noticeably worse between roughly six and eighteen months/i);
+
+    expect(b).toMatch(/Asher/);
+    expect(b).toMatch(/five, eight and twelve months|roughly five, eight and twelve/i);
+    expect(b).toMatch(/carers rated/i);
+    expect(b).toMatch(/stranger/i);
+    // The limitation travels with the finding.
+    expect(b).toMatch(/guide-dog population/i);
+    expect(b).toMatch(/age groupings would need reconsidering/i);
+    expect(b).toMatch(/not a six-to-eighteen-month timetable/i);
+    // And none of the folklore came back in its place. "dominance downs"
+    // appears legitimately, quoted from AVSAB's list of techniques to avoid.
+    expect(folkloreViolations(b)).toEqual([]);
+    expect(b).not.toMatch(/\bpack leader\b|\btesting boundaries\b/i);
+
+    expect(sourceUrls("loose-leash-walking-and-recall")).toMatch(/rsbl\.2020\.0097/);
+  });
+
+  it("states the AVSAB position as the statement actually words it", () => {
+    const b = body("loose-leash-walking-and-recall");
+    // Verified against the 2021 position statement PDF, retrieved directly.
+    expect(b).toMatch(/only reward-based training methods are used for all dog training/i);
+    // All four categories, not two.
+    expect(b).toMatch(/choke chains, prong collars, electronic shock collars/i);
+    expect(b).toMatch(/squirt bottles, shaker noise cans, compressed air cans/i);
+    expect(b).toMatch(/alpha rolls or dominance downs/i);
+    expect(b).toMatch(/leash jerking/i);
+    expect(b).toMatch(/flooding/i);
+    expect(b).toMatch(/there are no exceptions to this standard/i);
+    expect(b).toMatch(/opt out/i);
+    expect(register("loose-leash-walking-and-recall")).toMatch(/verified against the 2021 Humane Dog Training position statement/i);
+  });
+
+  it("removes the bladder formula and replaces it with sourced intervals", () => {
+    const b = body("crate-training-a-puppy-in-canada");
+    // The formula may only appear in the sentence saying it was taken out.
+    for (const sentence of b.split(/(?<=[.?!])\s+/)) {
+      if (!/age in months plus one hour/i.test(sentence)) continue;
+      expect(sentence, "the formula is stated as guidance").toMatch(
+        /taken it out|removed|could not find a veterinary source/i,
+      );
+    }
+    expect(b).not.toMatch(/a three-month-old for about four hours/i);
+
+    // What replaced it: intervals, attributed, with a confinement ceiling.
+    expect(b).toMatch(/every one to two hours/i);
+    expect(b).toMatch(/every four hours even if it has been resting/i);
+    expect(b).toMatch(/around five months/i);
+    expect(b).toMatch(/no more than about three hours alone in a crate/i);
+    expect(b).toMatch(/VCA/);
+    expect(sourceUrls("crate-training-a-puppy-in-canada")).toMatch(/vcahospitals\.com/);
+    expect(register("crate-training-a-puppy-in-canada")).toMatch(/was REMOVED/);
+  });
+
+  it("carries no unsupported numeric bladder-capacity formula anywhere", () => {
+    for (const { slug, body: b } of ARTICLE_BODIES) {
+      for (const sentence of b.split(/(?<=[.?!])\s+/)) {
+        if (!/\bhold (?:on|it|their bladder)\b/i.test(sentence)) continue;
+        if (!/bladder|urine|toilet|eliminat|crate|pee/i.test(sentence)) continue;
+        expect(
+          /taken it out|removed|could not find|varies|depends|VCA|veterinary/i.test(sentence),
+          `${slug}: unsourced holding claim — ${sentence.slice(0, 110)}`,
+        ).toBe(true);
+      }
+    }
+  });
+
+  it("states sleep the same way in both puppy guides, and sources it", () => {
+    const crate = body("crate-training-a-puppy-in-canada");
+    const first = body("bringing-home-a-puppy-first-30-days");
+
+    for (const [slug, b] of [
+      ["crate-training-a-puppy-in-canada", crate],
+      ["bringing-home-a-puppy-first-30-days", first],
+    ] as const) {
+      // The unsupported figure is gone from both.
+      expect(b, slug).not.toMatch(/sixteen (?:to|and) eighteen hours/i);
+      expect(b, slug).not.toMatch(/16.{0,4}18 hours of sleep/i);
+      // Both carry the measured figure, its source and its limitation.
+      expect(b, slug).toMatch(/Generation Pup/);
+      expect(b, slug).toMatch(/about 11 hours|11\.2/);
+      expect(b, slug).toMatch(/sixteen weeks/i);
+      expect(b, slug).toMatch(/owner-reported/i);
+      expect(b, slug).toMatch(/not observing directly/i);
+      expect(sourceUrls(slug)).toContain("PMC7401528");
+    }
+
+    // And neither drifts to a precise daily total of its own.
+    expect(crate).toMatch(/in many short bouts/i);
+    expect(first).toMatch(/in many short bouts/i);
+    // The formula is not introduced into the first-30-days guide.
+    expect(first).not.toMatch(/age in months plus one hour/i);
+  });
+
+  it("leaves no publication blocker in the four Batch B articles", () => {
+    const BLOCKING =
+      /before publication|before it is published|before publishing|attach a source or cut|source it before|confirm .{0,40}before|could not be (?:retrieved|confirmed|verified)|not yet sourced|re-check .{0,30}before/i;
+
+    for (const slug of [
+      "puppy-socialisation-checklist",
+      "loose-leash-walking-and-recall",
+      "crate-training-a-puppy-in-canada",
+      "bringing-home-a-puppy-first-30-days",
+    ]) {
+      const items = articles.find((a) => a.slug === slug)!.needsVerification ?? [];
+      // The label is the classification. A guardrail may legitimately contain
+      // "confirm before naming a proportion" — that is a condition on a change
+      // nobody is making, not an open question.
+      const open = items.filter(
+        (item) => BLOCKING.test(item) && !/^(?:RESOLVED|STANDING GUARDRAIL)/.test(item),
+      );
+      expect(open, `${slug} still has publication blockers`).toEqual([]);
+      // Every remaining item declares which kind it is.
+      for (const item of items) {
+        expect(item, `${slug}: unlabelled register item`).toMatch(
+          /^(?:RESOLVED|STANDING GUARDRAIL|OPEN \(NON-BLOCKING\))/,
+        );
+      }
+    }
+  });
+});

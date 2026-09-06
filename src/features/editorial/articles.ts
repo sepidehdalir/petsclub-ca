@@ -514,6 +514,12 @@ export const articles: readonly Article[] = [
     ],
     sources: [
       {
+        label:
+          "Sleep Duration and Behaviours: A Descriptive Analysis of a Cohort of Dogs up to 12 Months of Age \u2014 owner-reported mean total sleep of 11.2 h at sixteen weeks",
+        publisher: "Generation Pup, Animals 2020;10(7):1172",
+        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7401528/",
+      },
+      {
         label: "Position statement on puppy socialization, and why it precedes full vaccination",
         publisher: "American Veterinary Society of Animal Behavior",
         url: "https://avsab.org/puppy-socialization-position-statement/",
@@ -527,9 +533,10 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "The 16–18 hours of sleep a day figure for young puppies — widely repeated, but attach a veterinary or behavioural source or soften the sentence.",
-      "That most Canadian municipalities require dogs to be licensed — stated generally rather than enumerated; confirm before naming a proportion.",
-      "The 14–16 week close of the primary socialisation window, against the same source used in the vaccination guide.",
+      "RESOLVED 2026-09-06 \u2014 the sixteen-to-eighteen-hours sleep figure, shared with the crate guide and resolved identically. Both articles now cite the Generation Pup cohort study, carry its owner-reported limitation, and use compatible wording. Neither states a precise daily total as fact.",
+      "STANDING GUARDRAIL \u2014 the two puppy guides state sleep the same way. Do not let one drift to a precise number the other does not carry, and do not introduce the age-in-months-plus-one-hour rule here; it was removed from the crate guide for want of a source.",
+      "STANDING GUARDRAIL \u2014 That most Canadian municipalities require dogs to be licensed — stated generally rather than enumerated; confirm before naming a proportion.",
+      "OPEN (NON-BLOCKING) \u2014 The 14–16 week close of the primary socialisation window, against the same source used in the vaccination guide.",
     ],
   },
   {
@@ -640,6 +647,18 @@ export const articles: readonly Article[] = [
     ],
     sources: [
       {
+        label:
+          "House training for puppies and dogs \u2014 elimination intervals by activity, and no more than about three hours alone in a crate",
+        publisher: "VCA Animal Hospitals",
+        url: "https://vcahospitals.com/know-your-pet/house-training-your-puppy",
+      },
+      {
+        label:
+          "Sleep Duration and Behaviours: A Descriptive Analysis of a Cohort of Dogs up to 12 Months of Age \u2014 owner-reported mean total sleep of 11.2 h at sixteen weeks",
+        publisher: "Generation Pup, Animals 2020;10(7):1172",
+        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7401528/",
+      },
+      {
         label: "Position statement on puppy socialization — why early training and rest matter",
         publisher: "American Veterinary Society of Animal Behavior",
         url: "https://avsab.org/puppy-socialization-position-statement/",
@@ -663,9 +682,10 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "The age-in-months-plus-one-hour rule of thumb — presented as a rough planning figure rather than guidance; attach a source or cut it.",
-      "The 16–18 hours of sleep a day figure, shared with the first-30-days guide.",
-      "Whether to name the recognised behavioural condition directly rather than describing it, once a veterinary source is attached.",
+      "RESOLVED 2026-09-06 \u2014 the age-in-months-plus-one-hour rule was REMOVED. No veterinary, veterinary-university or peer-reviewed source for the formula could be found, and it produced an actionable figure (four hours for a three-month-old) that owners plan a working day around. Replaced with VCA's house-training intervals, which are guidance rather than a capacity formula: out every one to two hours awake, every four hours even when resting, after meals and naps, roughly every half hour during energetic play, overnight outings often needed until around five months, and no more than about three hours alone in a crate. The article now says explicitly that the formula was taken out and why.",
+      "STANDING GUARDRAIL \u2014 no bladder-capacity formula, and no maximum-confinement number that is not attributable to a veterinary source. Do not replace one unsupported figure with another.",
+      "RESOLVED 2026-09-06 \u2014 the sixteen-to-eighteen-hours sleep figure was unsourced and higher than anything measured. The Generation Pup cohort study (Animals 2020;10(7):1172) reports owner-reported mean total sleep of 11.2 h (SD 2.9) over 24 hours at sixteen weeks and 10.8 h at twelve months, with median daytime sleep of 3.5 h at sixteen weeks. The article now gives that figure with the study's own limitation \u2014 owners were not observing directly and may not distinguish sleep from rest \u2014 and notes the study's earliest timepoint is sixteen weeks, so it does not measure an eight-week-old.",
+      "OPEN (NON-BLOCKING) \u2014 Whether to name the recognised behavioural condition directly rather than describing it, once a veterinary source is attached.",
     ],
   },
   {
@@ -1892,6 +1912,18 @@ export const articles: readonly Article[] = [
     relatedCategorySlugs: ["puppies", "dog-training-and-behaviour", "general-dog-discussion"],
     sources: [
       {
+        label:
+          "Canine Socialisation: A Narrative Systematic Review \u2014 the tendency to approach unfamiliar stimuli peaks at about three to five weeks and declines thereafter",
+        publisher: "McEvoy, Baqueiro Espinosa, Crump and Arnott, Animals (2022)",
+        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9655304/",
+      },
+      {
+        label:
+          "Behavioral problems of dogs \u2014 acute fear and anxiety signs, including displacement behaviours such as yawning and lip-licking",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/behavior/normal-social-behavior-and-behavioral-problems-of-domestic-animals/behavioral-problems-of-dogs",
+      },
+      {
         label: "Position statement on puppy socialization",
         publisher: "American Veterinary Society of Animal Behavior",
         url: "https://avsab.org/puppy-socialization-position-statement/",
@@ -1910,10 +1942,12 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "The body-language signals used to distinguish a puppy under threshold from one over it are drawn from behavioural guidance and are framed as what to watch rather than as a diagnostic scale. Attach a named source for each before publication.",
-      "That many dogs go through a second period of increased wariness in adolescence \u2014 widely described in behaviour literature, not yet sourced here.",
-      "The exposure categories are an editorial organising structure rather than a published checklist. Confirm nothing in the table conflicts with AVSAB or Merck guidance.",
-      "Whether any Canadian veterinary or behaviour body publishes puppy class standards that should be cited alongside AVSAB's.",
+      "RESOLVED 2026-09-06 \u2014 the second-wariness claim. The article said \u201cmany dogs go through a second period of increased wariness during adolescence\u201d, which is the second fear period in other words and contradicted the Puppy Journey's editorial position, where the differentiation gate found no peer-reviewed basis for a scheduled adolescent fear stage at any age. Replaced with the sourced trajectory: McEvoy et al. 2022 put the peak tendency to approach novelty at three to five weeks with a decline after it, and Merck describes attraction to unfamiliar people decreasing and avoidance becoming more pronounced through the juvenile period from about twelve weeks. Framed as a gradual curve rather than a stage, individual variation stated, pain and illness named as possible causes of sudden change, and a route to veterinary and qualified behavioural help given.",
+      "STANDING GUARDRAIL \u2014 no second fear period, fear stage, fear phase, scheduled adolescent fear event or universal age threshold, in any wording. The prohibition is on the developmental assertion, not on a form of words: do not reintroduce it by avoiding the phrase.",
+      "RESOLVED 2026-09-06 \u2014 body-language signals. Merck is now named for the signs it actually lists (low body posture, piloerection, vocalisation, and displacement behaviours such as yawning or lip-licking), and the article states plainly that none of these is a fear signal on its own. Merck classes yawning and lip-licking as displacement behaviours, which is exactly why they are non-specific; the article now asks the reader to read the combination and the context rather than any single sign.",
+      "STANDING GUARDRAIL \u2014 never write \u201cX means your dog is afraid\u201d for a single signal. Signals are read together, in context, or not at all.",
+      "STANDING GUARDRAIL \u2014 The exposure categories are an editorial organising structure rather than a published checklist. Confirm nothing in the table conflicts with AVSAB or Merck guidance.",
+      "OPEN (NON-BLOCKING) \u2014 Whether any Canadian veterinary or behaviour body publishes puppy class standards that should be cited alongside AVSAB's.",
     ],
   },
   {
@@ -2483,6 +2517,12 @@ export const articles: readonly Article[] = [
     relatedCategorySlugs: ["dog-training-and-behaviour", "puppies", "general-dog-discussion"],
     sources: [
       {
+        label:
+          "Teenage dogs? Evidence for adolescent-phase conflict behaviour \u2014 carer-rated trainability lower at around eight months, in a guide-dog population",
+        publisher: "Asher et al., Biology Letters (2020)",
+        url: "https://royalsocietypublishing.org/doi/10.1098/rsbl.2020.0097",
+      },
+      {
         label: "Position statement on humane dog training — reward-based methods, and no role for aversive training",
         publisher: "American Veterinary Society of Animal Behavior",
         url: "https://avsab.org/wp-content/uploads/2021/08/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf",
@@ -2506,11 +2546,12 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "The AVSAB position is quoted closely, including the list of aversive equipment and the statement that there is no exception for aggressive behaviour. Confirm against the position statement PDF before publication.",
-      "That many dogs regress noticeably during adolescence, roughly six to eighteen months — widely described in behaviour literature and not yet sourced here.",
-      "The five-stage lead progression and the recall progression are editorial structures rather than published protocols. They make no claim beyond ordering, but confirm nothing conflicts with AVSAB guidance.",
-      "That retractable leads teach a dog that pulling extends the lead: mechanically obvious, but presented as reasoning rather than as a sourced finding.",
-      "Whether dog training is regulated in any Canadian province, or whether any credential is protected. The article routes readers to their veterinary clinic instead, which is safe but less useful than naming a route if one exists.",
+      "RESOLVED 2026-09-06 \u2014 the adolescence claim. The article said \u201cmany dogs get noticeably worse between roughly six and eighteen months\u201d with no source, which asserted a universal developmental window. Replaced with what Asher et al. 2020 actually measured: sampling at roughly five, eight and twelve months; carers rating trainability lower at eight; the dogs responding less to their own carer's cue while responding better to a stranger's; professional trainers rating the same dogs higher. The guide-dog population and the authors' own caution that the age groupings would need reconsidering for other breeds are both carried in the prose. No six-to-eighteen-month schedule is claimed.",
+      "STANDING GUARDRAIL \u2014 no universal adolescent regression window, and no dominance, pack-leader, boundary-testing or \u201cstubborn because adolescent\u201d framing. Where Asher is cited its population limitation travels with it.",
+      "RESOLVED 2026-09-06 \u2014 the AVSAB wording was verified against the 2021 Humane Dog Training position statement PDF, retrieved directly. Confirmed verbatim: \u201conly reward-based training methods are used for all dog training, including the treatment of behavior problems\u201d; the avoided-equipment list (choke chains, prong collars, electronic shock collars; squirt bottles, shaker noise cans, compressed air cans, shouting, staring, alpha rolls or dominance downs); and, on aggression, \u201cThere are no exceptions to this standard.\u201d The article previously gave only two of the four categories the statement names. It now gives all four \u2014 pain, intimidation, physical correction techniques (leash jerking, physical force) and flooding \u2014 plus the statement\u2019s requirement that the learner feel safe and be able to opt out. An earlier draft of this note claimed the statement does not name leash corrections; it does, under physical correction techniques, and that was my error rather than the article\u2019s.",
+      "STANDING GUARDRAIL \u2014 The five-stage lead progression and the recall progression are editorial structures rather than published protocols. They make no claim beyond ordering, but confirm nothing conflicts with AVSAB guidance.",
+      "OPEN (NON-BLOCKING) \u2014 That retractable leads teach a dog that pulling extends the lead: mechanically obvious, but presented as reasoning rather than as a sourced finding.",
+      "OPEN (NON-BLOCKING) \u2014 Whether dog training is regulated in any Canadian province, or whether any credential is protected. The article routes readers to their veterinary clinic instead, which is safe but less useful than naming a route if one exists.",
     ],
   },
 ] as const;
