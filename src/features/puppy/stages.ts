@@ -601,7 +601,323 @@ export const twelveWeeks: PuppyStage = {
   ],
 };
 
-export const stages: readonly PuppyStage[] = [nineToElevenWeeks, twelveWeeks];
+
+/**
+ * Eight weeks.
+ *
+ * The arrival stage, with one framing constraint that shapes everything: it
+ * must not assume the puppy came home today, or at all. Most do arrive around
+ * this age; some arrive at ten weeks, some at four months, and a rescue puppy
+ * may have an estimated birthday rather than a known one. So the page speaks
+ * to *whoever is at eight weeks*, and says "if your puppy has just come home"
+ * rather than "today you brought your puppy home".
+ *
+ * ## What this is not
+ *
+ * It is not a second copy of "Bringing Home a Puppy: The First 30 Days". That
+ * article is a chronological plan for a month, read once, largely in advance.
+ * This is decision support for the week you are in — and, more than any other
+ * stage, a list of things *not* to do. The dominant error at eight weeks is
+ * doing too much: changing the food, inviting everyone round, starting a
+ * training programme, and reading a socialisation checklist on day two.
+ *
+ * Two things here appear nowhere else in the Journey: setting a baseline, so
+ * that a change in a puppy you have known for four days is noticeable at all;
+ * and auditing what the breeder or rescue actually handed over, which is a
+ * different job from the paperwork checklist in the article.
+ */
+export const eightWeeks: PuppyStage = {
+  slug: "8-weeks",
+  label: "8 weeks",
+  title: "Your 8-Week-Old Puppy",
+  deck:
+    "The week to do less than you think. What matters in the first days, what can wait weeks, and what not to change at all while a puppy is settling.",
+  metaDescription:
+    "What matters at 8 weeks: the first days home, toilet routine, sleep, keeping the food the same, booking the first vet visit, and what is normal while a puppy settles.",
+  mediaId: "puppy-eight-weeks",
+  mediaAlt:
+    "A very young puppy settled in a bed with a pen panel behind it — around the age this stage covers.",
+  reviewBy: "2027-09-01",
+  status: "in-review",
+
+  sections: [
+    {
+      id: "this-week",
+      title: "Where you are now",
+      summary: "Almost everything can wait. Four things cannot.",
+      body: [
+        "Eight weeks is the age most puppies come home, though not all — some arrive later, and a rescue puppy may have an estimated birthday rather than a known one. If yours has just arrived, this is the settling week. If it arrived a fortnight ago, or has not arrived yet, most of what follows still applies; it is written around the puppy's age rather than around a moving day.",
+        "The single most useful thing to know is that you are not behind. Almost everything written about training a puppy starts later than this, and a week spent establishing safety, a toilet routine and enough sleep is not a week lost. It is the foundation the rest is built on, and skipping it is what makes the next month harder.",
+      ],
+      points: [
+        "Safety first: a puppy this size can reach, swallow and fall further than you expect.",
+        "A toilet routine on a clock, not on a hunch.",
+        "Sleep, enforced rather than hoped for.",
+        "The same food it was already eating, in the same amounts, for now.",
+        "Everything else — obedience, walks, the socialisation programme — can wait a week or two without cost.",
+      ],
+    },
+    {
+      id: "first-days",
+      title: "The first 24 to 72 hours",
+      summary: "Make the world small. Then leave it small for a few days.",
+      body: [
+        "If the puppy has just arrived, the useful instinct is restraint. It has left its mother, its litter and the only place it has known, on the same day, and its capacity to take in anything new is spent. One or two rooms, the same few people, and a quiet evening will do more than anything you could actively teach.",
+        "Two things are worth doing on the first day and they are both very small. Take the puppy to the toilet spot before it goes into the house, and start saying its name in exchange for food — a few times a day, no more. Everything else on any list you have read can begin later this week or next.",
+        "The other thing to do in these days is watch. You are establishing what normal looks like for this particular animal: how much it eats, how it sleeps, how it moves, what its stools look like, how it behaves when it is tired. Nobody can tell you what is normal for your puppy, and in a week's time that baseline is the thing that makes a change noticeable.",
+      ],
+      points: [
+        "Resist visitors for a few days. There will be plenty of time, and a queue of strangers is not socialisation.",
+        "Some puppies eat nothing the first evening. Many are unsettled the first two nights. Both are common.",
+        "Loose stools after a move are common and usually settle. Watch them rather than treating them, and see the red-flag section below.",
+        "Do not correct anything yet. There is nothing to correct that a routine will not fix in a fortnight.",
+      ],
+      guide: {
+        slug: "bringing-home-a-puppy-first-30-days",
+        label: "The whole first month, week by week",
+      },
+    },
+    {
+      id: "development",
+      title: "What an eight-week-old actually is",
+      summary: "Very little capacity, in every direction, and that is the design.",
+      body: [
+        "An eight-week-old puppy has a bladder that holds almost nothing, an attention span measured in seconds, and no experience of anything. It cannot be disobedient, because it does not yet know what is being asked. Nearly everything an owner reads as a behaviour problem in this fortnight is a puppy that is tired, needs the toilet, or has not yet been taught the thing it is being blamed for not knowing.",
+        "It also sleeps enormously, and will not take that sleep voluntarily if there is anything at all going on. Most of the developmental work at this age happens while it is asleep, which makes protecting sleep a more productive use of the week than any training session.",
+      ],
+    },
+    {
+      id: "toilet-training",
+      title: "Toilet training, from nothing",
+      summary: "A schedule you keep, not a lesson the puppy learns.",
+      body: [
+        "This is the one thing worth being systematic about in week one, and it is systematic in a very boring way. Take the puppy out on a schedule rather than when it looks like it needs to go: after waking, after eating, after playing, and every hour or so in between while it is awake.",
+        "Go outside with it every time, without exception. You cannot reward something you did not see, and a puppy sent out alone will often come back in and then go. Reward outdoors, immediately, while you are still outside — not once you are back in the kitchen, which rewards coming inside.",
+        "Accidents are not failures and they are not the puppy's fault; at this age they are information about the schedule. Clean with an enzymatic cleaner, say nothing, and shorten the interval. Punishing an accident teaches a puppy to toilet where you cannot see it, which is a far worse problem than the one you started with.",
+      ],
+    },
+    {
+      id: "sleep",
+      title: "Sleep and settling",
+      summary: "The first nights are hard, and they are supposed to be.",
+      body: [
+        "Expect the first two or three nights to be bad, and plan for them rather than being surprised. A puppy that can hear and smell you settles much faster than one shut away, so the crate or pen next to the bed for the first few weeks is worth the inconvenience.",
+        "Night toilet trips are part of this age. Keep them boring and wordless — out, toilet, back in, no play, no conversation — and they fall away over the coming weeks rather than on any particular night.",
+        "Daytime naps matter as much as nights and get skipped more often. A puppy that is frantic, mouthy and impossible in the late afternoon is almost always overtired rather than badly behaved, and the answer is a dark quiet space and a closed door.",
+      ],
+      guide: {
+        slug: "crate-training-a-puppy-in-canada",
+        label: "Introducing a crate properly, over four weeks",
+      },
+    },
+    {
+      id: "feeding",
+      title: "Feeding",
+      summary: "Change nothing. This is the strongest advice on the page.",
+      body: [
+        "Keep feeding exactly what the puppy was already eating, in the same amounts and at the same frequency, unless your veterinarian tells you otherwise. Ask the breeder or rescue what it was on and buy some before the puppy arrives if you can.",
+        "The reason is simple and worth stating plainly: a puppy that has just moved house is already dealing with a great deal, and an abrupt diet change on top of that is a reliable way to produce several days of diarrhoea. That is unpleasant for everyone and it also removes your ability to tell whether something else is wrong — you cannot read a change in the stools of a puppy whose food you changed yesterday.",
+        "If you do want to change the food, do it later, once the puppy has settled, and transition gradually by mixing increasing proportions of the new food in over at least a week. How much and how often at this age is a question for your veterinarian rather than for a chart or a bag, because it changes quickly and depends on the food.",
+      ],
+      guide: {
+        slug: "reading-a-canadian-pet-food-label",
+        label: "What the label does and does not tell you",
+      },
+    },
+    {
+      id: "training",
+      title: "Training",
+      summary: "Almost nothing, on purpose.",
+      body: [
+        "This is the lightest training section in the Journey, deliberately. The goal at eight weeks is that people are good to be around — not that the puppy acquires behaviours.",
+      ],
+      points: [
+        "Name: say it, the puppy looks, food appears. Ten seconds, a few times a day. Never use it to tell the puppy off.",
+        "The toilet routine above. That is the week's project.",
+        "Reward settling whenever it happens by itself.",
+      ],
+    },
+    {
+      id: "socialisation",
+      title: "Socialisation",
+      summary: "It starts in your house, and it starts gently.",
+      body: [
+        "Socialisation at this age is not an outing. It is the house: floors of different textures, the washing machine, the kettle, the doorbell, a coat going on, someone in a hat. A puppy that meets those calmly in its first fortnight has done real work.",
+        "Quality matters more than volume here more than anywhere. One person who sits on the floor and lets the puppy approach in its own time is worth more than five who pick it up. If the puppy retreats, that is information rather than failure, and the answer is more distance rather than more encouragement.",
+        "The wider programme — where to go, what to cover, how to manage infection risk while the vaccination series is unfinished — starts properly over the next few weeks and is a project of its own. Ask your veterinarian what the disease picture looks like where you live before planning any of it.",
+      ],
+      guide: {
+        slug: "puppy-socialisation-checklist",
+        label: "What to expose a puppy to, and how to read the puppy",
+      },
+    },
+    {
+      id: "grooming",
+      title: "Handling",
+      summary: "Thirty seconds a day, and it pays for a decade.",
+      body: [
+        "There is nothing to groom yet, which is exactly why this is the moment. Touch a paw and give it back. Look at an ear. Lift a lip. Each one brief, each one followed by something good, and stop long before the puppy wants you to.",
+        "A dog that finds being handled unremarkable can be examined, brushed, medicated and treated for the rest of its life without a fight. That is bought here, cheaply, in the week when nothing else is being asked.",
+      ],
+    },
+    {
+      id: "veterinary-care",
+      title: "The first appointment",
+      summary: "Book it early. It is a health check as much as anything.",
+      body: [
+        "If the puppy has just arrived, a first appointment in the first week or so is the right shape — partly to establish care with a practice before you need one urgently, and partly because a health check early on is worth having on record. Availability varies a great deal between clinics and between parts of the country, so book before you need it.",
+        "Take everything the breeder or rescue gave you, and go with questions rather than expectations. If you have not chosen a practice yet, that is this week's more urgent job: a clinic that already holds the history is worth more than one that is marginally closer, and the after-hours arrangement matters more than anything on the website.",
+      ],
+      guide: {
+        slug: "finding-a-veterinarian-in-canada",
+        label: "Choosing a practice before you need one",
+      },
+    },
+    {
+      id: "vaccine-questions",
+      title: "Questions to discuss with your veterinarian at this age",
+      summary: "Start from the record you were given, not from a schedule.",
+      body: [
+        "Puppies arrive having had different things done to them. Some have had a first vaccine from the breeder, some have not, and some come with paperwork that is hard to read. What matters is not what a schedule says should have happened, but what actually did — so the first conversation starts with the record rather than with a plan.",
+        "There is no single schedule, and no article can responsibly give you one: what your puppy needs depends on its age, its existing record, where you live, what it will do, the specific products your clinic uses, and your veterinarian's assessment. These are the questions that turn an appointment into a plan.",
+      ],
+      points: [
+        "Can you look at these records and tell me what has actually been given, and when?",
+        "Where is my puppy in the primary series now, and when will the series finish?",
+        "Which vaccines are core here, and which depend on where we live and what the dog will do?",
+        "Where can I safely socialise before the series is complete, given the disease picture in this area?",
+        "What parasite prevention does this puppy need here, and when does it start?",
+        "Can you confirm the microchip number against these papers and check it scans?",
+        "What should I watch for while it settles, and what number do I call after hours?",
+      ],
+      guide: {
+        slug: "puppy-vaccination-schedule-in-canada",
+        label: "Why it is a series, and what core actually means",
+      },
+    },
+    {
+      id: "parasite-prevention",
+      title: "Parasite prevention",
+      summary: "Mostly a question to ask, and a record to check.",
+      body: [
+        "Most puppies have been wormed before they come home, often more than once, and the record should say what was used and when. That is the thing to bring to the appointment — restarting a course unnecessarily is as unhelpful as missing one.",
+        "Beyond worming, what a puppy needs depends on where it lives and what it will do, and genuinely differs between two Canadian cities. Most flea, tick and heartworm products also carry a minimum age or weight that an eight-week-old may not have reached yet, so this is often a conversation about what happens next month rather than a prescription today.",
+      ],
+      guide: {
+        slug: "parasite-prevention-for-pets-in-canada",
+        label: "Region and season, and what actually drives the timing",
+      },
+    },
+    {
+      id: "safety",
+      title: "Safety",
+      summary: "Get down on the floor and look again. Then look behind things.",
+      body: [
+        "A puppy this small is both more fragile and more mobile than people expect, and the hazards are the ones at its eye level rather than yours.",
+      ],
+      points: [
+        "Anything small enough to swallow. This is the most likely serious accident of the first months and it does not need to be a chew toy — socks, stones, string and coins all qualify.",
+        "Cables and phone chargers at floor level.",
+        "The cupboard under the sink, houseplants, and any bouquet that arrives in the house.",
+        "Stairs, balconies and furniture. A fall from a sofa is a real injury at this size.",
+        "The gap behind and under appliances, which is where a puppy goes and where you cannot reach it.",
+        "Doors, gates and the car. A puppy that has not learned the front door is a boundary will treat it as an opening.",
+        "Other pets in the house, supervised properly rather than left to work it out.",
+      ],
+    },
+    {
+      id: "paperwork",
+      title: "Records, identification and licensing",
+      summary: "An audit of what you were handed, and what is missing.",
+      body: [
+        "This is a different job from a to-do list: it is checking that what you were given is complete and that what is registered is registered to you. Do it in the first fortnight, while whoever you got the puppy from is still easy to contact.",
+      ],
+      points: [
+        "The vaccination record: what was given, on what date, and which product. Photograph it.",
+        "Worming and any other treatment, with dates.",
+        "The microchip number — and whether the registration has actually been transferred into your name with your current phone number. Implanting and registering are two separate steps, and the second is the one that gets missed.",
+        "An identification tag on a collar the puppy wears, with a phone number on it.",
+        "Whether your municipality licenses dogs, and from what age. Requirements and deadlines differ from city to city.",
+        "Insurance, if you are going to buy it: policies exclude pre-existing conditions, so the timing relative to that first appointment matters.",
+      ],
+      guide: {
+        slug: "pet-licensing-across-canada",
+        label: "What licensing involves, and how much it varies",
+      },
+    },
+    {
+      id: "red-flags",
+      title: "Settling in, or something wrong",
+      summary: "Some of this fortnight's alarming things are normal. Some are not.",
+      tone: "caution",
+      body: [
+        "Settling produces a lot of behaviour that worries new owners and does not need to. A puppy that eats little on the first evening, is unsettled for the first two or three nights, has softer stools for a day or two after the move, hides under furniture, or sleeps a great deal more than you expected is usually doing something ordinary.",
+        "What separates that from a problem is duration and company: whether it persists, and whether anything else has come with it. A very young puppy has little reserve and can deteriorate faster than an adult dog, so the threshold for phoning is deliberately low. Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
+        "Contact your veterinary clinic — rather than waiting to see whether it settles — if a puppy will not eat at all, is repeatedly vomiting or has persistent or bloody diarrhoea, is unusually limp or unresponsive, is breathing with effort, has not urinated in an unusually long stretch, is straining without producing anything, or you have any reason to think it has swallowed something it should not have. Very small breeds can also become weak or wobbly if they go too long without food, which is a reason to phone rather than to wait for the morning.",
+        "This describes what to look for so you know when to call. It does not diagnose, and it is not a substitute for examining your puppy — only a veterinarian who has seen it can do that.",
+      ],
+      guide: {
+        slug: "emergency-vet-visits-in-canada",
+        label: "The hour of preparation that decides how the worst night goes",
+      },
+    },
+    {
+      id: "whats-next",
+      title: "What's next",
+      summary: "The settling week ends, and the socialisation clock starts running.",
+      body: [
+        "Over the next two or three weeks the routine starts to hold, the nights lengthen, and the emphasis shifts from settling to building. That is when the socialisation programme begins in earnest, when alone-time practice needs to be deliberate rather than incidental, and when short training sessions become genuinely useful.",
+        "It is worth knowing that the socialisation window does not wait for the vaccination series to finish, which is the single most important piece of timing in a puppy's first year. Nothing about that needs acting on this week. It does mean the settling period is a few days, not a few months.",
+      ],
+    },
+  ],
+
+  checklist: [
+    { id: "food", label: "Keep the food exactly as it was", detail: "Same brand, same amount, same frequency. Change it later, gradually, if at all." },
+    { id: "toilet", label: "Put the toilet trips on a schedule", detail: "After waking, eating and playing, and hourly in between while awake. Go outside too." },
+    { id: "vet", label: "Book the first veterinary appointment", detail: "Early, and before you need one urgently. Take every piece of paper you were given." },
+    { id: "baseline", label: "Learn what normal looks like for this puppy", detail: "Appetite, sleep, stools, energy. In a week it is what makes a change visible." },
+    { id: "proof", label: "Puppy-proof at floor level, then look behind things" },
+    { id: "naps", label: "Enforce daytime naps rather than hoping for them" },
+    { id: "chip", label: "Transfer the microchip registration into your name", detail: "Implanting and registering are two separate steps." },
+    { id: "records", label: "Photograph the vaccination and worming records" },
+    { id: "emergency", label: "Write down your after-hours emergency clinic and its number" },
+  ],
+
+  sources: [
+    {
+      label: "Position statement on puppy socialization — the first three months, and socialising before full vaccination",
+      publisher: "American Veterinary Society of Animal Behavior",
+      url: "https://avsab.org/puppy-socialization-position-statement/",
+    },
+    {
+      label: "2022 AAHA Canine Vaccination Guidelines",
+      publisher: "American Animal Hospital Association",
+      url: "https://www.aaha.org/resources/2022-aaha-canine-vaccination-guidelines/",
+    },
+  ],
+
+  resources: [
+    {
+      label: "Your provincial or territorial veterinary regulator, and what it licenses",
+      publisher: "Canadian Veterinary Medical Association",
+      url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+    },
+  ],
+
+  needsVerification: [
+    "No national claim is made about a legal minimum age for sale, transfer or separation from the dam. Only Quebec is named, from the regulation itself — see the province modifier. Do not generalise it to other provinces without the same standard of source, and do not restate it as a rule about selling: the section quoted governs separation from the mother.",
+    "That most puppies come home around eight weeks is stated as a convention rather than a rule, and the page is written so it does not depend on the reader having just arrived home.",
+    "The description of what an eight-week-old is capable of — bladder capacity, attention span, sleep requirement — is qualitative and quotes no figure. The 16–18 hours figure carried in the article library is still unsourced there; do not import it.",
+    "That loose stools and reduced appetite are common in the days after a move is stated as common rather than expected, and is paired with the red-flag list rather than standing alone. Source it before it is stated more strongly.",
+    "That an abrupt diet change commonly causes gastrointestinal upset is stated qualitatively with no mechanism and no timeframe. Attach a veterinary nutrition source before it is made more specific.",
+    "That most puppies are wormed before homing is stated as usual practice rather than a guarantee, and directs the reader to the record. Confirm against a veterinary parasitology source or soften.",
+    "That many parasite products carry a minimum age or weight is stated generally, with no product, dose or threshold named. It must stay that way.",
+    "No vaccination schedule appears anywhere in this stage, by design. The section is questions only, and the first question is about reading the record the reader already has. Do not let a future edit turn it into a timetable.",
+  ],
+};
+
+export const stages: readonly PuppyStage[] = [eightWeeks, nineToElevenWeeks, twelveWeeks];
 
 /* ------------------------------------------------------------- the roadmap */
 
@@ -931,6 +1247,14 @@ export function stageFor(age: PuppyAge): PuppyStage | null {
 
 export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
   {
+    sizeGroup: "toy",
+    stageSlug: "8-weeks",
+    sectionId: "red-flags",
+    body: [
+      "A very small puppy has almost no energy reserve, which changes the calculation in this section. A toy-breed puppy that skips meals, or that is unsettled enough not to eat properly in its first days, can become weak, wobbly or unusually sleepy \u2014 and that is a reason to telephone the clinic rather than to wait until morning. Ask at the first appointment what they want you to watch for and how often this puppy should be eating.",
+    ],
+  },
+  {
     sizeGroup: "large",
     stageSlug: "12-weeks",
     sectionId: "exercise",
@@ -1042,6 +1366,64 @@ export const breedModifiers: readonly BreedModifier[] = [
  * to be a provincial fact.
  */
 export const provinceModifiers: readonly ProvinceModifier[] = [
+  {
+    // The only province named here, and only because the regulation itself
+    // says it. No national claim is made, and the section governs separation
+    // from the mother rather than sale — those are different things and the
+    // copy must not blur them.
+    provinces: ["QC"],
+    stageSlug: "8-weeks",
+    sectionId: "this-week",
+    heading: "In Quebec, eight weeks is the age the regulation sets",
+    kind: "legal",
+    body: [
+      "Quebec's Regulation respecting the welfare and safety of domestic companion animals and equines provides that a litter \u201cmay not be separated from their mother before the age of 8 weeks\u201d. The duty falls on whoever owns or keeps the litter rather than on you as the buyer, and it is about separation from the mother rather than about the sale itself.",
+      "It is still worth knowing, for two reasons. It explains why eight weeks is the conventional age for a puppy to come home rather than an arbitrary one. And a puppy offered to you in Quebec noticeably younger than this was separated in breach of it, which is worth pausing over — both for the puppy in front of you and for what it suggests about where it came from.",
+      "We name Quebec here because we have read the regulation. Other provinces are not claimed either way: rules on breeding, sale and transfer differ across the country and a requirement in one province tells you nothing about another.",
+    ],
+    sources: [
+      {
+        label: "Regulation respecting the welfare and safety of domestic companion animals and equines, s. 36",
+        publisher: "Gouvernement du Qu\u00e9bec (L\u00e9gis Qu\u00e9bec)",
+        url: "https://www.legisquebec.gouv.qc.ca/en/document/cr/B-3.1,%20r.%200.1%20/",
+      },
+    ],
+  },
+  {
+    provinces: ["ON"],
+    stageSlug: "8-weeks",
+    sectionId: "paperwork",
+    heading: "In Ontario, rabies vaccination becomes a legal requirement at three months",
+    kind: "legal",
+    body: [
+      "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies \u2014 indoor animals included. Your puppy is well short of that at eight weeks, so this is something to plan at the first appointment rather than to act on now.",
+      "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. It is a legal obligation rather than a veterinary recommendation, which is why it belongs with the paperwork rather than with the advice.",
+    ],
+    ageThreshold: {
+      months: 3,
+      before: {
+        heading: "In Ontario, your puppy reaches the legal threshold on {date}",
+        body: [
+          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies \u2014 indoor animals included. Three calendar months from your puppy's date of birth falls on {date}, so there is time to plan it rather than react to it.",
+          "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. It is a legal obligation rather than a veterinary recommendation, which is why it belongs with the paperwork rather than with the advice.",
+        ],
+      },
+      reached: {
+        heading: "In Ontario, your puppy is now past the legal threshold",
+        body: [
+          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies \u2014 indoor animals included. Your puppy reached three calendar months on {date}, so the requirement applies now.",
+          "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. It is a legal obligation rather than a veterinary recommendation.",
+        ],
+      },
+    },
+    sources: [
+      {
+        label: "Rabies and your pets \u2014 the provincial vaccination requirement",
+        publisher: "Government of Ontario",
+        url: "https://www.ontario.ca/page/rabies-pets",
+      },
+    ],
+  },
   {
     provinces: ["ON"],
     stageSlug: "12-weeks",
@@ -1161,6 +1543,28 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
  * like. Spring and autumn do not, and get nothing rather than an adjective.
  */
 export const seasonModifiers: readonly SeasonModifier[] = [
+  {
+    season: "winter",
+    stageSlug: "8-weeks",
+    sectionId: "toilet-training",
+    heading: "Toilet training in a Canadian winter",
+    body: [
+      "Snow changes this job more than any other seasonal factor changes anything else in the Journey. Shovel and maintain a small toilet patch close to the door before the puppy needs it \u2014 a puppy in deep snow will not toilet, it will simply stand there \u2014 and keep it clear, because the patch it used yesterday is the one it is looking for.",
+      "Dress to stand outside before you open the door. Standing at the door in socks is how a trip gets cut short at exactly the wrong moment, and an eight-week-old has very little tolerance for cold: out, toilet, praise, in. If a puppy starts refusing to go out, check its feet before assuming it is being difficult \u2014 ice balling between the toes and road salt are the usual reasons.",
+    ],
+    guide: { slug: "winter-dog-care-in-canada", label: "Winter care, paws and road salt" },
+  },
+  {
+    season: "summer",
+    stageSlug: "8-weeks",
+    sectionId: "safety",
+    heading: "A summer arrival",
+    body: [
+      "Heat is the hazard that gives least warning, and a very young puppy manages it badly. Keep the toilet trips at the cool ends of the day where you can, test any paved surface with the back of your hand before walking a puppy across it, and never leave a puppy in a parked car for any length of time at all.",
+      "Shade and water need to be available wherever the puppy is, including indoors in a room that gets afternoon sun \u2014 a pen in the wrong place can become the hottest spot in the house by four o'clock.",
+    ],
+    guide: { slug: "summer-heat-safety-for-dogs-in-canada", label: "Heat, pavement and wildfire smoke" },
+  },
   {
     season: "winter",
     stageSlug: "12-weeks",

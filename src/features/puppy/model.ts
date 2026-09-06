@@ -166,7 +166,11 @@ export function findProvince(code: string): { code: ProvinceCode; name: string }
 /** The named sections a stage is built from, in render order. */
 export type SectionId =
   | "this-week"
+  /** The first 24–72 hours. Only the arrival stage has one. */
+  | "first-days"
   | "development"
+  /** House-training from nothing. Later stages fold this into routine. */
+  | "toilet-training"
   | "training"
   | "socialisation"
   | "feeding"
@@ -178,6 +182,8 @@ export type SectionId =
   | "vaccine-questions"
   | "parasite-prevention"
   | "safety"
+  /** Records, identification and licensing — an audit, not a to-do list. */
+  | "paperwork"
   | "red-flags"
   | "checklist"
   | "whats-next";

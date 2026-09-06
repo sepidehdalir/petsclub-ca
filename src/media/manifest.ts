@@ -17,6 +17,7 @@ import dogsDrinkingWaterSummer from "./photos/dogs-drinking-water-summer.jpg";
 import catsTwoRestingTogether from "./photos/cats-two-resting-together.jpg";
 import puppyElevenWeeks from "./photos/puppy-eleven-weeks.jpg";
 import puppyTwelveWeeks from "./photos/puppy-twelve-weeks.jpg";
+import puppyEightWeeks from "./photos/puppy-eight-weeks.jpg";
 import catsLeavingLitterBox from "./photos/cats-leaving-litter-box.jpg";
 import catsDrinkingRunningWater from "./photos/cats-drinking-running-water.jpg";
 import healthVetConsultationDiscussion from "./photos/health-vet-consultation-discussion.jpg";
@@ -439,6 +440,17 @@ const assets = {
     photographer: "Rahul Katare",
     source: "Pexels",
     sourceUrl: "https://www.pexels.com/photo/adorable-labrador-puppy-sitting-indoors-35942005/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "puppy-eight-weeks": {
+    id: "puppy-eight-weeks",
+    src: puppyEightWeeks,
+    file: "photos/puppy-eight-weeks.jpg",
+    alt: "A very young cream-coloured puppy in a plain collar lies settled in a soft bed indoors, a pen panel just visible behind it.",
+    photographer: "Mark Alicea",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/close-up-of-puppy-15889439/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },

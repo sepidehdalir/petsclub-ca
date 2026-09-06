@@ -35,6 +35,7 @@ import {
   journeyMeta,
   roadmapByPhase,
   breedModifiers,
+  eightWeeks,
   provinceModifiers,
   roadmapStageFor,
   roadmapStages,
@@ -352,8 +353,8 @@ describe("stage resolution", () => {
     expect(stageFor(ageOn(dob, dayAfter(dob, 63)))?.slug).toBe("9-11-weeks");
     expect(stageFor(ageOn(dob, dayAfter(dob, 73)))?.slug).toBe("9-11-weeks");
     expect(stageFor(ageOn(dob, dayAfter(dob, 83)))?.slug).toBe("9-11-weeks");
-    // Either side: eight weeks has no page yet, and twelve weeks has its own.
-    expect(stageFor(ageOn(dob, dayAfter(dob, 62)))).toBeNull();
+    // Either side: eight weeks and twelve weeks each have their own page now.
+    expect(stageFor(ageOn(dob, dayAfter(dob, 62)))?.slug).toBe("8-weeks");
     expect(stageFor(ageOn(dob, dayAfter(dob, 84)))?.slug).toBe("12-weeks");
   });
 
@@ -361,7 +362,9 @@ describe("stage resolution", () => {
     const dob = "2026-06-18";
     expect(slugAtDay(dob, 60)).toBe("8-weeks");
     expect(slugOn(dob, "2027-01-18")).toBe("7-8-months");
-    expect(stageFor(ageOn(dob, dayAfter(dob, 60)))).toBeNull();
+    // Adolescence is on the roadmap and has no page — the reader is placed
+    // without being sent anywhere that does not exist.
+    expect(stageFor(ageOn(dob, "2027-01-18"))).toBeNull();
   });
 
   it("keeps the weekly table contiguous in days and the monthly one in months", () => {
@@ -396,7 +399,7 @@ describe("stage resolution", () => {
   });
 
   it("has exactly the two implemented stages of this milestone", () => {
-    expect(stages.map((stage) => stage.slug)).toEqual(["9-11-weeks", "12-weeks"]);
+    expect(stages.map((stage) => stage.slug)).toEqual(["8-weeks", "9-11-weeks", "12-weeks"]);
   });
 });
 
@@ -606,11 +609,14 @@ describe("hybrid age resolution", () => {
     expect(slugAtDay(dob, 91)).toBe("3-months");
     expect(stageFor(ageOn(dob, dayAfter(dob, 91)))).toBeNull();
 
-    // Eight weeks is still roadmap-only: it resolves, and it has no page.
-    for (const days of [56, 62]) {
+    // Eight weeks now has a page of its own.
+    for (const days of [56, 59, 62]) {
       expect(slugAtDay(dob, days)).toBe("8-weeks");
-      expect(stageFor(ageOn(dob, dayAfter(dob, days)))).toBeNull();
+      expect(stageFor(ageOn(dob, dayAfter(dob, days)))?.slug).toBe("8-weeks");
     }
+    // And 55 days is still before the Journey starts.
+    expect(roadmapStageFor(ageOn(dob, dayAfter(dob, 55)))).toBeNull();
+    expect(stageFor(ageOn(dob, dayAfter(dob, 55)))).toBeNull();
   });
 
   it("keeps the exact week in the headline on the 12-week stage too", () => {
@@ -1224,6 +1230,78 @@ describe("hybrid age resolution", () => {
     process.env.TZ = original;
   });
 
+  it("names only the province whose regulation was actually read", () => {
+    // The 8-week stage is the one place a minimum-age rule is relevant, and
+    // the one place it is easiest to over-claim. Quebec is named because the
+    // regulation was read; no other province is asserted either way, and the
+    // rule is about separation from the mother rather than about sale.
+    const quebec = provinceModifiers.filter(
+      (m) => m.stageSlug === "8-weeks" && m.provinces.includes("QC"),
+    );
+    expect(quebec).toHaveLength(1);
+
+    const block = quebec[0]!;
+    expect(block.kind).toBe("legal");
+    expect(block.provinces).toEqual(["QC"]);
+    expect(block.sources.some((source) => source.url.includes("legisquebec.gouv.qc.ca"))).toBe(true);
+
+    const text = [block.heading, ...block.body].join(" ");
+    expect(text).toContain("may not be separated from their mother before the age of 8 weeks");
+    // It must not become a national claim, or a claim about selling.
+    expect(text).not.toMatch(/\bin Canada\b/i);
+    expect(text).not.toMatch(/across Canada|every province|Canadian law/i);
+    expect(text).toContain("Other provinces are not claimed");
+
+    // And no other stage makes a minimum-age claim at all.
+    const others = provinceModifiers.filter((m) => m.stageSlug !== "8-weeks");
+    for (const modifier of others) {
+      expect(modifier.body.join(" ")).not.toContain("separated from their mother");
+    }
+  });
+
+  it("does not assume the reader brought a puppy home today", () => {
+    // The framing constraint of this stage: some puppies arrive later, some
+    // arrived a fortnight ago, and a rescue puppy may have an estimated
+    // birthday. The page is written around the age, not a moving day.
+    const prose = eightWeeks.sections
+      .flatMap((section) => [section.summary, ...(section.body ?? []), ...(section.points ?? [])])
+      .join(" ");
+
+    expect(prose).toMatch(/if (your puppy )?has just (come home|arrived)|If yours has just arrived/i);
+    expect(prose).not.toMatch(/today you brought|you brought your puppy home today/i);
+    expect(prose).toMatch(/some arrive later|rescue puppy may have an estimated birthday/i);
+  });
+
+  it("keeps the arrival stage lighter on training than the stage after it", () => {
+    // Deliberate: eight weeks is not an obedience programme, and the Journey
+    // should be able to show that rather than assert it.
+    const trainingOf = (stage: (typeof stages)[number]) => {
+      const section = stage.sections.find((s) => s.id === "training")!;
+      return [...(section.body ?? []), ...(section.points ?? [])].join(" ").split(/\s+/).length;
+    };
+    expect(trainingOf(eightWeeks)).toBeLessThan(trainingOf(nineToElevenWeeks));
+
+    const prose = eightWeeks.sections.map((s) => [s.summary, ...(s.body ?? []), ...(s.points ?? [])].join(" ")).join(" ");
+    // No correction-based or dominance language anywhere on the arrival page.
+    expect(prose).not.toMatch(/\bdominan|\balpha\b|\bpack leader\b|\bpunish(?!ing an accident)/i);
+    expect(prose).not.toMatch(/scold|smack|choke chain|prong/i);
+  });
+
+  it("omits the sections that do not belong at eight weeks", () => {
+    // Teething has not started and there is no walking to do. Leaving them out
+    // is part of what makes this a different page rather than a shorter one.
+    const ids = eightWeeks.sections.map((section) => section.id);
+    expect(ids).not.toContain("teething");
+    expect(ids).not.toContain("exercise");
+    // And it carries three that no other stage does.
+    for (const id of ["first-days", "toilet-training", "paperwork"] as const) {
+      expect(ids).toContain(id);
+      for (const other of stages.filter((stage) => stage.slug !== "8-weeks")) {
+        expect(other.sections.some((section) => section.id === id)).toBe(false);
+      }
+    }
+  });
+
   it("keeps the implemented stage a strict subset of the roadmap", () => {
     // A page is not minted because an interval elapsed. Every implemented
     // stage must appear on the roadmap; the reverse must not hold.
@@ -1232,6 +1310,8 @@ describe("hybrid age resolution", () => {
       expect(roadmapSlugs.has(stage.slug)).toBe(true);
     }
     expect(stages.length).toBeLessThan(roadmapStages.length);
+    expect(stages).toHaveLength(3);
+    expect(roadmapStages).toHaveLength(11);
   });
 
   it("takes its age range from the roadmap rather than restating it", () => {
@@ -1530,17 +1610,17 @@ describe("personalised canonical", () => {
     }
   });
 
-  it("still sends an 8-week puppy to the hub, because that stage has no page", async () => {
+  it("canonicalises an 8-week puppy to the 8-week stage", async () => {
     for (const days of [56, 59, 62]) {
       const canonical = await canonicalFor({ dob: dobForAge(days, "ON"), province: "ON" });
-      expect(canonical.endsWith("/puppy")).toBe(true);
+      expect(canonical.endsWith("/puppy/8-weeks")).toBe(true);
     }
   });
 
   it("canonicalises a puppy of any other age to the Journey hub, not to a stage", async () => {
     // Day 76 is one day short of week 11; day 84 is one day past it; the rest
     // are ages we have written no stage for at all.
-    for (const days of [1, 40, 55, 62, 91, 150, 300]) {
+    for (const days of [1, 40, 55, 91, 150, 300]) {
       const canonical = await canonicalFor({ dob: dobForAge(days, "ON"), province: "ON" });
       expect(canonical.endsWith("/puppy")).toBe(true);
       expect(canonical).not.toContain("9-11-weeks");
@@ -1616,10 +1696,8 @@ describe("indexing", () => {
     const puppyRoutes = readdirSync(join(appDir, "puppy"), { withFileTypes: true })
       .filter((entry) => entry.isDirectory())
       .map((entry) => entry.name);
-    expect([...puppyRoutes].sort()).toEqual(["12-weeks", "9-11-weeks"]);
-
-    // Eight weeks is deliberately still roadmap-only.
-    expect(puppyRoutes).not.toContain("8-weeks");
+    expect([...puppyRoutes].sort()).toEqual(["12-weeks", "8-weeks", "9-11-weeks"]);
+    expect(puppyRoutes).toHaveLength(3);
 
     // The roadmap grew to thirteen entries and the route count did not move.
     // An entry is a position on a journey; a page is a piece of writing that
@@ -1648,7 +1726,7 @@ describe("indexing", () => {
 
     // And the one route that exists is the one the rail can reach.
     const implemented = stages.map((stage) => stage.slug);
-    expect([...implemented].sort()).toEqual(["12-weeks", "9-11-weeks"]);
+    expect([...implemented].sort()).toEqual(["12-weeks", "8-weeks", "9-11-weeks"]);
     for (const slug of implemented) {
       expect(roadmapStages.some((stage) => stage.slug === slug)).toBe(true);
     }
