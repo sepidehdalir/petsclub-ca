@@ -10,7 +10,7 @@ export const metadata: Metadata = createMetadata({
   title: "Sign in",
   description: "Sign in to your Pet Club account.",
   path: "/sign-in",
-  noIndex: true,
+  robots: "private-noindex",
 });
 
 /** Errors that can arrive here as a query parameter from /auth/callback. */

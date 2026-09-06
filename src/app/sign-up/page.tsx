@@ -9,7 +9,7 @@ export const metadata: Metadata = createMetadata({
   title: "Create an account",
   description: "Join The Pet Club — Canada's community for pet parents.",
   path: "/sign-up",
-  noIndex: true,
+  robots: "private-noindex",
 });
 
 export default function SignUpPage() {

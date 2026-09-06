@@ -16,7 +16,7 @@ export const metadata: Metadata = createMetadata({
   title: "Confirm your email",
   description: "Finish confirming your email address.",
   path: "/auth/confirm",
-  noIndex: true,
+  robots: "private-noindex",
 });
 
 // Carries a single-use token in the query string; it must never be cached or

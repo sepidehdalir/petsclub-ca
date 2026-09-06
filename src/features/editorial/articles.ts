@@ -1,5 +1,6 @@
 import type { ArticleAuthorId, ArticleReviewerId } from "@/features/editorial/authors";
 import type { MediaAssetId } from "@/media/manifest";
+import type { RobotsPolicy } from "@/lib/seo/metadata";
 
 /**
  * The editorial article registry.
@@ -2782,6 +2783,31 @@ export function publishedArticles(): readonly Article[] {
  */
 export function isArticleIndexable(article: Article): boolean {
   return article.status === "published" && article.indexable;
+}
+
+/**
+ * How search engines should treat this article.
+ *
+ * Three states, because `isArticleIndexable` returning false covers two very
+ * different situations and they must not emit the same directive:
+ *
+ * | status     | indexable | policy            | robots           |
+ * | ---------- | --------- | ----------------- | ---------------- |
+ * | in-review  | any       | private-noindex   | noindex, nofollow|
+ * | published  | true      | index             | index, follow    |
+ * | published  | false     | public-noindex    | noindex, follow  |
+ *
+ * The last row is the one that needed a name. An article held back from search
+ * for editorial reasons is still published, still linked, and still part of the
+ * site's crawl graph; only its own listing is withheld. An article in review is
+ * not a public editorial surface yet, so nothing is followed out of it.
+ */
+export function articleRobotsPolicy(article: Article): RobotsPolicy {
+  if (article.status !== "published") {
+    return "private-noindex";
+  }
+
+  return article.indexable ? "index" : "public-noindex";
 }
 
 /** Articles eligible for the sitemap. Empty while every article is in review. */

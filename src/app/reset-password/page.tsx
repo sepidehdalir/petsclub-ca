@@ -9,7 +9,7 @@ export const metadata: Metadata = createMetadata({
   title: "Set a new password",
   description: "Choose a new password for your Pet Club account.",
   path: "/reset-password",
-  noIndex: true,
+  robots: "private-noindex",
 });
 
 /**

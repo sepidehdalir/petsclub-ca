@@ -32,7 +32,7 @@ export async function generateMetadata(
   const match = findCommunityCategory(categorySlug);
 
   if (!match) {
-    return createMetadata({ title: "Category not found", noIndex: true });
+    return createMetadata({ title: "Category not found", robots: "private-noindex" });
   }
 
   return createMetadata({

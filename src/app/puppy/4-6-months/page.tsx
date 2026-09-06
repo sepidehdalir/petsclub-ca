@@ -5,7 +5,7 @@ import { getAuthor } from "@/features/editorial/authors";
 import { StageView } from "@/features/puppy/components/stage-view";
 import {
   fourToSixMonths,
-  isStageIndexable,
+  stageRobotsPolicy,
   stagePublicationDates,
 } from "@/features/puppy/stages";
 import { createMetadata } from "@/lib/seo/metadata";
@@ -21,9 +21,11 @@ export const metadata: Metadata = createMetadata({
   path,
   type: "article",
   // Indexing needs the content to be finished *and* the route to be one we
-  // want found. `isStageIndexable` is the same predicate the sitemap uses, so
-  // the meta tag and sitemap membership cannot disagree.
-  noIndex: !isStageIndexable(stage),
+  // want found. `stageRobotsPolicy` reads the same two fields as the
+  // `isStageIndexable` predicate behind the sitemap, so the meta tag and
+  // sitemap membership cannot disagree — it just distinguishes the two ways a
+  // stage can be out of the index, which membership alone cannot express.
+  robots: stageRobotsPolicy(stage),
   image: {
     url: getMediaAsset(stage.mediaId).src.src,
     width: getMediaAsset(stage.mediaId).src.width,

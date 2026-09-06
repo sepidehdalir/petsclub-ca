@@ -6,7 +6,7 @@ import {
   articlePath,
   articles,
   findArticle,
-  isArticleIndexable,
+  articleRobotsPolicy,
 } from "@/features/editorial/articles";
 import { getAuthor } from "@/features/editorial/authors";
 import { ArticlePage } from "@/features/editorial/components/article-page";
@@ -37,7 +37,7 @@ export async function generateMetadata({
   const article = findArticle(slug);
 
   if (!article) {
-    return createMetadata({ title: "Guide not found", noIndex: true });
+    return createMetadata({ title: "Guide not found", robots: "private-noindex" });
   }
 
   const asset = getMediaAsset(article.mediaId);
@@ -51,9 +51,11 @@ export async function generateMetadata({
     // Indexing follows editorial status, not the calendar. An article that has
     // not completed review is `noindex`, which is the same thing the on-page
     // draft notice tells a reader and the reason `buildSitemapEntries` leaves
-    // it out. All three launch articles are currently `in-review`.
-    // Same predicate as the sitemap, so the two cannot disagree.
-    noIndex: !isArticleIndexable(article),
+    // it out. Reads the same two fields as the `isArticleIndexable` predicate
+    // behind the sitemap, so the two cannot disagree — it just separates an
+    // article still in review from one published and deliberately held back,
+    // which stays followable.
+    robots: articleRobotsPolicy(article),
     // The lead photograph as the share card: `src` is the hashed static path
     // Next emits for the imported asset, resolved to an absolute URL by
     // `metadataBase`.

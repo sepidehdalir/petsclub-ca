@@ -8,6 +8,7 @@ import { articles } from "@/features/editorial/articles";
 import { FORBIDDEN_PROMISE, journeyStateCopy } from "@/features/puppy/journey-states";
 import { parseSizeAnswer, resolveSizeGroup, sizeGroups } from "@/features/puppy/model";
 import { parseStoredPuppy } from "@/features/puppy/storage";
+import { createMetadata } from "@/lib/seo/metadata";
 import { generateMetadata as myPuppyMetadata } from "@/app/my-puppy/page";
 import {
   addCalendarMonths,
@@ -32,6 +33,7 @@ import type { PuppyAge } from "@/features/puppy/age";
 import { allBreeds, findBreed, findProvince, provinces } from "@/features/puppy/model";
 import { resolveSources, resolveStage } from "@/features/puppy/resolve";
 import {
+  stageRobotsPolicy,
   nineToElevenWeeks,
   nineToTwelveMonths,
   findPhase,
@@ -3465,8 +3467,13 @@ describe("index policy", () => {
       fileURLToPath(new URL("../../app/my-puppy/page.tsx", import.meta.url)),
       "utf8",
     );
-    expect(source).toMatch(/noIndex: true/);
-    expect(source).not.toMatch(/isStageIndexable|JOURNEY_HUB_INDEXABLE|indexable/);
+    expect(source).toMatch(/robots: "private-noindex"/);
+    expect(source).not.toMatch(/isStageIndexable|JOURNEY_HUB_INDEXABLE|stageRobotsPolicy|indexable/);
+    // And never the followable policy. Checked on the assignment rather than
+    // the file, because the doc comment there explains the distinction and
+    // legitimately names both halves of it.
+    expect(source).not.toMatch(/robots:\s*"public-noindex"/);
+    expect(source.match(/robots:\s*"[a-z-]+"/g)).toEqual(['robots: "private-noindex"']);
   });
 });
 
@@ -4279,5 +4286,91 @@ describe("pediatric medical consistency, Journey and articles", () => {
     // emergency article discusses it explicitly; no Journey stage may.
     expect(articleBody("emergency-vet-visits-in-canada")).toMatch(/neonatal period/i);
     expect(journeyText).not.toMatch(/neonat/i);
+  });
+});
+
+/**
+ * M1 on the Journey side, and the exact states Phase 2 will set.
+ *
+ * `/puppy/3-months` and `/puppy/beyond-the-first-year` are due to launch as
+ * published-but-held. Every stage links to every other stage, so if a held
+ * stage were `nofollow` the roadmap's crawl graph would be cut in half to
+ * express a decision that was only ever about those two pages' own listings.
+ *
+ * These use derived fixtures. No real stage is published here — the registry
+ * must still read 0/8 published after this file runs.
+ */
+describe("stage robots policy", () => {
+  const real = stages[0]!;
+  const emitted = (stage: PuppyStage) =>
+    createMetadata({ path: `/puppy/${stage.slug}`, robots: stageRobotsPolicy(stage) }).robots;
+
+  it("4. indexes and follows a published, indexable stage", () => {
+    const stage = withState(real, { status: "published", publishedAt: "2026-10-01", indexable: true });
+    expect(stageRobotsPolicy(stage)).toBe("index");
+    expect(emitted(stage)).toMatchObject({ index: true, follow: true });
+  });
+
+  it("5. holds a published, non-indexable stage out of the index but keeps it followable", () => {
+    const stage = withState(real, { status: "published", publishedAt: "2026-10-01", indexable: false });
+    expect(stageRobotsPolicy(stage)).toBe("public-noindex");
+    expect(emitted(stage)).toMatchObject({ index: false, follow: true });
+  });
+
+  it("6. follows nothing out of a stage still in review", () => {
+    for (const indexable of [true, false]) {
+      const stage = withState(real, { status: "in-review", indexable });
+      expect(stageRobotsPolicy(stage)).toBe("private-noindex");
+      expect(emitted(stage)).toMatchObject({ index: false, follow: false });
+    }
+  });
+
+  it("10/11. keeps a held stage out of the sitemap, self-canonical, and dated", () => {
+    const stage = withState(real, { status: "published", publishedAt: "2026-10-01", indexable: false });
+    // Sitemap membership is untouched by M1.
+    expect(isStageIndexable(stage)).toBe(false);
+    // An indexing decision is not a canonical merger.
+    const metadata = createMetadata({ path: `/puppy/${stage.slug}`, robots: stageRobotsPolicy(stage) });
+    expect(metadata.alternates?.canonical).toBe(canonicalUrl(`/puppy/${stage.slug}`));
+    // A published page keeps its publication date even when held from search.
+    expect(stagePublicationDates(stage)).toEqual({
+      datePublished: "2026-10-01",
+      dateModified: "2026-10-01",
+    });
+  });
+
+  it("14. leaves all eight real stages in review, and unfollowed", () => {
+    expect(stages).toHaveLength(8);
+    for (const stage of stages) {
+      expect(stage.status, stage.slug).toBe("in-review");
+      expect(stageRobotsPolicy(stage), stage.slug).toBe("private-noindex");
+    }
+    expect(stages.filter((s) => s.publishedAt)).toEqual([]);
+  });
+
+  it("16. adds no Journey route to the sitemap, which stays at 56", () => {
+    const urls = buildSitemapEntries().map((e) => e.url);
+    expect(urls.filter((url) => isJourneyRoute(url))).toEqual([]);
+    expect(urls).toHaveLength(56);
+  });
+
+  it("8. leaves every private and utility route noindex, nofollow", () => {
+    // The routes that must NOT gain a followable policy from this change.
+    for (const route of [
+      "search/page.tsx",
+      "account/page.tsx",
+      "sign-in/page.tsx",
+      "sign-up/page.tsx",
+      "forgot-password/page.tsx",
+      "reset-password/page.tsx",
+      "auth/confirm/page.tsx",
+      "my-puppy/page.tsx",
+      "not-found.tsx",
+    ]) {
+      const source = readFileSync(fileURLToPath(new URL(`../../app/${route}`, import.meta.url)), "utf8");
+      const assignments = source.match(/robots:\s*"[a-z-]+"/g) ?? [];
+      expect(assignments, `${route} has no robots policy`).not.toEqual([]);
+      expect([...new Set(assignments)], route).toEqual(['robots: "private-noindex"']);
+    }
   });
 });

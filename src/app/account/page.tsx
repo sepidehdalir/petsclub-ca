@@ -17,7 +17,7 @@ export const metadata: Metadata = createMetadata({
   title: "Your account",
   description: "Your Pet Club account.",
   path: "/account",
-  noIndex: true,
+  robots: "private-noindex",
 });
 
 // The session is per-request, so this route is always rendered on demand.

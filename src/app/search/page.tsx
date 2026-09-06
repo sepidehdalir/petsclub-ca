@@ -14,7 +14,7 @@ export const metadata: Metadata = createMetadata({
   path: "/search",
   // A results page has no stable content of its own and must not compete with
   // the pages it points at.
-  noIndex: true,
+  robots: "private-noindex",
 });
 
 export default async function SearchPage(props: PageProps<"/search">) {

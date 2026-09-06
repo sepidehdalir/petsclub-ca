@@ -6,6 +6,7 @@ import type {
   SeasonModifier,
   SizeGroupModifier,
 } from "@/features/puppy/model";
+import type { RobotsPolicy } from "@/lib/seo/metadata";
 
 /**
  * The Puppy Journey stage registry.
@@ -2646,6 +2647,31 @@ export function isStageIndexable(stage: PuppyStage): boolean {
  * bearing on `/my-puppy`, which is unconditionally `noindex` at the route.
  */
 export const JOURNEY_HUB_INDEXABLE = false;
+
+/**
+ * How search engines should treat this stage.
+ *
+ * The same three states as an article, for the same reason: `isStageIndexable`
+ * returning false covers both "still being written" and "published, but held
+ * out of this launch wave", and those two must not emit the same directive.
+ *
+ * | status     | indexable | policy          | robots            |
+ * | ---------- | --------- | --------------- | ----------------- |
+ * | in-review  | any       | private-noindex | noindex, nofollow |
+ * | published  | true      | index           | index, follow     |
+ * | published  | false     | public-noindex  | noindex, follow   |
+ *
+ * A held stage still sits in the middle of a roadmap every other stage links
+ * to. Making it `nofollow` would cut the Journey's crawl graph in half to
+ * express a decision that was only ever about its own listing.
+ */
+export function stageRobotsPolicy(stage: PuppyStage): RobotsPolicy {
+  if (stage.status !== "published") {
+    return "private-noindex";
+  }
+
+  return stage.indexable ? "index" : "public-noindex";
+}
 
 /**
  * Every Journey path that belongs in the sitemap, in render order.

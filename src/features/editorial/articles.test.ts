@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 
 import { findCommunityCategory } from "@/features/community/taxonomy";
 import {
+  articleRobotsPolicy,
   allArticleSections,
   articleDescription,
   articlePath,
@@ -20,6 +21,7 @@ import {
   isArticleIndexable,
 } from "@/features/editorial/articles";
 import { allReviewers, findReviewer, getAuthor } from "@/features/editorial/authors";
+import { createMetadata } from "@/lib/seo/metadata";
 import { buildSitemapEntries } from "@/lib/seo/sitemap";
 import { absoluteUrl, canonicalUrl } from "@/lib/seo/urls";
 import { isValidSlug } from "@/lib/utils/slug";
@@ -537,8 +539,8 @@ describe("article index policy", () => {
       fileURLToPath(new URL("../../app/guides/[slug]/page.tsx", import.meta.url)),
       "utf8",
     );
-    expect(route).toContain("noIndex: !isArticleIndexable(article)");
-    expect(route).not.toMatch(/noIndex: article\.status/);
+    expect(route).toContain("robots: articleRobotsPolicy(article)");
+    expect(route).not.toMatch(/robots: article\.status/);
 
     const sitemap = readFileSync(
       fileURLToPath(new URL("../../lib/seo/sitemap.ts", import.meta.url)),
@@ -1784,9 +1786,79 @@ describe("Puppy Journey dependency set", () => {
       fileURLToPath(new URL("../../app/guides/[slug]/page.tsx", import.meta.url)),
       "utf8",
     );
-    expect(route).toContain("noIndex: !isArticleIndexable(article)");
+    expect(route).toContain("robots: articleRobotsPolicy(article)");
     for (const slug of JOURNEY_DEPENDENCIES) {
       expect(isArticleIndexable(articles.find((a) => a.slug === slug)!), slug).toBe(true);
     }
+  });
+});
+
+/**
+ * M1: a published page held out of the index keeps its links followable.
+ *
+ * `isArticleIndexable` returning false covers two different situations —
+ * still in review, and published but deliberately withheld — and before this
+ * they emitted the same `noindex, nofollow`. That stranded every internal
+ * link on a page held back from a launch wave, turning an indexing decision
+ * into a crawl-graph defect. The states are separated here, against the
+ * derived policy and against `createMetadata`'s actual output.
+ */
+describe("article robots policy", () => {
+  const real = articles[0]!;
+  const emitted = (article: Article) =>
+    createMetadata({ path: articlePath(article.slug), robots: articleRobotsPolicy(article) }).robots;
+
+  it("1. indexes and follows a published, indexable article", () => {
+    const article = withState(real, { status: "published", publishedAt: "2026-10-01", indexable: true });
+    expect(articleRobotsPolicy(article)).toBe("index");
+    expect(emitted(article)).toMatchObject({ index: true, follow: true });
+  });
+
+  it("2. holds a published, non-indexable article out of the index but keeps it followable", () => {
+    const article = withState(real, { status: "published", publishedAt: "2026-10-01", indexable: false });
+    expect(articleRobotsPolicy(article)).toBe("public-noindex");
+    expect(emitted(article)).toMatchObject({ index: false, follow: true });
+  });
+
+  it("3. follows nothing out of an article still in review", () => {
+    for (const indexable of [true, false]) {
+      const article = withState(real, { status: "in-review", indexable });
+      expect(articleRobotsPolicy(article)).toBe("private-noindex");
+      expect(emitted(article)).toMatchObject({ index: false, follow: false });
+    }
+  });
+
+  it("9. keeps a public-noindex article out of the sitemap, and self-canonical", () => {
+    const article = withState(real, { status: "published", publishedAt: "2026-10-01", indexable: false });
+    // Sitemap membership is unchanged by M1: it still needs published AND indexable.
+    expect(isArticleIndexable(article)).toBe(false);
+    // 11. Held from search is not merged away: the canonical stays on itself.
+    const metadata = createMetadata({
+      path: articlePath(article.slug),
+      robots: articleRobotsPolicy(article),
+    });
+    expect(metadata.alternates?.canonical).toBe(canonicalUrl(articlePath(article.slug)));
+    // And the publication date still exists for a page that is genuinely published.
+    expect(articlePublicationDates(article)).toEqual({
+      datePublished: "2026-10-01",
+      dateModified: "2026-10-01",
+    });
+  });
+
+  it("12/13. leaves today's live articles exactly as they are", () => {
+    for (const article of articles) {
+      const expected = article.status === "published" ? "index" : "private-noindex";
+      expect(articleRobotsPolicy(article), article.slug).toBe(expected);
+    }
+    expect(articles.filter((a) => articleRobotsPolicy(a) === "index")).toHaveLength(15);
+    expect(articles.filter((a) => articleRobotsPolicy(a) === "private-noindex")).toHaveLength(20);
+    // Nothing is in the middle state yet — that arrives with Journey Phase 2.
+    expect(articles.filter((a) => articleRobotsPolicy(a) === "public-noindex")).toEqual([]);
+  });
+
+  it("15. leaves the sitemap at exactly 56", () => {
+    const urls = buildSitemapEntries().map((e) => e.url);
+    expect(urls).toHaveLength(56);
+    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(15);
   });
 });

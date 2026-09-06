@@ -22,7 +22,13 @@ export const metadata: Metadata = createMetadata({
   // single index flag rather than a status. `false` today; flipping it is a
   // deliberate launch decision and does not touch `/my-puppy`, which is
   // unconditionally `noindex` at the route.
-  noIndex: !JOURNEY_HUB_INDEXABLE,
+  //
+  // While the flag is off it is `private-noindex`, not `public-noindex`, and
+  // the distinction is deliberate: every link on this page points at a stage
+  // that is still in review, so there is nothing here worth following yet.
+  // Publishing the Journey flips this to `index` in the same commit that
+  // publishes the stages, and the two must not drift apart.
+  robots: JOURNEY_HUB_INDEXABLE ? "index" : "private-noindex",
 });
 
 /** What the Journey does differently, stated plainly rather than as marketing. */

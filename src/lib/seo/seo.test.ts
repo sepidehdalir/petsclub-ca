@@ -58,9 +58,31 @@ describe("createMetadata", () => {
     });
   });
 
-  it("marks utility pages noindex", () => {
-    const metadata = createMetadata({ title: "Search", path: "/search", noIndex: true });
+  it("marks private and utility pages noindex, nofollow", () => {
+    const metadata = createMetadata({ title: "Search", path: "/search", robots: "private-noindex" });
     expect(metadata.robots).toMatchObject({ index: false, follow: false });
+    expect(metadata.robots).toMatchObject({ googleBot: { index: false, follow: false } });
+  });
+
+  it("marks published-but-held pages noindex, follow", () => {
+    // The M1 distinction: a real published page kept out of the index still
+    // has links people and crawlers move through.
+    const metadata = createMetadata({ title: "Held", path: "/puppy/3-months", robots: "public-noindex" });
+    expect(metadata.robots).toMatchObject({ index: false, follow: true });
+    expect(metadata.robots).toMatchObject({ googleBot: { index: false, follow: true } });
+  });
+
+  it("defaults to index, follow when no policy is given", () => {
+    expect(createMetadata({ title: "Dogs", path: "/dogs" }).robots).toMatchObject({
+      index: true,
+      follow: true,
+    });
+  });
+
+  it("keeps a held page's canonical on itself", () => {
+    // A strategic index decision is not a canonical merger.
+    const metadata = createMetadata({ title: "Held", path: "/puppy/3-months", robots: "public-noindex" });
+    expect(metadata.alternates?.canonical).toBe(`${siteConfig.url}/puppy/3-months`);
   });
 
   it("marks content pages indexable", () => {

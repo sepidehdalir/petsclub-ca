@@ -9,7 +9,7 @@ export const metadata: Metadata = createMetadata({
   title: "Reset your password",
   description: "Request a password reset link for your Pet Club account.",
   path: "/forgot-password",
-  noIndex: true,
+  robots: "private-noindex",
 });
 
 export default function ForgotPasswordPage() {

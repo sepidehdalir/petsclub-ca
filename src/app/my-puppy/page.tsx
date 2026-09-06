@@ -89,9 +89,12 @@ function canonicalPathFor(
  * the blueprint set out to avoid — so the canonical points at whichever public
  * page this state is genuinely a variant of.
  *
- * `noIndex` also sets `follow: false`, which is a slightly blunt instrument
- * here, but the internal links a reader needs are all reachable from `/puppy`
- * and from the article library, so nothing is stranded.
+ * It is `private-noindex` rather than `public-noindex`, so `follow: false` too.
+ * That is the right half of the distinction for this route: it is application
+ * state rather than published content, and the internal links a reader needs
+ * are all reachable from `/puppy` and from the article library, so nothing is
+ * stranded. A published stage held back from a launch wave is the other case,
+ * and it keeps `follow: true`.
  */
 export async function generateMetadata({
   searchParams,
@@ -102,7 +105,7 @@ export async function generateMetadata({
     title: "Your Puppy Journey",
     description: "Your puppy's Journey, personalised to their age.",
     path: canonicalPathFor(single(params.dob), single(params.province)),
-    noIndex: true,
+    robots: "private-noindex",
   });
 }
 

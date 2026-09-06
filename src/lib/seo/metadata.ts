@@ -3,6 +3,24 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { canonicalUrl } from "@/lib/seo/urls";
 
+/**
+ * What a page is, as far as search engines are concerned.
+ *
+ * - `index` — public content we want found. `index, follow`.
+ * - `public-noindex` — real published content deliberately kept out of the
+ *   index (cannibalisation, a stage held back from a launch wave). It is still
+ *   a page people navigate, so its links stay crawlable: `noindex, follow`.
+ * - `private-noindex` — not a search surface at all: application state, auth,
+ *   search results, 404s, and content still in review. Nothing here should be
+ *   indexed and nothing should be followed out of it: `noindex, nofollow`.
+ *
+ * The distinction that matters is the middle one. Collapsing it into
+ * `private-noindex` strands the internal links on any page held back from a
+ * launch wave, which is how a strategic index decision quietly becomes a
+ * crawl-graph defect.
+ */
+export type RobotsPolicy = "index" | "public-noindex" | "private-noindex";
+
 export interface CreateMetadataOptions {
   /** Page title, without the site suffix. Omit on the homepage. */
   title?: string;
@@ -12,8 +30,16 @@ export interface CreateMetadataOptions {
   path?: string;
   /** Open Graph type. `article` is reserved for editorial content. */
   type?: "website" | "article";
-  /** Set for utility pages (search results, auth screens) that must not rank. */
-  noIndex?: boolean;
+  /**
+   * How this page should be treated by search engines.
+   *
+   * A boolean was not enough. `noIndex: true` answered "should this rank?" but
+   * had no way to answer "should its links still be followed?", and it silently
+   * assumed no — which is right for a search results page and wrong for a real
+   * published page held out of the index on editorial grounds. The three states
+   * are named after the reason, not the header they emit.
+   */
+  robots?: RobotsPolicy;
   /** Overrides the default social share image. */
   imagePath?: string;
   /**
@@ -43,7 +69,7 @@ export function createMetadata({
   description = siteConfig.description,
   path = "/",
   type = "website",
-  noIndex = false,
+  robots = "index",
   imagePath = siteConfig.ogImagePath,
   image,
   publishedTime,
@@ -88,18 +114,30 @@ export function createMetadata({
       description,
       images: [shareImage.url],
     },
-    robots: noIndex
-      ? { index: false, follow: false, googleBot: { index: false, follow: false } }
-      : {
-          index: true,
-          follow: true,
-          googleBot: {
-            index: true,
-            follow: true,
-            "max-image-preview": "large",
-            "max-snippet": -1,
-            "max-video-preview": -1,
-          },
-        },
+    robots: robotsFor(robots),
+  };
+}
+
+/** The one place a `RobotsPolicy` becomes an actual robots directive. */
+function robotsFor(policy: RobotsPolicy): NonNullable<Metadata["robots"]> {
+  if (policy === "private-noindex") {
+    return { index: false, follow: false, googleBot: { index: false, follow: false } };
+  }
+
+  if (policy === "public-noindex") {
+    // Followable on purpose: the page is published and people move through it.
+    return { index: false, follow: true, googleBot: { index: false, follow: true } };
+  }
+
+  return {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   };
 }
