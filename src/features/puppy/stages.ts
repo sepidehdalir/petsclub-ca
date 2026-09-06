@@ -290,7 +290,317 @@ export const nineToElevenWeeks: PuppyStage = {
   ],
 };
 
-export const stages: readonly PuppyStage[] = [nineToElevenWeeks];
+
+/**
+ * Twelve weeks.
+ *
+ * The differentiation gate approved this stage on one argument, and the page
+ * has to earn it: twelve weeks is where owners are widely told the puppy is
+ * finished, and it is not. The appointment that often lands around now reads
+ * like a finish line. The primary series usually is not over, the
+ * socialisation window is closing rather than open, and the teeth are about
+ * to become the dominant fact of everyone's life.
+ *
+ * So the spine of this stage is a correction, not a continuation. Where the
+ * 9–11 week stage says *the window is open, get going*, this one says *time
+ * is short, and you are not as protected as you have been told*. Sections that
+ * would only restate the previous stage are shorter here, or absent.
+ */
+export const twelveWeeks: PuppyStage = {
+  slug: "12-weeks",
+  label: "12 weeks",
+  title: "Your 12-Week-Old Puppy",
+  deck:
+    "The week a lot of owners are told the puppy is finished. The series usually is not over, the socialisation window is closing rather than open, and the teeth are about to arrive in earnest.",
+  metaDescription:
+    "What matters at 12 weeks: why your puppy is probably not fully vaccinated yet, what socialisation is left, teething, first walks, and what to ask your veterinarian.",
+  mediaId: "puppy-twelve-weeks",
+  mediaAlt:
+    "A husky-type puppy in a plain harness sitting on a paved street — out in the world on a lead, at around the age this stage covers.",
+  reviewBy: "2027-09-01",
+  status: "in-review",
+
+  sections: [
+    {
+      id: "this-week",
+      title: "Where you are now",
+      summary: "Your puppy feels finished. It is not, and this is the week that matters most.",
+      body: [
+        "Something changes for owners at twelve weeks. The puppy sleeps through more of the night, has fewer accidents, looks less like a toy and more like a dog, and often has an appointment around now that feels conclusive. A great many people leave that appointment believing the job is done.",
+        "It is the opposite. Twelve weeks is the point at which two clocks run out at once. The socialisation window is closing rather than open, and the vaccination series — for most puppies — is not finished and will not be for several more weeks. Those two facts pull in opposite directions, which is exactly why this age needs thinking about rather than coasting through.",
+      ],
+      points: [
+        "A vaccine appointment around twelve weeks is very rarely the last one.",
+        "The socialisation window is closing. What has not been covered by now is harder to cover later.",
+        "Teething moves from occasional to constant over the next few weeks.",
+        "Short lead walks usually become reasonable around now — short being the operative word.",
+        "Confidence is arriving faster than judgement. Both are normal; only one is useful.",
+      ],
+      guide: {
+        slug: "pet-licensing-across-canada",
+        label: "Municipal licensing, and the age it usually starts",
+      },
+    },
+    {
+      id: "development",
+      title: "Development",
+      summary: "Confident, coordinated, and not yet resilient. Those are three different things.",
+      body: [
+        "A twelve-week-old is a noticeably more capable animal than it was three weeks ago. It can climb what it could not climb, hold attention for slightly longer, and go longer between toilet trips. Owners respond to that by treating it more like a small dog and less like an infant, which is reasonable and also where the trouble starts.",
+        "Confidence at this age runs ahead of resilience. A puppy that marches up to something startling is not necessarily coping with it; it may simply not have learned yet that it could go badly. The gap between the two is why a bad experience now — a dog that pins it, a child that will not let go, a slippery vet table — lands harder than the same experience would at six months. Bold and robust are not synonyms.",
+      ],
+    },
+    {
+      id: "training",
+      title: "Training",
+      summary: "The same short sessions, with real progression in what they contain.",
+      body: [
+        "The format does not change: a few minutes at a time, several times a day, ending while the puppy still wants more. What changes is what goes into them. At nine weeks the job was to establish that training happens at all. At twelve, four things are worth building deliberately.",
+      ],
+      points: [
+        "Name response with something else going on. Not a busy street — the other end of your own kitchen while someone is cooking. Adding a little competition now is what makes it hold up later.",
+        "Recall as a game, never a command. Run away and let the puppy chase you. Pay it enormously every single time. Do not use the word when you cannot make it happen, and do not use it to end anything fun.",
+        "Lead work at home first. A harness, a slack lead, and a hallway. Reward the position you want rather than correcting the one you do not. The street is the exam, not the lesson.",
+        "Settling on a mat, on cue, while life happens around it. This is the single most useful thing you can teach an adolescent dog, and it is far easier to teach now.",
+      ],
+      guide: {
+        slug: "loose-leash-walking-and-recall",
+        label: "Lead work and recall, built properly",
+      },
+    },
+    {
+      id: "socialisation",
+      title: "Socialisation",
+      summary: "The window is closing. What is left is triage, and quality decides it.",
+      body: [
+        "The American Veterinary Society of Animal Behavior places the primary socialisation period in the first three months of life. Twelve weeks is the end of that, not the middle. This is the last stretch in which new experiences land as cheaply as they ever will, and the honest framing is triage: what has this puppy not met yet, and which of those gaps will matter most.",
+        "The instinct at this point is to do more. That is the wrong correction. An exposure the puppy cannot cope with does not bank a positive experience — it banks the opposite, and a single bad encounter at this age can outweigh a dozen good ones. More encounters at a distance the puppy can handle beats more encounters.",
+        "It is also worth being precise about what socialisation is not. Standing a frightened puppy in a crowd is exposure, not socialisation. A dog park is not socialisation; it is a room full of strangers with no supervision and unknown vaccination status. The pet shop floor and the communal patch of grass by the building door carry the same problem — high traffic, unknown dogs, and a puppy whose series is not finished. Those are the shortcuts that look productive and are not.",
+      ],
+      points: [
+        "Audit rather than tally. Surfaces, sounds, handling and being alone are the categories that get skipped while people and dogs get overdone.",
+        "Novel surfaces are cheap and high-value: metal grates, wet grass, gravel, stairs, a wobbly board, a vet-clinic floor.",
+        "Book a well-run puppy class rather than an informal meet-up. A class that requires proof of vaccination and supervises play is doing the risk management for you.",
+        "Sit outside somewhere busy and feed the puppy while the world goes past. Watching is socialisation. Joining in is optional.",
+        "Ask your veterinarian what the actual disease picture looks like where you live — parvovirus prevalence is local, and so is the right balance between risk and exposure.",
+      ],
+      guide: {
+        slug: "puppy-socialisation-checklist",
+        label: "What to actually expose a puppy to, and how to read the puppy",
+      },
+    },
+    {
+      id: "teething",
+      title: "Teething and chewing",
+      summary: "This is the section that will matter most over the next month.",
+      body: [
+        "Around now, and increasingly over the following weeks, the baby teeth start being replaced. You may find one in the carpet, or a spot of blood on a chew toy, or nothing at all — most puppies swallow them and nobody notices. The gums are sore, and chewing is the relief.",
+        "Two things follow. First, chewing is going to increase, and it is not disobedience — a puppy cannot be trained out of a physical need. Manage the environment so the wrong options are not reachable, keep a rotation of things that are legal to chew so they stay interesting, and use cold: a wet flannel frozen into a twist, or a stuffed toy from the freezer, does more for a sore mouth than any correction.",
+        "Second, mouthing you has to stop being funny. At nine weeks the teeth were needles and it was tolerable. At twelve they hurt, at six months they will do damage, and the household that laughed at it will be the one asking why the dog still does it. When teeth land on skin, everything stops — hands still, attention off, no drama — and then a legal chew appears.",
+        "On what to give: hardness is worth asking your veterinarian about directly. Chews that do not give at all are a common cause of fractured teeth, and \u201cnatural\u201d is not the same as safe.",
+      ],
+      guide: {
+        slug: "dental-care-for-dogs-and-cats",
+        label: "The mouth you are going to be looking after for a decade",
+      },
+    },
+    {
+      id: "feeding",
+      title: "Feeding",
+      summary: "Usually one fewer meal, and a question that arrives too early.",
+      body: [
+        "Most puppies move from four meals a day to three somewhere in this period. How and when is a question for your veterinarian rather than a chart — it depends on the food, the breed and the individual animal.",
+        "Two things commonly surprise owners here. Appetite can dip while teething, which is usually unremarkable on its own and worth a phone call if it lasts or comes with anything else. And the question of when to move to adult food arrives far earlier than the answer: growth finishes much later in a large dog than a small one, and switching early is a genuine risk rather than a saving. Ask rather than guess.",
+      ],
+      guide: {
+        slug: "reading-a-canadian-pet-food-label",
+        label: "What the label does and does not tell you",
+      },
+    },
+    {
+      id: "sleep",
+      title: "Sleep",
+      summary: "Nights are consolidating. The daytime nap still has to be enforced.",
+      body: [
+        "Most puppies are sleeping longer stretches at night by now, and the small-hours toilet trip is on its way out — gradually, and not on a particular date. Keep those trips boring and wordless for as long as they last.",
+        "Daytime is where owners relax too early. A twelve-week-old still needs a great deal of sleep and still will not take it voluntarily in a busy room. The difference is that overtiredness has started to look like defiance rather than chaos: a puppy that ignores you, grabs at clothing and cannot settle at five in the afternoon is usually not being difficult, it is exhausted.",
+      ],
+      guide: {
+        slug: "crate-training-a-puppy-in-canada",
+        label: "Using a crate for rest rather than containment",
+      },
+    },
+    {
+      id: "grooming",
+      title: "Grooming",
+      summary: "Short, but this is when the first professional appointment gets booked.",
+      body: [
+        "Keep the two-minute handling practice going — feet, ears, mouth, collar — because it is still the cheapest investment available. What is new at twelve weeks is that for many coats this is when the first professional appointment should be arranged, and it should be booked as an introduction rather than a haircut: a short, positive visit that ends before anything goes wrong.",
+      ],
+    },
+    {
+      id: "exercise",
+      title: "Exercise and activity",
+      summary: "Yes to walks. Short ones, led by the nose rather than the distance.",
+      body: [
+        "\u201cCan we go for walks now\u201d is the question of this age, and the answer is a qualified yes once your veterinarian is content with where the puppy is in its series and where you plan to go. But a walk at twelve weeks is not the walk you have in mind. Ten minutes of sniffing one hedge is a better outing than a kilometre of pavement, and it will tire the puppy more.",
+        "The constraint worth understanding is repetition rather than movement. Growth plates are open, and it is repetitive forced exercise — jogging alongside you, cycling, long stair sessions, throwing a ball until the puppy drops — that is worth avoiding. Free movement at the puppy's own pace, where it can stop when it wants to, is a different thing entirely and is good for it.",
+        "Mental work is still doing most of the tiring. Scatter feeding, a rolled towel with kibble in it, and five minutes of training will empty a puppy more reliably than distance ever will.",
+      ],
+    },
+    {
+      id: "veterinary-care",
+      title: "Veterinary care",
+      summary: "Go with the record and a list. This appointment sets up the next two months.",
+      body: [
+        "There is usually an appointment around now, and the useful version of it is a conversation rather than an injection. Take the record that came with the puppy and everything since — dates, products, batch numbers if you have them — because the plan from here depends on what has actually been given and when.",
+        "It is also the appointment at which to raise the administrative things that cluster at three months: whether your municipality licenses at this age, whether the microchip registration is genuinely in your name, and what the practice's after-hours arrangement is. None of those are interesting until the evening you need them."
+      ],
+      guide: {
+        slug: "finding-a-veterinarian-in-canada",
+        label: "Choosing a practice before you need one",
+      },
+    },
+    {
+      id: "vaccine-questions",
+      title: "Questions to discuss with your veterinarian at 12 weeks",
+      summary: "Why twelve weeks almost never means finished, and what to ask instead.",
+      tone: "caution",
+      body: [
+        "This is the misunderstanding this stage exists to correct, so it is worth being exact about the reasoning rather than just asserting the conclusion.",
+        "A puppy is born with antibodies from its mother. They protect it early on and, at the same time, block a vaccine from taking effect. They fade — but on a schedule that varies between litters and between puppies in one litter, and that nobody can see from the outside. That is why the puppy series is a series: not one dose repeated for emphasis, but a set of attempts spaced a few weeks apart so that whenever the window opens for that individual animal, a dose lands in it.",
+        "The consequence is that the last dose is the one carrying most of the weight, and it comes later than most people expect. The American Animal Hospital Association recommends continuing the series until the puppy is older than sixteen weeks, and prefers eighteen to twenty weeks where distemper or parvovirus risk is high. The World Small Animal Veterinary Association puts the final dose at sixteen weeks or older. On either reading, a dose given at twelve weeks is a step in the series rather than the end of it.",
+        "What that does not mean is that there is a schedule this page can hand you. Which vaccines, at what spacing, and when the series ends depends on what your puppy has already had, where you live, what it will do, the specific products your clinic uses, and your veterinarian's assessment of the animal in front of them. That is a plan, and only they can write it. What follows is how to come away with one.",
+      ],
+      points: [
+        "Where exactly is my puppy in its series, and how many doses are left?",
+        "On what date will the series actually be complete — and what should I do differently until then?",
+        "Which vaccines are core for this puppy, and which depend on where we live and what it will do?",
+        "Given our area, do you recommend leptospirosis, Lyme or Bordetella?",
+        "What are the rabies requirements where we live, and when will you give it?",
+        "Do you follow the newer advice for a further dose at around six months, or the twelve-month booster?",
+        "Where can I safely socialise between now and the end of the series?",
+        "What should I watch for this afternoon, and what number do I call after hours?",
+      ],
+      guide: {
+        slug: "puppy-vaccination-schedule-in-canada",
+        label: "Why it is a series, what core means, and how the provinces differ",
+      },
+    },
+    {
+      id: "parasite-prevention",
+      title: "Parasite prevention",
+      summary: "Now a full-season plan rather than a first conversation.",
+      body: [
+        "Many preventive products carry a minimum age or weight, and a twelve-week-old has often just crossed one or both — which is why this conversation tends to become concrete at this appointment rather than the last one. It is also the point at which the puppy starts genuinely going outside, so the exposure being planned for is real rather than hypothetical.",
+        "Two things are worth settling now rather than in June. Heartworm prevention is seasonal in most of Canada and the start date is set by the local mosquito season, not by the calendar month you happened to ask. And tick season is longer than most people assume at both ends — it does not begin in summer, and it does not end with the first frost. Ask what the season looks like where you actually live, and get the start and stop dates written on the record.",
+      ],
+      guide: {
+        slug: "parasite-prevention-for-pets-in-canada",
+        label: "Region and season, and what actually drives the timing",
+      },
+    },
+    {
+      id: "safety",
+      title: "Safety",
+      summary: "The teeth change the hazard list, and the front door becomes one.",
+      body: [
+        "Two things shift at twelve weeks. Chewing escalates, which makes swallowing something the most likely serious accident of the next few months. And the puppy starts going out, which introduces hazards that were not on the list at all a fortnight ago.",
+      ],
+      points: [
+        "Anything small enough to swallow, now that everything goes in the mouth. Intestinal obstruction is a genuine emergency and a genuine expense — socks, corn cobs, stones, string and the stuffing out of a toy are the usual culprits.",
+        "Cables and cords, which become far more interesting once the gums are sore.",
+        "The front door and the car door. A puppy that is confident enough to go out is confident enough to bolt, and this is the age at which the first escape usually happens.",
+        "Car travel itself: a puppy loose in a footwell is a hazard to itself and to the driver.",
+        "Stairs and furniture, where the puppy is now bold enough to jump down from things it should not.",
+        "Anything toxic within reach of a taller, more determined animal than you had last month.",
+      ],
+    },
+    {
+      id: "red-flags",
+      title: "When to call a veterinarian",
+      summary: "The threshold stays low, and two new things belong on the list.",
+      tone: "caution",
+      body: [
+        "A young puppy has less reserve than an adult dog and can deteriorate faster, so the bar for making a phone call stays deliberately low. Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
+        "Contact your veterinary clinic — rather than waiting to see whether it settles — if a puppy will not eat, is repeatedly vomiting or has persistent diarrhoea, is unusually limp or unresponsive, is breathing with effort, has not urinated in an unusually long stretch, is straining without producing anything, or you have any reason to think it has swallowed something it should not have. Very small breeds can also become weak or wobbly if they go too long without food.",
+        "Two things are more likely at this age specifically. If there is any chance a foreign object has been swallowed, that is a call rather than a wait-and-see, and it does not need to be accompanied by any other sign. And if the puppy is limping after a walk or a fall, or is reluctant to put weight on a leg, have it looked at rather than resting it and hoping — a young skeleton is not a small adult one.",
+        "After a vaccination appointment, contact the clinic straight away if you see swelling of the face or muzzle, hives, repeated vomiting or diarrhoea, difficulty breathing, weakness or collapse. Tell them which vaccine was given and when.",
+        "This describes what to look for so you know when to call. It does not diagnose, and it is not a substitute for examining your puppy — only a veterinarian who has seen it can do that.",
+      ],
+      guide: {
+        slug: "emergency-vet-visits-in-canada",
+        label: "The hour of preparation that decides how the worst night goes",
+      },
+    },
+    {
+      id: "whats-next",
+      title: "What's next",
+      summary: "The series finishes, the window shuts, and a decision starts forming.",
+      body: [
+        "Between here and sixteen weeks the two clocks finish running. The socialisation window closes — after which new things are still learnable, but they cost more effort and more repetition — and the vaccination series reaches its final dose, which is the one that matters most and the point at which the risk calculation for where you go genuinely changes.",
+        "After that, adolescence. It arrives around six or seven months and it is not a training failure: a dog that appears to forget everything it knew is doing something developmentally normal, and the work you put in now is what it comes back to on the other side.",
+        "The other thing that starts forming in this period is the neutering conversation. It is not a decision for twelve weeks, and the timing has moved considerably in recent years — particularly for larger breeds — so it is worth knowing the shape of it well before anyone asks you for an answer.",
+      ],
+      guide: {
+        slug: "spaying-and-neutering-in-canada",
+        label: "Why the timing question has changed",
+      },
+    },
+  ],
+
+  checklist: [
+    { id: "series", label: "Ask when the vaccination series actually finishes", detail: "Get a date, not a reassurance. It is very rarely today." },
+    { id: "audit", label: "Audit socialisation rather than counting it", detail: "List what has been missed — surfaces, sounds, handling — and plan the gaps." },
+    { id: "class", label: "Look into a well-run puppy class", detail: "One that checks vaccination records and supervises play." },
+    { id: "chews", label: "Set up the chew rotation before you need it", detail: "Including something from the freezer." },
+    { id: "walks", label: "Start short lead walks, led by the nose" },
+    { id: "recall", label: "Play recall daily, and never use the word to end fun" },
+    { id: "settle", label: "Teach settling on a mat while life goes on around it" },
+    { id: "licence", label: "Check whether your municipality licenses at three months" },
+    { id: "record", label: "Photograph the vaccination record and keep it somewhere you will find it" },
+  ],
+
+  sources: [
+    {
+      label: "Position statement on puppy socialization — the first three months, and socialising before full vaccination",
+      publisher: "American Veterinary Society of Animal Behavior",
+      url: "https://avsab.org/puppy-socialization-position-statement/",
+    },
+    {
+      label: "2022 AAHA Canine Vaccination Guidelines — continuing the initial series past sixteen weeks",
+      publisher: "American Animal Hospital Association",
+      url: "https://www.aaha.org/resources/2022-aaha-canine-vaccination-guidelines/",
+    },
+    {
+      label: "2024 Guidelines for the Vaccination of Dogs and Cats — final puppy dose at sixteen weeks or older",
+      publisher: "World Small Animal Veterinary Association",
+      url: "https://wsava.org/wp-content/uploads/2024/05/2024-Guidelines-for-the-Vaccination-of-Dogs-and-Cats.pdf",
+    },
+  ],
+
+  resources: [
+    {
+      label: "Your provincial or territorial veterinary regulator, and what it licenses",
+      publisher: "Canadian Veterinary Medical Association",
+      url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+    },
+  ],
+
+  needsVerification: [
+    "The socialisation window closing around twelve weeks follows the AVSAB position statement's first-three-months framing and is sourced. Do not let a future edit turn 'closing' into a hard cut-off date — the statement does not say that.",
+    "The final-dose ages (AAHA past sixteen weeks, preferring eighteen to twenty in high-risk settings; WSAVA sixteen weeks or older) are sourced and must stay attributed to the body that says them. This section must never become a schedule.",
+    "Teething is described as starting around now and increasing, with no eruption order and no week numbers. Attach a veterinary dentistry source before making it specific.",
+    "That hard chews are a common cause of fractured teeth is stated qualitatively and directed to the veterinarian. Source it before it is made stronger or given examples.",
+    "The move from four meals to three is stated as what most puppies do, not as a recommendation. Confirm against a veterinary nutrition source or soften further.",
+    "That growth finishes later in large breeds, and that switching to adult food early carries risk, is stated generally with no age or weight. Attach a source before it is made specific.",
+    "The growth-plate reasoning behind limiting repetitive forced exercise names no age, distance or rule, exactly as in the previous stage. Do not make it specific without a source.",
+    "That heartworm prevention is seasonal in most of Canada and that tick activity extends beyond summer at both ends is stated qualitatively, with no months and no regions, and directs the reader to their own veterinarian. The linked parasite article carries the sourced detail; do not add dates here without one.",
+    "That a first grooming appointment belongs around this age is a practice convention rather than a sourced claim. It is framed as an introduction rather than a requirement; keep it that way or source it.",
+  ],
+};
+
+export const stages: readonly PuppyStage[] = [nineToElevenWeeks, twelveWeeks];
 
 /* ------------------------------------------------------------- the roadmap */
 
@@ -621,6 +931,30 @@ export function stageFor(age: PuppyAge): PuppyStage | null {
 export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
   {
     sizeGroup: "large",
+    stageSlug: "12-weeks",
+    sectionId: "exercise",
+    body: [
+      "A large-breed puppy has far more growing left than a small one and will finish much later, so the restraint on repetitive forced exercise matters more here rather than less — and it matters for longer. Short, sniffing-led outings and free play are the right shape; running alongside a bicycle, long stair sessions and repeated ball-throwing are the things to keep off the list for many months yet.",
+    ],
+  },
+  {
+    sizeGroup: "giant",
+    stageSlug: "12-weeks",
+    sectionId: "exercise",
+    body: [
+      "A giant-breed puppy grows for longer than almost any other dog, and at twelve weeks it is nowhere near done. The temptation is to match the exercise to the size of the animal, which is exactly backwards. Keep outings short and self-paced, and treat any repetitive forced exercise as a conversation to have with your veterinarian rather than a judgement call.",
+    ],
+  },
+  {
+    sizeGroup: "toy",
+    stageSlug: "12-weeks",
+    sectionId: "feeding",
+    body: [
+      "Very small puppies have little in reserve, so the move from four meals to three is worth raising specifically rather than assuming. A toy-breed puppy that goes too long without food can become weak or wobbly, and a teething dip in appetite is more consequential at this size than it would be in a Labrador.",
+    ],
+  },
+  {
+    sizeGroup: "large",
     stageSlug: "9-11-weeks",
     sectionId: "exercise",
     body: [
@@ -646,6 +980,30 @@ export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
 ];
 
 export const breedModifiers: readonly BreedModifier[] = [
+  {
+    breedSlug: "poodle",
+    stageSlug: "12-weeks",
+    sectionId: "grooming",
+    body: [
+      "A poodle coat needs professional grooming for life, and this is the age at which to book the first appointment. Ask for an introductory visit rather than a full groom — being handled, hearing the clippers and going home again. A puppy that finds the salon unremarkable is a dog that can be groomed for the next fifteen years without sedation.",
+    ],
+  },
+  {
+    breedSlug: "bernese-mountain-dog",
+    stageSlug: "12-weeks",
+    sectionId: "grooming",
+    body: [
+      "The coat that arrives later is not the coat you are brushing now, and the habit is what you are building. Book an introductory grooming visit while the job is still trivial, and keep the daily two minutes going — a large dog that objects to having its feet handled is a genuinely difficult problem.",
+    ],
+  },
+  {
+    breedSlug: "french-bulldog",
+    stageSlug: "12-weeks",
+    sectionId: "exercise",
+    body: [
+      "First walks need more caution with a flat-faced breed than the walk itself suggests. Breathing is the limit rather than stamina, and a puppy that is enjoying itself will not stop in time. Go out at the cool ends of the day, keep outings short, and treat noisy breathing, tiring quickly or any reluctance to continue as a reason to stop and to raise it with your veterinarian.",
+    ],
+  },
   {
     breedSlug: "poodle",
     stageSlug: "9-11-weeks",
@@ -683,6 +1041,42 @@ export const breedModifiers: readonly BreedModifier[] = [
  * to be a provincial fact.
  */
 export const provinceModifiers: readonly ProvinceModifier[] = [
+  {
+    provinces: ["ON"],
+    stageSlug: "12-weeks",
+    sectionId: "vaccine-questions",
+    heading: "In Ontario, your puppy has now reached the legal threshold",
+    kind: "legal",
+    body: [
+      "Under Ontario's rabies immunization regulation, dogs, cats and ferrets over three months of age must be vaccinated against rabies — indoor animals included. Twelve weeks is that threshold. This is the appointment at which to confirm the timing rather than assume it is being handled.",
+      "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation, which is why it belongs on a list of things to raise rather than a list of things to consider.",
+    ],
+    sources: [
+      {
+        label: "Rabies and your pets — the provincial vaccination requirement",
+        publisher: "Government of Ontario",
+        url: "https://www.ontario.ca/page/rabies-pets",
+      },
+    ],
+  },
+  {
+    provinces: ["BC"],
+    stageSlug: "12-weeks",
+    sectionId: "vaccine-questions",
+    heading: "In British Columbia, rabies vaccination is recommended rather than required",
+    kind: "guidance",
+    body: [
+      "The BC Centre for Disease Control recommends rabies vaccination for pets; provincial law does not compel it. That is a real difference from provinces such as Ontario, where three months of age is a legal threshold — and it is the reason a checklist written for one province does not transfer to another.",
+      "Recommended is not optional. Rabies vaccination comes up when boarding, when travelling, and above all if a dog is ever exposed or involved in a bite incident, where a documented current vaccination puts an animal in a materially different position. Raise it explicitly rather than waiting for it to be raised with you.",
+    ],
+    sources: [
+      {
+        label: "Rabies — vaccination is recommended in British Columbia, not legally required",
+        publisher: "BC Centre for Disease Control",
+        url: "https://www.bccdc.ca/health-info/diseases-conditions/rabies",
+      },
+    ],
+  },
   {
     provinces: ["ON"],
     stageSlug: "9-11-weeks",
@@ -728,6 +1122,28 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
  * like. Spring and autumn do not, and get nothing rather than an adjective.
  */
 export const seasonModifiers: readonly SeasonModifier[] = [
+  {
+    season: "winter",
+    stageSlug: "12-weeks",
+    sectionId: "socialisation",
+    heading: "A winter puppy, with the window closing",
+    body: [
+      "Winter and a closing socialisation window is the hardest combination this stage produces. There are fewer people outdoors, nobody lingers, and the last weeks of the cheapest learning your dog will ever do are happening behind a closed door. That has to be compensated for deliberately rather than waited out.",
+      "Bring the world in: invite visitors, run the vacuum and the hairdryer, play recordings of traffic and fireworks quietly while feeding. Use the car as a heated viewing platform outside somewhere busy. And take the category winter hands you for free — snow, ice, salt, boots, shovels, and people muffled to the eyes — because a summer puppy will not meet any of it until it is far less flexible.",
+    ],
+    guide: { slug: "winter-dog-care-in-canada", label: "Winter care, paws and road salt" },
+  },
+  {
+    season: "summer",
+    stageSlug: "12-weeks",
+    sectionId: "exercise",
+    heading: "First walks in summer",
+    body: [
+      "Heat is the binding constraint on these first outings, and it gives less warning than cold. Walk at the ends of the day, test the pavement with the back of your hand before committing to a route — if you cannot hold it there comfortably, it is too hot for paws — and never leave a puppy in a parked car for any length of time.",
+      "The season also makes the parasite conversation immediate rather than theoretical. Tick and mosquito exposure is at its height exactly as the puppy starts spending real time outdoors.",
+    ],
+    guide: { slug: "summer-heat-safety-for-dogs-in-canada", label: "Heat, pavement and wildfire smoke" },
+  },
   {
     season: "winter",
     stageSlug: "9-11-weeks",

@@ -16,6 +16,7 @@ import trainingDogAtWindow from "./photos/training-dog-at-window.jpg";
 import dogsDrinkingWaterSummer from "./photos/dogs-drinking-water-summer.jpg";
 import catsTwoRestingTogether from "./photos/cats-two-resting-together.jpg";
 import puppyElevenWeeks from "./photos/puppy-eleven-weeks.jpg";
+import puppyTwelveWeeks from "./photos/puppy-twelve-weeks.jpg";
 import catsLeavingLitterBox from "./photos/cats-leaving-litter-box.jpg";
 import catsDrinkingRunningWater from "./photos/cats-drinking-running-water.jpg";
 import healthVetConsultationDiscussion from "./photos/health-vet-consultation-discussion.jpg";
@@ -438,6 +439,17 @@ const assets = {
     photographer: "Rahul Katare",
     source: "Pexels",
     sourceUrl: "https://www.pexels.com/photo/adorable-labrador-puppy-sitting-indoors-35942005/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "puppy-twelve-weeks": {
+    id: "puppy-twelve-weeks",
+    src: puppyTwelveWeeks,
+    file: "photos/puppy-twelve-weeks.jpg",
+    alt: "A husky-type puppy in a plain harness sits on a paved street, lead slack, looking straight at the camera.",
+    photographer: "Nikeah Schell",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/siberian-husky-puppy-sitting-on-an-asphalt-ground-12629597/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },
