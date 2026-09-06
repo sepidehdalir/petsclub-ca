@@ -890,3 +890,272 @@ describe("Batch B — puppy behaviour and training evidence", () => {
     }
   });
 });
+
+/**
+ * ## Parasite prescription, across the article library
+ *
+ * The pre-launch hardening report recorded this gap explicitly: "Start
+ * heartworm prevention at 8 weeks and continue monthly" passed every guard
+ * this project had. Parasite prevention was outside the six Journey families,
+ * and nothing scanned the articles for it at all.
+ *
+ * Same shape as the folklore guard. It looks for *prescription* — a universal
+ * age, product or cadence presented as what every animal needs — and not for
+ * the word "heartworm". Discussion of risk, geography, label minimums and
+ * questions for a veterinarian all have to pass, because that is what these
+ * articles are made of.
+ */
+const PARASITE_RX = [
+  // A universal start age.
+  /\b(?:start|begin|commence)\w*\b[^.]{0,40}\b(?:heartworm|flea|tick|parasite|deworm\w*)\b[^.]{0,40}\bat\s+(?:\d+|six|eight|twelve|sixteen)\s*(?:weeks?|months?)\b/i,
+  /\b(?:heartworm|flea|tick|parasite|deworm\w*)\b[^.]{0,40}\b(?:starts?|begins?)\b[^.]{0,25}\bat\s+(?:\d+|six|eight|twelve)\s*(?:weeks?|months?)\b/i,
+  // Every animal needs it.
+  /\b(?:every|all|each)\s+(?:puppy|puppies|kitten|kittens|dog|dogs|cat|cats|animal|animals)\b[^.]{0,60}\b(?:needs?|requires?|must have|should have|should be on)\b[^.]{0,40}\b(?:heartworm|flea|tick|parasite|deworm\w*|prevention|preventive)\b/i,
+  // A universal cadence.
+  /\bgive\b[^.]{0,40}\b(?:heartworm|flea|tick|parasite)\b[^.]{0,40}\bevery\s+month\b/i,
+  /\b(?:monthly|every month)\b[^.]{0,40}\b(?:year-round|all year)\b[^.]{0,40}\b(?:every|all)\s+(?:dog|cat|dogs|cats)\b/i,
+  // A national schedule.
+  /\ball\s+Canadian\s+(?:dogs|cats|pets)\b[^.]{0,50}\b(?:need|require|should)\b/i,
+];
+
+const PARASITE_EXEMPT =
+  /\b(?:not|never|no|nothing)\b|\bask\b|\bquestion\b|\byour veterinar\w+\b|\bclinic\b|\bdepends?\b|\bvaries\b|\brisk\b|\bwhere you live\b|\bgeograph\w+\b|\blabel\b|\bproduct\b|\bmay\b|\bmight\b|\busually\b|\btypically\b|\boften\b|\bsome\b|\bmost\b|\bconvention\b|\bPHAC\b|\bMerck\b|\bwe do not\b|\bthis (?:page|guide|article)\b/i;
+
+function parasiteClauses(sentence: string): string[] {
+  return sentence
+    .split(/\s*[;—]\s*|,\s+(?:then|and then|but|so|which|where)\s+/)
+    .filter((part) => part.trim().length > 0);
+}
+
+function parasiteRxViolations(sentence: string): string[] {
+  const found: string[] = [];
+  for (const pattern of PARASITE_RX) {
+    for (const clause of parasiteClauses(sentence)) {
+      const hit = pattern.exec(clause);
+      if (hit && !PARASITE_EXEMPT.test(clause)) found.push(hit[0]);
+    }
+  }
+  return found;
+}
+
+describe("parasite prescription across the article library", () => {
+  it("prescribes no universal parasite age, product or cadence in any article", () => {
+    const offenders: string[] = [];
+    for (const { slug, body } of ARTICLE_BODIES) {
+      for (const sentence of body.split(/(?<=[.?!])\s+/)) {
+        for (const hit of parasiteRxViolations(sentence)) {
+          offenders.push(`${slug}: "${hit}" in "${sentence.trim().slice(0, 110)}"`);
+        }
+      }
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it("catches the sentence the hardening report said nothing caught", () => {
+    expect(
+      parasiteRxViolations("Start heartworm prevention at 8 weeks and continue monthly."),
+      "the known gap is still open",
+    ).not.toEqual([]);
+  });
+
+  it("catches the rest of the family", () => {
+    for (const sentence of [
+      "Every puppy needs monthly heartworm medication.",
+      "Begin tick prevention at 12 weeks.",
+      "All Canadian dogs need parasite medication from eight weeks.",
+      "Give heartworm prevention every month.",
+      "All dogs require flea prevention.",
+    ]) {
+      expect(parasiteRxViolations(sentence), `missed: ${sentence}`).not.toEqual([]);
+    }
+  });
+
+  it("allows risk-based, label-based and veterinarian-directed prose", () => {
+    for (const sentence of [
+      "What parasite prevention does this puppy need here, and when does it start?",
+      "Ask your veterinarian when to start heartworm prevention and whether it runs to a fixed end date.",
+      "Many parasite products carry a minimum age or weight on the label, so the product decides that, not the calendar.",
+      "1 June is the Canadian convention for starting heartworm prevention, and the reason is arithmetic about mosquitoes and temperature.",
+      "Whether your dog needs tick prevention depends on where you live and where you travel.",
+      "We do not publish one national parasite schedule, because the right one depends on your region and your veterinarian.",
+    ]) {
+      expect(parasiteRxViolations(sentence), `false positive: ${sentence}`).toEqual([]);
+    }
+  });
+});
+
+describe("Batch C — veterinary and medical evidence", () => {
+  const body = (slug: string) => ARTICLE_BODIES.find((a) => a.slug === slug)!.body;
+  const sourceUrls = (slug: string) =>
+    (articles.find((a) => a.slug === slug)!.sources ?? []).map((x) => x.url).join(" ");
+
+  it("follows the current PHAC risk-area map for blacklegged ticks", () => {
+    const b = body("parasite-prevention-for-pets-in-canada");
+    // The stale four-province list is gone.
+    expect(b).not.toMatch(/established in southern Manitoba, southern and southeastern Ontario/i);
+    expect(b).not.toMatch(/risk there has been comparatively stable/i);
+
+    // PHAC's own terminology and coverage, including what was missing.
+    expect(b).toMatch(/Public Health Agency of Canada/);
+    expect(b).toMatch(/risk area/i);
+    expect(b).toMatch(/New Brunswick/);
+    expect(b).toMatch(/all of Nova Scotia/i);
+    expect(b).toMatch(/53rd parallel/);
+    expect(b).toMatch(/Vancouver Island/);
+    // And PHAC's two caveats.
+    expect(b).toMatch(/spreading to new areas/i);
+    expect(b).toMatch(/outside the areas where they are known to live/i);
+    expect(sourceUrls("parasite-prevention-for-pets-in-canada")).toMatch(/risk-lyme-disease/);
+  });
+
+  it("attributes the heartworm trend to the study, with its own limitation", () => {
+    const b = body("parasite-prevention-for-pets-in-canada");
+    expect(b).toMatch(/McGill/);
+    expect(b).toMatch(/2007/);
+    expect(b).toMatch(/tested/i);
+    // The limitation the authors state, in the prose rather than a footnote.
+    expect(b).toMatch(/only dogs that see a veterinarian and get tested/i);
+    expect(b).toMatch(/not a measurement of every dog/i);
+    expect(sourceUrls("parasite-prevention-for-pets-in-canada")).toContain("PMC6515813");
+  });
+
+  it("names the compound and sources the contact route for cats", () => {
+    const b = body("parasite-prevention-for-pets-in-canada");
+    expect(b).toMatch(/permethrin/i);
+    expect(b).toMatch(/Merck/);
+    expect(b).toMatch(/Pfister and Armstrong/);
+    expect(b).toMatch(/contact with a permethrin-treated dog/i);
+    expect(b).toMatch(/label says it is for cats/i);
+    // Escalation, and nothing resembling treatment.
+    expect(b).toMatch(/emergency|straight away/i);
+    expect(b).not.toMatch(/induce vomiting/i);
+    expect(b).not.toMatch(/\bmg\/kg\b|\bantidote\b|\bwash the cat with\b/i);
+    expect(sourceUrls("parasite-prevention-for-pets-in-canada")).toContain("PMC4977707");
+  });
+
+  it("removes ticks the way the public health authority says to", () => {
+    const b = body("parasite-prevention-for-pets-in-canada");
+    expect(b).toMatch(/fine-tipped tweezers/i);
+    expect(b).toMatch(/as close to the skin/i);
+    expect(b).toMatch(/without twisting/i);
+    expect(b).toMatch(/clean the bite/i);
+    // The methods that must be named as wrong.
+    expect(b).toMatch(/lit match/i);
+    expect(b).toMatch(/petroleum jelly/i);
+    expect(b).toMatch(/alcohol/i);
+  });
+
+  it("matches AAHA's sterilization table exactly, and claims no universal age", () => {
+    const b = body("spaying-and-neutering-in-canada");
+    // AAHA 2019 Textbox 1, read from the PDF.
+    expect(b).toMatch(/45 lb/);
+    expect(b).toMatch(/six months/i);
+    expect(b).toMatch(/first heat/i);
+    expect(b).toMatch(/five to six months|5 to 6 months/i);
+    expect(b).toMatch(/9 (?:and|to) 15 months/i);
+    expect(b).toMatch(/5 (?:and|to) 15 months/i);
+    // No single answer.
+    expect(b).toMatch(/no universal age/i);
+    expect(b).not.toMatch(/neuter (?:all|every) dogs? at six months/i);
+    expect(sourceUrls("spaying-and-neutering-in-canada")).toMatch(/canine-life-stage/);
+  });
+
+  it("drops the growth-plate mechanism and keeps associations as associations", () => {
+    const b = body("spaying-and-neutering-in-canada");
+    expect(b).not.toMatch(/sex hormones are part of what tells long bones to stop growing/i);
+    // What replaced it is AAHA's own trade-off.
+    expect(b).toMatch(/mammary neoplasia/i);
+    expect(b).toMatch(/urethral sphincter mechanism incompetence/i);
+    expect(b).toMatch(/clinical discretion/i);
+    // Association language survives; causation does not appear.
+    expect(b).toMatch(/associated in some breeds/i);
+    expect(b).not.toMatch(/early neutering causes/i);
+  });
+
+  it("gives AVMA's parked-car figures as a rise above ambient, qualified", () => {
+    const b = body("summer-heat-safety-for-dogs-in-canada");
+    // The old absolutes are gone.
+    expect(b).not.toMatch(/the inside of a car exceeds 38 °C \(100 °F\) within ten minutes/i);
+    // AVMA's actual table shape, and its more useful point.
+    expect(b).toMatch(/19 °F/);
+    expect(b).toMatch(/43 °F/);
+    expect(b).toMatch(/above/i);
+    expect(b).toMatch(/much the same whether it is 70 °F or 110 °F outside/i);
+    expect(b).toMatch(/averages across vehicles/i);
+    expect(b).toMatch(/cracking the windows makes no difference/i);
+    expect(sourceUrls("summer-heat-safety-for-dogs-in-canada")).toMatch(/pets-vehicles/);
+  });
+
+  it("carries no unsourced numeric pavement threshold", () => {
+    const b = body("summer-heat-safety-for-dogs-in-canada");
+    // Seven seconds may only appear in the sentence retiring it.
+    for (const sentence of b.split(/(?<=[.?!])\s+/)) {
+      if (!/seven[- ]second|seven seconds/i.test(sentence)) continue;
+      expect(sentence, "seven seconds is still given as a rule").toMatch(
+        /stopped giving|removed|no longer/i,
+      );
+    }
+    expect(b).not.toMatch(/if you cannot keep it there comfortably for seven seconds/i);
+    // The replacement is qualitative, with the attributed variant and the escalation.
+    expect(b).toMatch(/Put a hand flat on the surface/i);
+    expect(b).toMatch(/VCA/);
+    expect(b).toMatch(/ten seconds/i);
+    expect(b).toMatch(/screening test, not a measurement/i);
+    expect(b).toMatch(/veterinary attention/i);
+    expect(sourceUrls("summer-heat-safety-for-dogs-in-canada")).toMatch(/dog-paw-injuries/);
+  });
+
+  it("keeps the double-coat advice non-categorical and sourced", () => {
+    const b = body("summer-heat-safety-for-dogs-in-canada");
+    expect(b).not.toMatch(/never shave/i);
+    expect(b).not.toMatch(/should not be shaved off/i);
+    expect(b).toMatch(/warm-weather haircut/i);
+    expect(b).toMatch(/AVMA/);
+    expect(b).toMatch(/medical and grooming reasons/i);
+  });
+
+  it("keeps heatstroke advice from delaying veterinary care", () => {
+    const b = body("summer-heat-safety-for-dogs-in-canada");
+    expect(b).toMatch(/cool — not ice-cold/i);
+    expect(b).toMatch(/Do not\s+delay transport/i);
+    expect(b).toMatch(/closest veterinary/i);
+    // No home treatment offered as a substitute, and no dosing.
+    expect(b).not.toMatch(/\bmg\/kg\b|\baspirin\b|\bibuprofen\b/i);
+    expect(b).not.toMatch(/ice bath|submerge/i);
+  });
+
+  it("agrees with the Puppy Journey on the shared claims", () => {
+    const spay = body("spaying-and-neutering-in-canada");
+    // The Journey's verified AAHA split, unchanged here.
+    expect(spay).toMatch(/45 lb/);
+    // No universal parasite schedule anywhere in the batch.
+    for (const slug of [
+      "parasite-prevention-for-pets-in-canada",
+      "spaying-and-neutering-in-canada",
+      "summer-heat-safety-for-dogs-in-canada",
+    ]) {
+      const b = body(slug);
+      for (const sentence of b.split(/(?<=[.?!])\s+/)) {
+        expect(parasiteRxViolations(sentence), `${slug}: ${sentence.slice(0, 90)}`).toEqual([]);
+        expect(folkloreViolations(sentence), `${slug}: ${sentence.slice(0, 90)}`).toEqual([]);
+      }
+    }
+  });
+
+  it("leaves no publication blocker in the three Batch C articles", () => {
+    const BLOCKING =
+      /before publication|before it is published|attach a source or cut|source it before|confirm .{0,40}before|could not be (?:retrieved|confirmed|verified)|not yet sourced|re-check .{0,30}before|attach the underlying study|attach a (?:veterinary|toxicology|public health|conservation) source/i;
+
+    for (const slug of [
+      "parasite-prevention-for-pets-in-canada",
+      "spaying-and-neutering-in-canada",
+      "summer-heat-safety-for-dogs-in-canada",
+    ]) {
+      const items = articles.find((a) => a.slug === slug)!.needsVerification ?? [];
+      const open = items.filter(
+        (item) => BLOCKING.test(item) && !/^(?:RESOLVED|STANDING GUARDRAIL)/.test(item),
+      );
+      expect(open, `${slug} still has publication blockers`).toEqual([]);
+    }
+  });
+});

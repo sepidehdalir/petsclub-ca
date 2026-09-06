@@ -1266,7 +1266,7 @@ export const articles: readonly Article[] = [
     metaDescription:
       "Where blacklegged ticks are established in Canada, why heartworm prevention starts on 1 June, and the autumn month most owners stop too early.",
     authorId: "pet-club-editorial",
-    readingMinutes: 6,
+    readingMinutes: 8,
     mediaId: "health-dog-in-tall-grass",
     mediaAlt:
       "A dog shoulder-deep in long meadow grass \u2014 which is exactly where the ticks are.",
@@ -1289,6 +1289,30 @@ export const articles: readonly Article[] = [
     relatedCategorySlugs: ["dog-health", "cat-health", "vet-costs"],
     sources: [
       {
+        label:
+          "Lyme disease risk areas \u2014 the current PHAC cross-sections, and that blacklegged ticks are spreading to new areas",
+        publisher: "Public Health Agency of Canada",
+        url: "https://www.canada.ca/en/public-health/services/diseases/lyme-disease/risk-lyme-disease.html",
+      },
+      {
+        label:
+          "Heartworm infection in domestic dogs in Canada, 1977\u20132016 \u2014 prevalence among tested dogs, rising in Manitoba and Quebec over 2007\u20132016",
+        publisher: "McGill, Berke, Weese and Peregrine, Can Vet J 2019;60(6):605\u2013612",
+        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6515813/",
+      },
+      {
+        label:
+          "Ectoparasiticides used in small animals \u2014 some pyrethroids, permethrin among them, can be highly toxic to cats",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/pharmacology/ectoparasiticides/ectoparasiticides-used-in-small-animals",
+      },
+      {
+        label:
+          "Systemically and cutaneously distributed ectoparasiticides \u2014 any contact between cats and permethrin products, including contact with a treated dog, must be avoided",
+        publisher: "Pfister and Armstrong, Parasites & Vectors 2016;9:436",
+        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC4977707/",
+      },
+      {
         label: "Lyme disease surveillance in Canada \u2014 where blacklegged ticks are established",
         publisher: "Public Health Agency of Canada",
         url: "https://www.canada.ca/en/public-health/services/publications/diseases-conditions/lyme-disease-surveillance-canada-annual-edition-2022.html",
@@ -1307,11 +1331,14 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "The four provinces named for established blacklegged tick populations come from federal surveillance reporting. Re-check against the current annual edition before publication, because the range is explicitly described as expanding.",
-      "Heartworm prevalence increases in Manitoba and Quebec between 2007 and 2016 \u2014 attach the underlying study rather than relying on a summary.",
-      "Whether any Canadian veterinary body publishes a current national parasite protocol that should be cited alongside the regional evidence.",
-      "That some canine tick products are toxic to cats, including by contact with a treated dog \u2014 widely known clinically, and it should carry a toxicology or regulator source before publication.",
-      "Tick removal technique is described generically; attach a public health or veterinary source.",
+      "RESOLVED \u2014 NARROWED, 2026-09-06. Blacklegged tick distribution was verified against the current PHAC Lyme disease risk-areas page. Two corrections followed. PHAC's term is \u201crisk areas\u201d, not \u201cestablished populations\u201d, and the article's four-province list was out of date: it omitted New Brunswick entirely (twelve named counties), understated Manitoba (PHAC covers the province below the 53rd parallel, not only the south), said Nova Scotia rather than all of Nova Scotia, and described British Columbia as comparatively stable when PHAC lists risk areas across much of Vancouver Island, the facing coast and southern river valleys. The article now follows PHAC's cross-sections and carries its two caveats: the range is spreading, and ticks turn up outside known areas.",
+      "STANDING GUARDRAIL \u2014 the tick map moves. Re-read the PHAC risk-areas page at every scheduled review and follow its wording; do not freeze a province count into the prose.",
+      "RESOLVED \u2014 VERIFIED, 2026-09-06. The heartworm trend is now attributed to the underlying study rather than a summary: McGill, Berke, Weese and Peregrine, Can Vet J 2019;60(6):605\u2013612, using clinic mail-back surveys to 2010 and laboratory antigen-test submissions 2007\u20132016. It measured prevalence among dogs submitted for testing, and the authors state plainly that only dogs which see a veterinarian and are tested can appear, so it under-reports and does not extrapolate to all dogs. The article now says \u201ctested\u201d dog populations and carries that limitation in the prose.",
+      "STANDING GUARDRAIL \u2014 never generalise clinic or laboratory test data to all dogs in a province. \u201cTested dogs\u201d is load-bearing.",
+      "RESOLVED \u2014 VERIFIED, 2026-09-06. The dog-product-to-cat claim is now specific and doubly sourced. Merck: some pyrethroids, permethrin among them, can be highly toxic to cats, producing muscle fasciculations and seizures. Pfister and Armstrong (Parasites & Vectors 2016;9:436) for the secondary route the article asserts: any contact between cats and permethrin-containing products, including contact with a permethrin-treated dog, must be avoided; cats lack the enzyme dogs use to clear it. The compound is now named, the route is sourced rather than assumed, and the escalation is a phone call. No dose, no antidote, no home treatment, and no instruction to induce vomiting.",
+      "STANDING GUARDRAIL \u2014 the secondary-contact route may be stated only while a source explicitly supports it. Never add treatment, dosing or decontamination instructions here.",
+      "RESOLVED \u2014 VERIFIED, 2026-09-06. Tick removal now follows PHAC: fine-tipped tweezers or a tick remover, grasp as close to the skin as possible, pull straight out gently and steadily without twisting, jerking or crushing, then clean the bite. The article names the methods that must not be used \u2014 heat, a lit match, petroleum jelly, alcohol \u2014 rather than only implying them.",
+      "OPEN (NON-BLOCKING) \u2014 Whether any Canadian veterinary body publishes a current national parasite protocol that should be cited alongside the regional evidence.",
     ],
   },
   {
@@ -1346,6 +1373,12 @@ export const articles: readonly Article[] = [
     relatedCategorySlugs: ["vet-costs", "dog-health", "cat-health"],
     sources: [
       {
+        label:
+          "2019 AAHA Canine Life Stage Guidelines, Textbox 1 \u2014 recommended timing for canine sterilization, split at 45 lb projected adult bodyweight",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/globalassets/02-guidelines/canine-life-stage-2019/2019-aaha-canine-life-stage-guidelines-final.pdf",
+      },
+      {
         label: "When should I spay or neuter my dog or cat? Age and timing by projected adult weight",
         publisher: "American Animal Hospital Association",
         url: "https://www.aaha.org/resources/spay-or-neuter/",
@@ -1369,11 +1402,12 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "The AAHA weight and age windows are cited from the association's own guidance. Re-check against the current edition before publication, since this is precisely the guidance that has already moved once.",
-      "That municipal licence fees are commonly lower for spayed or neutered animals \u2014 verified for Toronto and Calgary only; no proportion of Canadian municipalities is claimed.",
-      "Feline timing is described only as \u201cgenerally done young\u201d because no AAFP age window has been confirmed here. Establish one before making it any more specific.",
-      "Which subsidised or low-cost spay and neuter programmes operate in Canada, and who runs them \u2014 described as intensely local and named nowhere.",
-      "That sex hormones contribute to growth plate closure, stated as the mechanism behind the large-breed change. Attach a veterinary source.",
+      "RESOLVED \u2014 VERIFIED, 2026-09-06. The AAHA windows were re-read in the 2019 Canine Life Stage Guidelines PDF, Textbox 1, retrieved directly rather than copied from the Puppy Journey. Verbatim: castration \u2014 small breeds 6 months of age, large breeds wait until growth stops (~9\u201315 months); ovariohysterectomy \u2014 small breeds prior to anticipated heat cycle (5\u20136 months), large breeds 5\u201315 months. The split is < 45 lbs versus \u2265 45 lbs projected adult bodyweight. The article matches on every figure, and its \u201cabout 45 lb\u201d and \u201caround six months\u201d soften rather than overstate the source.",
+      "RESOLVED \u2014 REMOVED, 2026-09-06. The mechanism claim \u2014 that sex hormones are part of what signals long bones to stop growing \u2014 was taken out. No source could be attached that supports it as stated, and the practical advice does not depend on it. In its place the article gives AAHA's own footnote to Textbox 1: earlier, before the first estrus, decreases mammary neoplasia and unwanted litters; later, after growth stops, decreases the risk of orthopaedic disease, some cancers and urethral sphincter mechanism incompetence, with clinical discretion and owner education rather than one answer.",
+      "STANDING GUARDRAIL \u2014 associations stay associations. Do not convert \u201cassociated in some breeds with joint disorders\u201d into a causal claim that early neutering causes joint disease, and do not generalise a single-breed finding to all dogs.",
+      "STANDING GUARDRAIL \u2014 That municipal licence fees are commonly lower for spayed or neutered animals \u2014 verified for Toronto and Calgary only; no proportion of Canadian municipalities is claimed.",
+      "OPEN (NON-BLOCKING) \u2014 Feline timing is described only as \u201cgenerally done young\u201d because no AAFP age window has been confirmed here. Establish one before making it any more specific.",
+      "STANDING GUARDRAIL \u2014 Which subsidised or low-cost spay and neuter programmes operate in Canada, and who runs them \u2014 described as intensely local and named nowhere.",
     ],
   },
   {
@@ -1526,6 +1560,18 @@ export const articles: readonly Article[] = [
     relatedCategorySlugs: ["dog-health", "general-dog-discussion", "pet-friendly-canada"],
     sources: [
       {
+        label:
+          "Pet safety in vehicles \u2014 the temperature-rise table, and that the rise is much the same whether it is 70 \u00b0F or 110 \u00b0F outside",
+        publisher: "American Veterinary Medical Association",
+        url: "https://www.avma.org/resources-tools/pet-owners/petcare/pets-vehicles",
+      },
+      {
+        label:
+          "Dog paw injuries \u2014 the palm test at ten seconds, and what a burned pad looks like",
+        publisher: "VCA Animal Hospitals",
+        url: "https://vcahospitals.com/pediatric/puppy/health-wellness/dog-paw-injuries-and-how-to-help",
+      },
+      {
         label: "Warm weather pet safety \u2014 parked cars, hot pavement and heatstroke signs",
         publisher: "American Veterinary Medical Association",
         url: "https://www.avma.org/resources-tools/pet-owners/petcare/warm-weather-pet-safety",
@@ -1549,12 +1595,13 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "The parked-car figures are AVMA's, stated in Fahrenheit and converted here. Confirm the conversions read correctly before publication.",
-      "The seven-second back-of-hand pavement test is widely repeated and is not attributed to a named authority here. Source it or present it purely as a rule of thumb.",
-      "No AQHI threshold exists for animals. The article says so explicitly and treats the human bands as a conservative proxy \u2014 do not let that framing weaken into a recommendation.",
-      "Blue-green algae and specific waterborne risks are deliberately not described. The article says to check local advisories and names none.",
-      "That thick double coats should not be shaved in response to heat without veterinary advice \u2014 attach a source.",
-      "Whether any Canadian jurisdiction legislates on animals left in parked vehicles. None is claimed; the argument is made on physiology alone.",
+      "RESOLVED \u2014 NARROWED, 2026-09-06. The parked-car figures were traced to AVMA's Pet safety in vehicles page, which publishes a temperature *rise above ambient* rather than the absolute interior temperatures the article was giving: 19 \u00b0F at ten minutes, 29 \u00b0F at twenty, 34 \u00b0F at thirty, 43 \u00b0F at an hour. The article's old numbers were derivable from that table applied to an 85 \u00b0F start, but presenting them as absolutes lost AVMA's more useful point, which is now carried: the rise is much the same whether it is 70 \u00b0F or 110 \u00b0F outside. The article states these are averages across vehicles rather than a promise about any one car, and keeps AVMA's line that cracking the windows makes no difference. The AVMA warm-weather page does not carry these figures; the vehicles page does, and it is the one cited.",
+      "RESOLVED \u2014 NARROWED, 2026-09-06. The double-coat claim was categorical and unsourced. AVMA's warm-weather guidance says to ask your veterinarian whether a pet would benefit from a warm-weather haircut or other protection \u2014 it does not say never shave. The article now says shaving is not a reliable way to prevent heatstroke and is a conversation with a veterinarian, acknowledges that medical and grooming reasons to clip exist, and drops the unsourced claim that the coat is sun protection.",
+      "RESOLVED \u2014 REMOVED, 2026-09-06. The seven-second pavement threshold was removed as a numeric rule. It could not be confirmed against a named authority that this project retrieved: the AAHA page attributed to it did not load, and the veterinary source that did \u2014 VCA \u2014 publishes a different duration (palm, ten seconds). The article now gives the hand test qualitatively, cites VCA's version as an attributed example, and uses the disagreement to make the honest point that this is a screening test rather than a measurement. Burned pads are described as needing veterinary attention.",
+      "STANDING GUARDRAIL \u2014 no unsourced numeric threshold in this article, for pavement, air temperature or anything else. Do not replace a removed number with a rounder one.",
+      "STANDING GUARDRAIL \u2014 No AQHI threshold exists for animals. The article says so explicitly and treats the human bands as a conservative proxy \u2014 do not let that framing weaken into a recommendation.",
+      "STANDING GUARDRAIL \u2014 Blue-green algae and specific waterborne risks are deliberately not described. The article says to check local advisories and names none.",
+      "STANDING GUARDRAIL \u2014 Whether any Canadian jurisdiction legislates on animals left in parked vehicles. None is claimed; the argument is made on physiology alone.",
     ],
   },
 
