@@ -1,7 +1,9 @@
-import type { Season } from "@/features/puppy/age";
+import type { CivilDate, Season } from "@/features/puppy/age";
+import { addCalendarMonths, daysFromCivil, formatCivilDate } from "@/features/puppy/age";
 import type {
   BreedSlug,
   ProvinceCode,
+  ProvinceModifier,
   PuppyStage,
   ResolvedSection,
   SizeGroup,
@@ -40,6 +42,43 @@ export interface JourneyContext {
   breedSlug?: BreedSlug;
   province?: ProvinceCode;
   season?: Season;
+  /**
+   * The reader's own dates, where they are known.
+   *
+   * Supplied by the personalised Journey and deliberately absent on a public
+   * stage page. A legal threshold expressed in calendar months cannot be
+   * resolved without them, and a page that does not have them must not guess
+   * — see `LegalAgeThreshold`.
+   */
+  birth?: CivilDate;
+  today?: CivilDate;
+}
+
+/**
+ * Applies a calendar-month legal threshold to a province block.
+ *
+ * Returns the block unchanged when there is no threshold or no date of birth,
+ * which is the public-page case and the one where guessing would be wrong.
+ */
+function applyThreshold(
+  modifier: ProvinceModifier,
+  birth?: CivilDate,
+  today?: CivilDate,
+): { heading: string; body: readonly string[] } {
+  const threshold = modifier.ageThreshold;
+  if (!threshold || !birth || !today) {
+    return { heading: modifier.heading, body: modifier.body };
+  }
+
+  const anniversary = addCalendarMonths(birth, threshold.months);
+  const reached = daysFromCivil(today) >= daysFromCivil(anniversary);
+  const variant = reached ? threshold.reached : threshold.before;
+  const date = formatCivilDate(anniversary);
+
+  return {
+    heading: variant.heading.replaceAll("{date}", date),
+    body: variant.body.map((paragraph) => paragraph.replaceAll("{date}", date)),
+  };
 }
 
 /** Composes one stage against a context. Pure, and safe to call at build time. */
@@ -82,7 +121,7 @@ export function resolveStage(
               m.stageSlug === stage.slug &&
               m.sectionId === section.id,
           )
-          .map((m) => ({ heading: m.heading, body: m.body, kind: m.kind }))
+          .map((m) => ({ ...applyThreshold(m, context.birth, context.today), kind: m.kind }))
       : [];
 
     const seasonBlock = context.season

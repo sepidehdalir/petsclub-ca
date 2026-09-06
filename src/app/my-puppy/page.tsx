@@ -318,6 +318,12 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
         sizeGroup,
         province: province?.code as ProvinceCode | undefined,
         season: seasonOf(today),
+        // Only this route has the reader's dates, and only this route may
+        // therefore say which side of a calendar-month legal threshold they
+        // are on. The public stage page passes no context and says the honest
+        // thing instead — see `LegalAgeThreshold`.
+        birth,
+        today,
       }}
       banner={
         <div className="flex flex-wrap items-center justify-between gap-3">

@@ -260,6 +260,36 @@ export interface BreedModifier {
   body: readonly string[];
 }
 
+/**
+ * A legal duty that starts at an age expressed in calendar months.
+ *
+ * ## Why this exists rather than a day count
+ *
+ * Ontario's rabies regulation applies to animals "over three months of age".
+ * Three calendar months is not a fixed number of days — depending on the
+ * months a puppy has lived through it falls between 89 and 92 — and it is
+ * never 84, which is what twelve weeks actually is. So a stage page covering
+ * days 84 to 90 contains puppies on both sides of that line, and cannot state
+ * which side any individual reader is on.
+ *
+ * The regulation does not define the threshold in days, so neither do we. The
+ * public page says the honest thing: the threshold is near, and the two are
+ * not the same date. The personalised Journey, which knows the date of birth,
+ * computes the actual anniversary with the same civil-date arithmetic used
+ * everywhere else and says which side of it the reader is on.
+ *
+ * `{date}`, in a heading or a body paragraph, is replaced with the
+ * anniversary itself.
+ */
+export interface LegalAgeThreshold {
+  /** Whole calendar months from the date of birth. */
+  months: number;
+  /** Rendered when today is before the anniversary. */
+  before: { heading: string; body: readonly string[] };
+  /** Rendered on or after it. */
+  reached: { heading: string; body: readonly string[] };
+}
+
 export interface ProvinceModifier {
   provinces: readonly ProvinceCode[];
   stageSlug: string;
@@ -269,6 +299,13 @@ export interface ProvinceModifier {
   body: readonly string[];
   /** Whether this is law or veterinary guidance. Rendered differently. */
   kind: "legal" | "guidance";
+  /**
+   * Replaces `heading` and `body` when the reader's date of birth is known.
+   *
+   * Absent on the public page, which has no date of birth and must therefore
+   * not claim the threshold has been crossed either way.
+   */
+  ageThreshold?: LegalAgeThreshold;
   sources: readonly StageSource[];
 }
 

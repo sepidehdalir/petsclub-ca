@@ -588,6 +588,7 @@ export const twelveWeeks: PuppyStage = {
   ],
 
   needsVerification: [
+    "Ontario's threshold is 'over three months of age', quoted from ontario.ca/page/rabies-pets and confirmed verbatim. Neither that page nor the regulation it cites (R.R.O. 1990, Reg. 567) defines three months as a number of days, so nothing here converts it into one — twelve weeks is 84 days and three calendar months is never 84 days. The e-Laws and CanLII copies of the regulation could not be retrieved directly; re-check the primary text before this wording is published.",
     "The socialisation window closing around twelve weeks follows the AVSAB position statement's first-three-months framing and is sourced. Do not let a future edit turn 'closing' into a hard cut-off date — the statement does not say that.",
     "The final-dose ages (AAHA past sixteen weeks, preferring eighteen to twenty in high-risk settings; WSAVA sixteen weeks or older) are sourced and must stay attributed to the body that says them. This section must never become a schedule.",
     "Teething is described as starting around now and increasing, with no eruption order and no week numbers. Attach a veterinary dentistry source before making it specific.",
@@ -1045,12 +1046,33 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
     provinces: ["ON"],
     stageSlug: "12-weeks",
     sectionId: "vaccine-questions",
-    heading: "In Ontario, your puppy has now reached the legal threshold",
+    heading: "In Ontario, rabies vaccination becomes a legal requirement at three months",
     kind: "legal",
+    // The public wording. It must not claim the threshold has been crossed:
+    // twelve weeks is eighty-four days and three calendar months is never
+    // eighty-four days, so a page covering days 84–90 holds puppies on both
+    // sides of the line. The personalised variants below know the date.
     body: [
-      "Under Ontario's rabies immunization regulation, dogs, cats and ferrets over three months of age must be vaccinated against rabies — indoor animals included. Twelve weeks is that threshold. This is the appointment at which to confirm the timing rather than assume it is being handled.",
-      "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation, which is why it belongs on a list of things to raise rather than a list of things to consider.",
+      "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Twelve weeks is close to that threshold but is not the same date: three calendar months from a date of birth falls a few days past the twelve-week mark, and exactly how far depends on which months your puppy has lived through.",
+      "So this is the appointment at which to fix the timing rather than discover it. A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used, and there are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation, which is why it belongs on a list of things to raise rather than a list of things to consider.",
     ],
+    ageThreshold: {
+      months: 3,
+      before: {
+        heading: "In Ontario, your puppy reaches the legal threshold on {date}",
+        body: [
+          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Three calendar months from your puppy's date of birth falls on {date}, which is a few days past the twelve-week mark rather than on it.",
+          "That makes this the appointment to plan it at rather than the deadline itself. A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used, and there are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation.",
+        ],
+      },
+      reached: {
+        heading: "In Ontario, your puppy is now past the legal threshold",
+        body: [
+          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Your puppy reached three calendar months on {date}, so the requirement applies now rather than approaching.",
+          "If it has not been given, raise it at the next appointment rather than waiting to be asked. A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used, and there are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation.",
+        ],
+      },
+    },
     sources: [
       {
         label: "Rabies and your pets — the provincial vaccination requirement",
@@ -1081,12 +1103,29 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
     provinces: ["ON"],
     stageSlug: "9-11-weeks",
     sectionId: "vaccine-questions",
-    heading: "In Ontario, rabies vaccination is a legal requirement",
+    heading: "In Ontario, rabies vaccination becomes a legal requirement at three months",
     kind: "legal",
     body: [
-      "Under Ontario's rabies immunization regulation, dogs, cats and ferrets over three months of age must be vaccinated against rabies — indoor animals included. Your puppy is approaching that threshold now.",
+      "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Your puppy is not there yet: three calendar months falls a little after the twelve-week mark, and the exact date depends on when it was born.",
       "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation, and it is worth raising at your next appointment so the timing is planned rather than discovered.",
     ],
+    ageThreshold: {
+      months: 3,
+      before: {
+        heading: "In Ontario, your puppy reaches the legal threshold on {date}",
+        body: [
+          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Three calendar months from your puppy's date of birth falls on {date}.",
+          "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation, and it is worth raising at your next appointment so the timing is planned rather than discovered.",
+        ],
+      },
+      reached: {
+        heading: "In Ontario, your puppy is now past the legal threshold",
+        body: [
+          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Your puppy reached three calendar months on {date}, so the requirement applies now.",
+          "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation, and it is worth raising at your next appointment.",
+        ],
+      },
+    },
     sources: [
       {
         label: "Rabies and your pets — the provincial vaccination requirement",

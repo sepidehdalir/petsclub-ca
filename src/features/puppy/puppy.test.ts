@@ -1087,6 +1087,143 @@ describe("hybrid age resolution", () => {
     }
   });
 
+  it("never treats twelve weeks as three calendar months", () => {
+    // The bug this exists to prevent: twelve weeks is 84 days, and three
+    // calendar months is never 84 days. Across every date of birth in a leap
+    // year the anniversary lands between 89 and 92 days, so the whole
+    // 12-week stage (days 84–90) straddles the line rather than sitting past
+    // it. Nothing may convert one into the other.
+    const start = daysFromCivil({ year: 2024, month: 1, day: 1 });
+    let min = Infinity;
+    let max = -Infinity;
+
+    for (let offset = 0; offset < 366 * 2; offset += 1) {
+      const birth = civilFromDays(start + offset);
+      const days = daysBetween(birth, addCalendarMonths(birth, 3));
+      min = Math.min(min, days);
+      max = Math.max(max, days);
+    }
+
+    expect(min).toBeGreaterThanOrEqual(89);
+    expect(max).toBeLessThanOrEqual(92);
+    expect(min).toBeGreaterThan(84); // twelve weeks, and never equal to it
+  });
+
+  it("resolves Ontario's threshold from the calendar, not from the stage", () => {
+    // Dates of birth chosen so the three-month anniversary lands at a
+    // different day-of-life in each case: a February crossing, 30-day and
+    // 31-day months, and a leap year.
+    const cases: { dob: string; anniversary: string; daysOfLife: number; note: string }[] = [
+      { dob: "2026-05-31", anniversary: "2026-08-31", daysOfLife: 92, note: "31-day months" },
+      { dob: "2026-04-30", anniversary: "2026-07-30", daysOfLife: 91, note: "30-day month" },
+      { dob: "2025-11-30", anniversary: "2026-02-28", daysOfLife: 90, note: "clamped into February" },
+      { dob: "2025-12-01", anniversary: "2026-03-01", daysOfLife: 90, note: "across February" },
+      { dob: "2023-11-29", anniversary: "2024-02-29", daysOfLife: 92, note: "leap day" },
+      { dob: "2024-11-30", anniversary: "2025-02-28", daysOfLife: 90, note: "leap year, clamped" },
+    ];
+
+    for (const { dob, anniversary, daysOfLife, note } of cases) {
+      const birth = parseCivilDate(dob)!;
+      const expected = parseCivilDate(anniversary)!;
+
+      expect(addCalendarMonths(birth, 3), note).toEqual(expected);
+      expect(daysBetween(birth, expected), note).toBe(daysOfLife);
+      // Every one of them is past twelve weeks, and none is at it.
+      expect(daysOfLife, note).toBeGreaterThan(84);
+    }
+  });
+
+  it("does not flip Ontario to the reached state merely because the stage did", () => {
+    const ontario = { province: "ON" as const };
+
+    for (const dob of ["2026-05-31", "2026-04-30", "2025-11-30", "2023-11-29"]) {
+      const birth = parseCivilDate(dob)!;
+      const anniversary = addCalendarMonths(birth, 3);
+      const anniversaryDay = daysBetween(birth, anniversary);
+
+      // Day 84 is the first day of the 12-week stage. On it, the threshold
+      // has not been reached for any of these puppies.
+      const onEntry = ageOn(dob, dayAfter(dob, 84));
+      expect(roadmapStageFor(onEntry)!.slug).toBe("12-weeks");
+
+      const blockOn = (days: number) => {
+        const today = parseCivilDate(dayAfter(dob, days))!;
+        const section = resolveStage(twelveWeeks, { ...ontario, birth, today }).find(
+          (s) => s.id === "vaccine-questions",
+        )!;
+        const block = section.provinceBlocks.find((b) => b.kind === "legal")!;
+        return block;
+      };
+
+      const atEntry = blockOn(84);
+      expect(atEntry.heading, `${dob} at day 84`).toContain("reaches the legal threshold on");
+      expect(atEntry.heading).toContain(formatCivilDate(anniversary));
+      expect(atEntry.body.join(" ")).not.toContain("applies now");
+
+      // The day before the anniversary: still approaching.
+      const dayBefore = blockOn(anniversaryDay - 1);
+      expect(dayBefore.heading, `${dob} day ${anniversaryDay - 1}`).toContain("reaches the legal threshold on");
+
+      // The anniversary itself, and after it: reached.
+      for (const days of [anniversaryDay, anniversaryDay + 1]) {
+        const block = blockOn(days);
+        expect(block.heading, `${dob} day ${days}`).toContain("is now past the legal threshold");
+        expect(block.body.join(" ")).toContain(formatCivilDate(anniversary));
+      }
+    }
+  });
+
+  it("keeps the public stage page silent about which side of the line a reader is on", () => {
+    // No date of birth, so no claim. This is the page a crawler and an
+    // anonymous reader see, and it must not assert that twelve weeks is three
+    // months for anyone.
+    for (const stage of stages) {
+      const section = resolveStage(stage, { province: "ON" }).find((s) => s.id === "vaccine-questions");
+      if (!section) continue;
+      const legal = section.provinceBlocks.find((b) => b.kind === "legal");
+      if (!legal) continue;
+
+      const text = [legal.heading, ...legal.body].join(" ");
+      expect(text).not.toContain("{date}");
+      expect(text).not.toContain("is now past");
+      expect(text).toContain("over three months of age");
+      // It must not equate the two anywhere.
+      expect(text.toLowerCase()).not.toMatch(/twelve weeks is that threshold/);
+    }
+  });
+
+  it("keeps the legal and guidance distinction, and the sources, intact", () => {
+    for (const stage of stages) {
+      const blocks = resolveStage(stage, { province: "ON" }).flatMap((s) => s.provinceBlocks);
+      expect(blocks.every((b) => b.kind === "legal")).toBe(true);
+
+      const bc = resolveStage(stage, { province: "BC" }).flatMap((s) => s.provinceBlocks);
+      expect(bc.every((b) => b.kind === "guidance")).toBe(true);
+    }
+
+    // The Ontario source is still attached wherever the block is shown.
+    const sources = resolveSources(twelveWeeks, { province: "ON" });
+    expect(sources.some((s) => s.url === "https://www.ontario.ca/page/rabies-pets")).toBe(true);
+  });
+
+  it("resolves the threshold from civil dates, not from a clock", () => {
+    // Same guarantee as the rest of the engine: the process time zone cannot
+    // change which side of a legal threshold a reader is told they are on.
+    const birth = parseCivilDate("2026-05-31")!;
+    const today = parseCivilDate("2026-08-31")!;
+    const original = process.env.TZ;
+
+    for (const tz of ["UTC", "America/St_Johns", "America/Vancouver", "Pacific/Auckland"]) {
+      process.env.TZ = tz;
+      const block = resolveStage(twelveWeeks, { province: "ON", birth, today })
+        .find((s) => s.id === "vaccine-questions")!
+        .provinceBlocks.find((b) => b.kind === "legal")!;
+      expect(block.heading, tz).toContain("is now past the legal threshold");
+    }
+
+    process.env.TZ = original;
+  });
+
   it("keeps the implemented stage a strict subset of the roadmap", () => {
     // A page is not minted because an interval elapsed. Every implemented
     // stage must appear on the roadmap; the reverse must not hold.
