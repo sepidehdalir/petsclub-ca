@@ -1085,6 +1085,12 @@ export const articles: readonly Article[] = [
     relatedCategorySlugs: ["vet-costs", "provincial-questions"],
     sources: [
       {
+        label:
+          "The provincial and territorial veterinary regulatory bodies \u2014 twelve listed, with Northwest Territories and Nunavut handled by territorial government departments",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+      },
+      {
         label: "The provincial and territorial veterinary regulatory bodies, by name",
         publisher: "Canadian Veterinary Medical Association",
         url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
@@ -1098,11 +1104,12 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "That every province and territory has a body responsible for licensing veterinarians and regulating practices, and that each maintains a register a member of the public can search — stated generally. Name each regulator, and confirm which registers are public, before the list is made specific.",
-      "That the provincial regulator is the correct destination for a complaint about a licensed veterinarian in every province and territory — described generically; confirm the process differs before describing it as uniform.",
-      "Whether a practice may charge for copying or transferring records, and whether any province regulates that — currently written as a question to ask rather than an entitlement.",
-      "That an owner has a right of access to their animal’s veterinary record, which likely varies by province. The article says records “should be” available and transferable on request; do not strengthen this without a provincial source.",
-      "Whether telephone or video triage is generally available from Canadian practices, and how it is charged — raised as a question for rural readers rather than asserted.",
+      "RESOLVED \u2014 NARROWED, 2026-09-06. The public-register claim. The CVMA list was re-read: it names twelve bodies, and two of those \u2014 Northwest Territories and Nunavut \u2014 are government departments rather than colleges or associations. Yukon is not named at all. Nothing on that page establishes that every body publishes a public searchable register, and we did not verify thirteen jurisdictions individually. The article no longer implies a uniform lookup: it says to use whatever your own jurisdiction's body provides, notes that some publish an online member search while others answer by phone or email, and says plainly that there is no national lookup and that we have not verified every body publishes a register. Yukon's absence is now stated rather than left as a silent gap.",
+      "RESOLVED \u2014 NARROWED, 2026-09-06. The complaint route. The article implied the regulator is the destination for any complaint in every jurisdiction. It now separates the categories: professional conduct to the regulator, billing and service to the practice first, animal welfare often to a provincial SPCA or equivalent \u2014 and tells the reader to ask their own regulator which of those it handles rather than assuming the answer matches another province.",
+      "STANDING GUARDRAIL \u2014 thirteen jurisdictions, twelve named bodies, two of them government departments and one jurisdiction unlisted. Do not write a sentence beginning \u201cevery province and territory\u201d about veterinary regulation without verifying all thirteen.",
+      "OPEN (NON-BLOCKING) \u2014 Whether a practice may charge for copying or transferring records, and whether any province regulates that — currently written as a question to ask rather than an entitlement.",
+      "STANDING GUARDRAIL \u2014 That an owner has a right of access to their animal’s veterinary record, which likely varies by province. The article says records “should be” available and transferable on request; do not strengthen this without a provincial source.",
+      "OPEN (NON-BLOCKING) \u2014 Whether telephone or video triage is generally available from Canadian practices, and how it is charged — raised as a question for rural readers rather than asserted.",
     ],
   },
   {
@@ -1844,12 +1851,14 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "Whether Vancouver licenses cats. The article states the dog requirement only and tells the reader to confirm the cat position with the City rather than inferring it \u2014 resolve this before publication.",
-      "PRICE \u2014 the Toronto licence fees ($25/$60 dog, $15/$50 cat) were read from the City\u2019s own fee page in 2026 and are, with one federal statutory fine, the only dollar figures in the library. The City resets them and they WILL go stale: re-check the fee page before publication and at every scheduled review, and delete the figures rather than carry a wrong one.",
-      "No other municipality\u2019s fees are quoted, and none should be added unless each can be sourced to that city\u2019s own fee page and dated. Toronto is present as an illustration of the spay/neuter differential, not as a Canadian figure.",
-      "Edmonton's renewed Animal Care and Control Bylaw took effect in May 2026. Confirm the licensing provisions described are the current ones.",
-      "That licences generally do not transfer between municipalities \u2014 stated as a general rule and verified for none of the five specifically.",
-      "The five cities are illustrative. No proportion of Canadian municipalities is claimed for any of the patterns described, and none should be added without a survey.",
+      "RESOLVED \u2014 NARROWED, 2026-09-06. Vancouver cats. vancouver.ca and bylaws.vancouver.ca are behind Cloudflare and returned 403 to every route available here \u2014 curl, WebFetch and a headless browser. What is verifiable from the City's own indexed material is that dogs three months and older require a licence under Animal Control By-law No. 9150, an instrument whose stated purpose is to establish a pound and license dogs. Cats are not asserted either way: inferring exemption from a dog-licensing bylaw is precisely the move the BC rabies error was made of. The row now says what is verified, says plainly that we are not presenting a position on cats, and sends the reader to Vancouver Animal Services.",
+      "STANDING GUARDRAIL \u2014 do not conclude that a municipality does not license cats from the absence of cats on a dog-licensing page. That requires the bylaw or the City saying so.",
+      "RESOLVED \u2014 VERIFIED, 2026-09-06. Toronto fees re-read on the City's pet licensing fee page: dog spayed/neutered $25.00, unaltered $60.00; cat spayed/neutered $15.00, unaltered $50.00; service dog no charge. Owners 65+ receive 50% off, and households under $50,000 income may have fees subsidised or waived. Licences run one year. The article now dates the figures to September 2026, attributes them to Toronto, gives the senior and low-income reductions so the headline numbers do not read as universal, and says explicitly that these are Toronto's numbers rather than a Canadian price.",
+      "STANDING GUARDRAIL \u2014 PRICE. These are the only municipal fees in the library. Re-read the City's fee page at every scheduled review and delete the figures rather than carry a stale one. No other municipality's fees may be added without that city's own page and a date.",
+      "RESOLVED \u2014 VERIFIED, 2026-09-06. Edmonton re-read on the City's pet licences page: \u201cAll cats and dogs over 6 months of age - even indoor pets - must be licensed and need to be renewed every 12 months\u201d, under the renewed Animal Care and Control Bylaw approved 19 August 2025 and in effect 19 May 2026. The fine for no valid licence is $250. One claim was removed rather than kept: the article said Edmonton's licence includes a microchip, and the current page describes a separate Pet Microchip Program rather than an inclusion, so the article no longer says it.",
+      "RESOLVED \u2014 NARROWED, 2026-09-06. The licence-transfer claim was a Canada-wide negative verified for none of the five cities. It is gone. The article now gives the actionable point \u2014 licensing is municipal, so check the new municipality rather than assume \u2014 and says openly that we have not checked whether any municipality recognises another's licence and are not claiming none does.",
+      "STANDING GUARDRAIL \u2014 No other municipality\u2019s fees are quoted, and none should be added unless each can be sourced to that city\u2019s own fee page and dated. Toronto is present as an illustration of the spay/neuter differential, not as a Canadian figure.",
+      "STANDING GUARDRAIL \u2014 The five cities are illustrative. No proportion of Canadian municipalities is claimed for any of the patterns described, and none should be added without a survey.",
     ],
   },
   {
@@ -2058,6 +2067,7 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
+      "RESOLVED \u2014 NARROWED, 2026-09-06. Carried over from the Batch A licensing work rather than discovered here: this article stated three times that a municipal licence does not transfer \u2014 a Canada-wide negative verified for no municipality. It was the same claim removed from pet-licensing-across-canada in the same pass, and leaving it would have kept the error alive in a second place. All three now give the actionable version: licensing is municipal, so check the new municipality rather than assume.",
       "Ontario, British Columbia and Quebec are named because each was confirmed against a government source. The other ten jurisdictions are not characterised, and the article says so.",
       "That municipal licences generally do not transfer between municipalities \u2014 stated as a general rule and verified for none of the five cities specifically.",
       "Whether any province restricts the interprovincial movement of companion animals. None is claimed; the article treats domestic moves as unrestricted at the federal level.",
@@ -2136,7 +2146,7 @@ export const articles: readonly Article[] = [
     metaDescription:
       "Pet food is not regulated in Canada the way you think. Who oversees what, which parts of the label matter, and why AAFCO is a US voluntary standard.",
     authorId: "pet-club-editorial",
-    readingMinutes: 6,
+    readingMinutes: 8,
     mediaId: "food-pouring-kibble",
     mediaAlt:
       "Dry food being poured from an unbranded paper bag into a bowl.",
@@ -2160,6 +2170,12 @@ export const articles: readonly Article[] = [
     relatedCategorySlugs: ["dog-food-and-nutrition", "cat-food-and-nutrition", "canadian-pet-products"],
     sources: [
       {
+        label:
+          "Guide for the labelling and advertising of pet foods \u2014 the three mandatory items under the Consumer Packaging and Labelling Act, and ingredients in descending order by percentage of weight",
+        publisher: "Competition Bureau Canada",
+        url: "https://competition-bureau.canada.ca/en/how-we-foster-competition/education-and-outreach/publications/guide-labelling-and-advertising-pet-foods",
+      },
+      {
         label: "Guide for the labelling and advertising of pet foods \u2014 who regulates what, and what a label must carry",
         publisher: "Competition Bureau Canada",
         url: "https://competition-bureau.canada.ca/en/how-we-foster-competition/education-and-outreach/publications/guide-labelling-and-advertising-pet-foods",
@@ -2178,11 +2194,13 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "The division of federal responsibility is taken from the Competition Bureau's own guide. Confirm it is the current edition before publication, and that no regulatory change has since altered CFIA's role.",
-      "That ingredient order is by pre-cooking weight, and the effect of moisture and ingredient splitting \u2014 standard in labelling analysis but not attributed to a Canadian source here.",
-      "That premium, holistic and human-grade have no defined legal meaning in Canada \u2014 stated as an absence rather than a rule; confirm no federal definition exists before publication.",
-      "No product, brand or manufacturer is named anywhere, deliberately. Keep it that way unless an assessment can be sourced and dated.",
-      "Whether any Canadian body publishes an accepted-products list comparable to the VOHC for dental products, which would be worth adding as a resource.",
+      "RESOLVED \u2014 VERIFIED, 2026-09-06. The division of federal responsibility was re-read in the Competition Bureau's current guide and is unchanged: CFIA regulates movement of inedible meat products and certification of certain imported pet foods containing animal products; Health Canada administers the prohibition on unsubstantiated health claims; the Competition Bureau administers the requirement for a bilingual common name, metric net quantity declaration and dealer name and address. The article now separates those three legally mandatory items, which come from the Consumer Packaging and Labelling Act, from the fuller list the guide recommends \u2014 ingredient list, guaranteed analysis, feeding instructions, nutritional adequacy \u2014 which it previously ran together as though all six were statute.",
+      "RESOLVED \u2014 NARROWED, 2026-09-06. Ingredient order. The guide does say ingredients are listed in descending order by percentage of weight. It does NOT say at what point that weight is taken, and the \u201cmeasured before cooking\u201d explanation is US labelling practice; no Canadian source for it could be found. The article no longer states it as the Canadian rule, says where the explanation comes from, and keeps the moisture consequence, which holds regardless of jurisdiction. \u201cIngredient splitting\u201d is now described as an interpretive term used by label readers rather than a legal category.",
+      "RESOLVED \u2014 NARROWED, 2026-09-06. Marketing terms. The article asserted that premium, super-premium, holistic, gourmet and human-grade have no defined legal meaning in Canada \u2014 one exhaustive negative covering five words, and the same class of claim as the BC rabies error. The Competition Bureau's guide does not mention any of them. The article now says exactly that, says \u201cwe could not find a Canadian definition\u201d is not \u201cnone exists\u201d, and moves the weight onto the point that actually helps a reader: none of those words tells you whether a food is nutritionally appropriate, and any claim must be accurate, not misleading, and based on adequate and proper tests.",
+      "RESOLVED \u2014 NARROWED, 2026-09-06. Two further exhaustive negatives were softened in the same pass: \u201cthere is no federal agency setting nutritional standards\u201d and \u201cno Canadian body sets nutritional standards\u201d now read as none of the three federal bodies that touch pet food does so, which is what the guide establishes.",
+      "STANDING GUARDRAIL \u2014 AAFCO is an American voluntary body. It may never be described as a Canadian regulator, and an AAFCO statement may never be presented as Canadian regulatory approval.",
+      "STANDING GUARDRAIL \u2014 No product, brand or manufacturer is named anywhere, deliberately. Keep it that way unless an assessment can be sourced and dated.",
+      "OPEN (NON-BLOCKING) \u2014 Whether any Canadian body publishes an accepted-products list comparable to the VOHC for dental products, which would be worth adding as a resource.",
     ],
   },
   {
@@ -2457,7 +2475,6 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "PRICE — the Toronto licence fees are the only per-service figures in this article and are carried from the licensing guide, where the re-check note also lives. Re-check the City fee page before publication and delete rather than carry a stale figure.",
       "The Competition Bureau figures ($9.3 billion annual spend; corporate chains at roughly 20.4% against nearly all independent ownership in 2009) are attributed to the Bureau in the prose. Confirm against the current version of its page before publication, since the study will be updated.",
       "The provincial medication-resale positions (Ontario, British Columbia, New Brunswick and Nova Scotia prohibiting resale to pharmacists; Quebec cited as the contrasting model) come from the Bureau rather than from each province's own regulator. Verify against provincial sources before this is relied on, and note the Bureau is advocating for change so the position may move.",
       "That competition law is the reason no association publishes a fee guide is an inference from the Bureau's general guidance to trade associations, not a statement the Bureau makes about veterinary fee guides specifically. Keep the current framing, which describes the constraint rather than asserting a causal history.",

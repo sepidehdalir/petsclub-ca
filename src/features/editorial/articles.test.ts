@@ -1159,3 +1159,250 @@ describe("Batch C — veterinary and medical evidence", () => {
     }
   });
 });
+
+/**
+ * ## Absolute legal language, flagged for a human
+ *
+ * This project has now made the same mistake twice: "British Columbia sets no
+ * legal requirement at all", and "premium, holistic and human-grade have no
+ * defined legal meaning in Canada". Both were exhaustive negatives, both were
+ * unsupported, and both survived several reviews because they read like
+ * confident editorial prose rather than like claims.
+ *
+ * This does not certify legality — nothing here could. It flags the *shape* of
+ * a claim that needs a named instrument behind it: a universal negative
+ * ("no requirement anywhere", "never transfer", "no legal meaning") or a
+ * universal positive across jurisdictions ("every province requires"). A hit
+ * means a human checks the source, not that the sentence is wrong.
+ *
+ * Qualified constructions pass, because they are how these claims should be
+ * written when the absence cannot be proved: "we are not presenting", "we
+ * could not find", "check your new municipality", "varies by jurisdiction".
+ */
+const ABSOLUTE_LEGAL = [
+  // Exhaustive negatives.
+  /\bno legal (?:requirement|meaning|obligation|definition)\b(?![^.]{0,40}\b(?:we|could not|not presenting)\b)/i,
+  /\bnot legally required\b|\bno provincial law\b|\bdoes not compel\b/i,
+  /\b(?:municipal\s+)?licen[cs]es?\b[^.]{0,80}\b(?:never|do not|does not)\s+transfer\b/i,
+  /\b(?:never|do not|does not)\s+transfer\b[^.]{0,40}\b(?:municipalit|cities|province)/i,
+  /\bno (?:municipality|province|city)\b[^.]{0,40}\brequires?\b/i,
+  /\bhas no legal meaning in Canada\b/i,
+  // Universal positives across jurisdictions.
+  /\bevery (?:province|territory|municipality|Canadian city)\b[^.]{0,60}\b(?:requires?|must|has the same|maintains)\b/i,
+  /\ball (?:provinces|territories|municipalities)\b[^.]{0,50}\b(?:require|must|have the same)\b/i,
+  /\bin every (?:province|territory|jurisdiction)\b/i,
+];
+
+/** Wording that makes an absolute claim a qualified one. */
+const LEGAL_QUALIFIED =
+  /\bwe are not (?:presenting|claiming|asserting)\b|\bwe could not (?:find|verify)\b|\bwe have not (?:checked|verified)\b|\bnot the same (?:as|in)\b|\bvaries by\b|\bdiffers? (?:by|from)\b|\bcheck (?:your|the) (?:new )?(?:municipalit|province|city|regulator)\w*\b|\bconfirm\b|\bask\b|\bcurrently lists?\b|\bas of\b|\brather than assum\w+\b|\bdo not assume\b/i;
+
+function legalClauses(sentence: string): string[] {
+  return sentence
+    .split(/\s*[;—]\s*|,\s+(?:then|and then|but|so|which|where)\s+/)
+    .filter((part) => part.trim().length > 0);
+}
+
+/** Absolute legal constructions in one sentence, unqualified in their clause. */
+function absoluteLegalClaims(sentence: string): string[] {
+  const found: string[] = [];
+  for (const pattern of ABSOLUTE_LEGAL) {
+    for (const clause of legalClauses(sentence)) {
+      const hit = pattern.exec(clause);
+      if (hit && !LEGAL_QUALIFIED.test(clause)) found.push(hit[0]);
+    }
+  }
+  return found;
+}
+
+describe("absolute legal language across the article library", () => {
+  it("flags no unqualified absolute legal claim in any article", () => {
+    const offenders: string[] = [];
+    for (const { slug, body } of ARTICLE_BODIES) {
+      for (const sentence of body.split(/(?<=[.?!])\s+/)) {
+        for (const hit of absoluteLegalClaims(sentence)) {
+          offenders.push(`${slug}: "${hit}" in "${sentence.trim().slice(0, 120)}"`);
+        }
+      }
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it("flags the constructions that got through before", () => {
+    for (const sentence of [
+      "British Columbia has no legal requirement at all.",
+      "Pet licences never transfer between Canadian cities.",
+      // The phrasing that slipped past the first version of this guard.
+      "Municipal licences are issued by one municipality and generally do not transfer.",
+      "Premium has no legal meaning in Canada.",
+      "Every province has the same complaint process.",
+      "No municipality requires cats to be licensed.",
+      "The regulator is the destination for a complaint in every province.",
+    ]) {
+      expect(absoluteLegalClaims(sentence), `missed: ${sentence}`).not.toEqual([]);
+    }
+  });
+
+  it("passes claims written the way these should be written", () => {
+    for (const sentence of [
+      "We are not presenting a province-wide legal vaccination requirement for British Columbia here.",
+      "Check your new municipality rather than assuming a licence transfers.",
+      "The complaint process varies by jurisdiction.",
+      "As of September 2026, Toronto lists $25.00 for a spayed or neutered dog.",
+      "We could not find a Canadian definition behind any of them.",
+      "Do not assume the answer matches a neighbouring city.",
+      // Negating uniformity is the safe form of the same sentence.
+      "Confirm the pet position under your new province's tenancy law — it is not the same in every province.",
+    ]) {
+      expect(absoluteLegalClaims(sentence), `false positive: ${sentence}`).toEqual([]);
+    }
+  });
+});
+
+describe("Batch A — Canadian legal and regulatory evidence", () => {
+  const body = (slug: string) => ARTICLE_BODIES.find((a) => a.slug === slug)!.body;
+  const sourceUrls = (slug: string) =>
+    (articles.find((a) => a.slug === slug)!.sources ?? []).map((x) => x.url).join(" ");
+
+  it("states Vancouver's dog rule and asserts nothing about cats", () => {
+    const b = body("pet-licensing-across-canada");
+    expect(b).toMatch(/Animal Control By-law No\. 9150/);
+    expect(b).toMatch(/three months and older require a licence/i);
+    // The unverifiable half is declared rather than inferred.
+    expect(b).toMatch(/not presenting a position on cats/i);
+    expect(b).toMatch(/Vancouver Animal Services/);
+    expect(b).not.toMatch(/Vancouver does not licence cats|Vancouver does not license cats/i);
+  });
+
+  it("dates and attributes the Toronto fees, and does not universalise them", () => {
+    const b = body("pet-licensing-across-canada");
+    expect(b).toMatch(/September 2026/);
+    expect(b).toMatch(/\$25\.00/);
+    expect(b).toMatch(/\$60\.00/);
+    // The tiers that stop the headline figures reading as the whole picture.
+    expect(b).toMatch(/65 and over/i);
+    expect(b).toMatch(/\$50,000/);
+    expect(b).toMatch(/not a Canadian price/i);
+    expect(sourceUrls("pet-licensing-across-canada")).toMatch(/pet-licensing-fees/);
+  });
+
+  it("matches Edmonton's current bylaw and drops the unverified inclusion", () => {
+    const b = body("pet-licensing-across-canada");
+    expect(b).toMatch(/over 6 months of age/i);
+    expect(b).toMatch(/19 May 2026/);
+    expect(b).toMatch(/\$250/);
+    // The microchip-inclusion claim is gone.
+    expect(b).not.toMatch(/Edmonton's licence includes a microchip/i);
+    expect(b).toMatch(/separate microchip programme/i);
+  });
+
+  it("claims no universal rule about licences transferring", () => {
+    const b = body("pet-licensing-across-canada");
+    expect(b).not.toMatch(/generally do not transfer/i);
+    expect(b).not.toMatch(/never transfer/i);
+    expect(b).toMatch(/Licensing is municipal/i);
+    expect(b).toMatch(/not claiming none does/i);
+    for (const sentence of b.split(/(?<=[.?!])\s+/)) {
+      expect(absoluteLegalClaims(sentence), sentence.slice(0, 90)).toEqual([]);
+    }
+  });
+
+  it("separates the mandatory pet-food label items from the recommended ones", () => {
+    const b = body("reading-a-canadian-pet-food-label");
+    expect(b).toMatch(/Consumer Packaging and Labelling Act/);
+    expect(b).toMatch(/legal floor/i);
+    // The three federal bodies, each with what the guide says it does.
+    expect(b).toMatch(/inedible meat products/i);
+    expect(b).toMatch(/unsubstantiated health claims/i);
+    expect(b).toMatch(/bilingual common name/i);
+    // And the softened version of the exhaustive negative.
+    expect(b).toMatch(/None of those three is setting nutritional standards/i);
+    expect(b).not.toMatch(/There is no federal agency setting nutritional standards/i);
+  });
+
+  it("does not present the pre-cooking measurement point as Canadian law", () => {
+    const b = body("reading-a-canadian-pet-food-label");
+    expect(b).toMatch(/descending order by percentage of weight/i);
+    // Where the "before cooking" explanation comes from is now stated.
+    expect(b).toMatch(/does not say at what point that weight is taken|What it does not say is at which point/i);
+    expect(b).toMatch(/US labelling practice/i);
+    expect(b).not.toMatch(/weight is measured \*\*as the ingredient goes into the batch/i);
+    // Splitting is an interpretive term, not a legal one.
+    expect(b).toMatch(/interpretive term/i);
+  });
+
+  it("makes no unsupported negative claim about marketing terms", () => {
+    const b = body("reading-a-canadian-pet-food-label");
+    expect(b).not.toMatch(/have no defined legal meaning in Canada/i);
+    expect(b).not.toMatch(/not standing on a Canadian definition/i);
+    // What replaced it.
+    expect(b).toMatch(/appear nowhere in the Competition Bureau/i);
+    expect(b).toMatch(/is not the same as .{0,20}none exists/i);
+    expect(b).toMatch(/accurate, not misleading/i);
+  });
+
+  it("never calls AAFCO a Canadian regulator", () => {
+    const b = body("reading-a-canadian-pet-food-label");
+    expect(b).toMatch(/Association of American Feed Control Officials/);
+    expect(b).toMatch(/American voluntary standard/i);
+    expect(b).toMatch(/not a Canadian government approval/i);
+    expect(b).not.toMatch(/AAFCO (?:regulates|requires|approves) .{0,20}Canad/i);
+    expect(b).not.toMatch(/Canadian regulator[^.]{0,30}AAFCO/i);
+  });
+
+  it("claims no uniform veterinary register across thirteen jurisdictions", () => {
+    const b = body("finding-a-veterinarian-in-canada");
+    expect(b).not.toMatch(/every province and territory[^.]{0,60}register/i);
+    expect(b).toMatch(/there is one national lookup, because there is not/i);
+    expect(b).toMatch(/have not verified that every/i);
+    // The two territories are government departments, and Yukon is absent.
+    expect(b).toMatch(/government department/i);
+    expect(b).toMatch(/Yukon is not on that list/i);
+    expect(sourceUrls("finding-a-veterinarian-in-canada")).toMatch(/regulatory-bodies/);
+  });
+
+  it("routes complaints by category rather than uniformly to the regulator", () => {
+    const b = body("finding-a-veterinarian-in-canada");
+    expect(b).toMatch(/professional conduct/i);
+    expect(b).toMatch(/billing|a bill/i);
+    expect(b).toMatch(/animal welfare/i);
+    expect(b).toMatch(/SPCA/);
+    expect(b).toMatch(/do not assume the answer is the same as one province over/i);
+  });
+
+  it("leaves no publication blocker in the three Batch A articles", () => {
+    const BLOCKING =
+      /before publication|before it is published|attach a source or cut|source it before|confirm .{0,40}before|could not be (?:retrieved|confirmed|verified)|not yet sourced|re-check .{0,30}before|resolve this before/i;
+    for (const slug of [
+      "pet-licensing-across-canada",
+      "reading-a-canadian-pet-food-label",
+      "finding-a-veterinarian-in-canada",
+    ]) {
+      const items = articles.find((a) => a.slug === slug)!.needsVerification ?? [];
+      const open = items.filter(
+        (item) => BLOCKING.test(item) && !/^(?:RESOLVED|STANDING GUARDRAIL|OPEN \(NON-BLOCKING\))/.test(item),
+      );
+      expect(open, `${slug} still has publication blockers`).toEqual([]);
+    }
+  });
+
+  it("keeps every source on these three articles a current official page", () => {
+    // Checked live during the batch; recorded here so a dead link is a visible
+    // decision rather than a silent one.
+    const expected: Record<string, RegExp[]> = {
+      "pet-licensing-across-canada": [/toronto\.ca/, /ottawa\.ca/, /calgary\.ca/, /edmonton\.ca/, /vancouver\.ca/],
+      "reading-a-canadian-pet-food-label": [/competition-bureau\.canada\.ca/, /inspection\.canada\.ca/],
+      "finding-a-veterinarian-in-canada": [/canadianveterinarians\.net/],
+    };
+    for (const [slug, patterns] of Object.entries(expected)) {
+      const urls = sourceUrls(slug);
+      for (const pattern of patterns) {
+        expect(urls, `${slug} lost ${pattern}`).toMatch(pattern);
+      }
+      // Official domains only — no blog or aggregator crept in.
+      for (const url of (articles.find((a) => a.slug === slug)!.sources ?? []).map((x) => x.url)) {
+        expect(url, `${slug}: ${url}`).toMatch(/\.ca\/|\.gc\.ca|canada\.ca|canadianveterinarians\.net/);
+      }
+    }
+  });
+});
