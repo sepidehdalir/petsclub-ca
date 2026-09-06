@@ -46,6 +46,31 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
 
+  /**
+   * Route history.
+   *
+   * `/puppy/11-weeks` was the proof-of-concept stage. The differentiation gate
+   * found no sourceable difference between a nine-, ten- and eleven-week-old,
+   * so the three collapsed into one stage at `/puppy/9-11-weeks` and the old
+   * path became a redirect rather than a second copy of the same writing.
+   *
+   * A 308 rather than a 307: the move is permanent, and nothing was ever
+   * indexed at the old path — the Journey has been `noindex` and out of the
+   * sitemap since it was built — so there is no cached ranking to protect and
+   * no ambiguity to leave behind. A redirect, not a canonical: a canonical
+   * would require serving the content twice, which is the duplication this
+   * change exists to remove.
+   */
+  async redirects() {
+    return [
+      {
+        source: "/puppy/11-weeks",
+        destination: "/puppy/9-11-weeks",
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {

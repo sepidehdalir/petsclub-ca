@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -29,13 +29,18 @@ import type { PuppyAge } from "@/features/puppy/age";
 import { allBreeds, findBreed, findProvince, provinces } from "@/features/puppy/model";
 import { resolveSources, resolveStage } from "@/features/puppy/resolve";
 import {
-  elevenWeeks,
+  nineToElevenWeeks,
   findPhase,
   findRoadmapStage,
   journeyMeta,
   roadmapByPhase,
+  breedModifiers,
+  provinceModifiers,
   roadmapStageFor,
   roadmapStages,
+  seasonModifiers,
+  sizeGroupModifiers,
+  journeyHeadlineAge,
   stageAgePhrase,
   stageFor,
   stages,
@@ -343,9 +348,10 @@ function slugAtDay(dob: string, days: number): string | null {
 describe("stage resolution", () => {
   it("resolves the implemented stage from an age, and nothing outside it", () => {
     const dob = "2026-06-18";
-    expect(stageFor(ageOn(dob, dayAfter(dob, 77)))?.slug).toBe("11-weeks");
-    expect(stageFor(ageOn(dob, dayAfter(dob, 83)))?.slug).toBe("11-weeks");
-    expect(stageFor(ageOn(dob, dayAfter(dob, 76)))).toBeNull();
+    expect(stageFor(ageOn(dob, dayAfter(dob, 63)))?.slug).toBe("9-11-weeks");
+    expect(stageFor(ageOn(dob, dayAfter(dob, 73)))?.slug).toBe("9-11-weeks");
+    expect(stageFor(ageOn(dob, dayAfter(dob, 83)))?.slug).toBe("9-11-weeks");
+    expect(stageFor(ageOn(dob, dayAfter(dob, 62)))).toBeNull();
     expect(stageFor(ageOn(dob, dayAfter(dob, 84)))).toBeNull();
   });
 
@@ -389,7 +395,7 @@ describe("stage resolution", () => {
 
   it("has exactly one implemented stage in this milestone", () => {
     expect(stages).toHaveLength(1);
-    expect(stages[0]?.slug).toBe("11-weeks");
+    expect(stages[0]?.slug).toBe("9-11-weeks");
   });
 });
 
@@ -554,9 +560,7 @@ describe("hybrid age resolution", () => {
   it("steps week by week from 8 to 12 weeks, whatever the date of birth", () => {
     const weekly: [number, number, string][] = [
       [56, 62, "8-weeks"],
-      [63, 69, "9-weeks"],
-      [70, 76, "10-weeks"],
-      [77, 83, "11-weeks"],
+      [63, 83, "9-11-weeks"],
       [84, 90, "12-weeks"],
     ];
 
@@ -565,10 +569,49 @@ describe("hybrid age resolution", () => {
     // 31 May not until day 92.
     for (const dob of ["2026-06-18", "2025-12-31", "2026-05-31", "2024-02-29"]) {
       for (const [min, max, slug] of weekly) {
-        expect(max - min).toBe(6); // seven inclusive days, i.e. an actual week
+        // Whole weeks, still — one for the ends, three for the middle.
+        expect((max - min + 1) % 7).toBe(0);
         expect(slugAtDay(dob, min)).toBe(slug);
         expect(slugAtDay(dob, max)).toBe(slug);
+        expect(slugAtDay(dob, min - 1)).not.toBe(slug);
+        expect(slugAtDay(dob, max + 1)).not.toBe(slug);
       }
+    }
+  });
+
+  it("resolves each day of the early-puppy phase to the stage the gate settled on", () => {
+    const dob = "2026-06-18";
+    for (let days = 56; days <= 62; days += 1) {
+      expect(slugAtDay(dob, days)).toBe("8-weeks");
+    }
+    for (let days = 63; days <= 83; days += 1) {
+      expect(slugAtDay(dob, days)).toBe("9-11-weeks");
+    }
+    for (let days = 84; days <= 90; days += 1) {
+      expect(slugAtDay(dob, days)).toBe("12-weeks");
+    }
+  });
+
+  it("keeps the exact week in the headline while three weeks share a stage", () => {
+    // The distinction the revision turns on: exact age is a fact about this
+    // reader's puppy and stays precise; the content stage is an editorial
+    // unit and is shared. A ten-week-old is never told it is "9–11 weeks old".
+    const dob = "2026-06-18";
+    const expected: [number, string][] = [
+      [65, "9 weeks old"],
+      [73, "10 weeks old"],
+      [80, "11 weeks old"],
+    ];
+
+    for (const [days, headline] of expected) {
+      const age = ageOn(dob, dayAfter(dob, days));
+      const roadmap = roadmapStageFor(age)!;
+      expect(roadmap.slug).toBe("9-11-weeks");
+      expect(journeyHeadlineAge(age, roadmap)).toBe(headline);
+      // And the stage label is never the headline for a weekly stage.
+      expect(journeyHeadlineAge(age, roadmap)).not.toContain("9–11");
+      // The phase carries the meta row; the exact age is already up top.
+      expect(journeyMeta(age, roadmap)).toEqual(["Early puppy"]);
     }
   });
 
@@ -758,9 +801,7 @@ describe("hybrid age resolution", () => {
   it("orders the timeline exactly as the journey runs", () => {
     expect(roadmapStages.map((stage) => stage.slug)).toEqual([
       "8-weeks",
-      "9-weeks",
-      "10-weeks",
-      "11-weeks",
+      "9-11-weeks",
       "12-weeks",
       "3-months",
       "4-months",
@@ -774,9 +815,7 @@ describe("hybrid age resolution", () => {
 
     expect(roadmapStages.map((stage) => stage.label)).toEqual([
       "8 weeks",
-      "9 weeks",
-      "10 weeks",
-      "11 weeks",
+      "9–11 weeks",
       "12 weeks",
       "3 months",
       "4 months",
@@ -867,6 +906,7 @@ describe("hybrid age resolution", () => {
     const cases: [string, string, string, string[]][] = [
       // dob, today, headline phrase, meta row
       ["2026-06-18", "2026-09-05", "11 weeks old", ["Early puppy"]],
+      ["2026-06-25", "2026-09-05", "10 weeks old", ["Early puppy"]],
       ["2026-06-06", "2026-09-05", "3 months old", ["13 weeks", "Early development"]],
       // Exactly on the anniversary the two agree, so the age is not repeated.
       ["2026-05-05", "2026-09-05", "4 months old", ["Early development"]],
@@ -881,7 +921,7 @@ describe("hybrid age resolution", () => {
       const age = ageOn(dob, today);
       const roadmap = roadmapStageFor(age);
       expect(roadmap).not.toBeNull();
-      expect(stageAgePhrase(roadmap!)).toBe(phrase);
+      expect(journeyHeadlineAge(age, roadmap)).toBe(phrase);
       expect(journeyMeta(age, roadmap)).toEqual(meta);
     }
   });
@@ -893,7 +933,9 @@ describe("hybrid age resolution", () => {
     for (const days of [56, 63, 70, 77, 84, 90]) {
       const age = ageOn(dob, dayAfter(dob, days));
       const roadmap = roadmapStageFor(age)!;
-      expect(age.exact).toBe(roadmap.label);
+      // The headline states the exact week, so the meta row need not repeat it
+      // — including on the three-week stage, where the label is a range.
+      expect(journeyHeadlineAge(age, roadmap)).toBe(age.label);
       expect(journeyMeta(age, roadmap)).toEqual(["Early puppy"]);
     }
 
@@ -909,7 +951,7 @@ describe("hybrid age resolution", () => {
       const meta = journeyMeta(age, roadmap);
       expect(meta).toHaveLength(2);
       expect(meta[0]).toBe(age.exact);
-      expect(stageAgePhrase(roadmap)).not.toContain(age.exact);
+      expect(journeyHeadlineAge(age, roadmap)).not.toContain(age.exact);
     }
   });
 
@@ -922,7 +964,7 @@ describe("hybrid age resolution", () => {
       expect(sentence.endsWith("old") || sentence.endsWith("a young adult")).toBe(true);
     }
     expect(stageAgePhrase(findRoadmapStage("young-adult")!)).toBe("a young adult");
-    expect(stageAgePhrase(findRoadmapStage("11-weeks")!)).toBe("11 weeks old");
+    expect(stageAgePhrase(findRoadmapStage("9-11-weeks")!)).toBe("9–11 weeks old");
     expect(stageAgePhrase(findRoadmapStage("3-months")!)).toBe("3 months old");
     expect(stageAgePhrase(findRoadmapStage("9-10-months")!)).toBe("9\u201310 months old");
   });
@@ -942,6 +984,28 @@ describe("hybrid age resolution", () => {
       expect(age.exact).toBe(exact);
       expect(age.label).toBe(`${exact} old`);
       expect(age.exact.endsWith("old")).toBe(false);
+    }
+  });
+
+  it("points every modifier at a stage and a section that exist", () => {
+    // Modifiers key on `stageSlug` and `sectionId`. Renaming a stage silently
+    // orphans every one of them — the prose still renders, just without the
+    // layer that made it personal, which is the kind of failure nobody
+    // notices. This is the guard for it.
+    const stageSlugs = new Set(stages.map((stage) => stage.slug));
+    const sectionIds = new Set(stages.flatMap((stage) => stage.sections.map((s) => s.id)));
+
+    const modifiers = [
+      ...sizeGroupModifiers,
+      ...breedModifiers,
+      ...provinceModifiers,
+      ...seasonModifiers,
+    ];
+    expect(modifiers.length).toBeGreaterThan(0);
+
+    for (const modifier of modifiers) {
+      expect(stageSlugs.has(modifier.stageSlug)).toBe(true);
+      expect(sectionIds.has(modifier.sectionId)).toBe(true);
     }
   });
 
@@ -968,14 +1032,14 @@ describe("hybrid age resolution", () => {
 
     // The one implemented stage still covers exactly the eleventh week.
     const dob = "2026-06-18";
-    expect(stageFor(ageOn(dob, dayAfter(dob, 77)))?.slug).toBe("11-weeks");
-    expect(stageFor(ageOn(dob, dayAfter(dob, 83)))?.slug).toBe("11-weeks");
+    expect(stageFor(ageOn(dob, dayAfter(dob, 63)))?.slug).toBe("9-11-weeks");
+    expect(stageFor(ageOn(dob, dayAfter(dob, 83)))?.slug).toBe("9-11-weeks");
   });
 });
 
 describe("modifier composition", () => {
   it("returns universal content when no context is supplied", () => {
-    const sections = resolveStage(elevenWeeks);
+    const sections = resolveStage(nineToElevenWeeks);
     for (const section of sections) {
       expect(section.sizeGroupBlock).toBeUndefined();
       expect(section.breedBlock).toBeUndefined();
@@ -985,35 +1049,35 @@ describe("modifier composition", () => {
   });
 
   it("applies a size group inferred from the breed", () => {
-    const sections = resolveStage(elevenWeeks, { breedSlug: "golden-retriever" });
+    const sections = resolveStage(nineToElevenWeeks, { breedSlug: "golden-retriever" });
     const exercise = sections.find((s) => s.id === "exercise");
     expect(exercise?.sizeGroupBlock).toBeDefined();
   });
 
   it("lets an explicit size group work without a breed", () => {
-    const sections = resolveStage(elevenWeeks, { sizeGroup: "giant" });
+    const sections = resolveStage(nineToElevenWeeks, { sizeGroup: "giant" });
     expect(sections.find((s) => s.id === "exercise")?.sizeGroupBlock).toBeDefined();
     expect(sections.find((s) => s.id === "exercise")?.breedBlock).toBeUndefined();
   });
 
   it("adds no breed block for a mixed breed, only its size group", () => {
-    const sections = resolveStage(elevenWeeks, { breedSlug: "mixed" });
+    const sections = resolveStage(nineToElevenWeeks, { breedSlug: "mixed" });
     for (const section of sections) {
       expect(section.breedBlock).toBeUndefined();
     }
   });
 
   it("renders a province block only where that province changes the answer", () => {
-    const ontario = resolveStage(elevenWeeks, { province: "ON" });
+    const ontario = resolveStage(nineToElevenWeeks, { province: "ON" });
     const vaccineON = ontario.find((s) => s.id === "vaccine-questions");
     expect(vaccineON?.provinceBlocks).toHaveLength(1);
     expect(vaccineON?.provinceBlocks[0]?.kind).toBe("legal");
 
-    const bc = resolveStage(elevenWeeks, { province: "BC" });
+    const bc = resolveStage(nineToElevenWeeks, { province: "BC" });
     expect(bc.find((s) => s.id === "vaccine-questions")?.provinceBlocks[0]?.kind).toBe("guidance");
 
     // Saskatchewan has no verified difference at this stage, so it gets none.
-    const sask = resolveStage(elevenWeeks, { province: "SK" });
+    const sask = resolveStage(nineToElevenWeeks, { province: "SK" });
     for (const section of sask) {
       expect(section.provinceBlocks).toEqual([]);
     }
@@ -1021,11 +1085,11 @@ describe("modifier composition", () => {
 
   it("adds a season block only for seasons that genuinely change the week", () => {
     expect(
-      resolveStage(elevenWeeks, { season: "winter" }).find((s) => s.id === "this-week")
+      resolveStage(nineToElevenWeeks, { season: "winter" }).find((s) => s.id === "this-week")
         ?.seasonBlock,
     ).toBeDefined();
     expect(
-      resolveStage(elevenWeeks, { season: "spring" }).find((s) => s.id === "this-week")
+      resolveStage(nineToElevenWeeks, { season: "spring" }).find((s) => s.id === "this-week")
         ?.seasonBlock,
     ).toBeUndefined();
   });
@@ -1040,7 +1104,7 @@ describe("modifier composition", () => {
       season: "winter",
     } as const;
 
-    for (const section of resolveStage(elevenWeeks, context)) {
+    for (const section of resolveStage(nineToElevenWeeks, context)) {
       const base = new Set(
         [...section.body, ...(section.points ?? [])].map((s) => s.trim().toLowerCase()),
       );
@@ -1062,8 +1126,8 @@ describe("modifier composition", () => {
   });
 
   it("adds the province's own source when a province block is shown", () => {
-    const base = resolveSources(elevenWeeks);
-    const withOntario = resolveSources(elevenWeeks, { province: "ON" });
+    const base = resolveSources(nineToElevenWeeks);
+    const withOntario = resolveSources(nineToElevenWeeks, { province: "ON" });
     expect(withOntario.length).toBe(base.length + 1);
     expect(withOntario.some((s) => s.url.includes("ontario.ca"))).toBe(true);
 
@@ -1076,7 +1140,7 @@ describe("content integrity", () => {
   it("points every guide link at an article that exists", () => {
     const slugs = new Set(articles.map((article) => article.slug));
 
-    for (const section of elevenWeeks.sections) {
+    for (const section of nineToElevenWeeks.sections) {
       if (section.guide) {
         expect(slugs.has(section.guide.slug), `${section.id}: ${section.guide.slug}`).toBe(true);
       }
@@ -1084,7 +1148,7 @@ describe("content integrity", () => {
 
     // Season modifiers carry their own guide links.
     for (const season of ["winter", "summer"] as const) {
-      for (const section of resolveStage(elevenWeeks, { season })) {
+      for (const section of resolveStage(nineToElevenWeeks, { season })) {
         if (section.seasonBlock?.guide) {
           expect(slugs.has(section.seasonBlock.guide.slug)).toBe(true);
         }
@@ -1093,7 +1157,7 @@ describe("content integrity", () => {
   });
 
   it("gives every section at most one guide link, so it is not a related-posts block", () => {
-    for (const section of elevenWeeks.sections) {
+    for (const section of nineToElevenWeeks.sections) {
       expect(section.guide === undefined || typeof section.guide.slug === "string").toBe(true);
     }
   });
@@ -1112,7 +1176,7 @@ describe("content integrity", () => {
   it("publishes no vaccination schedule anywhere in the stage", () => {
     // The safety rule this product is built on. The vaccine section asks
     // questions; it must never acquire a timetable.
-    const prose = JSON.stringify(elevenWeeks.sections).toLowerCase();
+    const prose = JSON.stringify(nineToElevenWeeks.sections).toLowerCase();
     for (const pattern of [
       /at \d+ weeks[^.]{0,40}(give|administer|vaccinate)/,
       /\bdose (one|two|three|1|2|3)\b/,
@@ -1124,12 +1188,12 @@ describe("content integrity", () => {
   });
 
   it("carries a review date and stays in review during this milestone", () => {
-    expect(elevenWeeks.reviewBy).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-    expect(elevenWeeks.status).toBe("in-review");
+    expect(nineToElevenWeeks.reviewBy).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(nineToElevenWeeks.status).toBe("in-review");
   });
 
   it("records open verification items, and never renders them", () => {
-    expect(elevenWeeks.needsVerification.length).toBeGreaterThan(0);
+    expect(nineToElevenWeeks.needsVerification.length).toBeGreaterThan(0);
 
     // Same guard the article system uses: the queue is a work list for an
     // editor, and no component may read it.
@@ -1170,23 +1234,23 @@ describe("personalised canonical", () => {
 
   it("canonicalises an 11-week puppy to the 11-week stage", async () => {
     const canonical = await canonicalFor({ dob: dobForAge(80, "ON"), province: "ON" });
-    expect(canonical.endsWith("/puppy/11-weeks")).toBe(true);
+    expect(canonical.endsWith("/puppy/9-11-weeks")).toBe(true);
   });
 
   it("holds that canonical across the whole of week 11", async () => {
     for (const days of [77, 78, 83]) {
       const canonical = await canonicalFor({ dob: dobForAge(days, "ON"), province: "ON" });
-      expect(canonical.endsWith("/puppy/11-weeks")).toBe(true);
+      expect(canonical.endsWith("/puppy/9-11-weeks")).toBe(true);
     }
   });
 
   it("canonicalises a puppy of any other age to the Journey hub, not to a stage", async () => {
     // Day 76 is one day short of week 11; day 84 is one day past it; the rest
     // are ages we have written no stage for at all.
-    for (const days of [1, 40, 76, 84, 150, 300]) {
+    for (const days of [1, 40, 62, 84, 150, 300]) {
       const canonical = await canonicalFor({ dob: dobForAge(days, "ON"), province: "ON" });
       expect(canonical.endsWith("/puppy")).toBe(true);
-      expect(canonical).not.toContain("11-weeks");
+      expect(canonical).not.toContain("9-11-weeks");
     }
   });
 
@@ -1209,7 +1273,7 @@ describe("personalised canonical", () => {
     }
     for (const province of provinces) {
       const canonical = await canonicalFor({ dob: dobForAge(80, province.code), province: province.code });
-      expect(canonical.endsWith("/puppy/11-weeks")).toBe(true);
+      expect(canonical.endsWith("/puppy/9-11-weeks")).toBe(true);
     }
   });
 
@@ -1233,7 +1297,7 @@ describe("personalised canonical", () => {
     const metadata = await myPuppyMetadata({
       searchParams: Promise.resolve({ dob: [dob, "2099-01-01"], province: "ON" }),
     });
-    expect(String(metadata.alternates?.canonical ?? "").endsWith("/puppy/11-weeks")).toBe(true);
+    expect(String(metadata.alternates?.canonical ?? "").endsWith("/puppy/9-11-weeks")).toBe(true);
   });
 });
 
@@ -1259,7 +1323,7 @@ describe("indexing", () => {
     const puppyRoutes = readdirSync(join(appDir, "puppy"), { withFileTypes: true })
       .filter((entry) => entry.isDirectory())
       .map((entry) => entry.name);
-    expect(puppyRoutes).toEqual(["11-weeks"]);
+    expect(puppyRoutes).toEqual(["9-11-weeks"]);
 
     // The roadmap grew to thirteen entries and the route count did not move.
     // An entry is a position on a journey; a page is a piece of writing that
@@ -1288,8 +1352,49 @@ describe("indexing", () => {
 
     // And the one route that exists is the one the rail can reach.
     const implemented = stages.map((stage) => stage.slug);
-    expect(implemented).toEqual(["11-weeks"]);
-    expect(roadmapStages.some((stage) => stage.slug === "11-weeks")).toBe(true);
+    expect(implemented).toEqual(["9-11-weeks"]);
+    expect(roadmapStages.some((stage) => stage.slug === "9-11-weeks")).toBe(true);
+  });
+
+  it("redirects the retired stage path instead of serving it twice", async () => {
+    // `/puppy/11-weeks` was the proof of concept. Its content now lives at
+    // `/puppy/9-11-weeks`, and the old path must be a redirect rather than a
+    // second copy — a canonical would mean serving the same writing twice,
+    // which is the duplication this migration exists to remove.
+    const { default: config } = (await import("../../../next.config")) as {
+      default: { redirects?: () => Promise<{ source: string; destination: string; permanent: boolean }[]> };
+    };
+
+    expect(typeof config.redirects).toBe("function");
+    const redirects = await config.redirects!();
+    const retired = redirects.find((rule) => rule.source === "/puppy/11-weeks");
+
+    expect(retired).toBeDefined();
+    expect(retired!.destination).toBe("/puppy/9-11-weeks");
+    expect(retired!.permanent).toBe(true);
+
+    // And nothing is left behind to serve: no route, no page file.
+    const appDir = fileURLToPath(new URL("../../app/", import.meta.url));
+    expect(existsSync(join(appDir, "puppy/11-weeks"))).toBe(false);
+    expect(existsSync(join(appDir, "puppy/9-11-weeks/page.tsx"))).toBe(true);
+
+    // A redirect must not point at another redirect, or at itself.
+    for (const rule of redirects) {
+      expect(rule.destination).not.toBe(rule.source);
+      expect(redirects.some((other) => other.source === rule.destination)).toBe(false);
+    }
+  });
+
+  it("serves each implemented stage from exactly one path", () => {
+    const appDir = fileURLToPath(new URL("../../app/", import.meta.url));
+    const puppyRoutes = readdirSync(join(appDir, "puppy"), { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name);
+
+    // One directory per implemented stage, and no orphan left over from the
+    // rename that would render the same prose at a second URL.
+    expect(puppyRoutes.length).toBe(stages.length);
+    expect(puppyRoutes.every((name) => stages.some((stage) => stage.slug === name))).toBe(true);
   });
 
   it("leaves the article library at exactly the 35 of this milestone", () => {

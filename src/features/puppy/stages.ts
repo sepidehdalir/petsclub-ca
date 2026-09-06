@@ -20,14 +20,14 @@ import type {
  * above the roadmap itself.
  */
 
-export const elevenWeeks: PuppyStage = {
-  slug: "11-weeks",
-  label: "11 weeks",
-  title: "Your 11-Week-Old Puppy",
+export const nineToElevenWeeks: PuppyStage = {
+  slug: "9-11-weeks",
+  label: "9–11 weeks",
+  title: "Your 9 to 11-Week-Old Puppy",
   deck:
-    "A fortnight past the front door and deep in the window that closes soonest. What matters this week, what can wait, and the questions worth taking to the clinic.",
+    "Past the front door and deep in the window that closes soonest. What matters across these three weeks, what can wait, and the questions worth taking to the clinic.",
   metaDescription:
-    "What matters at 11 weeks: the socialisation window, house-training, the second vaccine appointment, and what to ask your veterinarian.",
+    "What matters between nine and eleven weeks: the socialisation window, house-training, the vaccine appointments, and what to ask your veterinarian.",
   mediaId: "puppy-eleven-weeks",
   mediaAlt:
     "A pale Labrador puppy sitting on a tiled floor, looking up — around the age this stage covers.",
@@ -37,15 +37,15 @@ export const elevenWeeks: PuppyStage = {
   sections: [
     {
       id: "this-week",
-      title: "This week",
+      title: "Where you are now",
       summary: "Socialisation is the priority. Everything else can move around it.",
       body: [
-        "Eleven weeks sits in an awkward and important place. Your puppy has been home two or three weeks, the novelty has worn off for everyone, and the sleep deprivation is usually at its worst. It is also the middle of the only developmental window that closes on a deadline.",
-        "If you do one thing well this week, make it careful, low-intensity exposure to the world. House-training, chewing and lead work all improve with time and repetition. The socialisation window does not wait, and it will be largely shut before the vaccination series finishes.",
+        "These three weeks sit in an awkward and important place. The puppy has been home a little while, the novelty has worn off for everyone, and the sleep deprivation is usually at its worst. This is also the middle of the only developmental window that closes on a deadline.",
+        "One stage covers all three weeks because the advice genuinely does not change much between them, and we would rather say so than invent a difference. What changes is how much of it you have got through. If you do one thing well, make it careful, low-intensity exposure to the world — house-training, chewing and lead work all improve with time and repetition, and the socialisation window does not wait. It will be largely shut before the vaccination series finishes.",
       ],
       points: [
         "Socialisation is the priority, and quality matters far more than quantity.",
-        "Expect a second vaccine appointment around now — and ask when the series actually finishes.",
+        "Expect a vaccine appointment somewhere in here — and ask when the series actually finishes.",
         "House-training is a schedule, not a lesson. Accidents at this age are normal.",
         "Biting is developmentally normal. Most spectacular biting is an overtired puppy.",
         "Alone-time practice happens daily, in seconds and minutes, before you need it.",
@@ -56,8 +56,8 @@ export const elevenWeeks: PuppyStage = {
       title: "Development",
       summary: "Physically capable, emotionally unfinished, and sleeping more than you think.",
       body: [
-        "An eleven-week-old puppy is coordinated enough to get into genuine trouble and nowhere near old enough to make good decisions about it. Bladder capacity is still small, attention spans run in seconds rather than minutes, and the brain is doing most of its work asleep.",
-        "This is also when many owners first notice a puppy hesitating at something it walked past cheerfully a week ago. Wariness appearing where there was none is a normal part of development rather than a sign anything has gone wrong. The response is more distance and less intensity, never more insistence.",
+        "A puppy of this age is coordinated enough to get into genuine trouble and nowhere near old enough to make good decisions about it. Bladder capacity is still small, attention spans run in seconds rather than minutes, and the brain is doing most of its work asleep. Those things ease gradually across these three weeks rather than on any particular day.",
+        "This is also the period when many owners first notice a puppy hesitating at something it walked past cheerfully a week earlier. Wariness appearing where there was none is a normal part of development rather than a sign anything has gone wrong. The response is more distance and less intensity, never more insistence.",
       ],
       guide: {
         slug: "bringing-home-a-puppy-first-30-days",
@@ -88,7 +88,7 @@ export const elevenWeeks: PuppyStage = {
       summary: "The window is the first three months. It closes before the needles do.",
       body: [
         "The American Veterinary Society of Animal Behavior puts the primary socialisation period at the first three months of life, and holds that puppies should be socialised before they are fully vaccinated — on the reasoning that behavioural problems, not infectious disease, are the leading cause of death in dogs under three years old.",
-        "So the question at eleven weeks is not whether to socialise but how to do it at low infection risk. Carry the puppy in busy places. Sit on a bench outside a shop. Use the car as a viewing platform with the doors open. Visit homes whose dogs you know are healthy and vaccinated.",
+        "So the question at this age is not whether to socialise but how to do it at low infection risk. Carry the puppy in busy places. Sit on a bench outside a shop. Use the car as a viewing platform with the doors open. Visit homes whose dogs you know are healthy and vaccinated.",
         "The measure of a good exposure is the puppy, not the tally. A puppy that will take food is under threshold and learning. A puppy that will not is over it, and the answer is always more distance rather than more exposure.",
       ],
       points: [
@@ -127,9 +127,9 @@ export const elevenWeeks: PuppyStage = {
     {
       id: "teething",
       title: "Teething",
-      summary: "Beginning around now. Manage it rather than train it away.",
+      summary: "Starting, and increasing across these weeks. Manage it rather than train it away.",
       body: [
-        "Adult teeth start moving through in the coming weeks, and chewing increases with them. This is not a behaviour problem and it does not respond to being told off.",
+        "Adult teeth start moving through towards the end of this period and into the weeks after it, and chewing increases with them — expect more of it at eleven weeks than at nine. This is not a behaviour problem and it does not respond to being told off.",
         "Provide things that are legal to chew, rotate them so they stay interesting, and manage the environment so the illegal options are not available. A frozen stuffed toy is genuinely useful at this age.",
         "Mouthing skin is separate and worth handling now: when teeth land on you, the fun stops for a moment — hands still, attention off, no drama — and then redirect onto something appropriate.",
       ],
@@ -139,7 +139,7 @@ export const elevenWeeks: PuppyStage = {
       title: "Grooming",
       summary: "Practice, not maintenance. You are training tolerance, not cleaning a dog.",
       body: [
-        "There is very little to actually groom at eleven weeks, which is exactly why it is the right time. Brush for thirty seconds. Touch the feet. Hold a paw as though clipping a nail and give it back. Let the puppy hear clippers running without being clipped.",
+        "There is very little to actually groom at this age, which is exactly why it is the right time. Brush for thirty seconds. Touch the feet. Hold a paw as though clipping a nail and give it back. Let the puppy hear clippers running without being clipped.",
         "A puppy that finds handling unremarkable becomes a dog that can be examined, brushed and treated without a fight for the next decade or more.",
       ],
     },
@@ -157,7 +157,7 @@ export const elevenWeeks: PuppyStage = {
       title: "Veterinary care",
       summary: "Likely an appointment this week or next. Go with questions.",
       body: [
-        "Most puppies have a vaccination appointment somewhere around now, and it is worth treating as more than an injection. Bring the records that came with the puppy, and ask what the plan is rather than accepting a card.",
+        "Most puppies have at least one vaccination appointment somewhere in these three weeks, and it is worth treating as more than an injection. Bring the records that came with the puppy, and ask what the plan is rather than accepting a card.",
         "If you have not settled on a practice yet, that is the more urgent job — a clinic that already holds the history is worth more than one that is marginally closer, and the after-hours answer matters more than anything on the website.",
       ],
       guide: {
@@ -235,8 +235,8 @@ export const elevenWeeks: PuppyStage = {
       title: "What's next",
       summary: "The window narrows, the teeth arrive, and the series finishes later than you think.",
       body: [
-        "Over the next few weeks the socialisation window closes, teething moves from beginning to obvious, and the vaccination series reaches the dose that carries most of the weight — which lands later than most owners expect, past sixteen weeks rather than at twelve.",
-        "The other thing that arrives, usually without warning, is adolescence. It is further off than eleven weeks but it is worth knowing it is coming, because a dog that seems to forget everything it learned at six or seven months is developmentally normal rather than broken.",
+        "At twelve weeks the socialisation window closes, teething moves from beginning to obvious, and the vaccination series reaches the dose that carries most of the weight — which lands later than most owners expect, past sixteen weeks rather than at twelve. Many owners are told at an appointment around twelve weeks that the puppy is finished. It is not.",
+        "The other thing that arrives, usually without warning, is adolescence. It is a long way from here but it is worth knowing it is coming, because a dog that seems to forget everything it learned at six or seven months is developmentally normal rather than broken.",
       ],
     },
   ],
@@ -281,15 +281,16 @@ export const elevenWeeks: PuppyStage = {
 
   needsVerification: [
     "The developmental description (bladder capacity, attention span, sleep requirement) is written qualitatively and quotes no figure. Attach a source before any number is added — the 16–18 hours figure carried in the article library is still unsourced there too.",
-    "That a second period of wariness commonly appears around this age is described as normal development. Widely reported in behaviour literature; source it before publication.",
-    "That three to four meals a day is typical at eleven weeks — stated as what most puppies are on rather than as a recommendation. Confirm against a veterinary nutrition source or soften further.",
-    "Teething timing is given as 'the coming weeks' rather than a week number, deliberately. Do not make it specific without a source.",
+    "That a second period of wariness commonly appears in this window is described as normal development, with no week attached. Widely reported in behaviour literature; source it before publication, and do not pin it to a week without one.",
+    "That three to four meals a day is typical at this age — stated as what most puppies are on rather than as a recommendation. Confirm against a veterinary nutrition source or soften further.",
+    "Teething is described as starting towards the end of this window and increasing, with no week number. The direction is safe; the timing is not sourced. Do not make it specific without one.",
     "The growth-plate reasoning behind limiting repetitive forced exercise is stated generally and names no age or distance rule. Attach a source before it is made more specific.",
     "No vaccination schedule appears anywhere in this stage, by design. The section is questions only. Do not let a future edit turn the question list into a timetable.",
+    "This stage covers three weeks because the differentiation gate found no sourceable developmental difference between them. If one is later found, it belongs in this register before it appears in the prose.",
   ],
 };
 
-export const stages: readonly PuppyStage[] = [elevenWeeks];
+export const stages: readonly PuppyStage[] = [nineToElevenWeeks];
 
 /* ------------------------------------------------------------- the roadmap */
 
@@ -437,10 +438,18 @@ export const roadmapStages: readonly RoadmapStage[] = [
   // Early puppy — weekly, in days of life. Starts at eight weeks because that
   // is when most puppies come home; anything earlier is the breeder's week,
   // not the owner's, and resolves to no stage rather than a guessed one.
+  // Three stages, not five. The differentiation gate found no sourceable
+  // difference between a nine-, ten- and eleven-week-old that this project
+  // could write about honestly, and five near-identical pages is the thin
+  // cluster the rule above exists to prevent. Arrival and the end of the
+  // window are genuinely distinct situations; the three weeks between them
+  // are one.
+  //
+  // Note what did *not* change: the reader is still told their exact age.
+  // A shared content stage is an editorial decision, not a loss of precision
+  // — see `journeyHeadlineAge`.
   { slug: "8-weeks", label: "8 weeks", phase: "early-puppy", range: { unit: "weeks", minDays: 56, maxDays: 62 } },
-  { slug: "9-weeks", label: "9 weeks", phase: "early-puppy", range: { unit: "weeks", minDays: 63, maxDays: 69 } },
-  { slug: "10-weeks", label: "10 weeks", phase: "early-puppy", range: { unit: "weeks", minDays: 70, maxDays: 76 } },
-  { slug: "11-weeks", label: "11 weeks", phase: "early-puppy", range: { unit: "weeks", minDays: 77, maxDays: 83 } },
+  { slug: "9-11-weeks", label: "9–11 weeks", phase: "early-puppy", range: { unit: "weeks", minDays: 63, maxDays: 83 } },
   { slug: "12-weeks", label: "12 weeks", phase: "early-puppy", range: { unit: "weeks", minDays: 84, maxDays: LAST_WEEKLY_DAY } },
 
   // Early development — one calendar month each, on anniversaries of the DOB.
@@ -556,6 +565,31 @@ export function stageAgePhrase(stage: RoadmapStage): string {
 }
 
 /**
+ * The age a personalised headline states.
+ *
+ * Two different things are in play and they must not be confused. The
+ * **content stage** is an editorial unit — what we have written, and for whom.
+ * The **exact age** is a fact about this reader's puppy, which the civil-date
+ * engine knows precisely.
+ *
+ * Where a stage spans weeks, the exact week is the honest headline: telling
+ * the owner of a ten-week-old that their puppy is "9–11 weeks old" would be
+ * less precise than what we actually know, and would read as though the
+ * product had lost track. The stage label still appears — in the eyebrow above
+ * the headline, where it belongs, as the name of the section they are reading.
+ *
+ * Where a stage spans months, the stage label *is* the better headline, for
+ * the reason set out in the previous gate: a thirteen-week-old resolving to
+ * the three-month stage should not see two competing numbers.
+ */
+export function journeyHeadlineAge(age: PuppyAge, roadmap: RoadmapStage | null): string {
+  if (!roadmap || roadmap.range.unit === "weeks") {
+    return age.label;
+  }
+  return stageAgePhrase(roadmap);
+}
+
+/**
  * The secondary context beneath a Journey headline.
  *
  * `stageAgePhrase` supplies the headline; this supplies the quiet row under
@@ -572,7 +606,8 @@ export function journeyMeta(age: PuppyAge, roadmap: RoadmapStage | null): string
   }
 
   const phase = findPhase(roadmap.phase);
-  return age.exact === roadmap.label ? [phase.label] : [age.exact, phase.label];
+  const headline = journeyHeadlineAge(age, roadmap);
+  return headline.includes(age.exact) ? [phase.label] : [age.exact, phase.label];
 }
 
 /** The implemented stage for a resolved age, or `null` if it has no page. */
@@ -586,7 +621,7 @@ export function stageFor(age: PuppyAge): PuppyStage | null {
 export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
   {
     sizeGroup: "large",
-    stageSlug: "11-weeks",
+    stageSlug: "9-11-weeks",
     sectionId: "exercise",
     body: [
       "A large-breed puppy has considerably more growing left to do than a small one, and it will finish later — which makes the restraint on repetitive forced exercise matter more here, not less. Free play and short exploratory walks are the right shape; distance running, cycling alongside and repeated stairs are the things to keep off the list for many months yet.",
@@ -594,7 +629,7 @@ export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
   },
   {
     sizeGroup: "giant",
-    stageSlug: "11-weeks",
+    stageSlug: "9-11-weeks",
     sectionId: "exercise",
     body: [
       "Giant breeds grow for longer than anything else and carry more weight while doing it. Everything said about limiting repetitive forced exercise applies for longer — well past the point at which the dog looks fully grown. Free play at the puppy's own pace remains the safest shape.",
@@ -602,7 +637,7 @@ export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
   },
   {
     sizeGroup: "toy",
-    stageSlug: "11-weeks",
+    stageSlug: "9-11-weeks",
     sectionId: "feeding",
     body: [
       "Very small puppies have little in reserve and can become weak or wobbly if they go too long between meals. Meal frequency is worth raising specifically at your next appointment rather than assuming a general schedule applies.",
@@ -613,7 +648,7 @@ export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
 export const breedModifiers: readonly BreedModifier[] = [
   {
     breedSlug: "poodle",
-    stageSlug: "11-weeks",
+    stageSlug: "9-11-weeks",
     sectionId: "grooming",
     body: [
       "A coat like this will need professional grooming for the whole of the dog's life, which makes the handling practice at this age unusually valuable. Book a first grooming appointment now — many groomers offer a short introductory visit with no full groom — so the first real one is not also the first time the puppy has been on a table.",
@@ -621,7 +656,7 @@ export const breedModifiers: readonly BreedModifier[] = [
   },
   {
     breedSlug: "bernese-mountain-dog",
-    stageSlug: "11-weeks",
+    stageSlug: "9-11-weeks",
     sectionId: "grooming",
     body: [
       "A heavy double coat is coming. Brushing now is about tolerance rather than tidiness, and starting before there is much to brush is the whole point.",
@@ -629,7 +664,7 @@ export const breedModifiers: readonly BreedModifier[] = [
   },
   {
     breedSlug: "french-bulldog",
-    stageSlug: "11-weeks",
+    stageSlug: "9-11-weeks",
     sectionId: "exercise",
     body: [
       "Flat-faced breeds cool themselves less effectively than others, because panting is how a dog sheds heat and a shortened airway does it less well. That changes warm-weather planning specifically: exercise at the ends of the day, keep sessions short, and treat heat as a more serious constraint than you would for another breed.",
@@ -650,7 +685,7 @@ export const breedModifiers: readonly BreedModifier[] = [
 export const provinceModifiers: readonly ProvinceModifier[] = [
   {
     provinces: ["ON"],
-    stageSlug: "11-weeks",
+    stageSlug: "9-11-weeks",
     sectionId: "vaccine-questions",
     heading: "In Ontario, rabies vaccination is a legal requirement",
     kind: "legal",
@@ -668,7 +703,7 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
   },
   {
     provinces: ["BC"],
-    stageSlug: "11-weeks",
+    stageSlug: "9-11-weeks",
     sectionId: "vaccine-questions",
     heading: "In British Columbia, rabies vaccination is recommended rather than required",
     kind: "guidance",
@@ -695,7 +730,7 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
 export const seasonModifiers: readonly SeasonModifier[] = [
   {
     season: "winter",
-    stageSlug: "11-weeks",
+    stageSlug: "9-11-weeks",
     sectionId: "this-week",
     heading: "A winter puppy",
     body: [
@@ -706,7 +741,7 @@ export const seasonModifiers: readonly SeasonModifier[] = [
   },
   {
     season: "summer",
-    stageSlug: "11-weeks",
+    stageSlug: "9-11-weeks",
     sectionId: "this-week",
     heading: "A summer puppy",
     body: [

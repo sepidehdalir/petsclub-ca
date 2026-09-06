@@ -16,9 +16,9 @@ import { findBreed, findProvince, sizeGroups } from "@/features/puppy/model";
 import type { BreedSlug, ProvinceCode } from "@/features/puppy/model";
 import {
   findPhase,
+  journeyHeadlineAge,
   journeyMeta,
   roadmapStageFor,
-  stageAgePhrase,
   stageFor,
 } from "@/features/puppy/stages";
 import type { JourneyPhaseId } from "@/features/puppy/stages";
@@ -261,7 +261,7 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
     return (
       <Placeholder
         currentSlug={roadmap?.slug ?? ""}
-        title={`Your puppy is ${roadmap ? stageAgePhrase(roadmap) : age.label}`}
+        title={`Your puppy is ${journeyHeadlineAge(age, roadmap)}`}
         facts={journeyMeta(age, roadmap)}
         body={
           roadmap
@@ -293,8 +293,10 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
   const sizeGroup = breed?.sizeGroup;
   const roadmap = roadmapStageFor(age);
 
-  // The stage names the age; the exact figure goes quietly in the meta row.
-  const agePhrase = roadmap ? stageAgePhrase(roadmap) : age.label;
+  // Exact age in the headline where the stage is measured in weeks, the stage
+  // label where it is measured in months. The stage's own name is in the
+  // eyebrow above either way, so the two are never confused.
+  const agePhrase = journeyHeadlineAge(age, roadmap);
   const headline = breed && breed.slug !== "mixed"
     ? `Your ${breed.name} is ${agePhrase}`
     : `Your puppy is ${agePhrase}`;
