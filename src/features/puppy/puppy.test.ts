@@ -45,6 +45,7 @@ import {
   stageAgePhrase,
   stageFor,
   stages,
+  threeMonths,
   twelveWeeks,
 } from "@/features/puppy/stages";
 import type { RoadmapStage } from "@/features/puppy/stages";
@@ -399,7 +400,12 @@ describe("stage resolution", () => {
   });
 
   it("has exactly the two implemented stages of this milestone", () => {
-    expect(stages.map((stage) => stage.slug)).toEqual(["8-weeks", "9-11-weeks", "12-weeks"]);
+    expect(stages.map((stage) => stage.slug)).toEqual([
+      "8-weeks",
+      "9-11-weeks",
+      "12-weeks",
+      "3-months",
+    ]);
   });
 });
 
@@ -607,7 +613,7 @@ describe("hybrid age resolution", () => {
     expect(slugAtDay(dob, 83)).toBe("9-11-weeks");
     expect(stageFor(ageOn(dob, dayAfter(dob, 83)))?.slug).toBe("9-11-weeks");
     expect(slugAtDay(dob, 91)).toBe("3-months");
-    expect(stageFor(ageOn(dob, dayAfter(dob, 91)))).toBeNull();
+    expect(stageFor(ageOn(dob, dayAfter(dob, 91)))?.slug).toBe("3-months");
 
     // Eight weeks now has a page of its own.
     for (const days of [56, 59, 62]) {
@@ -1298,13 +1304,20 @@ describe("hybrid age resolution", () => {
     const ids = eightWeeks.sections.map((section) => section.id);
     expect(ids).not.toContain("teething");
     expect(ids).not.toContain("exercise");
-    // And it carries three that no other stage does.
-    for (const id of ["first-days", "toilet-training", "paperwork"] as const) {
+    // Arrival and the records audit belong to this stage alone.
+    for (const id of ["first-days", "paperwork"] as const) {
       expect(ids).toContain(id);
       for (const other of stages.filter((stage) => stage.slug !== "8-weeks")) {
         expect(other.sections.some((section) => section.id === id)).toBe(false);
       }
     }
+
+    // House-training is shared with the 3-month stage on purpose — starting
+    // from nothing and extending an uneven routine are different problems.
+    // The differentiation guard is what keeps them different; this only
+    // records that the sharing is deliberate.
+    expect(ids).toContain("toilet-training");
+    expect(threeMonths.sections.some((section) => section.id === "toilet-training")).toBe(true);
   });
 
   it("never claims more completed months than the puppy has lived", () => {
@@ -1356,6 +1369,11 @@ describe("hybrid age resolution", () => {
 
       expect(slugAtDay(dob, 90), note).toBe("12-weeks");
       expect(slugAtDay(dob, 91), note).toBe("3-months");
+
+      // Both sides of the handover now have a page, so the canonical moves
+      // with the stage rather than falling back to the hub.
+      expect(stageFor(ageOn(dob, dayAfter(dob, 90)))?.slug, note).toBe("12-weeks");
+      expect(stageFor(ageOn(dob, dayAfter(dob, 91)))?.slug, note).toBe("3-months");
 
       // And the headline tracks the calendar rather than the stage.
       const onDay91 = ageOn(dob, dayAfter(dob, 91));
@@ -1443,7 +1461,7 @@ describe("hybrid age resolution", () => {
       expect(roadmapSlugs.has(stage.slug)).toBe(true);
     }
     expect(stages.length).toBeLessThan(roadmapStages.length);
-    expect(stages).toHaveLength(3);
+    expect(stages).toHaveLength(4);
     expect(roadmapStages).toHaveLength(11);
   });
 
@@ -1729,6 +1747,19 @@ describe("personalised canonical", () => {
     }
   });
 
+  it("canonicalises a 3-month puppy to the 3-month stage", async () => {
+    for (const days of [91, 100, 118]) {
+      const canonical = await canonicalFor({ dob: dobForAge(days, "ON"), province: "ON" });
+      expect(canonical.endsWith("/puppy/3-months")).toBe(true);
+    }
+  });
+
+  it("still sends a 4-month puppy to the hub, because that stage has no page", async () => {
+    // Day 130 is comfortably inside the fourth month for any date of birth.
+    const canonical = await canonicalFor({ dob: dobForAge(130, "ON"), province: "ON" });
+    expect(canonical.endsWith("/puppy")).toBe(true);
+  });
+
   it("canonicalises a 12-week puppy to the 12-week stage", async () => {
     for (const days of [84, 87, 90]) {
       const canonical = await canonicalFor({ dob: dobForAge(days, "ON"), province: "ON" });
@@ -1753,7 +1784,7 @@ describe("personalised canonical", () => {
   it("canonicalises a puppy of any other age to the Journey hub, not to a stage", async () => {
     // Day 76 is one day short of week 11; day 84 is one day past it; the rest
     // are ages we have written no stage for at all.
-    for (const days of [1, 40, 55, 91, 150, 300]) {
+    for (const days of [1, 40, 55, 150, 300]) {
       const canonical = await canonicalFor({ dob: dobForAge(days, "ON"), province: "ON" });
       expect(canonical.endsWith("/puppy")).toBe(true);
       expect(canonical).not.toContain("9-11-weeks");
@@ -1829,8 +1860,11 @@ describe("indexing", () => {
     const puppyRoutes = readdirSync(join(appDir, "puppy"), { withFileTypes: true })
       .filter((entry) => entry.isDirectory())
       .map((entry) => entry.name);
-    expect([...puppyRoutes].sort()).toEqual(["12-weeks", "8-weeks", "9-11-weeks"]);
-    expect(puppyRoutes).toHaveLength(3);
+    expect([...puppyRoutes].sort()).toEqual(["12-weeks", "3-months", "8-weeks", "9-11-weeks"]);
+    expect(puppyRoutes).toHaveLength(4);
+
+    // Four months is deliberately still roadmap-only.
+    expect(puppyRoutes).not.toContain("4-months");
 
     // The roadmap grew to thirteen entries and the route count did not move.
     // An entry is a position on a journey; a page is a piece of writing that
@@ -1859,7 +1893,7 @@ describe("indexing", () => {
 
     // And the one route that exists is the one the rail can reach.
     const implemented = stages.map((stage) => stage.slug);
-    expect([...implemented].sort()).toEqual(["12-weeks", "8-weeks", "9-11-weeks"]);
+    expect([...implemented].sort()).toEqual(["12-weeks", "3-months", "8-weeks", "9-11-weeks"]);
     for (const slug of implemented) {
       expect(roadmapStages.some((stage) => stage.slug === slug)).toBe(true);
     }

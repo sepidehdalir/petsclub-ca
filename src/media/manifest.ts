@@ -18,6 +18,7 @@ import catsTwoRestingTogether from "./photos/cats-two-resting-together.jpg";
 import puppyElevenWeeks from "./photos/puppy-eleven-weeks.jpg";
 import puppyTwelveWeeks from "./photos/puppy-twelve-weeks.jpg";
 import puppyEightWeeks from "./photos/puppy-eight-weeks.jpg";
+import puppyThreeMonths from "./photos/puppy-three-months.jpg";
 import catsLeavingLitterBox from "./photos/cats-leaving-litter-box.jpg";
 import catsDrinkingRunningWater from "./photos/cats-drinking-running-water.jpg";
 import healthVetConsultationDiscussion from "./photos/health-vet-consultation-discussion.jpg";
@@ -440,6 +441,17 @@ const assets = {
     photographer: "Rahul Katare",
     source: "Pexels",
     sourceUrl: "https://www.pexels.com/photo/adorable-labrador-puppy-sitting-indoors-35942005/",
+    licence: PEXELS_LICENCE,
+    showsPeople: false,
+  },
+  "puppy-three-months": {
+    id: "puppy-three-months",
+    src: puppyThreeMonths,
+    file: "photos/puppy-three-months.jpg",
+    alt: "A leggy young dog in a plain yellow harness sits on grass, ears up, looking attentively upwards.",
+    photographer: "Lesli Whitecotton",
+    source: "Pexels",
+    sourceUrl: "https://www.pexels.com/photo/a-dog-sitting-outdoors-23948736/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },
