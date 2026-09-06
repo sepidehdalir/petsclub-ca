@@ -598,7 +598,7 @@ export const twelveWeeks: PuppyStage = {
   ],
 
   needsVerification: [
-    "Ontario's threshold is 'over three months of age', quoted from ontario.ca/page/rabies-pets and confirmed verbatim. Neither that page nor the regulation it cites (R.R.O. 1990, Reg. 567) defines three months as a number of days, so nothing here converts it into one — twelve weeks is 84 days and three calendar months is never 84 days. The e-Laws and CanLII copies of the regulation could not be retrieved directly; re-check the primary text before this wording is published.",
+    "Ontario's threshold was verified against the primary regulation on 2026-09-06: R.R.O. 1990, Reg. 567 (Rabies Immunization) under the Health Protection and Promotion Act, consolidation period from 2023-07-01, last amendment O. Reg. 67/23. Section 1 reads \u201ca cat, dog or ferret three months of age or over\u201d, so the anniversary day itself is inside the duty and the resolver's `today >= anniversary` test is correct. The regulation defines the threshold in calendar months and nowhere in days, so nothing here converts it into one \u2014 twelve weeks is 84 days and three calendar months is never 84 days. Reimmunisation is s. 3 (by the date on the certificate) and s. 6 (i) and (l) (that date carries the product monograph interval); the \u201cwithin a year, then every one to three years\u201d shape and the fines warning are the province\u2019s plain-language guidance rather than the regulation, and are attributed as such. Re-check before publication if the currency date moves.",
     "The socialisation window closing around twelve weeks follows the AVSAB position statement's first-three-months framing and is sourced. Do not let a future edit turn 'closing' into a hard cut-off date — the statement does not say that.",
     "The final-dose ages (AAHA past sixteen weeks, preferring eighteen to twenty in high-risk settings; WSAVA sixteen weeks or older) are sourced and must stay attributed to the body that says them. This section must never become a schedule.",
     "The permanent teeth are explicitly described as not yet through, attributed to Merck. Chewing is described as getting heavier without a cause being asserted. Do not reintroduce a replacement or eruption claim at this age.",
@@ -973,7 +973,7 @@ export const threeMonths: PuppyStage = {
       title: "Where you are now",
       summary: "Stop adding. Start repeating.",
       body: [
-        "Somewhere around three months the useful advice inverts. Up to now the instruction has been *add* — more surfaces, more sounds, more people, more of the world while it is cheap to absorb. From here the return on adding drops sharply, and the return on repeating rises just as sharply.",
+        "Somewhere around three months the useful advice inverts. Up to now the instruction has been to keep adding — more surfaces, more sounds, more people, more of the world while it is cheap to absorb. From here the return on adding drops sharply, and the return on repeating rises just as sharply.",
         "That is not a smaller job. A puppy that will sit in your kitchen and not in your hallway has not learned to sit; it has learned a kitchen. Turning what it knows in one place into something it can do in five is most of the work of this month, and it is the part almost everyone skips in favour of teaching something new.",
       ],
       points: [
@@ -998,7 +998,7 @@ export const threeMonths: PuppyStage = {
       title: "Training foundations",
       summary: "The same short sessions, in harder places. Nothing here is reliable yet.",
       body: [
-        "This is the biggest section on the page, because it is the work of the month. Sessions stay short — a few minutes, several times a day, ending while the puppy still wants more. What changes is *where* and *against what*.",
+        "This is the biggest section on the page, because it is the work of the month. Sessions stay short — a few minutes, several times a day, ending while the puppy still wants more. What changes is the place you do it in and the competition you do it against.",
         "The useful mental model is a bank. Every repetition that goes well is a deposit, and behaviour holds up under pressure later in proportion to what was banked now. Nothing on this list is reliable at three months, none of it should be tested where it matters, and treating any of it as finished is how it comes apart at seven months.",
       ],
       points: [
@@ -1475,7 +1475,7 @@ export const fourToSixMonths: PuppyStage = {
       body: [
         "The mistake this stage invites is inference. A dog that had an injection two months ago, is bigger, and is plainly thriving feels finished — and roughly as often as not, it is not. Whether the series is complete depends on when it began and how the doses were spaced, and neither of those is visible from a calendar or from the dog.",
         "So the job at the start of this stage is a single confirmation, obtained out loud, and then a second question about what it changes. Both the American Animal Hospital Association and the World Small Animal Veterinary Association put the last dose at sixteen weeks or later, which is a point many dogs pass mid-way through this stage rather than before it. Get the answer as a yes or a date, not as an impression, and write it down.",
-        "Then, towards the end of this stage, a second conversation often appears, and it surprises people who thought the subject was closed. The World Small Animal Veterinary Association advises considering revaccination at or after 26 weeks of age *instead of* waiting until twelve to sixteen months. It is worth being precise about why, because the reasoning is not what most owners assume.",
+        "Then, towards the end of this stage, a second conversation often appears, and it surprises people who thought the subject was closed. The World Small Animal Veterinary Association advises considering revaccination at or after 26 weeks of age as an alternative to waiting until twelve to sixteen months, not as an addition to it. It is worth being precise about why, because the reasoning is not what most owners assume.",
         "It is not that a dose is due, and it is not an extra vaccine bolted onto the schedule. It is that maternal antibody interferes with the vaccines given early in life, it fades on a timetable nobody can see from outside, and a small minority of puppies still have enough of it at sixteen weeks to blunt that final dose. Nobody can tell which puppies those were. Bringing the next dose forward from a year to around six months shortens the window in which that minority is unprotected. It replaces an appointment rather than adding one.",
         "Two consequences follow for you. First, this is a clinical judgement rather than a rule, and practice genuinely differs — the American Animal Hospital Association still frames it as a booster within the first year, so a clinic that does not raise it at six months is not behind. Ask which approach yours follows and why, rather than assuming either. Second, there is an alternative: WSAVA supports serological testing from twenty weeks onwards to check whether a dog has actually responded, which for some dogs and some owners is a better answer than another dose. Whether it is available and appropriate is a question for your veterinarian.",
       ],
@@ -1668,7 +1668,7 @@ export const sevenToEightMonths: PuppyStage = {
       summary: "Adolescence changes the test, not the training.",
       body: [
         "Something happens around this age that almost every owner experiences and almost nobody is warned about properly. A dog that came when called at five months stops coming. A dog that walked reasonably starts pulling. The sit that was solid in the kitchen is suddenly optional. It feels like the training has come undone, and it is the point at which a great many people are told their dog is being dominant, stubborn or spiteful.",
-        "It is none of those. The best evidence available on this is a longitudinal study of guide dogs by Asher and colleagues, and what it found is oddly specific: around adolescence — at approximately eight months in that study — carers rated their dogs as less trainable than at five months or at twelve. But the dogs' professional trainers rated the same dogs as *more* trainable at that age. And when obedience was tested directly, the dogs responded less to a cue from their own carer while responding *better* to the same cue from a stranger.",
+        "It is none of those. The best evidence available on this is a longitudinal study of guide dogs by Asher and colleagues, and what it found is oddly specific: around adolescence — at approximately eight months in that study — carers rated their dogs as less trainable than at five months or at twelve. But the dogs' professional trainers rated the same dogs as being more trainable at that age, not less. And when obedience was tested directly, the dogs responded less to a cue from their own carer while responding better to the same cue from a stranger.",
         "So nothing has been lost. What has changed is the difficulty of the test — a much more interesting world, a body that can act on that interest, and a relationship going through something. The training principles do not change at all. What has to change is the level you are asking at.",
         "Two caveats worth carrying. That study followed guide dogs — German shepherds, golden and Labrador retrievers and crosses of them — rather than a cross-section of pet dogs, and it says plainly that the age groupings would need reconsidering for different breeds. So treat eight months as where a measurable dip was found in that population, not as a date your dog is due on. When adolescence arrives, and how obvious it is, varies by breed, by size and by the individual animal.",
       ],
@@ -2331,8 +2331,8 @@ export const beyondTheFirstYear: PuppyStage = {
       summary: "This is where the series ends, not where a life stage begins.",
       body: [
         "It is worth being explicit about something, because the vocabulary here is genuinely confusing.",
-        "The American Animal Hospital Association's life stage guidelines define the puppy stage as running from birth to the cessation of rapid growth — approximately six to nine months, varying with breed and size — and the **young adult** stage as running from there until the completion of physical and social maturation, which they place at roughly three to four years in most dogs. By that framework your dog has very likely been a young adult, clinically, for some months already, and will remain one for years.",
-        "The Pet Club's Journey stages are an editorial timeline: a sequence of pages arranged by the age at which particular questions tend to come up. They are not a replacement for clinical life-stage terminology and they do not line up with it. This page is where *this series* ends. It is not where anything in your dog begins or finishes.",
+        "The American Animal Hospital Association's life stage guidelines define the puppy stage as running from birth to the cessation of rapid growth — approximately six to nine months, varying with breed and size — and the young adult stage as running from there until the completion of physical and social maturation, which they place at roughly three to four years in most dogs. By that framework your dog has very likely been a young adult, clinically, for some months already, and will remain one for years.",
+        "The Pet Club's Journey stages are an editorial timeline: a sequence of pages arranged by the age at which particular questions tend to come up. They are not a replacement for clinical life-stage terminology and they do not line up with it. This page is where this series ends, and nothing more than that. It is not where anything in your dog begins or finishes.",
       ],
     },
     {
@@ -2364,7 +2364,7 @@ export const beyondTheFirstYear: PuppyStage = {
       title: "Training and behaviour",
       summary: "Maintained, not completed.",
       body: [
-        "Most dogs are noticeably easier at this point than they were at eight months, and it is tempting to read that as done. It is not — AAHA puts the completion of physical **and social** maturation at three to four years, so a dog in this stage has a long way to go behaviourally, and it will keep changing in ways that have nothing to do with training.",
+        "Most dogs are noticeably easier at this point than they were at eight months, and it is tempting to read that as done. It is not — AAHA puts the completion of physical maturation, and of social maturation with it, at three to four years, so a dog in this stage has a long way to go behaviourally, and it will keep changing in ways that have nothing to do with training.",
         "Adolescent behaviours fade unevenly. Recall, in particular, is maintained rather than achieved: it is the thing owners stop practising precisely because it stopped failing, and the thing that quietly degrades over the following year. Keep it in the weekly routine, keep paying for it, and keep the criteria rising slowly.",
         "If something is going in the other direction — new fear, new reactivity, less tolerance for things that used to be fine — that is worth asking about rather than waiting out. Your veterinarian first, because discomfort changes behaviour, and a qualified behaviour professional where the answer turns out to be behavioural.",
       ],
@@ -2411,6 +2411,31 @@ export const beyondTheFirstYear: PuppyStage = {
       guide: {
         slug: "dental-care-for-dogs-and-cats",
         label: "What actually works, and what to do at home",
+      },
+    },
+    {
+      // The safety floor. Every stage carries one, and the last stage carries
+      // it for the same reason as the first: a reader who lands here should
+      // never have to navigate to another page to find out what counts as an
+      // emergency. What changes is only what is *not* said — the puppy-specific
+      // material (hypoglycaemia in very small puppies, post-vaccination
+      // reactions during the primary series, house-training loss) belongs to
+      // the earlier stages and is not repeated here. The serious-symptom core
+      // is unchanged, deliberately: it does not get softer because the dog got
+      // older.
+      id: "red-flags",
+      title: "When to call a veterinarian",
+      summary: "The list does not get shorter because your dog is grown.",
+      tone: "caution",
+      body: [
+        "Contact your veterinary clinic — rather than waiting to see whether it settles — if a dog is breathing with effort, collapses or is profoundly unresponsive, is repeatedly vomiting, has persistent or bloody diarrhoea, cannot urinate or is repeatedly straining without producing anything, is suddenly and severely lame, is in unexplained pain, or you have any reason to think it has swallowed something it should not have. A suspected ingestion is a call rather than a wait-and-see, and it does not need to be accompanied by any other sign.",
+        "The trap at this age is the opposite of the one at eight weeks. A grown dog looks robust, it has been well for months, and there is no longer a run of appointments in which something would have been noticed. That combination buys symptoms more time than they should get. A dog that is off in itself for more than a day, is eating less than usual, has changed how it moves, or has become reluctant to be touched somewhere is worth a phone call rather than a week of watching.",
+        "Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
+        "This describes what to look for so you know when to call. It does not diagnose, and it is not a substitute for examining your dog — only a veterinarian who has seen it can do that.",
+      ],
+      guide: {
+        slug: "emergency-vet-visits-in-canada",
+        label: "The hour of preparation that decides how the worst night goes",
       },
     },
     {
@@ -2469,6 +2494,7 @@ export const beyondTheFirstYear: PuppyStage = {
     "No adult-food transition age appears. No exercise clearance age, minutes-per-month formula or running age appears. No preventive-care schedule or interval appears — the page names the topics and defers the cadence to the veterinarian, deliberately.",
     "Sterilization timing is quoted from AAHA with the 45 lb split and the fifteen-month upper end, and framed as possibly still open rather than overdue.",
     "No dominance, boundary-testing or second fear period framing appears anywhere.",
+    "The red-flag section carries the same serious-symptom core as every other stage and is not softened for this age. It names no diagnosis, no drug and no dose, gives no home treatment, and routes every item to a telephone call. Puppy-specific items (hypoglycaemia in very small puppies, post-vaccination reactions during the primary series, loss of house-training) are deliberately absent because they belong to the earlier stages.",
     "The hero photograph asserts no age. The dog is seen from behind and the alt text describes the departure rather than the animal's life stage.",
   ],
 };
@@ -2736,6 +2762,30 @@ export const roadmapStages: readonly RoadmapStage[] = [
  * Deliberately unrelated to `MAX_PLAUSIBLE_DAYS`, which is an input-validation
  * guard against a mistyped date of birth and nothing to do with scope.
  */
+/**
+ * The first day of life the Journey covers.
+ *
+ * Derived from the roadmap rather than written down twice, so it cannot drift
+ * from the stage that actually opens the series.
+ */
+export const JOURNEY_BEGINS_AT_DAYS: number = Math.min(
+  ...roadmapStages.flatMap((stage) => (stage.range.unit === "weeks" ? [stage.range.minDays] : [])),
+);
+
+/**
+ * Younger than the Journey's first stage.
+ *
+ * A third state, and it exists for the same reason `isJourneyComplete` does:
+ * "before this series starts" and "we have not written this yet" are different
+ * facts and must not share copy. Every roadmap stage is written, so a reader
+ * here is not waiting for anything — the Journey begins at eight weeks by
+ * design, because before that a puppy is generally still with its breeder or
+ * rescue and the decisions are not the reader's to make.
+ */
+export function isBeforeJourney(age: PuppyAge): boolean {
+  return age.days < JOURNEY_BEGINS_AT_DAYS;
+}
+
 export function isJourneyComplete(age: PuppyAge): boolean {
   return age.months > JOURNEY_ENDS_AFTER_MONTHS;
 }
@@ -3208,10 +3258,16 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
     // function of the dog's age — so nothing here may be triggered by the
     // reader entering this stage.
     body: [
-      "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies, and your dog passed that threshold months ago. What matters now is the second part: the province states that after a first vaccination an animal must get a booster within one year of the date it was vaccinated, and then be vaccinated every one to three years depending on the type of vaccine used.",
-      "That clock runs from the vaccination date on the record rather than from your dog's birthday, so the two will rarely line up. Check the certificate for the date the last one was given and ask your clinic when the next is due. There are fines for non-compliance, and this is a legal obligation rather than a veterinary recommendation.",
+      "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies, and your dog passed that threshold months ago. What matters now is the second part: the regulation requires reimmunisation by the date written on the certificate of immunization — a date that carries the interval from the vaccine's own product monograph. Ontario's guidance summarises the usual shape of that as a booster within a year and then every one to three years.",
+      "That clock runs from the vaccination date on the record rather than from your dog's birthday, so the two will rarely line up. Check the certificate for the date the last one was given and ask your clinic when the next is due. The province warns that you can be fined if a pet is not vaccinated, and this is a legal obligation rather than a veterinary recommendation.",
     ],
     sources: [
+      {
+        label:
+          "R.R.O. 1990, Reg. 567 (Rabies Immunization), s. 1 — a cat, dog or ferret three months of age or over; s. 3 and s. 6 — reimmunization by the date on the certificate",
+        publisher: "Government of Ontario (e-Laws)",
+        url: "https://www.ontario.ca/laws/regulation/900567",
+      },
       {
         label: "Rabies and your pets — booster within one year, then every one to three years",
         publisher: "Government of Ontario",
@@ -3244,27 +3300,33 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
     heading: "In Ontario, rabies vaccination is a legal requirement from three months of age",
     kind: "legal",
     body: [
-      "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. A dog at this stage has passed that threshold, so this is a matter of confirming it has been done rather than planning for it.",
-      "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. It is a legal obligation rather than a veterinary recommendation, so it belongs on the list of things to confirm at the appointment.",
+      "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies — indoor animals included. A dog at this stage has passed that threshold, so this is a matter of confirming it has been done rather than planning for it.",
+      "The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. It is a legal obligation rather than a veterinary recommendation, so it belongs on the list of things to confirm at the appointment.",
     ],
     ageThreshold: {
       months: 3,
       before: {
         heading: "In Ontario, your dog reaches the legal threshold on {date}",
         body: [
-          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Three calendar months from your dog's date of birth falls on {date}.",
-          "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. It is a legal obligation rather than a veterinary recommendation.",
+          "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies — indoor animals included. Three calendar months from your dog's date of birth falls on {date}.",
+          "The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. It is a legal obligation rather than a veterinary recommendation.",
         ],
       },
       reached: {
         heading: "In Ontario, your dog is past the legal threshold",
         body: [
-          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Your dog reached three calendar months on {date}, so this is now a matter of confirming it has been done.",
-          "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. It is a legal obligation rather than a veterinary recommendation, which is why it is worth checking off the record rather than assuming.",
+          "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies — indoor animals included. Your dog reached three calendar months on {date}, so this is now a matter of confirming it has been done.",
+          "The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. It is a legal obligation rather than a veterinary recommendation, which is why it is worth checking off the record rather than assuming.",
         ],
       },
     },
     sources: [
+      {
+        label:
+          "R.R.O. 1990, Reg. 567 (Rabies Immunization), s. 1 — a cat, dog or ferret three months of age or over; s. 3 and s. 6 — reimmunization by the date on the certificate",
+        publisher: "Government of Ontario (e-Laws)",
+        url: "https://www.ontario.ca/laws/regulation/900567",
+      },
       {
         label: "Rabies and your pets — the provincial vaccination requirement",
         publisher: "Government of Ontario",
@@ -3297,27 +3359,33 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
     heading: "In Ontario, rabies vaccination becomes a legal requirement at three months",
     kind: "legal",
     body: [
-      "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Most puppies reach that point during this stage, though the exact date depends on when yours was born rather than on which stage it is reading.",
-      "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation, so it belongs on the list of things to raise at the appointment rather than to consider.",
+      "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies — indoor animals included. Most puppies reach that point during this stage, though the exact date depends on when yours was born rather than on which stage it is reading.",
+      "The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. This is a legal obligation rather than a veterinary recommendation, so it belongs on the list of things to raise at the appointment rather than to consider.",
     ],
     ageThreshold: {
       months: 3,
       before: {
         heading: "In Ontario, your puppy reaches the legal threshold on {date}",
         body: [
-          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Three calendar months from your puppy's date of birth falls on {date}, which is a little after the start of this stage.",
-          "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation.",
+          "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies — indoor animals included. Three calendar months from your puppy's date of birth falls on {date}, which is a little after the start of this stage.",
+          "The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. This is a legal obligation rather than a veterinary recommendation.",
         ],
       },
       reached: {
         heading: "In Ontario, your puppy is now past the legal threshold",
         body: [
-          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Your puppy reached three calendar months on {date}, so the requirement applies now rather than approaching.",
-          "If it has not been given, raise it at the next appointment rather than waiting to be asked. A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used, and there are fines for non-compliance.",
+          "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies — indoor animals included. Your puppy reached three calendar months on {date}, so the requirement applies now rather than approaching.",
+          "If it has not been given, raise it at the next appointment rather than waiting to be asked. The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated.",
         ],
       },
     },
     sources: [
+      {
+        label:
+          "R.R.O. 1990, Reg. 567 (Rabies Immunization), s. 1 — a cat, dog or ferret three months of age or over; s. 3 and s. 6 — reimmunization by the date on the certificate",
+        publisher: "Government of Ontario (e-Laws)",
+        url: "https://www.ontario.ca/laws/regulation/900567",
+      },
       {
         label: "Rabies and your pets — the provincial vaccination requirement",
         publisher: "Government of Ontario",
@@ -3373,27 +3441,33 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
     heading: "In Ontario, rabies vaccination becomes a legal requirement at three months",
     kind: "legal",
     body: [
-      "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies \u2014 indoor animals included. Your puppy is well short of that at eight weeks, so this is something to plan at the first appointment rather than to act on now.",
-      "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. It is a legal obligation rather than a veterinary recommendation, which is why it belongs with the paperwork rather than with the advice.",
+      "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies \u2014 indoor animals included. Your puppy is well short of that at eight weeks, so this is something to plan at the first appointment rather than to act on now.",
+      "The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. It is a legal obligation rather than a veterinary recommendation, which is why it belongs with the paperwork rather than with the advice.",
     ],
     ageThreshold: {
       months: 3,
       before: {
         heading: "In Ontario, your puppy reaches the legal threshold on {date}",
         body: [
-          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies \u2014 indoor animals included. Three calendar months from your puppy's date of birth falls on {date}, so there is time to plan it rather than react to it.",
-          "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. It is a legal obligation rather than a veterinary recommendation, which is why it belongs with the paperwork rather than with the advice.",
+          "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies \u2014 indoor animals included. Three calendar months from your puppy's date of birth falls on {date}, so there is time to plan it rather than react to it.",
+          "The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. It is a legal obligation rather than a veterinary recommendation, which is why it belongs with the paperwork rather than with the advice.",
         ],
       },
       reached: {
         heading: "In Ontario, your puppy is now past the legal threshold",
         body: [
-          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies \u2014 indoor animals included. Your puppy reached three calendar months on {date}, so the requirement applies now.",
-          "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. It is a legal obligation rather than a veterinary recommendation.",
+          "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies \u2014 indoor animals included. Your puppy reached three calendar months on {date}, so the requirement applies now.",
+          "The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. It is a legal obligation rather than a veterinary recommendation.",
         ],
       },
     },
     sources: [
+      {
+        label:
+          "R.R.O. 1990, Reg. 567 (Rabies Immunization), s. 1 — a cat, dog or ferret three months of age or over; s. 3 and s. 6 — reimmunization by the date on the certificate",
+        publisher: "Government of Ontario (e-Laws)",
+        url: "https://www.ontario.ca/laws/regulation/900567",
+      },
       {
         label: "Rabies and your pets \u2014 the provincial vaccination requirement",
         publisher: "Government of Ontario",
@@ -3412,27 +3486,33 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
     // eighty-four days, so a page covering days 84–90 holds puppies on both
     // sides of the line. The personalised variants below know the date.
     body: [
-      "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Twelve weeks is close to that threshold but is not the same date: three calendar months from a date of birth falls a few days past the twelve-week mark, and exactly how far depends on which months your puppy has lived through.",
-      "So this is the appointment at which to fix the timing rather than discover it. A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used, and there are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation, which is why it belongs on a list of things to raise rather than a list of things to consider.",
+      "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies — indoor animals included. Twelve weeks is close to that threshold but is not the same date: three calendar months from a date of birth falls a few days past the twelve-week mark, and exactly how far depends on which months your puppy has lived through.",
+      "So this is the appointment at which to fix the timing rather than discover it. The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. This is a legal obligation rather than a veterinary recommendation, which is why it belongs on a list of things to raise rather than a list of things to consider.",
     ],
     ageThreshold: {
       months: 3,
       before: {
         heading: "In Ontario, your puppy reaches the legal threshold on {date}",
         body: [
-          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Three calendar months from your puppy's date of birth falls on {date}, which is a few days past the twelve-week mark rather than on it.",
-          "That makes this the appointment to plan it at rather than the deadline itself. A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used, and there are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation.",
+          "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies — indoor animals included. Three calendar months from your puppy's date of birth falls on {date}, which is a few days past the twelve-week mark rather than on it.",
+          "That makes this the appointment to plan it at rather than the deadline itself. The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. This is a legal obligation rather than a veterinary recommendation.",
         ],
       },
       reached: {
         heading: "In Ontario, your puppy is now past the legal threshold",
         body: [
-          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Your puppy reached three calendar months on {date}, so the requirement applies now rather than approaching.",
-          "If it has not been given, raise it at the next appointment rather than waiting to be asked. A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used, and there are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation.",
+          "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies — indoor animals included. Your puppy reached three calendar months on {date}, so the requirement applies now rather than approaching.",
+          "If it has not been given, raise it at the next appointment rather than waiting to be asked. The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. This is a legal obligation rather than a veterinary recommendation.",
         ],
       },
     },
     sources: [
+      {
+        label:
+          "R.R.O. 1990, Reg. 567 (Rabies Immunization), s. 1 — a cat, dog or ferret three months of age or over; s. 3 and s. 6 — reimmunization by the date on the certificate",
+        publisher: "Government of Ontario (e-Laws)",
+        url: "https://www.ontario.ca/laws/regulation/900567",
+      },
       {
         label: "Rabies and your pets — the provincial vaccination requirement",
         publisher: "Government of Ontario",
@@ -3465,27 +3545,33 @@ export const provinceModifiers: readonly ProvinceModifier[] = [
     heading: "In Ontario, rabies vaccination becomes a legal requirement at three months",
     kind: "legal",
     body: [
-      "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Your puppy is not there yet: three calendar months falls a little after the twelve-week mark, and the exact date depends on when it was born.",
-      "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation, and it is worth raising at your next appointment so the timing is planned rather than discovered.",
+      "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies — indoor animals included. Your puppy is not there yet: three calendar months falls a little after the twelve-week mark, and the exact date depends on when it was born.",
+      "The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. This is a legal obligation rather than a veterinary recommendation, and it is worth raising at your next appointment so the timing is planned rather than discovered.",
     ],
     ageThreshold: {
       months: 3,
       before: {
         heading: "In Ontario, your puppy reaches the legal threshold on {date}",
         body: [
-          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Three calendar months from your puppy's date of birth falls on {date}.",
-          "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation, and it is worth raising at your next appointment so the timing is planned rather than discovered.",
+          "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies — indoor animals included. Three calendar months from your puppy's date of birth falls on {date}.",
+          "The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. This is a legal obligation rather than a veterinary recommendation, and it is worth raising at your next appointment so the timing is planned rather than discovered.",
         ],
       },
       reached: {
         heading: "In Ontario, your puppy is now past the legal threshold",
         body: [
-          "Ontario requires that cats, dogs and ferrets over three months of age be vaccinated against rabies — indoor animals included. Your puppy reached three calendar months on {date}, so the requirement applies now.",
-          "A first vaccination is followed by a booster within one year, and then every one to three years depending on the product used. There are fines for non-compliance. This is a legal obligation rather than a veterinary recommendation, and it is worth raising at your next appointment.",
+          "Ontario requires that cats, dogs and ferrets three months of age or over be vaccinated against rabies — indoor animals included. Your puppy reached three calendar months on {date}, so the requirement applies now.",
+          "The regulation then requires reimmunisation by the date written on the certificate of immunization, and that date carries the interval from the vaccine's own product monograph rather than a figure in the regulation. Ontario's guidance summarises the usual shape of it as a booster within a year and then every one to three years. The province warns that you can be fined if a pet is not vaccinated. This is a legal obligation rather than a veterinary recommendation, and it is worth raising at your next appointment.",
         ],
       },
     },
     sources: [
+      {
+        label:
+          "R.R.O. 1990, Reg. 567 (Rabies Immunization), s. 1 — a cat, dog or ferret three months of age or over; s. 3 and s. 6 — reimmunization by the date on the certificate",
+        publisher: "Government of Ontario (e-Laws)",
+        url: "https://www.ontario.ca/laws/regulation/900567",
+      },
       {
         label: "Rabies and your pets — the provincial vaccination requirement",
         publisher: "Government of Ontario",

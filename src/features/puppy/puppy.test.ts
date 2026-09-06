@@ -5,6 +5,9 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 import { articles } from "@/features/editorial/articles";
+import { FORBIDDEN_PROMISE, journeyStateCopy } from "@/features/puppy/journey-states";
+import { parseSizeAnswer, resolveSizeGroup, sizeGroups } from "@/features/puppy/model";
+import { parseStoredPuppy } from "@/features/puppy/storage";
 import { generateMetadata as myPuppyMetadata } from "@/app/my-puppy/page";
 import {
   addCalendarMonths,
@@ -33,7 +36,9 @@ import {
   nineToTwelveMonths,
   findPhase,
   findRoadmapStage,
+  isBeforeJourney,
   isJourneyComplete,
+  JOURNEY_BEGINS_AT_DAYS,
   journeyPhases,
   JOURNEY_ENDS_AFTER_MONTHS,
   journeyMeta,
@@ -1273,7 +1278,11 @@ describe("hybrid age resolution", () => {
       const text = [legal.heading, ...legal.body].join(" ");
       expect(text).not.toContain("{date}");
       expect(text).not.toContain("is now past");
-      expect(text).toContain("over three months of age");
+      // R.R.O. 1990, Reg. 567, s. 1 — retrieved and quoted, 2026-09-06. The
+      // anniversary day is inside the duty, which is why the resolver's test
+      // is `>=` and why the copy may not say "over three months".
+      expect(text).toContain("three months of age or over");
+      expect(text).not.toContain("over three months of age");
       // It must not equate the two anywhere.
       expect(text.toLowerCase()).not.toMatch(/twelve weeks is that threshold/);
     }
@@ -1502,6 +1511,105 @@ describe("hybrid age resolution", () => {
     expect(roadmapStageFor(ageOn("2026-05-31", dayAfter("2026-05-31", 91)))!.slug).toBe("3-months");
     expect(legalOn("2026-05-31", 91).heading).toContain("reaches the legal threshold on");
     expect(legalOn("2026-05-31", 92).heading).toContain("is now past the legal threshold");
+  });
+
+  it("puts the anniversary day itself inside the Ontario duty", () => {
+    // R.R.O. 1990, Reg. 567, s. 1, retrieved 2026-09-06: "a cat, dog or ferret
+    // three months of age or over". "Or over" is inclusive, so the third
+    // monthly anniversary is the first day the duty applies — not the day
+    // after it. That is why the resolver tests `today >= anniversary`, and it
+    // is the one-day question the copy used to get wrong by saying "over
+    // three months of age".
+    //
+    // Every date of birth below is checked on the day before the anniversary,
+    // on it, and the day after, with the anniversary computed on the calendar
+    // rather than as a day count. Leap-day and month-end births are included
+    // because they are where the clamp does the work.
+    const blockOn = (dob: string, today: ReturnType<typeof civilFromDays>) => {
+      const birth = parseCivilDate(dob)!;
+      const result = resolveAge(birth, today);
+      if (!result.ok) throw new Error(`${dob} did not resolve`);
+      // Whichever stage the reader is actually on — the point is that the
+      // legal answer does not depend on which one that is.
+      const stage = stageFor(result.age)!;
+      const section = resolveStage(stage, { province: "ON", birth, today }).find((s) =>
+        s.provinceBlocks.some((b) => b.kind === "legal"),
+      );
+      return section?.provinceBlocks.find((b) => b.kind === "legal") ?? null;
+    };
+
+    for (const dob of [
+      "2026-06-18", // ordinary
+      "2024-02-29", // leap day — anniversary clamps to 29 May
+      "2025-11-30", // month-end, short target month
+      "2026-05-31", // month-end, 31 -> 31
+      "2025-12-31", // year boundary
+      "2026-01-31", // 31 January -> 30 April
+    ]) {
+      const birth = parseCivilDate(dob)!;
+      const anniversary = addCalendarMonths(birth, 3);
+      const anniversaryDay = daysFromCivil(anniversary);
+
+      const dayBefore = blockOn(dob, civilFromDays(anniversaryDay - 1));
+      const onDay = blockOn(dob, anniversary);
+      const dayAfterIt = blockOn(dob, civilFromDays(anniversaryDay + 1));
+
+      expect(dayBefore?.heading, `${dob} day before`).toContain("reaches the legal threshold on");
+      expect(onDay?.heading, `${dob} on the anniversary`).toContain("is now past the legal threshold");
+      expect(dayAfterIt?.heading, `${dob} day after`).toContain("is now past the legal threshold");
+
+      // The date named is the real calendar anniversary, never a day count.
+      expect(dayBefore?.body.join(" "), dob).toContain(formatCivilDate(anniversary));
+      // And it is never 84 days, which is what twelve weeks actually is.
+      expect(anniversaryDay - daysFromCivil(birth)).not.toBe(84);
+      expect(anniversaryDay - daysFromCivil(birth)).toBeGreaterThanOrEqual(89);
+      expect(anniversaryDay - daysFromCivil(birth)).toBeLessThanOrEqual(92);
+
+      // The statutory wording, on both sides of the line.
+      for (const block of [dayBefore, onDay]) {
+        expect(block?.body.join(" "), dob).toContain("three months of age or over");
+        expect(block?.body.join(" "), dob).not.toContain("over three months of age");
+      }
+    }
+  });
+
+  it("attributes the reimmunisation shape to the right source", () => {
+    // s. 3 with s. 6 (i) and (l) is the duty: reimmunise by the date on the
+    // certificate, and that date carries the product monograph's interval. The
+    // regulation names no year and no one-to-three-year cycle — that is the
+    // province's plain-language summary, and the fines warning is too. Both
+    // must read as guidance rather than as statute.
+    const legal = provinceModifiers.filter((m) => m.provinces.includes("ON") && m.kind === "legal");
+    expect(legal.length).toBeGreaterThan(0);
+
+    for (const block of legal) {
+      const variants = [
+        block.body,
+        block.ageThreshold?.before.body ?? [],
+        block.ageThreshold?.reached.body ?? [],
+      ].filter((b) => b.length > 0);
+
+      for (const body of variants) {
+        const prose = body.join(" ");
+        expect(prose, block.stageSlug).toMatch(/certificate of immunization|certificate for the date/i);
+        // The summary shape is never asserted as the regulation's own words.
+        if (/one to three years/i.test(prose)) {
+          expect(prose, `${block.stageSlug} states the interval as statute`).toMatch(
+            /Ontario's guidance summarises/i,
+          );
+        }
+        if (/fined/i.test(prose)) {
+          expect(prose, `${block.stageSlug} states the fine as statute`).toMatch(
+            /The province warns/i,
+          );
+        }
+        expect(prose, block.stageSlug).not.toMatch(/fines for non-compliance/i);
+      }
+
+      // Both sources travel with the claim.
+      expect(block.sources.some((s) => s.url.includes("/laws/regulation/900567")), block.stageSlug).toBe(true);
+      expect(block.sources.some((s) => s.url.includes("/page/rabies-pets")), block.stageSlug).toBe(true);
+    }
   });
 
   it("gives every public stage page one meaning that does not depend on a reader", () => {
@@ -1822,7 +1930,8 @@ describe("hybrid age resolution", () => {
 
     expect(prose).toMatch(/26 weeks/);
     expect(prose).toMatch(/World Small Animal Veterinary Association/);
-    expect(prose).toMatch(/instead of|rather than waiting/i);
+    expect(prose).toMatch(/as an alternative to waiting|instead of|rather than waiting/i);
+    expect(prose).toMatch(/not as an addition to it|replaces an appointment/i);
     expect(prose).toMatch(/minority/i);
     expect(prose).toMatch(/replaces an appointment rather than adding one/i);
     expect(prose).toMatch(/practice genuinely differs|clinic that does not raise it/i);
@@ -2093,9 +2202,16 @@ describe("hybrid age resolution", () => {
 
     expect(block.kind).toBe("legal");
     expect(block.ageThreshold).toBeUndefined();
-    expect(block.body.join(" ")).toMatch(/within one year of the date it was vaccinated/i);
+    // s. 3 with s. 6 (i) and (l): the duty is to reimmunise by the date on the
+    // certificate, and that date carries the product monograph's interval. The
+    // "within a year, then every one to three years" shape is the province's
+    // plain-language guidance, and has to read as guidance.
+    expect(block.body.join(" ")).toMatch(/certificate of immunization/i);
+    expect(block.body.join(" ")).toMatch(/product monograph/i);
     expect(block.body.join(" ")).toMatch(/runs from the vaccination date/i);
-    expect(block.sources.some((s) => s.url.includes("ontario.ca"))).toBe(true);
+    expect(block.body.join(" ")).toMatch(/Ontario's guidance summarises/i);
+    expect(block.sources.some((s) => s.url.includes("ontario.ca/laws/regulation/900567"))).toBe(true);
+    expect(block.sources.some((s) => s.url.includes("ontario.ca/page/rabies-pets"))).toBe(true);
   });
 
   it("resolves months thirteen through eighteen to the final stage", () => {
@@ -2210,51 +2326,67 @@ describe("hybrid age resolution", () => {
     expect(prose).toMatch(/not going to print one here|a conversation rather than a table/i);
   });
 
-  it("separates the Journey-complete state from the not-yet-written one", () => {
-    // Different meanings need different copy. The complete state must never
-    // borrow the "being researched" language.
-    const appDir = fileURLToPath(new URL("../../app/", import.meta.url));
-    const source = readFileSync(join(appDir, "my-puppy/page.tsx"), "utf8");
+  it("keeps the three non-stage states distinct, and promises nothing", () => {
+    // Before the Journey, finished with it, and a roadmap entry without a page
+    // are three different facts. The failure this guards against is them
+    // sharing copy: a nineteen-month-old dog's owner told their stage is
+    // "being researched", or a four-week-old's owner told the same, when every
+    // stage is written and the series simply starts at eight weeks.
+    const { before, complete, noPage } = journeyStateCopy;
 
-    expect(source).toContain("isJourneyComplete(age)");
-    const complete = source.slice(
-      source.indexOf("if (isJourneyComplete(age))"),
-      source.indexOf("// An age we have not written yet"),
-    );
-    expect(complete).toContain("The Puppy Journey is complete");
-    expect(complete).not.toMatch(/being researched|coming soon|have not written|not available/i);
-    // It may only say the opposite: development is *not* finished.
-    for (const sentence of complete.split(/(?<=[.?!])\s+/)) {
-      if (!/development is (?:complete|finished)/i.test(sentence)) continue;
-      expect(/\bnot\b|none of that means/i.test(sentence), sentence).toBe(true);
+    for (const [name, state] of Object.entries(journeyStateCopy)) {
+      expect(state.body, `${name} promises unwritten content`).not.toMatch(FORBIDDEN_PROMISE);
+      expect(state.title, `${name} promises unwritten content`).not.toMatch(FORBIDDEN_PROMISE);
     }
 
-    // The complete branch runs before the unwritten one.
-    expect(source.indexOf("if (isJourneyComplete(age))")).toBeLessThan(
-      source.indexOf("// An age we have not written yet"),
-    );
+    // Each says the thing only it is allowed to say.
+    expect(before.title).toMatch(/starts at eight weeks/i);
+    expect(before.body).toMatch(/before the start of this series/i);
+    expect(before.body).toMatch(/Every stage of the Journey is written/i);
+    expect(complete.body).toMatch(/no next stage/i);
+    expect(complete.body).toMatch(/deliberate rather than an omission/i);
+
+    // And none of them is a paraphrase of another.
+    const bodies = [before.body, complete.body, noPage.body];
+    expect(new Set(bodies).size).toBe(3);
+    expect(complete.body).not.toMatch(/eight weeks/i);
+    expect(before.body).not.toMatch(/complete|finished with/i);
   });
 
-  it("stops promising unwritten stages once the roadmap is written", () => {
-    // The rail's footer has two states and they must stay distinct, for the
-    // same reason the Journey-complete screen exists.
-    const source = readFileSync(
-      fileURLToPath(new URL("./components/journey-timeline.tsx", import.meta.url)),
-      "utf8",
-    );
-    expect(source).toContain("implemented.size < roadmapStages.length");
+  it("routes every age to exactly one of stage, before, complete", () => {
+    // The three states plus a stage must tile the plausible range with no
+    // overlap and no hole, or a reader falls through to the defensive branch.
+    const dobs = ["2026-06-18", "2026-01-31", "2024-02-29", "2026-08-31"];
+    const holes: string[] = [];
+    for (const dob of dobs) {
+      const birth = parseCivilDate(dob)!;
+      for (let days = 0; days <= MAX_PLAUSIBLE_DAYS; days += 1) {
+        const result = resolveAge(birth, civilFromDays(daysFromCivil(birth) + days));
+        if (!result.ok) continue;
+        const age = result.age;
+        const flags = [
+          isBeforeJourney(age),
+          isJourneyComplete(age),
+          stageFor(age) !== null,
+        ].filter(Boolean).length;
+        if (flags !== 1) holes.push(`${dob} day ${days}: ${flags} states`);
+      }
+    }
+    expect(holes.slice(0, 5)).toEqual([]);
+  });
 
-    const promise = source.slice(
-      source.indexOf("implemented.size < roadmapStages.length"),
-      source.lastIndexOf("</p>"),
-    );
-    const [pending, complete] = promise.split(") : (");
-    expect(pending).toMatch(/being researched/);
-    expect(complete).not.toMatch(/being researched|the rest|coming soon/i);
-    expect(complete).toMatch(/All \{roadmapStages\.length\} stages are written/);
-
-    // And the branch is reachable only in the state it describes.
-    expect(stages.length).toBe(roadmapStages.length);
+  it("places the pre-Journey boundary on the first stage's own first day", () => {
+    expect(JOURNEY_BEGINS_AT_DAYS).toBe(56);
+    const dob = "2026-07-12";
+    for (const [days, before] of [[0, true], [30, true], [54, true], [55, true], [56, false], [70, false]] as const) {
+      const birth = parseCivilDate(dob)!;
+      const age = ageOn(dob, formatIso(civilFromDays(daysFromCivil(birth) + days)));
+      expect(isBeforeJourney(age), `day ${days}`).toBe(before);
+      // Before the Journey there is no stage and no roadmap entry, so the
+      // canonical falls to the hub — which is intentional, not a fallback.
+      expect(stageFor(age) === null, `day ${days}`).toBe(before);
+      if (before) expect(roadmapStageFor(age)).toBeNull();
+    }
   });
 
   it("keeps the implemented stage a strict subset of the roadmap", () => {
@@ -2300,10 +2432,35 @@ describe("modifier composition", () => {
     }
   });
 
-  it("applies a size group inferred from the breed", () => {
-    const sections = resolveStage(nineToElevenWeeks, { breedSlug: "golden-retriever" });
-    const exercise = sections.find((s) => s.id === "exercise");
-    expect(exercise?.sizeGroupBlock).toBeDefined();
+  it("takes size from the caller and never re-derives it from the breed", () => {
+    // The breed is resolved to a size once, at the edge, by `resolveSizeGroup`
+    // — because that is the only place the reader's own answer is in scope.
+    // If this layer inferred size too, "not sure" would be undone here: a
+    // Poodle owner who said they did not know would still get medium.
+    const breed = findBreed("golden-retriever")!;
+
+    const inferred = resolveStage(nineToElevenWeeks, {
+      breedSlug: "golden-retriever",
+      sizeGroup: resolveSizeGroup(null, breed),
+    });
+    expect(inferred.find((s) => s.id === "exercise")?.sizeGroupBlock).toBeDefined();
+
+    // Breed alone says nothing about size at this layer.
+    const breedOnly = resolveStage(nineToElevenWeeks, { breedSlug: "golden-retriever" });
+    expect(breedOnly.find((s) => s.id === "exercise")?.sizeGroupBlock).toBeUndefined();
+
+    // And an explicit "not sure" beats the breed, all the way down.
+    const unsure = resolveStage(nineToElevenWeeks, {
+      breedSlug: "golden-retriever",
+      sizeGroup: resolveSizeGroup("unknown", breed),
+    });
+    for (const section of unsure) {
+      expect(section.sizeGroupBlock, section.id).toBeUndefined();
+    }
+    // The breed layer itself is untouched by any of this.
+    expect(breedOnly.some((s) => s.breedBlock)).toBe(
+      inferred.some((s) => s.breedBlock),
+    );
   });
 
   it("lets an explicit size group work without a breed", () => {
@@ -2312,10 +2469,11 @@ describe("modifier composition", () => {
     expect(sections.find((s) => s.id === "exercise")?.breedBlock).toBeUndefined();
   });
 
-  it("adds no breed block for a mixed breed, only its size group", () => {
+  it("adds no breed block, and no size, for a mixed breed", () => {
     const sections = resolveStage(nineToElevenWeeks, { breedSlug: "mixed" });
     for (const section of sections) {
       expect(section.breedBlock).toBeUndefined();
+      expect(section.sizeGroupBlock, section.id).toBeUndefined();
     }
   });
 
@@ -2415,11 +2573,243 @@ describe("modifier composition", () => {
   it("adds the province's own source when a province block is shown", () => {
     const base = resolveSources(nineToElevenWeeks);
     const withOntario = resolveSources(nineToElevenWeeks, { province: "ON" });
-    expect(withOntario.length).toBe(base.length + 1);
+    // Two: the regulation itself, and the province's guidance page.
+    expect(withOntario.length).toBe(base.length + 2);
     expect(withOntario.some((s) => s.url.includes("ontario.ca"))).toBe(true);
 
     // And de-duplicates rather than listing the same URL twice.
     expect(new Set(withOntario.map((s) => s.url)).size).toBe(withOntario.length);
+  });
+});
+
+describe("invariants that must hold for every implemented stage", () => {
+  it("gives every stage a safety floor", () => {
+    // A reader can land on any stage page directly, so every one of them has
+    // to answer "when do I call someone" without a second navigation. This is
+    // a floor, not a differentiation target: the guard elsewhere that rejects
+    // near-identical sections exempts red-flags for exactly this reason.
+    for (const stage of stages) {
+      const caution = stage.sections.filter((section) => section.tone === "caution");
+      expect(caution.length, `${stage.slug} has no caution section`).toBeGreaterThan(0);
+
+      const redFlags = stage.sections.find((section) => section.id === "red-flags");
+      expect(redFlags, `${stage.slug} has no red-flags section`).toBeDefined();
+      expect(redFlags!.tone, `${stage.slug} red-flags is not a caution`).toBe("caution");
+    }
+  });
+
+  it("routes every stage to the emergency guide, exactly once", () => {
+    for (const stage of stages) {
+      const links = stage.sections.filter(
+        (section) => section.guide?.slug === "emergency-vet-visits-in-canada",
+      );
+      expect(links.length, `${stage.slug} links the emergency guide ${links.length} times`).toBe(1);
+      expect(links[0]!.id, `${stage.slug} links it from the wrong section`).toBe("red-flags");
+    }
+  });
+
+  it("keeps the serious-symptom core intact on every stage, and never prescribes", () => {
+    // The core does not get shorter because the dog got older, and no stage
+    // may soften it for the sake of reading differently from its neighbour.
+    const core = [
+      /breathing with effort/i,
+      /repeatedly vomiting/i,
+      /diarrhoea/i,
+      /straining without producing/i,
+      /swallowed something it should not/i,
+    ];
+
+    for (const stage of stages) {
+      const section = stage.sections.find((s) => s.id === "red-flags")!;
+      const prose = [section.summary, ...section.body, ...(section.points ?? [])].join(" ");
+
+      for (const pattern of core) {
+        expect(pattern.test(prose), `${stage.slug} red-flags missing ${pattern}`).toBe(true);
+      }
+
+      // Never a diagnosis, a drug, a dose or a home remedy.
+      expect(prose, stage.slug).not.toMatch(/\bmg\/kg\b|\bml per\b|\bdose of\b/i);
+      expect(prose, stage.slug).not.toMatch(/give (?:him|her|it|your dog|your puppy) (?:some )?[a-z]+ (?:tablets?|syrup)/i);
+      expect(prose, stage.slug).not.toMatch(/induce vomiting|hydrogen peroxide|at home you can treat/i);
+      expect(prose, stage.slug).not.toMatch(/this (?:is|means) (?:probably |likely )?(?:parvo|bloat|gastroenteritis)/i);
+
+      // And it always says it is not an examination.
+      expect(prose, stage.slug).toMatch(/does not diagnose|not a substitute for examining/i);
+    }
+  });
+
+  it("renders no markdown emphasis markers in any reader-facing string", () => {
+    // Section bodies render as plain text, so a `*` or `**` in the source is a
+    // `*` or `**` on the page. Four stages shipped them, including inside the
+    // AAHA life-stage paragraph and the WSAVA revaccination paragraph.
+    //
+    // Deliberately scoped to prose the reader sees: `needsVerification` is
+    // editorial-only and never rendered, and its notes may use emphasis.
+    const emphasis = /(?:^|[\s(])\*{1,2}[^*\s][^*]{0,60}\*{1,2}(?:$|[\s.,;:)])/;
+    const offenders: string[] = [];
+
+    const check = (where: string, text: string | undefined) => {
+      if (text && emphasis.test(text)) offenders.push(`${where}: ${emphasis.exec(text)![0].trim()}`);
+    };
+
+    for (const stage of stages) {
+      check(`${stage.slug}/title`, stage.title);
+      check(`${stage.slug}/deck`, stage.deck);
+      check(`${stage.slug}/meta`, stage.metaDescription);
+      check(`${stage.slug}/alt`, stage.mediaAlt);
+      for (const section of stage.sections) {
+        check(`${stage.slug}/${section.id}/title`, section.title);
+        check(`${stage.slug}/${section.id}/summary`, section.summary);
+        section.body.forEach((b, i) => check(`${stage.slug}/${section.id}/body[${i}]`, b));
+        (section.points ?? []).forEach((x, i) => check(`${stage.slug}/${section.id}/point[${i}]`, x));
+        if (section.guide) check(`${stage.slug}/${section.id}/guide`, section.guide.label);
+      }
+      for (const item of stage.checklist) {
+        check(`${stage.slug}/checklist/${item.id}`, item.label);
+        check(`${stage.slug}/checklist/${item.id}`, item.detail);
+      }
+    }
+
+    // Every modifier layer is reader-facing too.
+    for (const m of sizeGroupModifiers) m.body.forEach((b, i) => check(`size:${m.sizeGroup}/${m.stageSlug}/${i}`, b));
+    for (const m of breedModifiers) m.body.forEach((b, i) => check(`breed:${m.breedSlug}/${m.stageSlug}/${i}`, b));
+    for (const m of seasonModifiers) {
+      check(`season:${m.season}/${m.stageSlug}`, m.heading);
+      m.body.forEach((b, i) => check(`season:${m.season}/${m.stageSlug}/${i}`, b));
+    }
+    for (const m of provinceModifiers) {
+      check(`province:${m.stageSlug}`, m.heading);
+      m.body.forEach((b, i) => check(`province:${m.stageSlug}/${i}`, b));
+      for (const variant of [m.ageThreshold?.before, m.ageThreshold?.reached]) {
+        if (!variant) continue;
+        check(`province:${m.stageSlug}/threshold`, variant.heading);
+        variant.body.forEach((b, i) => check(`province:${m.stageSlug}/threshold/${i}`, b));
+      }
+    }
+
+    expect(offenders).toEqual([]);
+  });
+
+  it("does not mistake ordinary punctuation for emphasis", () => {
+    // The guard above has to survive real prose. These must not trip it.
+    const emphasis = /(?:^|[\s(])\*{1,2}[^*\s][^*]{0,60}\*{1,2}(?:$|[\s.,;:)])/;
+    for (const safe of [
+      "A 3 * 4 grid of surfaces.",
+      "See https://example.com/a*b for the schedule.",
+      "The interval is 2*x weeks.",
+      "Nothing here is emphasised at all.",
+    ]) {
+      expect(emphasis.test(safe), safe).toBe(false);
+    }
+    // And it does catch the shapes that actually shipped.
+    for (const bad of ["the **young adult** stage as running", "waiting *instead of* moving"]) {
+      expect(emphasis.test(bad), bad).toBe(true);
+    }
+  });
+});
+
+describe("size is an answer, never an inference from \"not sure\"", () => {
+  it("gives the mixed/not-sure breed no size of its own", () => {
+    const mixed = findBreed("mixed")!;
+    expect(mixed.sizeGroup).toBeUndefined();
+    expect(mixed.sizeNote).toBeUndefined();
+    // Resolving with no explicit answer must stay unknown rather than medium.
+    expect(resolveSizeGroup(null, mixed)).toBeUndefined();
+  });
+
+  it("renders no size-specific content when size is unknown", () => {
+    // The failure this replaces: "Mixed breed or not sure" produced medium,
+    // which produced medium skeletal-maturity and adult-food guidance for a
+    // reader who had just said they did not know how big the dog would be.
+    for (const stage of stages) {
+      for (const context of [
+        {},
+        { breedSlug: "mixed" as const },
+        { breedSlug: "mixed" as const, sizeGroup: undefined },
+        // The leak this closes: a known breed plus an explicit "not sure".
+        // The breed still implies a size, and it must not be reached for.
+        { breedSlug: "poodle" as const, sizeGroup: resolveSizeGroup("unknown", findBreed("poodle")) },
+        { breedSlug: "bernese-mountain-dog" as const, sizeGroup: resolveSizeGroup("unknown", findBreed("bernese-mountain-dog")) },
+      ]) {
+        for (const section of resolveStage(stage, context)) {
+          expect(section.sizeGroupBlock, `${stage.slug}/${section.id}`).toBeUndefined();
+        }
+      }
+    }
+  });
+
+  it("lets an explicit answer override the breed, including back to unknown", () => {
+    const labrador = findBreed("labrador-retriever")!;
+    expect(labrador.sizeGroup).toBe("large");
+
+    // No answer: the breed's own size stands.
+    expect(resolveSizeGroup(null, labrador)).toBe("large");
+    // An explicit answer wins, even a contradictory one — the reader knows
+    // their dog and the list of breeds is seven long.
+    expect(resolveSizeGroup("toy", labrador)).toBe("toy");
+    // And "not sure" must not be quietly refilled from the breed.
+    expect(resolveSizeGroup("unknown", labrador)).toBeUndefined();
+    expect(resolveSizeGroup("unknown", null)).toBeUndefined();
+  });
+
+  it("parses only real size answers", () => {
+    for (const value of ["toy", "small", "medium", "large", "giant", "unknown"]) {
+      expect(parseSizeAnswer(value)).toBe(value);
+    }
+    for (const value of ["", "MEDIUM", "huge", "mixed", undefined, null]) {
+      expect(parseSizeAnswer(value as string | undefined | null)).toBeNull();
+    }
+  });
+
+  it("makes all six size states reachable, and every size group used", () => {
+    // The audit found toy and small unreachable: no offered breed mapped to
+    // them and there was no size field, so nine written modifiers could never
+    // render. The explicit field is what fixes that, so assert the whole set.
+    const answers = [...Object.keys(sizeGroups), "unknown"];
+    expect(answers).toHaveLength(6);
+
+    for (const answer of answers) {
+      const parsed = parseSizeAnswer(answer);
+      expect(parsed, answer).not.toBeNull();
+      const resolved = resolveSizeGroup(parsed, null);
+      if (answer === "unknown") {
+        expect(resolved).toBeUndefined();
+        continue;
+      }
+      expect(resolved).toBe(answer);
+
+      // And each reachable group actually has something to say somewhere.
+      const blocks = stages.flatMap((stage) =>
+        resolveStage(stage, { sizeGroup: resolved }).filter((s) => s.sizeGroupBlock),
+      );
+      expect(blocks.length, `${answer} resolves to no size content anywhere`).toBeGreaterThan(0);
+    }
+  });
+
+  it("keeps a stored profile written before the size field safe", () => {
+    // Size was never stored — it was derived from the breed at render time —
+    // so the migration is that `mixed` stops implying medium. An old profile
+    // parses, keeps its dob/breed/province, and carries no size.
+    const legacy = parseStoredPuppy(
+      JSON.stringify({ dob: "2026-06-18", breedSlug: "mixed", province: "ON" }),
+    );
+    expect(legacy).toEqual({
+      dob: "2026-06-18",
+      breedSlug: "mixed",
+      province: "ON",
+      sizeGroup: undefined,
+    });
+    expect(resolveSizeGroup(parseSizeAnswer(legacy!.sizeGroup), findBreed(legacy!.breedSlug!))).toBeUndefined();
+
+    // A legacy profile with a known breed keeps behaving exactly as it did.
+    const known = parseStoredPuppy(
+      JSON.stringify({ dob: "2026-06-18", breedSlug: "bernese-mountain-dog" }),
+    );
+    expect(resolveSizeGroup(parseSizeAnswer(known!.sizeGroup), findBreed(known!.breedSlug!))).toBe("giant");
+
+    // Anything unrecognised in storage degrades to unknown, never to a guess.
+    const junk = parseStoredPuppy(JSON.stringify({ dob: "2026-06-18", sizeGroup: "enormous" }));
+    expect(resolveSizeGroup(parseSizeAnswer(junk!.sizeGroup), null)).toBeUndefined();
   });
 });
 

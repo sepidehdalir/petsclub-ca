@@ -8,7 +8,6 @@ import type {
   ResolvedSection,
   SizeGroup,
 } from "@/features/puppy/model";
-import { findBreed } from "@/features/puppy/model";
 import {
   breedModifiers,
   provinceModifiers,
@@ -86,10 +85,15 @@ export function resolveStage(
   stage: PuppyStage,
   context: JourneyContext = {},
 ): readonly ResolvedSection[] {
-  // A breed implies a size group. An explicit size group still wins, so the
-  // caller can resolve a size group without naming a breed.
-  const breed = context.breedSlug ? findBreed(context.breedSlug) : null;
-  const sizeGroup = context.sizeGroup ?? breed?.sizeGroup;
+  // Size is whatever the caller resolved, and nothing else.
+  //
+  // This used to fall back to `breed?.sizeGroup`, which quietly undid the
+  // reader's answer: someone who picked a Poodle and then said they were not
+  // sure how big it would get arrived here with `sizeGroup: undefined`, and
+  // left with medium. Unknown has to survive the whole way down, so the breed
+  // is not consulted for size at this layer at all — `resolveSizeGroup` in the
+  // model does that once, at the edge, where the reader's answer is known.
+  const sizeGroup = context.sizeGroup;
 
   return stage.sections.map((section): ResolvedSection => {
     const sizeGroupBlock = sizeGroup

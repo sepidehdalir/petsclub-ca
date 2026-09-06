@@ -19,6 +19,27 @@ export interface StoredPuppy {
   dob: string;
   breedSlug?: string;
   province?: string;
+  /**
+   * What the reader said about adult size: a size group, or `"unknown"`.
+   *
+   * ## Migrating profiles written before this field existed
+   *
+   * Nothing needs rewriting, and nothing is rewritten. Size was never stored —
+   * it was derived at render time from the breed, and `mixed` mapped to
+   * `medium`, so a reader who answered "Mixed breed or not sure" was shown a
+   * size they had not given. Removing that mapping is the whole migration: an
+   * old profile has no `sizeGroup`, `mixed` no longer implies one, and the
+   * reader's size is simply unknown until they answer the new field. The
+   * inferred medium disappears rather than being promoted to stored truth.
+   *
+   * An old profile with a *known* breed keeps behaving as it did, because the
+   * breed still suggests its own size — that inference was never in doubt.
+   *
+   * The value is validated on read like every other field, so a profile
+   * carrying something this build does not recognise degrades to unknown
+   * instead of reaching the resolver.
+   */
+  sizeGroup?: string;
 }
 
 /**
@@ -54,7 +75,7 @@ export function parseStoredPuppy(raw: string | null): StoredPuppy | null {
       return null;
     }
 
-    const { dob, breedSlug, province } = parsed as Record<string, unknown>;
+    const { dob, breedSlug, province, sizeGroup } = parsed as Record<string, unknown>;
     if (typeof dob !== "string") {
       return null;
     }
@@ -63,6 +84,7 @@ export function parseStoredPuppy(raw: string | null): StoredPuppy | null {
       dob,
       breedSlug: typeof breedSlug === "string" ? breedSlug : undefined,
       province: typeof province === "string" ? province : undefined,
+      sizeGroup: typeof sizeGroup === "string" ? sizeGroup : undefined,
     };
   } catch {
     return null;

@@ -56,6 +56,39 @@ export const sizeGroups = {
 } as const satisfies Record<SizeGroup, { id: SizeGroup; label: string; adultWeight: string }>;
 
 /**
+ * What the reader said about adult size.
+ *
+ * `"unknown"` is a first-class answer rather than a missing value, because the
+ * two are different things and only one of them is safe to guess at. Breed and
+ * size are separate questions: a known breed *suggests* a size, the reader may
+ * override it, and "not sure" resolves to nothing at all.
+ */
+export type SizeAnswer = SizeGroup | "unknown";
+
+export function parseSizeAnswer(value: string | undefined | null): SizeAnswer | null {
+  if (!value) return null;
+  if (value === "unknown") return "unknown";
+  return value in sizeGroups ? (value as SizeGroup) : null;
+}
+
+/**
+ * The size group to actually use, given what the reader said and what breed
+ * they picked.
+ *
+ * An explicit answer always wins, including an explicit "unknown" \u2014 which is
+ * the whole point: a reader who overrides a known breed's size with "not sure"
+ * must not have the breed's size quietly restored underneath them.
+ */
+export function resolveSizeGroup(
+  answer: SizeAnswer | null,
+  breed: Breed | null,
+): SizeGroup | undefined {
+  if (answer === "unknown") return undefined;
+  if (answer) return answer;
+  return breed?.sizeGroup;
+}
+
+/**
  * The breeds the onboarding offers.
  *
  * Deliberately small, and deliberately *not* breed profiles — this milestone
@@ -76,7 +109,22 @@ export type BreedSlug =
 export interface Breed {
   slug: BreedSlug;
   name: string;
-  sizeGroup: SizeGroup;
+  /**
+   * The adult size this breed implies, where it implies one.
+   *
+   * Absent for `mixed`, and that absence is load-bearing. It used to be
+   * `medium`, which meant a reader who chose "Mixed breed or not sure" was
+   * told "Medium breed \u00b7 about 11\u201325 kg" as though they had said so,
+   * and was then given medium-dog guidance on skeletal maturity, the
+   * adult-food transition, exercise restraint and neutering timing. For a
+   * giant-breed mixed dog that advances the food transition by six to eight
+   * months \u2014 the exact error `/puppy/12-weeks` calls "a genuine risk
+   * rather than a saving".
+   *
+   * Unknown size is now a real state that survives all the way to the page,
+   * where it renders no size block and asserts no weight. See `SizeAnswer`.
+   */
+  sizeGroup?: SizeGroup;
   /** Shown under the age. Absent for `mixed`, which has no single answer. */
   sizeNote?: string;
 }
@@ -121,7 +169,7 @@ const breeds = {
   mixed: {
     slug: "mixed",
     name: "Mixed breed or not sure",
-    sizeGroup: "medium",
+    // No `sizeGroup`. A reader who says they are not sure is not told a size.
   },
 } as const satisfies Record<BreedSlug, Breed>;
 

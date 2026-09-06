@@ -6,7 +6,7 @@ import { useMemo, useState, useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/button";
 import { Field, fieldIds, Input, Select } from "@/components/ui/field";
 import { resolveAgeFromInput, todayLocal } from "@/features/puppy/age";
-import { allBreeds, provinces } from "@/features/puppy/model";
+import { allBreeds, findBreed, provinces, sizeGroups } from "@/features/puppy/model";
 import {
   parseStoredPuppy,
   readStoredPuppyRaw,
@@ -58,6 +58,8 @@ export function OnboardingForm() {
   const [dobEdit, setDobEdit] = useState<string | undefined>(undefined);
   const [breedEdit, setBreedEdit] = useState<string | undefined>(undefined);
   const [provinceEdit, setProvinceEdit] = useState<string | undefined>(undefined);
+  const [sizeEdit, setSizeEdit] = useState<string | undefined>(undefined);
+  const [sizeTouched, setSizeTouched] = useState(false);
   const [touched, setTouched] = useState(false);
 
   const dob = dobEdit ?? stored?.dob ?? "";
@@ -65,8 +67,34 @@ export function OnboardingForm() {
   const province = provinceEdit ?? stored?.province ?? "";
 
   const setDob = setDobEdit;
-  const setBreed = setBreedEdit;
   const setProvince = setProvinceEdit;
+
+  // Size is its own answer. A known breed suggests one and the suggestion is
+  // shown selected, but it is only a default: once the reader touches the
+  // field their answer wins, including "Not sure", which resolves to no size
+  // at all rather than falling back to the breed.
+  //
+  // `sizeTouched` is what separates "the reader said medium" from "choosing a
+  // Poodle filled in medium". Without it, picking a Bernese and then switching
+  // to "Mixed breed or not sure" leaves `giant` sitting in the field — an
+  // answer the reader never gave, which is the whole failure this field
+  // exists to end.
+  const suggestedSize = findBreed(breed)?.sizeGroup ?? "";
+  const size = sizeEdit ?? stored?.sizeGroup ?? suggestedSize;
+
+  function handleSizeChange(next: string) {
+    setSizeTouched(true);
+    setSizeEdit(next);
+  }
+
+  // Changing the breed re-suggests, unless the reader has answered for
+  // themselves — here or in a previous session.
+  function handleBreedChange(next: string) {
+    setBreedEdit(next);
+    if (!sizeTouched && stored?.sizeGroup === undefined) {
+      setSizeEdit(findBreed(next)?.sizeGroup ?? "");
+    }
+  }
 
   // Client-side, so the reader's own calendar is available and is the correct
   // answer — no province mapping and no UTC guess needed here.
@@ -95,11 +123,13 @@ export function OnboardingForm() {
       dob,
       breedSlug: breed || undefined,
       province: province || undefined,
+      sizeGroup: size || undefined,
     });
 
     const params = new URLSearchParams({ dob });
     if (breed) params.set("breed", breed);
     if (province) params.set("province", province);
+    if (size) params.set("size", size);
 
     router.push(`/my-puppy?${params.toString()}`);
   }
@@ -136,12 +166,12 @@ export function OnboardingForm() {
       <Field
         htmlFor="puppy-breed"
         label="Breed"
-        hint="Optional. We use it mainly to work out adult size, which is what actually changes the advice."
+        hint="Optional. Picking one fills in the size below, which you can change."
       >
         <Select
           id="puppy-breed"
           value={breed}
-          onChange={(event) => setBreed(event.target.value)}
+          onChange={(event) => handleBreedChange(event.target.value)}
           aria-describedby={fieldIds("puppy-breed").hintId}
         >
           <option value="">Prefer not to say</option>
@@ -150,6 +180,38 @@ export function OnboardingForm() {
               {option.name}
             </option>
           ))}
+        </Select>
+      </Field>
+
+      {/*
+        Adult size, asked outright.
+
+        It used to be inferred from breed alone, which meant "Mixed breed or
+        not sure" silently became medium and the page then printed "Medium
+        breed \u00b7 about 11\u201325 kg" back at someone who had just said they did
+        not know. Size drives the skeletal-maturity, adult-food, exercise and
+        neutering guidance, so guessing it is not a small liberty.
+
+        "Not sure" is a real option and resolves to no size at all.
+      */}
+      <Field
+        htmlFor="puppy-size"
+        label="Expected adult size"
+        hint="Optional, and the single thing that changes the guidance most. If you do not know, say so — we would rather show less than guess."
+      >
+        <Select
+          id="puppy-size"
+          value={size}
+          onChange={(event) => handleSizeChange(event.target.value)}
+          aria-describedby={fieldIds("puppy-size").hintId}
+        >
+          <option value="">Prefer not to say</option>
+          {Object.values(sizeGroups).map((group) => (
+            <option key={group.id} value={group.id}>
+              {group.label} &mdash; {group.adultWeight}
+            </option>
+          ))}
+          <option value="unknown">Not sure</option>
         </Select>
       </Field>
 

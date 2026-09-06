@@ -12,20 +12,27 @@ import {
 } from "@/features/puppy/age";
 import { StageView } from "@/features/puppy/components/stage-view";
 import { JourneyTimeline } from "@/features/puppy/components/journey-timeline";
-import { findBreed, findProvince, sizeGroups } from "@/features/puppy/model";
+import {
+  findBreed,
+  findProvince,
+  parseSizeAnswer,
+  resolveSizeGroup,
+  sizeGroups,
+} from "@/features/puppy/model";
 import type { BreedSlug, ProvinceCode } from "@/features/puppy/model";
 import {
   findPhase,
+  isBeforeJourney,
   isJourneyComplete,
   journeyHeadlineAge,
   journeyMeta,
   roadmapStageFor,
   stageFor,
-  stages,
 } from "@/features/puppy/stages";
 import type { JourneyPhaseId } from "@/features/puppy/stages";
 import { articlePath } from "@/features/editorial/articles";
 import type { ArticleSlug } from "@/features/editorial/articles";
+import { journeyStateCopy } from "@/features/puppy/journey-states";
 import { createMetadata } from "@/lib/seo/metadata";
 
 interface MyPuppyPageProps {
@@ -248,6 +255,48 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
   const province = provinceParam ? findProvince(provinceParam) : null;
   const stage = stageFor(age);
 
+  // Size is the reader's answer first and the breed's implication second, and
+  // an explicit "not sure" beats both. When it comes out undefined the page
+  // renders no size block and states no weight — an unknown size stays unknown
+  // all the way to the screen rather than being rounded to medium somewhere in
+  // the middle.
+  const sizeGroup = resolveSizeGroup(parseSizeAnswer(single(params.size)), breed);
+
+  // Younger than the Journey's first stage. A third state, distinct from both
+  // "complete" and "not written yet": every roadmap stage exists, so nothing
+  // here is pending. The Journey starts at eight weeks because before that a
+  // puppy is normally still with its breeder or rescue, and this page must not
+  // improvise neonatal care it has never researched.
+  if (isBeforeJourney(age)) {
+    return (
+      <Placeholder
+        title={journeyStateCopy.before.title}
+        facts={[`Your puppy is ${age.exact} old`]}
+        body={journeyStateCopy.before.body}
+      >
+        <p className="mt-4 text-body text-foreground-muted">
+          The people to ask right now are the breeder or rescue who has the litter, and a
+          veterinarian — for a puppy this age they are the source, not a website. It is a good
+          moment to{" "}
+          <Link
+            href={articlePath("finding-a-veterinarian-in-canada")}
+            className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"
+          >
+            choose a practice before you need one
+          </Link>
+          , and to read{" "}
+          <Link
+            href={articlePath("bringing-home-a-puppy-first-30-days")}
+            className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"
+          >
+            what the first thirty days will ask of you
+          </Link>
+          . Come back when your puppy is eight weeks old and the Journey starts there.
+        </p>
+      </Placeholder>
+    );
+  }
+
   // Past the end of the Journey. This is **not** the same as "we have not
   // written this yet", and it must never borrow that copy: a two-year-old dog
   // is not waiting for a page, and telling its owner that one is being
@@ -256,9 +305,9 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
   if (isJourneyComplete(age)) {
     return (
       <Placeholder
-        title="The Puppy Journey is complete"
+        title={journeyStateCopy.complete.title}
         facts={[`Your dog is ${age.exact} old`]}
-        body="There is no next stage, and that is deliberate rather than an omission. A series arranged by age has nothing useful left to say once age stops being the thing that decides what matters — which from here is size, breed, body condition, health history and the individual dog."
+        body={journeyStateCopy.complete.body}
       >
         <p className="mt-4 text-body text-foreground-muted">
           None of that means development is finished. It means the guidance stops being
@@ -283,14 +332,17 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
     );
   }
 
-  // An age we have not written yet. Say so rather than routing anywhere that
-  // does not exist, and show where they sit in the journey.
+  // A roadmap entry without a page.
   //
-  // The Journey resolves a puppy to a hybrid stage — a week early on, a month
-  // through early development, a milestone range through adolescence — whether
-  // or not that stage has a page. The reader gets told where they are; they do
-  // not get sent to a different age's page, and nothing here claims to be a
-  // duplicate of one. The canonical for this state is the Journey hub.
+  // Unreachable today — every roadmap stage is written, and the two ages that
+  // resolve to no roadmap entry at all are handled above. It is kept rather
+  // than deleted so that adding a roadmap entry ahead of its page degrades
+  // into a truthful screen instead of a crash or a wrong redirect.
+  //
+  // What it may not do is promise. The copy says a page is missing and stops
+  // there: no "coming soon", no "being researched", no count of what is
+  // following. Those were false the moment the roadmap was finished, and the
+  // next person to add an entry should not inherit them.
   if (!stage) {
     const roadmap = roadmapStageFor(age);
     const phase = roadmap ? findPhase(roadmap.phase) : null;
@@ -301,9 +353,7 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
         title={`Your puppy is ${journeyHeadlineAge(age, roadmap)}`}
         facts={journeyMeta(age, roadmap)}
         body={
-          roadmap
-            ? `We have not written this stage yet. ${stages.length} stages are finished so far — researched and sourced to the same standard as the rest of the site, and the others are following.`
-            : `We have not written a stage for this age yet. ${stages.length} are finished, and the rest are being researched to the same standard.`
+          roadmap ? journeyStateCopy.noPage.body : "There is no stage in the Journey for this age."
         }
       >
         <p className="mt-4 text-body text-foreground-muted">
@@ -327,7 +377,6 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
     );
   }
 
-  const sizeGroup = breed?.sizeGroup;
   const roadmap = roadmapStageFor(age);
 
   // Exact age in the headline where the stage is measured in weeks, the stage
@@ -364,8 +413,15 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
       }}
       banner={
         <div className="flex flex-wrap items-center justify-between gap-3">
+          {/*
+            The breed's size note only holds while the breed's size does. A
+            reader who overrode a Labrador to "toy", or to "not sure", must not
+            be told underneath that growth finishes later than they expect.
+          */}
           <p className="font-sans text-body-sm text-foreground-muted">
-            {breed?.sizeNote ?? "Personalised to your puppy's age."}
+            {sizeGroup && sizeGroup === breed?.sizeGroup && breed.sizeNote
+              ? breed.sizeNote
+              : "Personalised to your puppy's age."}
           </p>
           <Link
             href="/puppy"
