@@ -219,10 +219,10 @@ export const nineToElevenWeeks: PuppyStage = {
     {
       id: "red-flags",
       title: "When to call a veterinarian",
-      summary: "Very young animals have less reserve. The threshold for phoning is low.",
+      summary: "A puppy can dehydrate faster than an adult dog. The threshold for phoning is low.",
       tone: "caution",
       body: [
-        "A puppy that seems unwell can deteriorate faster than an adult dog, so the bar for making a phone call is deliberately low at this age. Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
+        "A puppy needs proportionally more fluid than an adult dog and can move from mild dehydration to something more serious faster, so anything draining fluid or stopping a puppy eating \u2014 repeated vomiting, persistent diarrhoea, refusing meals \u2014 is worth a call sooner than the same thing would be in an adult. That, rather than any general rule that young dogs are frailer, is why the bar for making a phone call is deliberately low at this age. Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
         "Contact your veterinary clinic — rather than waiting to see whether it settles — if a puppy will not eat, is repeatedly vomiting or has persistent diarrhoea, is unusually limp or unresponsive, is breathing with effort, has not urinated in an unusually long stretch, is straining without producing anything, or you have any reason to think it has swallowed something it should not have. Very small breeds can also become weak or wobbly if they go too long without food.",
         "After a vaccination appointment, contact the clinic straight away if you see swelling of the face or muzzle, hives, repeated vomiting or diarrhoea, difficulty breathing, weakness or collapse. Tell them which vaccine was given and when.",
         "This describes what to look for so you know when to call. It does not diagnose, and it is not a substitute for examining your puppy — only a veterinarian who has seen it can do that.",
@@ -256,6 +256,11 @@ export const nineToElevenWeeks: PuppyStage = {
   ],
 
   sources: [
+    {
+      label: "Pediatric patients need proportionally more fluid than adults and can progress rapidly from mild dehydration to hypovolaemia; hypoglycaemia and electrolyte disturbance are the companion concerns",
+      publisher: "Lee JA, Cohn LA, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017 (PMID 27939859)",
+      url: "https://doi.org/10.1016/j.cvsm.2016.09.010",
+    },
     {
       label: "Position statement on puppy socialization — the first three months, and socialising before full vaccination",
       publisher: "American Veterinary Society of Animal Behavior",
@@ -299,6 +304,9 @@ export const nineToElevenWeeks: PuppyStage = {
   ],
 
   needsVerification: [
+    "RESOLVED \u2014 NARROWED, 2026-09-06. This stage previously said a young dog \u201chas less reserve than an adult and can deteriorate faster\u201d (and equivalents). No source was found for that as a general physiological claim and it is no longer asserted. What replaced it is the one mechanism that is sourced: Lee JA and Cohn LA, \u201cFluid Therapy for Pediatric Patients\u201d, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017, PMID 27939859, verified 2026-09-06, which states that \u201cpediatric patients have a higher fluid requirement compared with adults and can rapidly progress from mild dehydration to hypovolemia\u201d and that pediatric fluid therapy \u201cmust address hydration, vascular fluid volume, electrolyte disturbances, or hypoglycemia\u201d. Hoskins JD, PMID 10390787, anchors the pediatric window at birth to about six months, which covers every stage carrying this wording. LIMITATION \u2014 fluid and glucose only, not reserve across every organ system, and not a claim that illness in general progresses faster. The red-flag list and the threshold for phoning are unchanged; only the explanation is.",
+    "STANDING GUARDRAIL \u2014 Do not generalise pediatric dehydration/metabolic evidence into a blanket claim that young dogs have lower physiological reserve across all illness or deteriorate faster in every emergency. The claim is licensed for fluid loss and, as a named veterinary concern, hypoglycaemia \u2014 nothing wider.",
+    "STANDING GUARDRAIL \u2014 The neonatal evidence (Merck, Management of the Neonate in Dogs and Cats: first 21 days, no thermoregulation until four weeks, absent glucose reserves and minimal gluconeogenesis) must NOT be applied to these stages. Every Journey stage begins at eight weeks or later, well past the neonatal period. Do not introduce immature thermoregulation, neonatal glucose reserves or neonatal fasting physiology into any stage.",
     "British Columbia is a *positive* claim only, as of 2026-09-06. The BCCDC page was read and says verbatim that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. The earlier copy went further and said provincial law does not compel vaccination \u2014 a negative legal claim, and no authoritative source could be found that states it. Proving the absence of a law is a different exercise from reading one, and the BCCDC page, the BC Rabies Guidance for Veterinarians and the CVBC summary table were all retrieved and none of them says it. The copy now states what BCCDC recommends, says plainly that we are not presenting a province-wide legal requirement, and explicitly leaves municipal, travel, import and bite-investigation rules open. Do not restore the stronger wording without a named statute or regulation.",
     "The developmental description (bladder capacity, attention span, sleep requirement) is written qualitatively and quotes no figure. Attach a source before any number is added — the 16–18 hours figure carried in the article library is still unsourced there too.",
     "The wariness claim was rewritten and sourced on 2026-09-06. The unsourced version said new wariness in this window is 'a normal part of development'; nothing found supports that as a claim about nine to eleven weeks specifically. What is sourced is the trajectory: McEvoy et al. 2022 put the peak tendency to approach novelty at three to five weeks with a decline after it, and Merck places heightened avoidance from about twelve weeks. Both are attributed, both are framed as a gradual shift rather than a stage, individual variation is stated, and a physical cause is named. No fear-period or fear-stage language appears, and none may be added \u2014 the differentiation gate found no peer-reviewed basis for one at any age.",
@@ -543,7 +551,7 @@ export const twelveWeeks: PuppyStage = {
       summary: "The threshold stays low, and two new things belong on the list.",
       tone: "caution",
       body: [
-        "A young puppy has less reserve than an adult dog and can deteriorate faster, so the bar for making a phone call stays deliberately low. Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
+        "A puppy needs proportionally more fluid than an adult dog and can move from mild dehydration to something more serious faster, so repeated vomiting, persistent diarrhoea or a refusal to eat earns a call sooner than it would in a grown dog. That is what keeps the bar for making a phone call deliberately low \u2014 not a broader claim that everything is more dangerous in a young dog. Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
         "Contact your veterinary clinic — rather than waiting to see whether it settles — if a puppy will not eat, is repeatedly vomiting or has persistent diarrhoea, is unusually limp or unresponsive, is breathing with effort, has not urinated in an unusually long stretch, is straining without producing anything, or you have any reason to think it has swallowed something it should not have. Very small breeds can also become weak or wobbly if they go too long without food.",
         "Two things are more likely at this age specifically. If there is any chance a foreign object has been swallowed, that is a call rather than a wait-and-see, and it does not need to be accompanied by any other sign. And if the puppy is limping after a walk or a fall, or is reluctant to put weight on a leg, have it looked at rather than resting it and hoping — a young skeleton is not a small adult one.",
         "After a vaccination appointment, contact the clinic straight away if you see swelling of the face or muzzle, hives, repeated vomiting or diarrhoea, difficulty breathing, weakness or collapse. Tell them which vaccine was given and when.",
@@ -584,6 +592,11 @@ export const twelveWeeks: PuppyStage = {
 
   sources: [
     {
+      label: "Pediatric patients need proportionally more fluid than adults and can progress rapidly from mild dehydration to hypovolaemia; hypoglycaemia and electrolyte disturbance are the companion concerns",
+      publisher: "Lee JA, Cohn LA, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017 (PMID 27939859)",
+      url: "https://doi.org/10.1016/j.cvsm.2016.09.010",
+    },
+    {
       label: "Position statement on puppy socialization — the first three months, and socialising before full vaccination",
       publisher: "American Veterinary Society of Animal Behavior",
       url: "https://avsab.org/puppy-socialization-position-statement/",
@@ -614,6 +627,9 @@ export const twelveWeeks: PuppyStage = {
   ],
 
   needsVerification: [
+    "RESOLVED \u2014 NARROWED, 2026-09-06. This stage previously said a young dog \u201chas less reserve than an adult and can deteriorate faster\u201d (and equivalents). No source was found for that as a general physiological claim and it is no longer asserted. What replaced it is the one mechanism that is sourced: Lee JA and Cohn LA, \u201cFluid Therapy for Pediatric Patients\u201d, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017, PMID 27939859, verified 2026-09-06, which states that \u201cpediatric patients have a higher fluid requirement compared with adults and can rapidly progress from mild dehydration to hypovolemia\u201d and that pediatric fluid therapy \u201cmust address hydration, vascular fluid volume, electrolyte disturbances, or hypoglycemia\u201d. Hoskins JD, PMID 10390787, anchors the pediatric window at birth to about six months, which covers every stage carrying this wording. LIMITATION \u2014 fluid and glucose only, not reserve across every organ system, and not a claim that illness in general progresses faster. The red-flag list and the threshold for phoning are unchanged; only the explanation is.",
+    "STANDING GUARDRAIL \u2014 Do not generalise pediatric dehydration/metabolic evidence into a blanket claim that young dogs have lower physiological reserve across all illness or deteriorate faster in every emergency. The claim is licensed for fluid loss and, as a named veterinary concern, hypoglycaemia \u2014 nothing wider.",
+    "STANDING GUARDRAIL \u2014 The neonatal evidence (Merck, Management of the Neonate in Dogs and Cats: first 21 days, no thermoregulation until four weeks, absent glucose reserves and minimal gluconeogenesis) must NOT be applied to these stages. Every Journey stage begins at eight weeks or later, well past the neonatal period. Do not introduce immature thermoregulation, neonatal glucose reserves or neonatal fasting physiology into any stage.",
     "British Columbia is a *positive* claim only, as of 2026-09-06. The BCCDC page was read and says verbatim that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. The earlier copy went further and said provincial law does not compel vaccination \u2014 a negative legal claim, and no authoritative source could be found that states it. Proving the absence of a law is a different exercise from reading one, and the BCCDC page, the BC Rabies Guidance for Veterinarians and the CVBC summary table were all retrieved and none of them says it. The copy now states what BCCDC recommends, says plainly that we are not presenting a province-wide legal requirement, and explicitly leaves municipal, travel, import and bite-investigation rules open. Do not restore the stronger wording without a named statute or regulation.",
     "Ontario's threshold was verified against the primary regulation on 2026-09-06: R.R.O. 1990, Reg. 567 (Rabies Immunization) under the Health Protection and Promotion Act, consolidation period from 2023-07-01, last amendment O. Reg. 67/23. Section 1 reads \u201ca cat, dog or ferret three months of age or over\u201d, so the anniversary day itself is inside the duty and the resolver's `today >= anniversary` test is correct. The regulation defines the threshold in calendar months and nowhere in days, so nothing here converts it into one \u2014 twelve weeks is 84 days and three calendar months is never 84 days. Reimmunisation is s. 3 (by the date on the certificate) and s. 6 (i) and (l) (that date carries the product monograph interval); the \u201cwithin a year, then every one to three years\u201d shape and the fines warning are the province\u2019s plain-language guidance rather than the regulation, and are attributed as such. Re-check before publication if the currency date moves.",
     "The socialisation window closing around twelve weeks follows the AVSAB position statement's first-three-months framing and is sourced. Do not let a future edit turn 'closing' into a hard cut-off date — the statement does not say that.",
@@ -880,7 +896,7 @@ export const eightWeeks: PuppyStage = {
       tone: "caution",
       body: [
         "Settling produces a lot of behaviour that worries new owners and does not need to. A puppy that eats little on the first evening, is unsettled for the first two or three nights, has softer stools for a day or two after the move, hides under furniture, or sleeps a great deal more than you expected is usually doing something ordinary.",
-        "What separates that from a problem is duration and company: whether it persists, and whether anything else has come with it. A very young puppy has little reserve and can deteriorate faster than an adult dog, so the threshold for phoning is deliberately low. Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
+        "What separates that from a problem is duration and company: whether it persists, and whether anything else has come with it. A puppy this age needs proportionally more fluid than an adult dog and can become dehydrated faster, so anything keeping fluid going out or food from going in is worth a call sooner than it would be in an adult. That is why the threshold for phoning is deliberately low, rather than any broader claim about young dogs. Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
         "Contact your veterinary clinic — rather than waiting to see whether it settles — if a puppy will not eat at all, is repeatedly vomiting or has persistent or bloody diarrhoea, is unusually limp or unresponsive, is breathing with effort, has not urinated in an unusually long stretch, is straining without producing anything, or you have any reason to think it has swallowed something it should not have. Very small breeds can also become weak or wobbly if they go too long without food, which is a reason to phone rather than to wait for the morning.",
         "This describes what to look for so you know when to call. It does not diagnose, and it is not a substitute for examining your puppy — only a veterinarian who has seen it can do that.",
       ],
@@ -914,6 +930,11 @@ export const eightWeeks: PuppyStage = {
 
   sources: [
     {
+      label: "Pediatric patients need proportionally more fluid than adults and can progress rapidly from mild dehydration to hypovolaemia; hypoglycaemia and electrolyte disturbance are the companion concerns",
+      publisher: "Lee JA, Cohn LA, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017 (PMID 27939859)",
+      url: "https://doi.org/10.1016/j.cvsm.2016.09.010",
+    },
+    {
       label: "Position statement on puppy socialization — the first three months, and socialising before full vaccination",
       publisher: "American Veterinary Society of Animal Behavior",
       url: "https://avsab.org/puppy-socialization-position-statement/",
@@ -934,6 +955,9 @@ export const eightWeeks: PuppyStage = {
   ],
 
   needsVerification: [
+    "RESOLVED \u2014 NARROWED, 2026-09-06. This stage previously said a young dog \u201chas less reserve than an adult and can deteriorate faster\u201d (and equivalents). No source was found for that as a general physiological claim and it is no longer asserted. What replaced it is the one mechanism that is sourced: Lee JA and Cohn LA, \u201cFluid Therapy for Pediatric Patients\u201d, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017, PMID 27939859, verified 2026-09-06, which states that \u201cpediatric patients have a higher fluid requirement compared with adults and can rapidly progress from mild dehydration to hypovolemia\u201d and that pediatric fluid therapy \u201cmust address hydration, vascular fluid volume, electrolyte disturbances, or hypoglycemia\u201d. Hoskins JD, PMID 10390787, anchors the pediatric window at birth to about six months, which covers every stage carrying this wording. LIMITATION \u2014 fluid and glucose only, not reserve across every organ system, and not a claim that illness in general progresses faster. The red-flag list and the threshold for phoning are unchanged; only the explanation is.",
+    "STANDING GUARDRAIL \u2014 Do not generalise pediatric dehydration/metabolic evidence into a blanket claim that young dogs have lower physiological reserve across all illness or deteriorate faster in every emergency. The claim is licensed for fluid loss and, as a named veterinary concern, hypoglycaemia \u2014 nothing wider.",
+    "STANDING GUARDRAIL \u2014 The neonatal evidence (Merck, Management of the Neonate in Dogs and Cats: first 21 days, no thermoregulation until four weeks, absent glucose reserves and minimal gluconeogenesis) must NOT be applied to these stages. Every Journey stage begins at eight weeks or later, well past the neonatal period. Do not introduce immature thermoregulation, neonatal glucose reserves or neonatal fasting physiology into any stage.",
     "No national claim is made about a legal minimum age for sale, transfer or separation from the dam. Only Quebec is named, from the regulation itself — see the province modifier. Do not generalise it to other provinces without the same standard of source, and do not restate it as a rule about selling: the section quoted governs separation from the mother.",
     "That most puppies come home around eight weeks is stated as a convention rather than a rule, and the page is written so it does not depend on the reader having just arrived home.",
     "The description of what an eight-week-old is capable of — bladder capacity, attention span, sleep requirement — is qualitative and quotes no figure. The 16–18 hours figure carried in the article library is still unsourced there; do not import it.",
@@ -1196,7 +1220,7 @@ export const threeMonths: PuppyStage = {
       summary: "The threshold stays low, and three things belong on the list at this age.",
       tone: "caution",
       body: [
-        "A young dog has less reserve than an adult and can deteriorate faster, so the bar for making a phone call stays deliberately low. Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
+        "A dog this age needs proportionally more fluid than an adult and can progress from mild dehydration to something more serious faster, so repeated vomiting, persistent diarrhoea or poor intake earns a call sooner than the same thing would in a grown dog. That, rather than a general rule about young dogs, is what keeps the bar for making a phone call deliberately low. Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
         "Contact your veterinary clinic — rather than waiting to see whether it settles — if a puppy will not eat, is repeatedly vomiting or has persistent diarrhoea, is unusually limp or unresponsive, is breathing with effort, has not urinated in an unusually long stretch, is straining without producing anything, or you have any reason to think it has swallowed something it should not have.",
         "Three things are more likely at this age specifically. A swallowed object is a call rather than a wait-and-see, and does not need to be accompanied by any other sign. Limping, or reluctance to put weight on a leg, after a walk or a fall should be looked at rather than rested and hoped over. And a genuine loss of house-training, particularly with straining, frequency or blood, is a medical question before it is a training one.",
         "After a vaccination appointment, contact the clinic straight away if you see swelling of the face or muzzle, hives, repeated vomiting or diarrhoea, difficulty breathing, weakness or collapse. Tell them which vaccine was given and when.",
@@ -1232,6 +1256,11 @@ export const threeMonths: PuppyStage = {
 
   sources: [
     {
+      label: "Pediatric patients need proportionally more fluid than adults and can progress rapidly from mild dehydration to hypovolaemia; hypoglycaemia and electrolyte disturbance are the companion concerns",
+      publisher: "Lee JA, Cohn LA, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017 (PMID 27939859)",
+      url: "https://doi.org/10.1016/j.cvsm.2016.09.010",
+    },
+    {
       label: "Position statement on puppy socialization — the first three months, and socialising before full vaccination",
       publisher: "American Veterinary Society of Animal Behavior",
       url: "https://avsab.org/puppy-socialization-position-statement/",
@@ -1262,6 +1291,9 @@ export const threeMonths: PuppyStage = {
   ],
 
   needsVerification: [
+    "RESOLVED \u2014 NARROWED, 2026-09-06. This stage previously said a young dog \u201chas less reserve than an adult and can deteriorate faster\u201d (and equivalents). No source was found for that as a general physiological claim and it is no longer asserted. What replaced it is the one mechanism that is sourced: Lee JA and Cohn LA, \u201cFluid Therapy for Pediatric Patients\u201d, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017, PMID 27939859, verified 2026-09-06, which states that \u201cpediatric patients have a higher fluid requirement compared with adults and can rapidly progress from mild dehydration to hypovolemia\u201d and that pediatric fluid therapy \u201cmust address hydration, vascular fluid volume, electrolyte disturbances, or hypoglycemia\u201d. Hoskins JD, PMID 10390787, anchors the pediatric window at birth to about six months, which covers every stage carrying this wording. LIMITATION \u2014 fluid and glucose only, not reserve across every organ system, and not a claim that illness in general progresses faster. The red-flag list and the threshold for phoning are unchanged; only the explanation is.",
+    "STANDING GUARDRAIL \u2014 Do not generalise pediatric dehydration/metabolic evidence into a blanket claim that young dogs have lower physiological reserve across all illness or deteriorate faster in every emergency. The claim is licensed for fluid loss and, as a named veterinary concern, hypoglycaemia \u2014 nothing wider.",
+    "STANDING GUARDRAIL \u2014 The neonatal evidence (Merck, Management of the Neonate in Dogs and Cats: first 21 days, no thermoregulation until four weeks, absent glucose reserves and minimal gluconeogenesis) must NOT be applied to these stages. Every Journey stage begins at eight weeks or later, well past the neonatal period. Do not introduce immature thermoregulation, neonatal glucose reserves or neonatal fasting physiology into any stage.",
     "British Columbia is a *positive* claim only, as of 2026-09-06. The BCCDC page was read and says verbatim that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. The earlier copy went further and said provincial law does not compel vaccination \u2014 a negative legal claim, and no authoritative source could be found that states it. Proving the absence of a law is a different exercise from reading one, and the BCCDC page, the BC Rabies Guidance for Veterinarians and the CVBC summary table were all retrieved and none of them says it. The copy now states what BCCDC recommends, says plainly that we are not presenting a province-wide legal requirement, and explicitly leaves municipal, travel, import and bite-investigation rules open. Do not restore the stronger wording without a named statute or regulation.",
     "This stage opens on day 91, which can precede a reader's own three-calendar-month anniversary by a day or two. All public prose says 'around three months' or 'at this stage' and never asserts the reader's puppy is exactly three months old. Do not let an edit introduce that claim — the headline is the only place a month is named, and it checks the calendar first.",
     "The final-dose ages (AAHA past sixteen weeks, preferring eighteen to twenty in high-risk settings; WSAVA sixteen weeks or older) are sourced and must stay attributed. That sixteen weeks usually falls inside this stage is arithmetic on those figures, not a separate claim. This section must never become a schedule.",
@@ -1554,7 +1586,7 @@ export const fourToSixMonths: PuppyStage = {
       summary: "The usual list, plus two things this stage makes more likely.",
       tone: "caution",
       body: [
-        "A young dog has less reserve than an adult and can deteriorate faster, so the threshold for phoning stays low. Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
+        "A dog is still in the pediatric period at this age \u2014 needing proportionally more fluid than an adult, and able to become dehydrated faster \u2014 so repeated vomiting, persistent diarrhoea or poor intake is worth a call sooner than it would be in a grown dog. The threshold for phoning stays low for that reason, not because every symptom means more in a young dog. Telephone triage is a normal part of what a clinic does, it usually costs nothing, and the answer is one of three things: come now, come in the morning, or here is what to watch for.",
         "Contact your veterinary clinic — rather than waiting to see whether it settles — if a puppy will not eat, is repeatedly vomiting or has persistent diarrhoea, is unusually limp or unresponsive, is breathing with effort, has not urinated in an unusually long stretch, is straining without producing anything, or you have any reason to think it has swallowed something it should not have.",
         "Two things belong on the list at this age in particular. Anything wrong in the mouth — a baby tooth still firmly in place next to its replacement, a broken tooth, bleeding that does not stop, or a dog that has gone off food and seems sore rather than itchy — is worth having looked at rather than waiting for it to sort itself out. And a dog that was house-trained and abruptly is not, especially with straining, urgency or blood, is a medical question before it is a training one.",
         "Limping or reluctance to bear weight after a walk or a fall should also be examined rather than rested and hoped over. A growing skeleton is not a small adult one.",
@@ -1589,6 +1621,11 @@ export const fourToSixMonths: PuppyStage = {
   ],
 
   sources: [
+    {
+      label: "Pediatric patients need proportionally more fluid than adults and can progress rapidly from mild dehydration to hypovolaemia; hypoglycaemia and electrolyte disturbance are the companion concerns",
+      publisher: "Lee JA, Cohn LA, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017 (PMID 27939859)",
+      url: "https://doi.org/10.1016/j.cvsm.2016.09.010",
+    },
     {
       label: "Dental development of dogs — permanent teeth appear at around four to five months, complete by about seven",
       publisher: "Merck Veterinary Manual",
@@ -1625,6 +1662,9 @@ export const fourToSixMonths: PuppyStage = {
   ],
 
   needsVerification: [
+    "RESOLVED \u2014 NARROWED, 2026-09-06. This stage previously said a young dog \u201chas less reserve than an adult and can deteriorate faster\u201d (and equivalents). No source was found for that as a general physiological claim and it is no longer asserted. What replaced it is the one mechanism that is sourced: Lee JA and Cohn LA, \u201cFluid Therapy for Pediatric Patients\u201d, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017, PMID 27939859, verified 2026-09-06, which states that \u201cpediatric patients have a higher fluid requirement compared with adults and can rapidly progress from mild dehydration to hypovolemia\u201d and that pediatric fluid therapy \u201cmust address hydration, vascular fluid volume, electrolyte disturbances, or hypoglycemia\u201d. Hoskins JD, PMID 10390787, anchors the pediatric window at birth to about six months, which covers every stage carrying this wording. LIMITATION \u2014 fluid and glucose only, not reserve across every organ system, and not a claim that illness in general progresses faster. The red-flag list and the threshold for phoning are unchanged; only the explanation is.",
+    "STANDING GUARDRAIL \u2014 Do not generalise pediatric dehydration/metabolic evidence into a blanket claim that young dogs have lower physiological reserve across all illness or deteriorate faster in every emergency. The claim is licensed for fluid loss and, as a named veterinary concern, hypoglycaemia \u2014 nothing wider.",
+    "STANDING GUARDRAIL \u2014 The neonatal evidence (Merck, Management of the Neonate in Dogs and Cats: first 21 days, no thermoregulation until four weeks, absent glucose reserves and minimal gluconeogenesis) must NOT be applied to these stages. Every Journey stage begins at eight weeks or later, well past the neonatal period. Do not introduce immature thermoregulation, neonatal glucose reserves or neonatal fasting physiology into any stage.",
     "British Columbia is a *positive* claim only, as of 2026-09-06. The BCCDC page was read and says verbatim that rabies vaccines are available for cats, dogs and ferrets and that \u201cyour pets should be vaccinated, and their immunizations should be kept up to date\u201d. The earlier copy went further and said provincial law does not compel vaccination \u2014 a negative legal claim, and no authoritative source could be found that states it. Proving the absence of a law is a different exercise from reading one, and the BCCDC page, the BC Rabies Guidance for Veterinarians and the CVBC summary table were all retrieved and none of them says it. The copy now states what BCCDC recommends, says plainly that we are not presenting a province-wide legal requirement, and explicitly leaves municipal, travel, import and bite-investigation rules open. Do not restore the stronger wording without a named statute or regulation.",
     "Permanent eruption is attributed to Merck (around four to five months, complete by about seven). No eruption order, tooth count or peak-chewing age appears and none should be added without a source.",
     "Retained deciduous teeth are described as worth a veterinary look, without a prevalence, a breed pattern or a treatment. The AAHA life stage guidelines mention correcting persistent deciduous teeth; that is the basis for raising it, not for advising on it.",
@@ -3306,7 +3346,7 @@ export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
     stageSlug: "12-weeks",
     sectionId: "feeding",
     body: [
-      "Very small puppies have little in reserve, so the move from four meals to three is worth raising specifically rather than assuming. A toy-breed puppy that goes too long without food can become weak or wobbly, and a teething dip in appetite is more consequential at this size than it would be in a Labrador.",
+      "Meal frequency matters more at this size, so the move from four meals to three is worth raising specifically rather than assuming. A toy-breed puppy that goes too long without food can become weak or wobbly \u2014 low blood sugar is one of the things veterinary medicine watches for in puppies \u2014 and and a teething dip in appetite is more consequential at this size than it would be in a Labrador.",
     ],
   },
   {
@@ -3330,7 +3370,7 @@ export const sizeGroupModifiers: readonly SizeGroupModifier[] = [
     stageSlug: "9-11-weeks",
     sectionId: "feeding",
     body: [
-      "Very small puppies have little in reserve and can become weak or wobbly if they go too long between meals. Meal frequency is worth raising specifically at your next appointment rather than assuming a general schedule applies.",
+      "A toy-breed puppy that goes too long between meals can become weak or wobbly, and low blood sugar is one of the things veterinary medicine watches for at this age. Meal frequency is worth raising specifically at your next appointment rather than assuming a general schedule applies.",
     ],
   },
 ];

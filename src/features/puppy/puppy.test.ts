@@ -3139,6 +3139,17 @@ interface RuleFamily {
   hard: RegExp[];
   /** Prescriptive in shape; acceptable only if its own clause is exempt. */
   soft: RegExp[];
+  /**
+   * Replaces the global EXEMPT list for this family.
+   *
+   * The global list clears a clause that hedges — "usually", "often", "most".
+   * That is right for a prescription, which stops being a prescription once it
+   * is described as typical. It is wrong for a claim about physiology: "young
+   * dogs usually have less reserve than adults" is exactly as unsourced as the
+   * unhedged version, and hedging must not launder it. Families that set this
+   * accept only an outright denial.
+   */
+  exemptWith?: RegExp[];
 }
 
 const RULE_FAMILIES: readonly RuleFamily[] = [
@@ -3211,6 +3222,44 @@ const RULE_FAMILIES: readonly RuleFamily[] = [
       /\bthe\s+(?:right|correct|proper)\s+age\s+to\s+(?:neuter|spay)\s+is\b/i,
     ],
   },
+  {
+    // The claim the article pass narrowed: that young dogs have less
+    // physiological reserve than adults and deteriorate faster. The evidence
+    // supports fluid and glucose specifically (Lee & Cohn 2017), not reserve
+    // across every organ system, so the generalisation is not asserted
+    // anywhere. Denying it is fine — that is what the stages now do.
+    id: "medical-reserve",
+    hard: [
+      /\b(?:weak|weaker|immature|undeveloped|underdeveloped)\s+immune\s+systems?\b/i,
+      /\bimmune\s+systems?\s+(?:is|are)\s+(?:still\s+)?(?:weak|immature|undeveloped)\b/i,
+    ],
+    soft: [
+      /\b(?:less|little|lower|limited|smaller|fewer|no)\s+(?:physiologic(?:al)?\s+)?(?:in\s+)?reserves?\b/i,
+      /\breserves?\s+of\s+an?\s+adult\b/i,
+      /\bdeteriorat\w*\s+(?:faster|quicker|more\s+quickly)\b/i,
+      /\bgoes?\s+downhill\s+(?:faster|quickly|more\s+quickly)\b/i,
+      /\b(?:cannot|can(?:'|\u2019)t|less\s+able)\s+(?:to\s+)?(?:tolerate|cope\s+with|withstand|handle)\b[^.]{0,40}\b(?:illness|infection|disease|being\s+ill)\b/i,
+      /\b(?:every|any|all)\s+(?:illness|symptom|infection|problem)s?\b[^.]{0,45}\b(?:more|far\s+more)\s+(?:serious|dangerous|urgent)\b/i,
+      /\b(?:more|far\s+more)\s+(?:serious|dangerous|urgent)\b[^.]{0,35}\bin\s+(?:a\s+)?(?:puppy|puppies|young\s+dogs?)\b/i,
+    ],
+    exemptWith: [/\b(?:not|never|neither|nor|rather\s+than|instead\s+of|nothing)\b/i],
+  },
+  {
+    // Merck's neonatal findings are real and are cited in the emergency
+    // article, where the subject is genuinely a neonate. No Journey stage
+    // begins before eight weeks, so neonatal thermoregulation, glycogen and
+    // fasting physiology describe an animal no reader of these pages has.
+    // Hard, because there is no phrasing that makes it apply here.
+    id: "neonatal-physiology",
+    hard: [
+      /\bthermoregulat\w+/i,
+      /\bgluconeogenesis\b/i,
+      /\bglucose\s+reserves?\b/i,
+      /\bglycogen\b/i,
+      /\bneonat\w+/i,
+    ],
+    soft: [],
+  },
 ];
 
 /** Every rule violation in one sentence, as `family: matched text`. */
@@ -3221,10 +3270,13 @@ function violations(sentence: string): string[] {
       const hit = pattern.exec(sentence);
       if (hit) found.push(`${family.id} (hard): ${hit[0]}`);
     }
+    const clears = family.exemptWith
+      ? (clause: string) => family.exemptWith!.some((pattern) => pattern.test(clause))
+      : exempt;
     for (const pattern of family.soft) {
       for (const clause of clauses(sentence)) {
         const hit = pattern.exec(clause);
-        if (hit && !exempt(clause)) found.push(`${family.id}: ${hit[0]}`);
+        if (hit && !clears(clause)) found.push(`${family.id}: ${hit[0]}`);
       }
     }
   }
@@ -3537,7 +3589,16 @@ describe("content safety guards, per family", () => {
 
   it("has a characterisation test for every family", () => {
     expect(RULE_FAMILIES.map((f) => f.id).sort()).toEqual(
-      ["adult-food", "behaviour-folklore", "dentition", "exercise", "neutering", "vaccination"].sort(),
+      [
+        "adult-food",
+        "behaviour-folklore",
+        "dentition",
+        "exercise",
+        "medical-reserve",
+        "neonatal-physiology",
+        "neutering",
+        "vaccination",
+      ].sort(),
     );
     for (const f of RULE_FAMILIES) expect(f.hard.length + f.soft.length).toBeGreaterThan(0);
     expect(family("vaccination").hard.length).toBeGreaterThan(0);
@@ -3564,6 +3625,55 @@ describe("content safety guards, per family", () => {
     ];
     for (const s of reject) expect(only("vaccination")(s), `missed: ${s}`).toBe(true);
     for (const s of allow) expect(violations(s), `false positive: ${s}`).toEqual([]);
+  });
+
+  it("medical reserve: rejects the broad claim, allows sourced pediatric fluid wording", () => {
+    for (const s of [
+      "A young dog has less reserve than an adult and can deteriorate faster.",
+      "A very young puppy has little reserve and can deteriorate faster than an adult dog.",
+      "Very small puppies have little in reserve.",
+      "Very young animals have less reserve.",
+      "A sick puppy goes downhill faster than a grown dog.",
+      "Puppies cannot tolerate illness the way an adult dog can.",
+      "Every illness is more serious in a puppy.",
+      "A cough is far more dangerous in a young dog.",
+      "Puppies have a weak immune system.",
+      "A puppy's immune system is still immature.",
+      // Hedging must not launder a physiological claim the way it launders a
+      // prescription: this is the reason the family carries `exemptWith`.
+      "Young dogs usually have less reserve than adults.",
+      "Most puppies typically deteriorate faster than adult dogs.",
+    ]) expect(only("medical-reserve")(s), `missed: ${s}`).toBe(true);
+
+    for (const s of [
+      "A puppy needs proportionally more fluid than an adult dog and can move from mild dehydration to something more serious faster.",
+      "Repeated vomiting, persistent diarrhoea or poor intake earns a call sooner than the same thing would in a grown dog.",
+      "A dog is still in the pediatric period at this age.",
+      "That is what keeps the bar for making a phone call deliberately low — not a broader claim that everything is more dangerous in a young dog.",
+      "The threshold for phoning stays low for that reason, not because every symptom means more in a young dog.",
+      "Low blood sugar is one of the things veterinary medicine watches for in puppies.",
+    ]) expect(violations(s), `false positive: ${s}`).toEqual([]);
+  });
+
+  it("neonatal physiology: rejects it outright, because no stage describes a neonate", () => {
+    for (const s of [
+      "Puppies lack thermoregulatory mechanisms until four weeks of age.",
+      "A neonate has minimal capacity for gluconeogenesis.",
+      "Puppies have no glucose reserves at this age.",
+      "Glycogen stores are depleted shortly after birth.",
+      "The neonatal period covers the first 21 days.",
+    ]) expect(only("neonatal-physiology")(s), `missed: ${s}`).toBe(true);
+
+    // Attribution does not rescue it: the objection is that it describes an
+    // animal no reader of these pages has, not that it is unsourced.
+    expect(
+      only("neonatal-physiology")("Merck notes that puppies lack thermoregulatory mechanisms until 4 weeks of age."),
+    ).toBe(true);
+
+    for (const s of [
+      "A puppy this age needs proportionally more fluid than an adult dog and can become dehydrated faster.",
+      "Low blood sugar is one of the things veterinary medicine watches for in puppies.",
+    ]) expect(violations(s), `false positive: ${s}`).toEqual([]);
   });
 
   it("adult food: rejects a calendar switch, allows skeletal-maturity guidance", () => {
@@ -4051,5 +4161,115 @@ describe("indexing", () => {
     for (const stage of stages) {
       expect(stage.status).toBe("in-review");
     }
+  });
+});
+
+/**
+ * The final medical-consistency pass.
+ *
+ * The Journey used to explain its low calling threshold with a claim the
+ * article pass could not source: that young dogs have less reserve than adults
+ * and deteriorate faster. These tests are written against the prose and the
+ * stage sources, not against register labels, so relabelling would not make
+ * any of them pass.
+ */
+describe("pediatric medical consistency, Journey and articles", () => {
+  const LEE = "27939859";
+  const PEDIATRIC_STAGES = ["8-weeks", "9-11-weeks", "12-weeks", "3-months", "4-6-months"];
+  const allStageText = (stage: (typeof stages)[number]) => readerFacingStrings(stage).join("\n");
+
+  const articleBody = (slug: string) =>
+    readFileSync(join(FEATURE_DIR, "..", "..", "content", "articles", `${slug}.mdx`), "utf8");
+
+  it("1. leaves no broad physiological-reserve claim on any of the eight stages", () => {
+    expect(stages).toHaveLength(8);
+    const offenders: string[] = [];
+    for (const stage of stages) {
+      for (const text of readerFacingStrings(stage)) {
+        for (const sentence of text.split(/(?<=[.?!])\s+/)) {
+          for (const v of violations(sentence)) {
+            if (v.startsWith("medical-reserve") || v.startsWith("neonatal-physiology")) {
+              offenders.push(`${stage.slug}: ${v} — ${sentence.slice(0, 90)}`);
+            }
+          }
+        }
+      }
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it("2. sources every stage that keeps a pediatric-dehydration explanation", () => {
+    for (const stage of stages) {
+      const text = allStageText(stage);
+      const explains = /more fluid than an adult|mild dehydration|become dehydrated faster|pediatric period/i.test(text);
+      const sourced = (stage.sources ?? []).some((x) => `${x.label} ${x.publisher} ${x.url}`.includes(LEE));
+      // A stage that explains the mechanism must cite the paper it comes from.
+      if (explains) expect(sourced, `${stage.slug} explains but does not cite Lee & Cohn`).toBe(true);
+    }
+    // And the five pediatric stages are exactly the ones that do.
+    const citing = stages.filter((x) => (x.sources ?? []).some((y) => `${y.publisher}`.includes(LEE)));
+    expect(citing.map((x) => x.slug).sort()).toEqual([...PEDIATRIC_STAGES].sort());
+  });
+
+  it("3. applies no neonatal physiology to stages that begin at eight weeks or later", () => {
+    for (const stage of stages) {
+      expect(allStageText(stage), stage.slug).not.toMatch(
+        /thermoregulat|gluconeogenesis|glucose reserves?|glycogen|neonat/i,
+      );
+    }
+  });
+
+  it("4. keeps the red-flag escalation floor intact on all eight stages", () => {
+    const FLOOR = [
+      /breathing|breathe/i,
+      /limp or unresponsive|unresponsive|collapse/i,
+      /vomit/i,
+      /diarrhoea/i,
+      /urinat|straining/i,
+      /swallow|ingest/i,
+    ];
+    for (const stage of stages) {
+      const redFlags = stage.sections.find((x) => x.id === "red-flags");
+      expect(redFlags, `${stage.slug} has no red-flag section`).toBeDefined();
+      const text = [redFlags!.summary, ...redFlags!.body, ...(redFlags!.points ?? [])].join("\n");
+      for (const pattern of FLOOR) {
+        expect(text, `${stage.slug} lost ${pattern}`).toMatch(pattern);
+      }
+      // The call-to-action itself must survive, not just the symptom list.
+      expect(text, `${stage.slug} lost its escalation CTA`).toMatch(
+        /contact your veterinary clinic|phone|call/i,
+      );
+      // And it must still refuse to diagnose.
+      expect(text, `${stage.slug} lost its disclaimer`).toMatch(/does not diagnose|not a substitute/i);
+    }
+  });
+
+  it("5. expresses the same evidence scope as the three articles", () => {
+    const ARTICLES = [
+      "emergency-vet-visits-in-canada",
+      "bringing-home-a-puppy-first-30-days",
+      "bringing-home-a-kitten-first-30-days",
+    ];
+    const journeyText = stages.map(allStageText).join("\n");
+    const corpus = [journeyText, ...ARTICLES.map(articleBody)].join("\n");
+
+    // Neither side asserts the broad claim any more.
+    expect(corpus).not.toMatch(/(?:less|little)\s+(?:in\s+)?reserve\b/i);
+    expect(corpus).not.toMatch(/deteriorat\w*\s+faster/i);
+
+    // Both sides carry the same mechanism, and cite the same paper for it.
+    expect(journeyText).toMatch(/dehydrat/i);
+    for (const slug of ARTICLES) {
+      expect(articleBody(slug), slug).toMatch(/dehydrat/i);
+      const src = (articles.find((a) => a.slug === slug)!.sources ?? [])
+        .map((x) => `${x.label} ${x.publisher} ${x.url}`)
+        .join(" ");
+      expect(src, `${slug} lost Lee & Cohn`).toContain(LEE);
+    }
+
+    // Neonatal physiology stays where a neonate is actually the subject: the
+    // emergency article discusses it explicitly; no Journey stage may.
+    expect(articleBody("emergency-vet-visits-in-canada")).toMatch(/neonatal period/i);
+    expect(journeyText).not.toMatch(/neonat/i);
   });
 });
