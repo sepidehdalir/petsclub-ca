@@ -38,21 +38,29 @@ export function ArticleByline({ article, className }: ArticleBylineProps) {
   const author = getAuthor(article.authorId);
   const reviewer = article.reviewerId ? findReviewer(article.reviewerId) : null;
 
-  const isPublished = article.status === "published";
-  const isRevised = article.updatedAt !== article.publishedAt;
+  // Narrowed on the discriminant rather than a boolean, so the compiler knows
+  // a date exists here. The union guarantees a published article has one; this
+  // is how the component gets to rely on that rather than asserting it.
+  const published = article.status === "published" ? article : null;
+  // A revision date exists only once there has been a revision. `updatedAt` is
+  // absent otherwise rather than being a copy of `publishedAt`.
+  const revisedOn =
+    published?.updatedAt && published.updatedAt !== published.publishedAt
+      ? published.updatedAt
+      : null;
 
   // Built as a list so the separators fall between whatever is actually
   // present, rather than each item having to know what precedes it.
   const meta = [
-    isPublished ? (
+    published ? (
       <>
         Published{" "}
-        <time dateTime={article.publishedAt}>{formatDate(article.publishedAt)}</time>
+        <time dateTime={published.publishedAt}>{formatDate(published.publishedAt)}</time>
       </>
     ) : null,
-    isPublished && isRevised ? (
+    revisedOn ? (
       <>
-        Updated <time dateTime={article.updatedAt}>{formatDate(article.updatedAt)}</time>
+        Updated <time dateTime={revisedOn}>{formatDate(revisedOn)}</time>
       </>
     ) : null,
     <>{article.readingMinutes} min read</>,

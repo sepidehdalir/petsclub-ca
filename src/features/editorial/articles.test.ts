@@ -15,10 +15,13 @@ import {
   publishedArticles,
   relatedArticles,
   type Article,
+  articlePublicationDates,
+  indexableArticles,
+  isArticleIndexable,
 } from "@/features/editorial/articles";
 import { allReviewers, findReviewer, getAuthor } from "@/features/editorial/authors";
 import { buildSitemapEntries } from "@/lib/seo/sitemap";
-import { absoluteUrl } from "@/lib/seo/urls";
+import { absoluteUrl, canonicalUrl } from "@/lib/seo/urls";
 import { isValidSlug } from "@/lib/utils/slug";
 
 const CONTENT_DIR = fileURLToPath(new URL("../../content/articles/", import.meta.url));
@@ -92,11 +95,20 @@ describe("article registry", () => {
     }
   });
 
-  it("carries sane, ordered dates", () => {
+  it("carries sane, ordered dates only where one has been published", () => {
+    // Every article used to carry a `publishedAt` from the day it was written.
+    // Those were authoring dates, and none of these articles has ever been
+    // public, so the union now forbids a date until publication.
     for (const article of articles) {
+      if (article.status !== "published") {
+        expect(article.publishedAt, `${article.slug} is in review with a date`).toBeUndefined();
+        expect(article.updatedAt, `${article.slug} is in review with a date`).toBeUndefined();
+        continue;
+      }
+
       for (const [field, value] of [
         ["publishedAt", article.publishedAt],
-        ["updatedAt", article.updatedAt],
+        ["updatedAt", article.updatedAt ?? article.publishedAt],
       ] as const) {
         expect(value, `${article.slug}: ${field} must be YYYY-MM-DD`).toMatch(
           /^\d{4}-\d{2}-\d{2}$/,
@@ -108,7 +120,7 @@ describe("article registry", () => {
       }
 
       expect(
-        article.updatedAt >= article.publishedAt,
+        (article.updatedAt ?? article.publishedAt) >= article.publishedAt,
         `${article.slug}: updated before it was published`,
       ).toBe(true);
     }
@@ -373,6 +385,218 @@ describe("article indexing", () => {
   it("exposes only published articles to the sitemap builder", () => {
     for (const article of publishedArticles()) {
       expect(article.status).toBe("published");
+    }
+  });
+});
+
+/**
+ * An article in a state the repository is deliberately never in.
+ *
+ * Publishing a real article to test publication would leave the library
+ * published. The real article supplies the content; the override supplies the
+ * state.
+ */
+function withState(
+  article: Article,
+  state: {
+    status: "in-review" | "published";
+    publishedAt?: string;
+    updatedAt?: string;
+    indexable?: boolean;
+  },
+): Article {
+  return { ...article, ...state } as Article;
+}
+
+describe("article publication dates", () => {
+  const real = articles[0]!;
+
+  it("keeps every article in review, with no publication date at all", () => {
+    expect(articles).toHaveLength(35);
+    for (const article of articles) {
+      expect(article.status, article.slug).toBe("in-review");
+      expect(article.publishedAt, `${article.slug} carries a publication date`).toBeUndefined();
+      expect(article.updatedAt, `${article.slug} carries a revision date`).toBeUndefined();
+      expect(articlePublicationDates(article)).toEqual({});
+    }
+  });
+
+  it("leaves no authoring date anywhere in the registry", () => {
+    // The old values were the dates the batches were written — 2026-09-01,
+    // 09-02, 09-03, 09-05. They were removed rather than hidden, so there is
+    // nothing left that a future edit could reach for as a publication date.
+    const source = readFileSync(
+      fileURLToPath(new URL("./articles.ts", import.meta.url)),
+      "utf8",
+    );
+    const registry = source.slice(source.indexOf("export const articles"));
+    for (const date of ["2026-09-01", "2026-09-02", "2026-09-03", "2026-09-05"]) {
+      expect(registry, `${date} still appears in the registry`).not.toContain(`"${date}"`);
+    }
+    expect(registry).not.toMatch(/\n {4}publishedAt:/);
+    expect(registry).not.toMatch(/\n {4}updatedAt:/);
+    expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
+  });
+
+  it("uses publishedAt for datePublished once published", () => {
+    expect(articlePublicationDates(withState(real, { status: "published", publishedAt: "2026-10-01" })))
+      .toEqual({ datePublished: "2026-10-01", dateModified: "2026-10-01" });
+  });
+
+  it("prefers updatedAt for dateModified, and falls back to publishedAt", () => {
+    expect(
+      articlePublicationDates(
+        withState(real, { status: "published", publishedAt: "2026-10-01", updatedAt: "2027-03-09" }),
+      ),
+    ).toEqual({ datePublished: "2026-10-01", dateModified: "2027-03-09" });
+
+    expect(
+      articlePublicationDates(withState(real, { status: "published", publishedAt: "2026-10-01" }))
+        .dateModified,
+    ).toBe("2026-10-01");
+  });
+
+  it("fails loudly if an article is published without a publication date", () => {
+    // The union makes this a compile error; the cast is how a build could still
+    // reach it. It must throw rather than silently omit the field.
+    const broken = { ...real, status: "published" } as unknown as Article;
+    expect(() => articlePublicationDates(broken)).toThrow(/published with no publishedAt/);
+    expect(() => articlePublicationDates(broken)).toThrow(/not a publication date/);
+  });
+
+  it("renders no publication date, in any surface, while in review", () => {
+    const byline = readFileSync(
+      fileURLToPath(new URL("./components/article-byline.tsx", import.meta.url)),
+      "utf8",
+    );
+    // The byline narrows on the discriminant rather than a boolean flag, so a
+    // date can only be rendered where the type guarantees one exists.
+    expect(byline).toContain('article.status === "published" ? article : null');
+    expect(byline).not.toMatch(/publishedAt!/);
+
+    const page = readFileSync(
+      fileURLToPath(new URL("./components/article-page.tsx", import.meta.url)),
+      "utf8",
+    );
+    expect(page).toContain("articlePublicationDates(article)");
+    expect(page).not.toMatch(/datePublished: article\.publishedAt/);
+  });
+});
+
+describe("article index policy", () => {
+  const real = articles[0]!;
+  const urls = () => buildSitemapEntries().map((entry) => entry.url);
+
+  it("keeps content state and index policy as separate decisions", () => {
+    // The four states, and only one of them indexes. Indexability can never
+    // override review status, which is what makes it safe to set in advance.
+    expect(isArticleIndexable(withState(real, { status: "in-review", indexable: false }))).toBe(false);
+    expect(isArticleIndexable(withState(real, { status: "in-review", indexable: true }))).toBe(false);
+    expect(
+      isArticleIndexable(withState(real, { status: "published", publishedAt: "2026-10-01", indexable: false })),
+    ).toBe(false);
+    expect(
+      isArticleIndexable(withState(real, { status: "published", publishedAt: "2026-10-01", indexable: true })),
+    ).toBe(true);
+  });
+
+  it("carries no SEO-level hold today, and indexes nothing", () => {
+    // Every article is `indexable`, meaning none is held back for search
+    // reasons. What holds all 35 is `status`, which is the honest reason.
+    for (const article of articles) expect(article.indexable, article.slug).toBe(true);
+    expect(indexableArticles()).toEqual([]);
+    expect(publishedArticles()).toEqual([]);
+  });
+
+  it("drives the sitemap and the meta tag from one predicate", () => {
+    const route = readFileSync(
+      fileURLToPath(new URL("../../app/guides/[slug]/page.tsx", import.meta.url)),
+      "utf8",
+    );
+    expect(route).toContain("noIndex: !isArticleIndexable(article)");
+    expect(route).not.toMatch(/noIndex: article\.status/);
+
+    const sitemap = readFileSync(
+      fileURLToPath(new URL("../../lib/seo/sitemap.ts", import.meta.url)),
+      "utf8",
+    );
+    expect(sitemap).toContain("indexableArticles()");
+    expect(sitemap).not.toMatch(/publishedArticles\(\)/);
+  });
+
+  it("puts no article, and no query-string variant, in the sitemap", () => {
+    const all = urls();
+    expect(all.filter((u) => u.includes("/guides/"))).toEqual([]);
+    expect(all.some((u) => u.includes("?"))).toBe(false);
+    expect(new Set(all).size).toBe(all.length);
+  });
+
+  it("would emit sitemap URLs that match each article's own canonical", () => {
+    for (const article of articles) {
+      expect(absoluteUrl(articlePath(article.slug))).toBe(canonicalUrl(articlePath(article.slug)));
+    }
+  });
+
+  it("cannot reach the Puppy Journey or /my-puppy", () => {
+    // Article state and Journey state are independent: neither list can emit
+    // the other's routes, and /my-puppy is not in either.
+    const paths = articles.map((a) => articlePath(a.slug));
+    expect(paths.some((p) => p.startsWith("/puppy"))).toBe(false);
+    expect(paths).not.toContain("/my-puppy");
+    expect(urls().some((u) => u.includes("my-puppy"))).toBe(false);
+    expect(urls().some((u) => u.includes("/puppy"))).toBe(false);
+  });
+});
+
+describe("rabies legal copy in the vaccination guides", () => {
+  const bodyOf = (slug: string) =>
+    readFileSync(
+      fileURLToPath(new URL(`../../content/articles/${slug}.mdx`, import.meta.url)),
+      "utf8",
+    );
+
+  for (const slug of [
+    "puppy-vaccination-schedule-in-canada",
+    "kitten-vaccination-schedule-in-canada",
+  ]) {
+    it(`makes no unsupported negative legal claim for BC in ${slug}`, () => {
+      const body = bodyOf(slug);
+
+      // The exhaustive negative, in every phrasing it has worn.
+      expect(body).not.toMatch(/sets no legal requirement/i);
+      expect(body).not.toMatch(/no legal requirement at all/i);
+      expect(body).not.toMatch(/(?:BC|British Columbia)[^.]{0,40}has no legal requirement/i);
+      expect(body).not.toMatch(/does not compel|not legally required|no provincial law compels/i);
+
+      // What BCCDC actually says, and our position stated as ours.
+      expect(body).toMatch(/BCCDC|BC Centre for Disease Control/);
+      expect(body).toMatch(/not presenting a province-wide legal requirement/i);
+      // And it must not imply nothing else can apply.
+      expect(body).toMatch(/municipal/i);
+      expect(body).toMatch(/travel|import|bite-investigation/i);
+    });
+
+    it(`keeps Ontario's inclusive statutory threshold in ${slug}`, () => {
+      const body = bodyOf(slug);
+      expect(body).toMatch(/three months of age or over/);
+      expect(body).not.toMatch(/over three months of age/);
+      expect(body).not.toMatch(/after three months of age/);
+      // The statute is named, so the claim is checkable.
+      expect(body).toMatch(/Reg\. 567/);
+    });
+  }
+
+  it("records both corrections where the next editor will find them", () => {
+    for (const slug of [
+      "puppy-vaccination-schedule-in-canada",
+      "kitten-vaccination-schedule-in-canada",
+    ]) {
+      const article = articles.find((a) => a.slug === slug)!;
+      const register = (article.needsVerification ?? []).join(" ");
+      expect(register, slug).toMatch(/exhaustive negative legal claim/i);
+      expect(register, slug).toMatch(/Do not restore the stronger wording without a named statute/i);
+      expect(register, slug).toMatch(/R\.R\.O\. 1990, Reg\. 567/);
+      expect(register, slug).toMatch(/three months of age or over/);
     }
   });
 });

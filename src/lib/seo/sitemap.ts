@@ -6,7 +6,7 @@ import {
   allCommunityCategories,
   communityCategoryPath,
 } from "@/features/community/taxonomy";
-import { articlePath, publishedArticles } from "@/features/editorial/articles";
+import { articlePath, indexableArticles } from "@/features/editorial/articles";
 import { indexableJourneyPaths } from "@/features/puppy/stages";
 import { absoluteUrl } from "@/lib/seo/urls";
 
@@ -31,10 +31,12 @@ const ROUTE_GROUPS: readonly RouteGroup[] = [
   { paths: [COMMUNITY_BASE_PATH], priority: 0.9, changeFrequency: "daily" },
   { paths: topicRoutes, priority: 0.8, changeFrequency: "weekly" },
   {
-    // Only articles that have completed editorial review. A draft is rendered
-    // `noindex` by `/guides/[slug]`, and advertising it here would contradict
-    // that — so this list is empty until an article is marked `published`.
-    paths: publishedArticles().map((article) => articlePath(article.slug)),
+    // Published *and* approved for indexing. `isArticleIndexable` is the same
+    // predicate `/guides/[slug]` uses for its `noindex` meta, so the sitemap
+    // cannot advertise a page that tells crawlers to drop it, and a page held
+    // back for search reasons cannot leak in here. Empty until an article is
+    // both signed off and cleared.
+    paths: indexableArticles().map((article) => articlePath(article.slug)),
     priority: 0.8,
     changeFrequency: "monthly",
   },

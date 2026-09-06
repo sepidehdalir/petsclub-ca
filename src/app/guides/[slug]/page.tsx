@@ -6,6 +6,7 @@ import {
   articlePath,
   articles,
   findArticle,
+  isArticleIndexable,
 } from "@/features/editorial/articles";
 import { getAuthor } from "@/features/editorial/authors";
 import { ArticlePage } from "@/features/editorial/components/article-page";
@@ -51,7 +52,8 @@ export async function generateMetadata({
     // not completed review is `noindex`, which is the same thing the on-page
     // draft notice tells a reader and the reason `buildSitemapEntries` leaves
     // it out. All three launch articles are currently `in-review`.
-    noIndex: article.status !== "published",
+    // Same predicate as the sitemap, so the two cannot disagree.
+    noIndex: !isArticleIndexable(article),
     // The lead photograph as the share card: `src` is the hashed static path
     // Next emits for the imported asset, resolved to an absolute URL by
     // `metadataBase`.
@@ -66,7 +68,7 @@ export async function generateMetadata({
     // by machines rather than people, which is exactly why it must not say
     // something the page itself declines to say.
     ...(article.status === "published"
-      ? { publishedTime: article.publishedAt, modifiedTime: article.updatedAt }
+      ? { publishedTime: article.publishedAt, modifiedTime: article.updatedAt ?? article.publishedAt }
       : {}),
     authors: [author.name],
   });

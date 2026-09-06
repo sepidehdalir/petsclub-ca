@@ -10,6 +10,7 @@ import {
   getArticleSection,
   relatedArticles,
   type Article,
+  articlePublicationDates,
 } from "@/features/editorial/articles";
 import { findReviewer, getAuthor } from "@/features/editorial/authors";
 import { ArticleByline } from "@/features/editorial/components/article-byline";
@@ -165,9 +166,10 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
           // Only once the article has actually been published. `ArticleByline`
           // suppresses the date for an `in-review` article, and the markup a
           // crawler reads must not contradict the page a person reads.
-          ...(article.status === "published"
-            ? { datePublished: article.publishedAt, dateModified: article.updatedAt }
-            : {}),
+          // Dates come from the publication union and are absent entirely while
+          // the article is in review. No authoring date can be substituted:
+          // there is no longer one in the registry to substitute.
+          ...articlePublicationDates(article),
           author: { name: author.name, kind: author.kind },
           section: section.name,
           imagePath: asset.src.src,

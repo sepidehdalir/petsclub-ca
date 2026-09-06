@@ -135,7 +135,7 @@ export interface ArticleSource {
  */
 export type ArticleStatus = "in-review" | "published";
 
-export interface Article {
+interface ArticleContent {
   /** URL slug. The article lives at `/guides/<slug>`. */
   slug: string;
   section: ArticleSectionId;
@@ -154,10 +154,6 @@ export interface Article {
    * description to length.
    */
   metaDescription?: string;
-  /** ISO date (`YYYY-MM-DD`). */
-  publishedAt: string;
-  /** ISO date. Equal to `publishedAt` until the article is revised. */
-  updatedAt: string;
   authorId: ArticleAuthorId;
   /**
    * A named veterinary reviewer who actually read this article. There are none
@@ -191,7 +187,23 @@ export interface Article {
    * article earns it by being the best thing on its shelf, not by being new.
    */
   featured?: boolean;
-  status: ArticleStatus;
+  /**
+   * Whether this article may be indexed **once it is published**.
+   *
+   * Editorial state and search policy are different questions. `status` is
+   * whether the writing is finished and signed off; this is whether we want
+   * search engines to carry it. Holding a finished article out of the index by
+   * calling it `in-review` would mean misstating the content in order to
+   * control a crawler, and it cannot express the state that makes this field
+   * necessary: published, publicly readable, linked from other articles, and
+   * deliberately not in the index.
+   *
+   * Both must be true to index or to reach the sitemap, so this can never
+   * cause indexing on its own \u2014 see `isArticleIndexable`. Every article is
+   * `true` today, meaning no article carries an SEO-level hold; the thing
+   * holding all 35 back is `status`, which is the honest reason.
+   */
+  indexable: boolean;
   /** The quick answer, shown above the body where the subject supports one. */
   keyTakeaways?: readonly string[];
   /** Other articles, by slug. Rendered as "Related reading". */
@@ -247,6 +259,50 @@ export interface Article {
  * article up this list is how it gets promoted, and nothing else needs
  * changing.
  */
+/**
+ * When an article was published, if it ever was.
+ *
+ * ## Why this is a union rather than two required fields
+ *
+ * Every article carried a `publishedAt` from the day it was written \u2014
+ * 2026-09-01, 09-02, 09-03, 09-05 \u2014 and the launch gate established that
+ * those were the *authoring* dates: they match the commit dates of the writing
+ * batches, and no article has ever been public. They were harmless only
+ * because every consumer gates on `status`, so nothing rendered them. The
+ * first publish would have turned them into public claims about a publication
+ * that never happened, backdated by however long the review took.
+ *
+ * Modelling publication as a union makes the invalid states unrepresentable
+ * rather than merely discouraged, exactly as `PuppyStagePublication` does:
+ *
+ *  - `in-review` **cannot** carry a publication date. `publishedAt?: undefined`
+ *    is not the same as omitting the field \u2014 it makes setting one a type
+ *    error, so an article cannot claim a publication it has not had.
+ *  - `published` **must** carry one, so there is no way to publish and leave
+ *    the date to be filled in later or inferred from somewhere else.
+ *
+ * The old values were removed rather than moved to a `draftedAt` field.
+ * Nothing read them, the byline only ever used them to decide whether an
+ * article had been revised, and adding a private field for data with no
+ * consumer is how the original problem started.
+ */
+export type ArticlePublication =
+  | {
+      status: "in-review";
+      /** Not merely optional \u2014 forbidden. An unpublished article has no date. */
+      publishedAt?: undefined;
+      updatedAt?: undefined;
+    }
+  | {
+      status: "published";
+      /** ISO `YYYY-MM-DD`. The day this article first went live. */
+      publishedAt: string;
+      /** ISO date of a meaningful public revision. Absent until one happens. */
+      updatedAt?: string;
+    };
+
+export type Article = ArticleContent & ArticlePublication;
+
 export const articles: readonly Article[] = [
   {
     slug: "winter-dog-care-in-canada",
@@ -254,14 +310,13 @@ export const articles: readonly Article[] = [
     subcategory: "Seasonal care",
     title: "Winter Dog Care in Canada",
     deck: "Why there is no single “too cold” temperature, what road salt actually does to paws, and the winter hazards that put Canadian dogs in front of a vet.",
-    publishedAt: "2026-09-01",
-    updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
     readingMinutes: 9,
     mediaId: "guides-dogs-winter-forest",
     mediaAlt:
       "Two dogs standing among snow-covered pines on a still winter day in the forest.",
     tags: ["winter", "seasonal-care", "paw-care", "safety", "dogs"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -318,8 +373,6 @@ export const articles: readonly Article[] = [
     deck: "The risks that are specific to this country, what an indoor cat actually needs in return, and the middle options — catios, harnesses and curfews — that most well-run Canadian households land on.",
     metaDescription:
       "The Canadian risks that actually matter, what an indoor cat needs in return, and the middle options most well-run households land on.",
-    publishedAt: "2026-09-01",
-    updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
     readingMinutes: 8,
     mediaId: "cats-window-tabby",
@@ -327,6 +380,7 @@ export const articles: readonly Article[] = [
       "A ginger tabby cat lying on a windowsill in daylight, watching the street outside.",
     tags: ["indoor-cats", "enrichment", "safety", "wildlife", "cats"],
     featured: true,
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -374,13 +428,12 @@ export const articles: readonly Article[] = [
     deck: "Tenancy law is provincial, and a “no pets” clause that is unenforceable in one province is binding a few hours’ drive away. What to establish first, and how to become the applicant a landlord says yes to.",
     metaDescription:
       "Tenancy law is provincial, and a “no pets” clause that is unenforceable in one province binds in another. What to establish, and how to be the easy yes.",
-    publishedAt: "2026-09-01",
-    updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
     readingMinutes: 8,
     mediaId: "about-kitchen-play",
     mediaAlt: "A man crouches in the kitchen of a rented home, playing with a white dog.",
     tags: ["housing", "renting", "tenancy", "moving", "canada"],
+    indexable: true,
     status: "in-review",
     keyTakeaways: [
       "There is no national rule. In Ontario a no-pets clause is void; in British Columbia and Quebec the same clause binds you.",
@@ -433,8 +486,6 @@ export const articles: readonly Article[] = [
     deck: "A week-by-week account of what actually fills the first month — sleep, toilet trips in a Canadian winter, socialisation on a deadline, and teaching a puppy to be alone.",
     metaDescription:
       "What actually fills a puppy’s first month, week by week: sleep, house-training in winter, socialisation on a deadline, and alone-time training.",
-    publishedAt: "2026-09-01",
-    updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
     readingMinutes: 9,
     mediaId: "dogs-black-lab-puppy",
@@ -442,6 +493,7 @@ export const articles: readonly Article[] = [
       "A black Labrador puppy lying on a wooden floor, head down, watching the room.",
     tags: ["puppies", "new-owners", "house-training", "socialisation", "dogs"],
     featured: true,
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -488,12 +540,11 @@ export const articles: readonly Article[] = [
     deck: "Why the puppy series is several appointments rather than one, what core and non-core actually mean here, and which parts a veterinarian decides rather than an article.",
     metaDescription:
       "Why a puppy needs a series rather than one shot, what core and non-core mean in Canada, and the questions worth asking at the first appointment.",
-    publishedAt: "2026-09-01",
-    updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
     readingMinutes: 9,
     mediaId: "dogs-golden-in-leaves",
     tags: ["puppies", "vaccination", "preventative-care", "socialisation", "dogs"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -545,6 +596,8 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
+      "The British Columbia rabies wording was corrected on 2026-09-06. The schedule table previously said \u201cBritish Columbia sets no legal requirement at all\u201d \u2014 an exhaustive negative legal claim, and no authoritative source states it. The BCCDC rabies page, the BC Rabies Guidance for Veterinarians and the CVBC summary table were all retrieved and none of them does; proving the absence of a law is a different exercise from reading one. The table now carries only the positive claim BCCDC does make \u2014 that pets should be vaccinated and kept up to date \u2014 says plainly that we are not presenting a province-wide legal requirement, and leaves municipal, travel and bite-investigation rules explicitly open. Do not restore the stronger wording without a named statute or regulation.",
+      "Ontario's threshold is quoted from the primary regulation: R.R.O. 1990, Reg. 567 (Rabies Immunization) under the Health Protection and Promotion Act, s. 1 \u2014 \u201ca cat, dog or ferret three months of age or over\u201d, verified against e-Laws on 2026-09-06 at consolidation from 2023-07-01, last amendment O. Reg. 67/23. \u201cOr over\u201d is inclusive, so the anniversary day itself is inside the duty. Do not paraphrase it back to \u201cover three months\u201d or \u201cafter three months\u201d, both of which exclude that day.",
       "Ontario and British Columbia are named because both were confirmed against a government source. Every other province and territory is still described generically — establish each before any of them is named.",
       "The regions of Canada where blacklegged ticks are established, before naming any of them.",
       "Whether Canadian provincial regulators or the CVMA have taken a formal position on leptospirosis as core, distinct from the AAHA and WSAVA positions the article cites.",
@@ -559,14 +612,13 @@ export const articles: readonly Article[] = [
     deck: "A four-week plan for a dog that goes into an open crate to sleep — plus how long is too long, the five mistakes everyone makes, and how to tell when a crate is the wrong tool.",
     metaDescription:
       "A four-week crate training plan, how long is too long, the five common mistakes, and how to tell when a crate is the wrong tool for your dog.",
-    publishedAt: "2026-09-01",
-    updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
     readingMinutes: 9,
     mediaId: "training-dog-in-crate",
     mediaAlt:
       "A dog dozing on a cushion inside an open wire crate — the thing the guide is trying to build.",
     tags: ["puppies", "crate-training", "training", "alone-time", "dogs"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -624,12 +676,11 @@ export const articles: readonly Article[] = [
     deck: "No national average, because there isn’t an honest one. Instead: every cost category that exists, the one that decides whether ownership is comfortable, and how to build a real number for your own city in an hour.",
     metaDescription:
       "Every cost category of owning a dog in Canada, what actually drives the number, and an hour-long method for building a real figure for your own city.",
-    publishedAt: "2026-09-01",
-    updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
     readingMinutes: 7,
     mediaId: "dogs-white-dog-leaves",
     tags: ["money", "budgeting", "pet-insurance", "vet-costs", "dogs"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -682,12 +733,11 @@ export const articles: readonly Article[] = [
     deck: "A kitten asks less of your calendar than a puppy and much more of your house — one room to start, two litter boxes, a carrier left out for a decade, and never, ever playing with your hands.",
     metaDescription:
       "One room to start, two litter boxes, a carrier left out permanently, and never playing with your hands — the first month with a kitten, in order.",
-    publishedAt: "2026-09-01",
-    updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
     readingMinutes: 9,
     mediaId: "cats-kittens-at-window",
     tags: ["kittens", "new-owners", "litter-box", "socialisation", "cats"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -731,12 +781,11 @@ export const articles: readonly Article[] = [
     deck: "What the core feline vaccines are for, why the series takes several appointments rather than one, and the honest answer to “but my cat never goes outside”.",
     metaDescription:
       "What FVRCP and rabies cover, why a kitten needs a series rather than one shot, and a straight answer on vaccinating an indoor-only cat.",
-    publishedAt: "2026-09-01",
-    updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
     readingMinutes: 8,
     mediaId: "cats-kitten-windowsill",
     tags: ["kittens", "vaccination", "preventative-care", "indoor-cats", "cats"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -787,6 +836,8 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
+      "The British Columbia rabies wording was corrected on 2026-09-06. The schedule table previously said \u201cBritish Columbia sets no legal requirement at all\u201d \u2014 an exhaustive negative legal claim, and no authoritative source states it. The BCCDC rabies page, the BC Rabies Guidance for Veterinarians and the CVBC summary table were all retrieved and none of them does; proving the absence of a law is a different exercise from reading one. The table now carries only the positive claim BCCDC does make \u2014 that pets should be vaccinated and kept up to date \u2014 says plainly that we are not presenting a province-wide legal requirement, and leaves municipal, travel and bite-investigation rules explicitly open. Do not restore the stronger wording without a named statute or regulation.",
+      "Ontario's threshold is quoted from the primary regulation: R.R.O. 1990, Reg. 567 (Rabies Immunization) under the Health Protection and Promotion Act, s. 1 \u2014 \u201ca cat, dog or ferret three months of age or over\u201d, verified against e-Laws on 2026-09-06 at consolidation from 2023-07-01, last amendment O. Reg. 67/23. \u201cOr over\u201d is inclusive, so the anniversary day itself is inside the duty. Do not paraphrase it back to \u201cover three months\u201d or \u201cafter three months\u201d, both of which exclude that day.",
       "Ontario, British Columbia and Alberta are named because each was confirmed against a government source. Every other province and territory is still described generically — establish each before naming it.",
       "Whether any Canadian province regulates rabies vaccination differently for cats than for dogs.",
       "The reasoning behind feline injection sites is referred to without being named. Decide whether to name it once a veterinary source is attached.",
@@ -801,14 +852,13 @@ export const articles: readonly Article[] = [
     deck: "Height, a window, a proper hunt twice a day, something worth scratching and somewhere to hide — and what changes when the house is shut up and dark by five for half the year.",
     metaDescription:
       "The five things a cat needs to be able to do indoors, how to supply each in a Canadian home, and a ten-minute weekly rotation that keeps it working.",
-    publishedAt: "2026-09-01",
-    updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
     readingMinutes: 8,
     mediaId: "cats-feather-toy-play",
     mediaAlt:
       "A grey cat rearing up to catch a feather toy in both paws — the hunt, indoors.",
     tags: ["indoor-cats", "enrichment", "behaviour", "apartments", "cats"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -866,14 +916,13 @@ export const articles: readonly Article[] = [
     deck: "Cheaper than a dog, and the reason cat owners get caught out more often. The lines dog owners never have, the three expensive realities specific to cats, and how to build your own number.",
     metaDescription:
       "The cost categories of owning a cat in Canada, the two lines nobody models — litter and the second cat — and an hour-long method for your own figure.",
-    publishedAt: "2026-09-01",
-    updatedAt: "2026-09-01",
     authorId: "pet-club-editorial",
     readingMinutes: 8,
     mediaId: "cats-eating-from-bowls",
     mediaAlt:
       "Two cats eating from separate bowls — the line that doubles when the second cat arrives.",
     tags: ["money", "budgeting", "pet-insurance", "vet-costs", "cats"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -933,14 +982,13 @@ export const articles: readonly Article[] = [
     deck: "It is not a discount plan for veterinary care. What accident, illness and wellness cover actually do, the four numbers that settle a claim, and why the exclusions decide more than the price does.",
     metaDescription:
       "What accident, illness and wellness cover actually do, the four numbers that settle a claim, and why a policy’s exclusions matter more than its monthly price.",
-    publishedAt: "2026-09-02",
-    updatedAt: "2026-09-02",
     authorId: "pet-club-editorial",
     readingMinutes: 10,
     mediaId: "health-senior-dog-resting",
     mediaAlt:
       "An elderly dog with a greying muzzle rests on a wooden floor — the years a policy is bought for.",
     tags: ["pet-insurance", "money", "budgeting", "vet-costs", "canada"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -997,14 +1045,13 @@ export const articles: readonly Article[] = [
     deck: "The worst time to choose a practice is the first time you need one. What to weigh, the twelve questions worth a phone call, and why the after-hours answer matters more than anything on the website.",
     metaDescription:
       "How to choose a veterinary practice before an emergency: what to weigh, the questions worth a phone call, and why the after-hours answer matters most.",
-    publishedAt: "2026-09-02",
-    updatedAt: "2026-09-02",
     authorId: "pet-club-editorial",
     readingMinutes: 9,
     mediaId: "health-vet-examining-dog",
     mediaAlt:
       "A veterinarian listening to a small dog's chest during a routine consultation.",
     tags: ["veterinary-care", "choosing-a-vet", "vet-costs", "canada", "planning"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1046,8 +1093,6 @@ export const articles: readonly Article[] = [
     deck: "Not a symptom checker. The hour of preparation — destination, transport, records, money — that decides how the worst night goes, and the one rule for when you are not sure whether to call.",
     metaDescription:
       "The hour of preparation that decides how the worst night goes: destination, transport, records and money — plus the one rule for when you are unsure.",
-    publishedAt: "2026-09-02",
-    updatedAt: "2026-09-02",
     authorId: "pet-club-editorial",
     readingMinutes: 10,
     mediaId: "health-cat-in-carrier",
@@ -1055,6 +1100,7 @@ export const articles: readonly Article[] = [
       "A cat settled in a pet carrier — left out and open, which is the whole point.",
     tags: ["emergency-care", "veterinary-care", "preparedness", "safety", "canada"],
     featured: true,
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1114,14 +1160,13 @@ export const articles: readonly Article[] = [
     deck: "Most trips fail on something ordinary — a microchip registered to an old phone number, or a booking that allowed one cat and not two dogs. What to settle before you book, and what to arrange at the other end.",
     metaDescription:
       "Domestic travel with a dog or cat: identification, restraint in the car, lodging policies in writing, and finding a vet at the other end before you need one.",
-    publishedAt: "2026-09-02",
-    updatedAt: "2026-09-02",
     authorId: "pet-club-editorial",
     readingMinutes: 11,
     mediaId: "guides-dog-harness-in-car",
     mediaAlt:
       "A dog wearing a harness settled on a car seat, restrained for the drive.",
     tags: ["travel", "planning", "identification", "microchip", "canada"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1200,14 +1245,13 @@ export const articles: readonly Article[] = [
     deck: "Heartworm has a date and ticks have a map \u2014 and both are Canadian. Where blacklegged ticks are actually established, why prevention starts on 1 June, and the month everyone stops too early.",
     metaDescription:
       "Where blacklegged ticks are established in Canada, why heartworm prevention starts on 1 June, and the autumn month most owners stop too early.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 6,
     mediaId: "health-dog-in-tall-grass",
     mediaAlt:
       "A dog shoulder-deep in long meadow grass \u2014 which is exactly where the ticks are.",
     tags: ["parasites", "ticks", "heartworm", "fleas", "preventative-care", "canada"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1258,14 +1302,13 @@ export const articles: readonly Article[] = [
     deck: "\u201cSix months\u201d is still right for a lot of animals and is no longer the answer for large-breed dogs. What the timing turns on, and the two Canadian costs nobody mentions.",
     metaDescription:
       "Why the timing guidance changed for large-breed dogs, what recovery actually asks of you, and the two Canadian costs that change the arithmetic.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 5,
     mediaId: "health-dog-recovery-cone",
     mediaAlt:
       "A golden retriever in a recovery cone resting on the floor \u2014 the fortnight that decides how the surgery goes.",
     tags: ["spay-neuter", "surgery", "preventative-care", "money", "canada"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1321,14 +1364,13 @@ export const articles: readonly Article[] = [
     deck: "Shelters, rescues, breeders and private sales \u2014 what each one owes you, the questions that separate a serious organisation from a good website, and the federal import rule almost nobody knows about.",
     metaDescription:
       "What shelters, rescues and breeders each owe you, the questions the CFIA says to ask, and the 2022 import rule that covers rescue and fostering.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 6,
     mediaId: "guides-adopt-me-bandana",
     mediaAlt:
       "A dog in an \u201cAdopt Me\u201d bandana at an outdoor adoption event.",
     tags: ["adoption", "rescue", "shelters", "breeders", "canada"],
+    indexable: true,
     status: "in-review",
     keyTakeaways: [
       "Since 28 September 2022 commercial dogs cannot enter Canada from countries the CFIA lists as high-risk for dog rabies \u2014 and \u201ccommercial\u201d expressly includes adoption and fostering.",
@@ -1377,14 +1419,13 @@ export const articles: readonly Article[] = [
     deck: "Protest fades and distress escalates, and the difference decides everything you do next. What the evidence-based protocol actually is, and why most plans fail for a reason that is not the dog.",
     metaDescription:
       "How to tell distress from protest, the graduated departure protocol that has evidence behind it, and why plans with too many instructions fail.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 7,
     mediaId: "training-dog-at-window",
     mediaAlt:
       "A dog alone at a window, seen from behind, watching for something outside.",
     tags: ["separation-anxiety", "behaviour", "training", "alone-time", "dogs"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1440,14 +1481,13 @@ export const articles: readonly Article[] = [
     deck: "The same rule as winter, pointed the other way \u2014 except heat does not give you the warning cold does. Parked cars, the pavement test, and what an AQHI of 7 should change about your walk.",
     metaDescription:
       "Why there is no safe temperature, the back-of-hand pavement test, heatstroke signs, and how to read wildfire smoke and the AQHI for a dog.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 7,
     mediaId: "dogs-drinking-water-summer",
     mediaAlt:
       "A dog drinking from a water container on dry grass in strong summer sun.",
     tags: ["summer", "seasonal-care", "heatstroke", "wildfire-smoke", "safety", "dogs"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1517,14 +1557,13 @@ export const articles: readonly Article[] = [
     deck: "Cats decide who is family by smell, which is why the first ten minutes matter more than the next ten weeks. A staged introduction, and the quiet conflict most owners never notice.",
     metaDescription:
       "A staged introduction for a second cat \u2014 scent before sight \u2014 plus the silent signs of conflict owners miss, and how cat-and-dog differs.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 7,
     mediaId: "cats-two-resting-together",
     mediaAlt:
       "Two cats resting a few feet apart on a tiled floor \u2014 coexistence, which is the realistic goal.",
     tags: ["multi-cat", "behaviour", "introductions", "cats", "training"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1572,14 +1611,13 @@ export const articles: readonly Article[] = [
     deck: "Most dogs and cats have periodontal disease by three and almost none of them show it. What a professional dental actually involves, and the straight answer on anaesthesia-free cleaning.",
     metaDescription:
       "Why dental disease is invisible, what a professional dental under anaesthetic actually does, and why AAHA does not recommend anaesthesia-free cleaning.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 7,
     mediaId: "health-dog-teeth-brushing",
     mediaAlt:
       "A small dog having its teeth brushed \u2014 the only home-care measure that reliably works.",
     tags: ["dental", "preventative-care", "surgery", "money", "dogs", "cats"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1629,14 +1667,13 @@ export const articles: readonly Article[] = [
     deck: "The first hour matters more than the next three days, and most of it gets spent on the wrong things. What to do first, and why a lost cat search looks nothing like a lost dog search.",
     metaDescription:
       "What to do in the first hour, why a lost cat is hiding within a few houses, and the microchip limitation the CVMA is explicit about.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 6,
     mediaId: "guides-cat-under-car",
     mediaAlt:
       "A cat crouched under a parked car \u2014 which is where a frightened lost cat usually is.",
     tags: ["lost-pet", "microchip", "identification", "emergencies", "canada"],
+    indexable: true,
     status: "in-review",
     keyTakeaways: [
       "Update the microchip registration and file a municipal lost report before anything else. Both take minutes and both get skipped.",
@@ -1684,8 +1721,6 @@ export const articles: readonly Article[] = [
     deck: "Tenancy is provincial, rabies is provincial, licensing is not \u2014 it is municipal, and five Canadian cities give five different answers about species, age and what you get.",
     metaDescription:
       "Licensing is municipal, not provincial. How Toronto, Ottawa, Calgary, Edmonton and Vancouver differ on species, age thresholds and what is included.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 6,
     mediaId: "guides-dog-collar-tag",
@@ -1693,6 +1728,7 @@ export const articles: readonly Article[] = [
       "A dog wearing a collar with a metal identification tag \u2014 the layer that works without a scanner.",
     tags: ["licensing", "bylaws", "municipal", "identification", "canada"],
     featured: true,
+    indexable: true,
     status: "in-review",
     keyTakeaways: [
       "Licensing is municipal. Your city decides it, and neighbouring cities genuinely differ.",
@@ -1757,14 +1793,13 @@ export const articles: readonly Article[] = [
     deck: "\u201cHe\u2019s just getting old\u201d is the most expensive sentence in pet ownership. When senior actually starts, what changes, and why most of it has a name.",
     metaDescription:
       "Senior is the last quarter of expected lifespan \u2014 seven for a large dog, ten for a cat. What changes, what it might really be, and what to change at home.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 7,
     mediaId: "health-senior-dog-close",
     mediaAlt:
       "An elderly dog with a greying muzzle resting indoors, watching the room.",
     tags: ["senior-pets", "life-stage", "arthritis", "preventative-care", "dogs", "cats"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1832,14 +1867,13 @@ export const articles: readonly Article[] = [
     deck: "Socialisation is not exposure \u2014 it is exposure at an intensity the puppy can handle, in which nothing bad happens. The categories to cover, and how to read whether it is working.",
     metaDescription:
       "What to actually socialise a puppy to, how to tell an exposure is helping rather than harming, and why a puppy that won\u2019t eat is over threshold.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 6,
     mediaId: "training-puppy-on-street",
     mediaAlt:
       "A puppy on a lead taking in a street \u2014 the world at a distance it can handle.",
     tags: ["puppies", "socialisation", "training", "behaviour", "dogs"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -1890,14 +1924,13 @@ export const articles: readonly Article[] = [
     deck: "Crossing a provincial line can create obligations you did not have and remove protections you were relying on. Two of the three layers of Canadian pet rules change, and nothing tells you.",
     metaDescription:
       "Rabies law, tenancy law and municipal licensing all change when you move province. What to check, in what order, and the ten minutes that matters most.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 6,
     mediaId: "guides-moving-boxes-dog",
     mediaAlt:
       "A dog sitting between two people carrying moving boxes \u2014 the day the rules change.",
     tags: ["moving", "provincial", "licensing", "tenancy", "canada"],
+    indexable: true,
     status: "in-review",
     keyTakeaways: [
       "Federal rules barely change; provincial and municipal ones change completely, and municipal ones change again within a province.",
@@ -1959,14 +1992,13 @@ export const articles: readonly Article[] = [
     deck: "Most evacuation shelters take service animals only, which means the plan almost everyone has does not work. Where the animal actually goes, and the 72-hour kit the federal guidance asks for.",
     metaDescription:
       "Most evacuation shelters accept only service animals. How to plan where a pet goes, and the 72-hour kit \u2014 including the water volumes nobody expects.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 7,
     mediaId: "guides-pet-emergency-kit",
     mediaAlt:
       "A pet carrier, collapsible bowls, food, a coat and a bed laid out from above \u2014 the kit, assembled.",
     tags: ["emergency-preparedness", "evacuation", "wildfire", "safety", "canada"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -2022,14 +2054,13 @@ export const articles: readonly Article[] = [
     deck: "No Canadian body sets nutritional standards for retail pet food or approves it before sale. Which parts of the label are actually load-bearing, and which words mean nothing here.",
     metaDescription:
       "Pet food is not regulated in Canada the way you think. Who oversees what, which parts of the label matter, and why AAFCO is a US voluntary standard.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 6,
     mediaId: "food-pouring-kibble",
     mediaAlt:
       "Dry food being poured from an unbranded paper bag into a bowl.",
     tags: ["nutrition", "labelling", "regulation", "food", "canada"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -2081,14 +2112,13 @@ export const articles: readonly Article[] = [
     deck: "The moment rarely announces itself, so a framework replaces it: pain, and whether an animal can still eat, breathe, move and engage. Written to be read early.",
     metaDescription:
       "How quality of life is actually assessed, what euthanasia involves, and the practical decisions worth making in a quiet week rather than a hard one.",
-    publishedAt: "2026-09-03",
-    updatedAt: "2026-09-03",
     authorId: "pet-club-editorial",
     readingMinutes: 8,
     mediaId: "health-hand-holding-paw",
     mediaAlt:
       "A hand holding a dog\u2019s paw, the dog leaning in towards it.",
     tags: ["end-of-life", "euthanasia", "palliative-care", "senior-pets", "grief"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -2165,14 +2195,13 @@ export const articles: readonly Article[] = [
     deck: "A cat that has stopped using the box is not making a point. Rule out the body first, then work out whether it is toileting or marking — because they need opposite fixes.",
     metaDescription:
       "Why medical causes come first, how to tell toileting from marking, and the litter box audit that resolves most cases.",
-    publishedAt: "2026-09-05",
-    updatedAt: "2026-09-05",
     authorId: "pet-club-editorial",
     readingMinutes: 6,
     mediaId: "cats-leaving-litter-box",
     mediaAlt:
       "A cat stepping out of an open litter tray — uncovered, low-sided, in a quiet corner.",
     tags: ["litter-box", "house-soiling", "behaviour", "cats", "multi-cat"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -2229,8 +2258,6 @@ export const articles: readonly Article[] = [
     deck: "A cat straining and producing nothing is an emergency measured in hours. What FLUTD actually covers, which cats are at risk, and the one line that decides your next hour.",
     metaDescription:
       "Straining with little or no urine is an emergency. What FLUTD covers, which cats are at higher risk, and how the signs are triaged.",
-    publishedAt: "2026-09-05",
-    updatedAt: "2026-09-05",
     authorId: "pet-club-editorial",
     readingMinutes: 6,
     mediaId: "cats-drinking-running-water",
@@ -2238,6 +2265,7 @@ export const articles: readonly Article[] = [
       "A cat drinking from a running tap — water intake being one of the few levers a household actually has.",
     tags: ["flutd", "urinary", "emergency-care", "cat-health", "cats"],
     featured: true,
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -2294,8 +2322,6 @@ export const articles: readonly Article[] = [
     deck: "Nobody publishes it, and there is a competition-law reason for that. How a bill is actually assembled, why two clinics differ legitimately, and how to build a real number for your own city.",
     metaDescription:
       "Why no Canadian authority publishes veterinary prices, how a bill is structured line by line, and how to get a real figure for your own city.",
-    publishedAt: "2026-09-05",
-    updatedAt: "2026-09-05",
     authorId: "pet-club-editorial",
     readingMinutes: 7,
     mediaId: "health-vet-consultation-discussion",
@@ -2303,6 +2329,7 @@ export const articles: readonly Article[] = [
       "An owner and a veterinarian talking over a small dog on the consulting table — the conversation the article argues for having early.",
     tags: ["vet-costs", "money", "budgeting", "regulation", "canada"],
     featured: true,
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -2364,14 +2391,13 @@ export const articles: readonly Article[] = [
     deck: "Animals with joint pain do not limp — they do less. What owners actually notice, why cats hide it almost entirely, and the changes at home that do the most.",
     metaDescription:
       "The signs of joint pain in dogs and cats, why cats rarely limp, what multimodal treatment means, and the home changes that matter most.",
-    publishedAt: "2026-09-05",
-    updatedAt: "2026-09-05",
     authorId: "pet-club-editorial",
     readingMinutes: 7,
     mediaId: "health-dog-descending-stairs",
     mediaAlt:
       "A dog picking its way carefully down a wooden staircase — stairs being one of the first things to change.",
     tags: ["arthritis", "mobility", "pain", "senior-pets", "dogs", "cats"],
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -2430,8 +2456,6 @@ export const articles: readonly Article[] = [
     deck: "Both fail for the same reason: they get tested on the street before they are built in the hallway. A progression for each, and the one rule that protects a recall for life.",
     metaDescription:
       "How to build lead walking and recall in the order that works, why the long line matters, and the mistakes that break a recall permanently.",
-    publishedAt: "2026-09-05",
-    updatedAt: "2026-09-05",
     authorId: "pet-club-editorial",
     readingMinutes: 8,
     mediaId: "training-dog-looking-back-walk",
@@ -2439,6 +2463,7 @@ export const articles: readonly Article[] = [
       "A dog on a lead pausing on a path to look back towards its handler — the moment both of these skills are built on.",
     tags: ["training", "recall", "lead-walking", "behaviour", "dogs"],
     featured: true,
+    indexable: true,
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
@@ -2541,12 +2566,68 @@ export function relatedArticles(article: Article): readonly Article[] {
 }
 
 /**
- * Articles eligible for the sitemap.
+ * Articles that have completed editorial review.
  *
- * Only `published` ones. An article awaiting editorial sign-off is rendered
- * `noindex` and must not be advertised in the sitemap — the two would
- * contradict each other.
+ * Editorial state only. Being published does not by itself make an article
+ * eligible for the sitemap — see `indexableArticles`, which is the list the
+ * sitemap actually reads.
  */
 export function publishedArticles(): readonly Article[] {
   return articles.filter((article) => article.status === "published");
+}
+
+/**
+ * Whether an article may be indexed, and therefore advertised in the sitemap.
+ *
+ * The single predicate behind both the `noindex` meta tag and sitemap
+ * membership, so the two cannot contradict each other: an article cannot be
+ * listed in the sitemap while telling crawlers to drop it, and it cannot be
+ * indexable while being held back.
+ *
+ * Both halves are required and they answer different questions. `status` is
+ * whether the writing is finished; `indexable` is whether we want it found.
+ * Indexability can never override review status, which is why setting the flag
+ * ahead of a launch is safe.
+ */
+export function isArticleIndexable(article: Article): boolean {
+  return article.status === "published" && article.indexable;
+}
+
+/** Articles eligible for the sitemap. Empty while every article is in review. */
+export function indexableArticles(): readonly Article[] {
+  return articles.filter(isArticleIndexable);
+}
+
+/**
+ * The publication dates an article may put in its metadata and markup.
+ *
+ * Empty while the article is in review: an unpublished page makes no claim
+ * about when it was published, and there is no authoring date left in the
+ * registry that could be substituted for one.
+ *
+ * The throw is a second lock behind the type union, which already makes a
+ * published article without `publishedAt` a compile error. It can only fire if
+ * something casts around the type, and it fails the build rather than quietly
+ * omitting the field — an article whose status claims publication and whose
+ * markup denies it is the contradiction this exists to prevent.
+ */
+export function articlePublicationDates(article: Article): {
+  datePublished?: string;
+  dateModified?: string;
+} {
+  if (article.status !== "published") {
+    return {};
+  }
+
+  if (!article.publishedAt) {
+    throw new Error(
+      `Article "${article.slug}" is published with no publishedAt. Set the date it ` +
+        "actually went live; a drafting or commit date is not a publication date.",
+    );
+  }
+
+  return {
+    datePublished: article.publishedAt,
+    dateModified: article.updatedAt ?? article.publishedAt,
+  };
 }
