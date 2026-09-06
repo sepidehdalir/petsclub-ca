@@ -1406,3 +1406,216 @@ describe("Batch A — Canadian legal and regulatory evidence", () => {
     }
   });
 });
+
+/** The fifteen articles the Puppy Journey links from its stages. */
+const JOURNEY_DEPENDENCIES = [
+  "bringing-home-a-puppy-first-30-days",
+  "crate-training-a-puppy-in-canada",
+  "puppy-socialisation-checklist",
+  "puppy-vaccination-schedule-in-canada",
+  "loose-leash-walking-and-recall",
+  "spaying-and-neutering-in-canada",
+  "dental-care-for-dogs-and-cats",
+  "parasite-prevention-for-pets-in-canada",
+  "finding-a-veterinarian-in-canada",
+  "pet-licensing-across-canada",
+  "reading-a-canadian-pet-food-label",
+  "emergency-vet-visits-in-canada",
+  "cost-of-owning-a-dog-in-canada",
+  "winter-dog-care-in-canada",
+  "summer-heat-safety-for-dogs-in-canada",
+] as const;
+
+/** Register wording that means an item is still blocking publication. */
+const BLOCKING_ITEM =
+  /before publication|before it is published|before publishing|attach a source or cut|source it before|confirm .{0,40}before|could not be (?:retrieved|confirmed|verified)|not yet sourced|re-check .{0,30}before|attach the underlying study|attach a (?:veterinary|toxicology|public health|conservation) source|resolve this before/i;
+
+describe("Batch D — vaccination and cost evidence", () => {
+  const body = (slug: string) => ARTICLE_BODIES.find((a) => a.slug === slug)!.body;
+  const sourceUrls = (slug: string) =>
+    (articles.find((a) => a.slug === slug)!.sources ?? []).map((x) => x.url).join(" ");
+
+  it("renders Alberta's post-exposure rule conditionally, from the province's own page", () => {
+    const b = body("puppy-vaccination-schedule-in-canada");
+    // The two halves of the condition, not just "unvaccinated".
+    expect(b).toMatch(/unvaccinated \*or which do not receive a booster promptly/i);
+    expect(b).toMatch(/three- to six-month quarantine/i);
+    expect(b).toMatch(/within 96 hours/i);
+    expect(b).toMatch(/will not require quarantine/i);
+    expect(b).toMatch(/public health veterinarian/i);
+    expect(b).toMatch(/risk assessment/i);
+    // Alberta's framework, not the country's.
+    expect(b).toMatch(/Alberta's framework, not the country's/i);
+    expect(b).not.toMatch(/across Canada[^.]{0,40}quarantine/i);
+    expect(sourceUrls("puppy-vaccination-schedule-in-canada")).toMatch(/alberta\.ca\/rabies-information/);
+  });
+
+  it("keeps the already-resolved vaccination material correct", () => {
+    const b = body("puppy-vaccination-schedule-in-canada");
+    // Ontario, inclusive, from the regulation.
+    expect(b).toMatch(/three months of age or over/);
+    expect(b).not.toMatch(/over three months of age/);
+    // BC, no unsupported negative.
+    expect(b).not.toMatch(/sets no legal requirement|no legal requirement at all/i);
+    expect(b).toMatch(/not presenting a province-wide legal requirement/i);
+    // Core-series framing intact, and no age-alone prescription anywhere.
+    expect(b).toMatch(/sixteen weeks or later|past 16 weeks|older than sixteen weeks/i);
+    expect(b).toMatch(/26 weeks/);
+    expect(b).toMatch(/twelve-month (?:booster|appointment)|twelve to sixteen months/i);
+    for (const sentence of b.split(/(?<=[.?!])\s+/)) {
+      expect(parasiteRxViolations(sentence), sentence.slice(0, 90)).toEqual([]);
+      expect(absoluteLegalClaims(sentence), sentence.slice(0, 90)).toEqual([]);
+    }
+  });
+
+  it("sources the licence-fee differential from two municipalities, dated", () => {
+    const b = body("cost-of-owning-a-dog-in-canada");
+    expect(b).toMatch(/September 2026/);
+    expect(b).toMatch(/Toronto lists \$25\.00/);
+    expect(b).toMatch(/\$60\.00/);
+    expect(b).toMatch(/Calgary lists \$45/);
+    expect(b).toMatch(/\$71/);
+    // Two cities is not a national pattern, and the article says so.
+    expect(b).toMatch(/not a Canadian pattern/i);
+    expect(b).not.toMatch(/Canadian cities generally charge/i);
+    const urls = sourceUrls("cost-of-owning-a-dog-in-canada");
+    expect(urls).toMatch(/toronto\.ca/);
+    expect(urls).toMatch(/calgary\.ca/);
+  });
+
+  it("sources adoption bundling as named examples rather than a rule", () => {
+    const b = body("cost-of-owning-a-dog-in-canada");
+    expect(b).toMatch(/BC SPCA/);
+    expect(b).toMatch(/Calgary Humane Society/);
+    expect(b).toMatch(/Some adoption fees bundle/i);
+    expect(b).toMatch(/two organisations, not a national rule/i);
+    expect(b).not.toMatch(/Rescue fees usually bundle/i);
+    const urls = sourceUrls("cost-of-owning-a-dog-in-canada");
+    expect(urls).toMatch(/spca\.bc\.ca/);
+    expect(urls).toMatch(/calgaryhumane\.ca/);
+  });
+
+  it("states the food-cost relationship the way Merck states it", () => {
+    const b = body("cost-of-owning-a-dog-in-canada");
+    // The old claim was wrong, not merely unsourced.
+    expect(b).not.toMatch(/scales almost directly with the dog/i);
+    expect(b).toMatch(/not a linear function of body weight/i);
+    expect(b).toMatch(/power of 0\.75/);
+    expect(b).toMatch(/costs multiples of a small one/i);
+    expect(b).toMatch(/30%/);
+    expect(sourceUrls("cost-of-owning-a-dog-in-canada")).toMatch(/merckvetmanual\.com\/management-and-nutrition/);
+    // No ration calculator crept in.
+    expect(b).not.toMatch(/\bkcal\b/i);
+  });
+
+  it("publishes no national cost figure, and no unsourced price", () => {
+    const article = articles.find((a) => a.slug === "cost-of-owning-a-dog-in-canada")!;
+    const b = body("cost-of-owning-a-dog-in-canada");
+
+    // The Sources section is no longer empty.
+    expect((article.sources ?? []).length).toBeGreaterThanOrEqual(5);
+
+    // Every dollar figure is dated and attributed to the city that sets it.
+    const priced = b.split(/(?<=[.?!])\s+/).filter((x) => /\$\s?[\d,]/.test(x));
+    expect(priced.length).toBeGreaterThan(0);
+    for (const sentence of priced) {
+      expect(sentence, `undated price: ${sentence.slice(0, 110)}`).toMatch(/as of \w+ \d{4}/i);
+      expect(sentence, `unattributed price: ${sentence.slice(0, 110)}`).toMatch(/Toronto|Calgary/);
+    }
+
+    // And the article still refuses a national number.
+    expect(b).toMatch(/does not give you a number, and that is deliberate/i);
+    expect(b).not.toMatch(/the average (?:Canadian )?dog costs/i);
+    expect(b).not.toMatch(/costs? about \$[\d,]+ (?:a|per) year/i);
+  });
+});
+
+describe("Puppy Journey dependency set", () => {
+  it("covers exactly the fifteen articles the Journey links", () => {
+    expect(JOURNEY_DEPENDENCIES).toHaveLength(15);
+    for (const slug of JOURNEY_DEPENDENCIES) {
+      expect(articles.some((a) => a.slug === slug), `${slug} is missing`).toBe(true);
+    }
+  });
+
+  /**
+   * One register item across the fifteen still reads as unsourced, and it is
+   * named here rather than relabelled quietly.
+   *
+   * `emergency-vet-visits-in-canada` records that very young animals have less
+   * physiological reserve and deteriorate faster, "not yet sourced here" — and
+   * in the same item, that it is "written as a reason to lower the threshold
+   * for calling, never as a physiological claim". The independent V2 gate read
+   * the article and classified it as carrying no publication blocker for that
+   * reason: the claim is conservative in direction, it makes a reader more
+   * likely to seek care rather than less, and the register already constrains
+   * how it may be written.
+   *
+   * It was outside this batch's scope, so it was not edited. Closing it by
+   * changing its label would be exactly the move the batch brief forbids, so
+   * the exception is written down instead: visible, attributed, and easy to
+   * remove once a source is attached.
+   */
+  const KNOWN_UNSOURCED = new Map([
+    ["emergency-vet-visits-in-canada", /less physiological reserve/i],
+  ]);
+
+  it("leaves zero publication blockers across all fifteen, bar one documented item", () => {
+    const blockers: string[] = [];
+    for (const slug of JOURNEY_DEPENDENCIES) {
+      const items = articles.find((a) => a.slug === slug)!.needsVerification ?? [];
+      for (const item of items) {
+        if (!BLOCKING_ITEM.test(item)) continue;
+        if (/^(?:RESOLVED|STANDING GUARDRAIL|OPEN \(NON-BLOCKING\))/.test(item)) continue;
+        const known = KNOWN_UNSOURCED.get(slug);
+        if (known?.test(item)) continue;
+        blockers.push(`${slug}: ${item.slice(0, 120)}`);
+      }
+    }
+    expect(blockers).toEqual([]);
+  });
+
+  it("keeps the one documented exception genuinely present and genuinely safe", () => {
+    // If somebody sources it, this test fails and the allowlist entry goes.
+    const items =
+      articles.find((a) => a.slug === "emergency-vet-visits-in-canada")!.needsVerification ?? [];
+    const item = items.find((x) => /less physiological reserve/i.test(x));
+    expect(item, "the documented exception has changed — update KNOWN_UNSOURCED").toBeDefined();
+    // The constraint that makes it safe must still be recorded beside it.
+    expect(item!).toMatch(/never as a physiological claim/i);
+
+    // And the article must still use it only to lower the calling threshold.
+    const body = ARTICLE_BODIES.find((a) => a.slug === "emergency-vet-visits-in-canada")!.body;
+    expect(body).toMatch(/threshold for calling should be lower/i);
+  });
+
+  it("holds every earlier batch's guard across the whole dependency set", () => {
+    for (const slug of JOURNEY_DEPENDENCIES) {
+      const { body } = ARTICLE_BODIES.find((a) => a.slug === slug)!;
+      for (const sentence of body.split(/(?<=[.?!])\s+/)) {
+        // Batch B: behaviour folklore.
+        expect(folkloreViolations(sentence), `${slug}: ${sentence.slice(0, 80)}`).toEqual([]);
+        // Batch C: parasite prescription.
+        expect(parasiteRxViolations(sentence), `${slug}: ${sentence.slice(0, 80)}`).toEqual([]);
+        // Batch A: absolute legal language.
+        expect(absoluteLegalClaims(sentence), `${slug}: ${sentence.slice(0, 80)}`).toEqual([]);
+      }
+    }
+  });
+
+  it("gives every dependency article a real source", () => {
+    for (const slug of JOURNEY_DEPENDENCIES) {
+      const article = articles.find((a) => a.slug === slug)!;
+      expect((article.sources ?? []).length, `${slug} has no sources`).toBeGreaterThan(0);
+    }
+  });
+
+  it("keeps all fifteen unpublished and unindexed", () => {
+    for (const slug of JOURNEY_DEPENDENCIES) {
+      const article = articles.find((a) => a.slug === slug)!;
+      expect(article.status, slug).toBe("in-review");
+      expect(article.publishedAt, slug).toBeUndefined();
+      expect(isArticleIndexable(article), slug).toBe(false);
+    }
+  });
+});

@@ -569,6 +569,12 @@ export const articles: readonly Article[] = [
     relatedCategorySlugs: ["puppies", "dog-health", "vet-costs"],
     sources: [
       {
+        label:
+          "Rabies information for veterinary clinics \u2014 quarantine after exposure, and the 96-hour booster window for fully vaccinated animals",
+        publisher: "Government of Alberta",
+        url: "https://www.alberta.ca/rabies-information-for-veterinary-clinics",
+      },
+      {
         label: "2022 Canine Vaccination Guidelines, and the 2024 update making leptospirosis core",
         publisher: "American Animal Hospital Association",
         url: "https://www.aaha.org/resources/2022-aaha-canine-vaccination-guidelines/",
@@ -603,12 +609,13 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
+      "RESOLVED \u2014 VERIFIED, 2026-09-06. Alberta post-exposure management, re-read on the province's rabies information for veterinary clinics page. The range is current, and verbatim: \u201cCats, dogs and ferrets that are unvaccinated or do not receive a booster vaccination promptly after exposure may require a 3- to 6-month quarantine\u201d, while \u201cfully vaccinated cats, dogs and ferrets that receive a booster vaccine within 96 hours after exposure will not require quarantine\u201d. The decision is the public health veterinarian's, and where the offending animal is unavailable or untestable the need for and duration of quarantine come from that veterinarian's risk assessment. Other species are handled separately. The article previously said only \u201can unvaccinated\u201d animal and gave no booster window; it now carries the \u201cor not boosted promptly\u201d half, the 96-hour figure, who decides, and the explicit statement that this is Alberta's framework rather than the country's.",
+      "STANDING GUARDRAIL \u2014 post-exposure management is conditional, not a duration. Do not reduce it to a universal quarantine figure, do not extend Alberta's framework to other provinces, and do not name another province's range without that province's own source.",
       "The British Columbia rabies wording was corrected on 2026-09-06. The schedule table previously said \u201cBritish Columbia sets no legal requirement at all\u201d \u2014 an exhaustive negative legal claim, and no authoritative source states it. The BCCDC rabies page, the BC Rabies Guidance for Veterinarians and the CVBC summary table were all retrieved and none of them does; proving the absence of a law is a different exercise from reading one. The table now carries only the positive claim BCCDC does make \u2014 that pets should be vaccinated and kept up to date \u2014 says plainly that we are not presenting a province-wide legal requirement, and leaves municipal, travel and bite-investigation rules explicitly open. Do not restore the stronger wording without a named statute or regulation.",
       "Ontario's threshold is quoted from the primary regulation: R.R.O. 1990, Reg. 567 (Rabies Immunization) under the Health Protection and Promotion Act, s. 1 \u2014 \u201ca cat, dog or ferret three months of age or over\u201d, verified against e-Laws on 2026-09-06 at consolidation from 2023-07-01, last amendment O. Reg. 67/23. \u201cOr over\u201d is inclusive, so the anniversary day itself is inside the duty. Do not paraphrase it back to \u201cover three months\u201d or \u201cafter three months\u201d, both of which exclude that day.",
       "Ontario and British Columbia are named because both were confirmed against a government source. Every other province and territory is still described generically — establish each before any of them is named.",
       "The regions of Canada where blacklegged ticks are established, before naming any of them.",
       "Whether Canadian provincial regulators or the CVMA have taken a formal position on leptospirosis as core, distinct from the AAHA and WSAVA positions the article cites.",
-      "The Alberta post-exposure quarantine range is taken from the province's guidance for veterinary clinics; confirm it is current before publication and check whether other provinces publish comparable ranges.",
     ],
   },
   {
@@ -697,7 +704,7 @@ export const articles: readonly Article[] = [
     metaDescription:
       "Every cost category of owning a dog in Canada, what actually drives the number, and an hour-long method for building a real figure for your own city.",
     authorId: "pet-club-editorial",
-    readingMinutes: 7,
+    readingMinutes: 9,
     mediaId: "dogs-white-dog-leaves",
     tags: ["money", "budgeting", "pet-insurance", "vet-costs", "dogs"],
     indexable: true,
@@ -715,6 +722,38 @@ export const articles: readonly Article[] = [
       "puppy-vaccination-schedule-in-canada",
     ],
     relatedCategorySlugs: ["vet-costs", "pet-insurance", "dog-food-and-nutrition"],
+    sources: [
+      {
+        label:
+          "Pet licensing fees \u2014 the published rates for altered and unaltered dogs",
+        publisher: "City of Toronto",
+        url: "https://www.toronto.ca/community-people/animals-pets/pet-licensing/pet-licensing-fees/",
+      },
+      {
+        label:
+          "Pet licences and responsible pet ownership \u2014 the published licence fee schedule by sterilisation status",
+        publisher: "City of Calgary",
+        url: "https://www.calgary.ca/pets/licences.html",
+      },
+      {
+        label:
+          "Adoption fees \u2014 what an adoption includes: medical assessments, vaccinations, parasite treatment, spay or neuter surgery and microchip identification",
+        publisher: "BC SPCA",
+        url: "https://spca.bc.ca/adoption/adoption-fees/",
+      },
+      {
+        label:
+          "Adopt \u2014 what is included in an adoption: spay/neuter, microchip, up-to-date vaccines, wellness exam and six months of city licensing",
+        publisher: "Calgary Humane Society",
+        url: "https://www.calgaryhumane.ca/adopt",
+      },
+      {
+        label:
+          "Nutritional requirements of small animals \u2014 energy requirements are not a linear function of body weight, and two animals of the same weight can differ by up to 30%",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/nutritional-requirements-and-related-diseases-of-small-animals",
+      },
+    ],
     resources: [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
@@ -723,8 +762,12 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
+      "EVIDENCE POLICY \u2014 no national cost estimate is being claimed, and none may be added. This article deliberately publishes no Canadian average, no annual total, no emergency-fund figure and no food price. Its method is to teach a reader to build their own budget from their own clinic, municipality and dog. The only dollar figures it carries are municipal licence fees read from the cities' own pages and dated. If a figure cannot be sourced to the body that sets it, it does not go in.",
+      "RESOLVED \u2014 VERIFIED, 2026-09-06. The licence-fee differential was previously \u201ctrue in the cities we checked informally\u201d. It now rests on two geographically distinct municipal fee pages, read directly: Toronto lists $25.00 for a spayed or neutered dog against $60.00 unaltered; Calgary's 2026 column lists $45 against $71. The article says two cities is not a Canadian pattern and tells the reader to look up their own. Both figures must be re-read at every scheduled review and deleted rather than carried stale.",
+      "RESOLVED \u2014 VERIFIED, 2026-09-06. Adoption-fee bundling is now sourced as examples rather than stated as usual practice. BC SPCA publishes that an adoption includes medical assessments, vaccinations, flea and parasite treatments, spay or neuter surgery and BC Pet Registry microchip identification. Calgary Humane Society publishes spay/neuter, microchip, up-to-date vaccines, a complimentary wellness exam and six months of city licensing. The article names both, says inclusions differ between organisations, and no longer implies a national norm.",
+      "RESOLVED \u2014 NARROWED, 2026-09-06. The food claim was wrong as written, not merely unsourced: it said cost \u201cscales almost directly with the dog's adult weight\u201d. Merck states that energy requirements are not a linear function of body weight and that resting requirement is calculated against weight to the power of 0.75, and that two animals of the same weight can differ by as much as 30% either way. The article now says it rises steeply but not in a straight line, keeps the true directional point that a large dog costs multiples of a small one, and carries the individual-variation caveat.",
+      "STANDING GUARDRAIL \u2014 no kcal formula, no brand comparison and no food price belongs in this article. The energy relationship is here to explain why size dominates a budget, not to let a reader calculate a ration.",
       "That rescue adoption fees in Canada commonly include spay or neuter, initial vaccines and a microchip — stated as usual rather than universal.",
-      "That municipal licence fees are commonly lower for spayed or neutered dogs — true in the cities we checked informally, not yet sourced.",
       "Whether to name typical ranges for any category at all once Canadian figures can be sourced and dated.",
     ],
   },
