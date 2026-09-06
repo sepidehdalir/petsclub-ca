@@ -3,7 +3,11 @@ import type { Metadata } from "next";
 import { JsonLd } from "@/components/shared/json-ld";
 import { getAuthor } from "@/features/editorial/authors";
 import { StageView } from "@/features/puppy/components/stage-view";
-import { eightWeeks } from "@/features/puppy/stages";
+import {
+  eightWeeks,
+  isStageIndexable,
+  stagePublicationDates,
+} from "@/features/puppy/stages";
 import { createMetadata } from "@/lib/seo/metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { getMediaAsset } from "@/media/manifest";
@@ -16,10 +20,10 @@ export const metadata: Metadata = createMetadata({
   description: stage.metaDescription,
   path,
   type: "article",
-  // Indexing follows editorial status, exactly as it does for an article. The
-  // stage is `in-review`, so it is `noindex` and absent from the sitemap, and
-  // the two cannot disagree because both read the same field.
-  noIndex: stage.status !== "published",
+  // Indexing needs the content to be finished *and* the route to be one we
+  // want found. `isStageIndexable` is the same predicate the sitemap uses, so
+  // the meta tag and sitemap membership cannot disagree.
+  noIndex: !isStageIndexable(stage),
   image: {
     url: getMediaAsset(stage.mediaId).src.src,
     width: getMediaAsset(stage.mediaId).src.width,
@@ -62,12 +66,11 @@ export default function EightWeeksPage() {
           headline: stage.title,
           description: stage.metaDescription,
           path,
-          // Same discipline as the article template: a stage that has not been
-          // published carries no publication date, so the markup a crawler
-          // reads cannot claim something the page does not show a reader.
-          ...(stage.status === "published"
-            ? { datePublished: stage.reviewBy, dateModified: stage.reviewBy }
-            : {}),
+          // `reviewBy` used to be piped in here as `datePublished`, which would
+          // have claimed a publication date a year in the future the moment a
+          // stage was published. Dates now come from the publication union and
+          // are absent entirely while the stage is in review.
+          ...stagePublicationDates(stage),
           author: { name: author.name, kind: author.kind },
           section: "Puppy Journey",
           imagePath: asset.src.src,

@@ -7,6 +7,7 @@ import {
   communityCategoryPath,
 } from "@/features/community/taxonomy";
 import { articlePath, publishedArticles } from "@/features/editorial/articles";
+import { indexableJourneyPaths } from "@/features/puppy/stages";
 import { absoluteUrl } from "@/lib/seo/urls";
 
 type SitemapEntry = MetadataRoute.Sitemap[number];
@@ -34,6 +35,18 @@ const ROUTE_GROUPS: readonly RouteGroup[] = [
     // `noindex` by `/guides/[slug]`, and advertising it here would contradict
     // that — so this list is empty until an article is marked `published`.
     paths: publishedArticles().map((article) => articlePath(article.slug)),
+    priority: 0.8,
+    changeFrequency: "monthly",
+  },
+  {
+    // The Puppy Journey, on the same terms as the articles above: a route
+    // appears only when its stage is published *and* approved for indexing, so
+    // sitemap membership and the page's own `noindex` are driven by one
+    // predicate and cannot drift apart. The list is empty while every stage is
+    // in review. `/my-puppy`, the two retired redirect sources and every
+    // query-string state are excluded by construction — `indexableJourneyPaths`
+    // cannot emit them.
+    paths: indexableJourneyPaths(),
     priority: 0.8,
     changeFrequency: "monthly",
   },

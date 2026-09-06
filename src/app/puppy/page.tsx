@@ -6,7 +6,7 @@ import { Card, CardBody } from "@/components/ui/card";
 import { Container, Section, SectionHeading } from "@/components/ui/layout-primitives";
 import { OnboardingForm } from "@/features/puppy/components/onboarding-form";
 import { JourneyTimeline } from "@/features/puppy/components/journey-timeline";
-import { stages } from "@/features/puppy/stages";
+import { JOURNEY_HUB_INDEXABLE, stages } from "@/features/puppy/stages";
 import { createMetadata } from "@/lib/seo/metadata";
 import { getMediaAsset } from "@/media/manifest";
 
@@ -18,9 +18,11 @@ export const metadata: Metadata = createMetadata({
   description:
     "An age-aware guide to your puppy's first year, built around where you live and when your puppy was born.",
   path: "/puppy",
-  // In review with the stages themselves. Nothing here is indexed until the
-  // Journey has been reviewed to the same standard as the article library.
-  noIndex: true,
+  // The hub has no editorial review lifecycle of its own, so it carries a
+  // single index flag rather than a status. `false` today; flipping it is a
+  // deliberate launch decision and does not touch `/my-puppy`, which is
+  // unconditionally `noindex` at the route.
+  noIndex: !JOURNEY_HUB_INDEXABLE,
 });
 
 /** What the Journey does differently, stated plainly rather than as marketing. */

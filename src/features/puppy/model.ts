@@ -267,7 +267,7 @@ export interface ChecklistItem {
   detail?: string;
 }
 
-export interface PuppyStage {
+interface PuppyStageContent {
   /**
    * Matches a `RoadmapStage` slug, which is where the age range lives.
    *
@@ -303,8 +303,69 @@ export interface PuppyStage {
    * thirty-five articles.
    */
   reviewBy: string;
-  status: "in-review" | "published";
+  /**
+   * Whether this stage may enter the index **once it is published**.
+   *
+   * ## Why this is not `status`
+   *
+   * Editorial state and search policy are different questions and were being
+   * answered by one field. "Finished and signed off" is a fact about the
+   * content; "should search engines carry this" is a decision about the site.
+   * Using `in-review` to hold a finished page out of the index would mean
+   * lying about the content in order to control a crawler, and it would leave
+   * no way to express the state the launch gate actually recommended: public,
+   * linked from the rail, deliberately not indexed.
+   *
+   * Both must be true for a page to be indexed or to reach the sitemap, so
+   * this flag can never *cause* indexing on its own — see `isStageIndexable`.
+   * Two stages are `false` today because the launch gate held them back, not
+   * because they are permanently unfit; each says which in a comment.
+   */
+  indexable: boolean;
 }
+
+/**
+ * When a stage was published, if it ever was.
+ *
+ * ## Why this is a union rather than two optional fields
+ *
+ * The bug this replaces: the stage template used `reviewBy` as
+ * `datePublished`. `reviewBy` is a *future* re-check deadline — every stage
+ * carries 2027-09-01 — so publishing would have emitted structured data
+ * claiming a publication date a year from now. The two concepts had nothing
+ * in common except being ISO dates, which is exactly how they got confused.
+ *
+ * Modelling publication as a discriminated union makes the invalid states
+ * unrepresentable rather than merely discouraged:
+ *
+ *  - `in-review` **cannot** carry a publication date. `publishedAt?: undefined`
+ *    is not the same as omitting the field: it makes setting one a type error,
+ *    so a stage cannot claim to have been published while it is still in
+ *    review.
+ *  - `published` **must** carry one. There is no way to publish a stage and
+ *    leave the date to be guessed at, which is what allowed `reviewBy` to be
+ *    substituted in the first place.
+ *
+ * `publishedAt` is deliberately absent from every stage today. Nothing here
+ * has been published, so inventing a date to satisfy a type would be the same
+ * class of error in a new costume.
+ */
+export type PuppyStagePublication =
+  | {
+      status: "in-review";
+      /** Not merely optional — forbidden. An unpublished stage has no date. */
+      publishedAt?: undefined;
+      updatedAt?: undefined;
+    }
+  | {
+      status: "published";
+      /** ISO `YYYY-MM-DD`. The day this stage first went live. */
+      publishedAt: string;
+      /** ISO date of a meaningful public revision. Absent until one happens. */
+      updatedAt?: string;
+    };
+
+export type PuppyStage = PuppyStageContent & PuppyStagePublication;
 
 /* ------------------------------------------------------------------ modifiers
    A modifier inserts or replaces. It never restates. */

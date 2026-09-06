@@ -32,6 +32,7 @@ export const nineToElevenWeeks: PuppyStage = {
   mediaAlt:
     "A pale yellow Labrador puppy sitting on a tiled floor indoors, ears soft, looking up and slightly past the camera.",
   reviewBy: "2027-09-01",
+  indexable: true,
   status: "in-review",
 
   sections: [
@@ -337,6 +338,7 @@ export const twelveWeeks: PuppyStage = {
   mediaAlt:
     "A husky-type puppy in a plain harness sitting on a paved street, lead slack, looking straight at the camera.",
   reviewBy: "2027-09-01",
+  indexable: true,
   status: "in-review",
 
   sections: [
@@ -663,6 +665,7 @@ export const eightWeeks: PuppyStage = {
   mediaAlt:
     "A small, cream-coloured puppy in a plain collar lying settled in a soft bed indoors, with a pen panel just visible behind it.",
   reviewBy: "2027-09-01",
+  indexable: true,
   status: "in-review",
 
   sections: [
@@ -980,6 +983,12 @@ export const threeMonths: PuppyStage = {
   mediaAlt:
     "A leggy young dog in a plain yellow harness sitting on grass, ears up, looking attentively upwards.",
   reviewBy: "2027-09-01",
+  // Held from wave one. This and `/puppy/12-weeks` are the highest-overlap
+  // pair in the series and compete for one query \u2014 to a searcher, twelve
+  // weeks and three months are the same puppy. 12-weeks goes first because it
+  // owns the maternal-antibody explanation. Revisit once Search Console shows
+  // which URL is actually selected.
+  indexable: false,
   status: "in-review",
 
   sections: [
@@ -1321,6 +1330,7 @@ export const fourToSixMonths: PuppyStage = {
   mediaAlt:
     "A young black-and-white dog in a plain harness standing on a paved park path, looking out across the grass.",
   reviewBy: "2027-09-01",
+  indexable: true,
   status: "in-review",
 
   sections: [
@@ -1676,6 +1686,7 @@ export const sevenToEightMonths: PuppyStage = {
   mediaAlt:
     "A lean dog in a plain harness standing on open heathland at the end of a long line, attention fixed on something out of frame.",
   reviewBy: "2027-09-01",
+  indexable: true,
   status: "in-review",
 
   sections: [
@@ -1988,6 +1999,7 @@ export const nineToTwelveMonths: PuppyStage = {
   mediaAlt:
     "A dark, lean dog in a plain harness standing alert in a frosted field of young tree planting, looking off to one side.",
   reviewBy: "2027-09-01",
+  indexable: true,
   status: "in-review",
 
   sections: [
@@ -2314,6 +2326,10 @@ export const beyondTheFirstYear: PuppyStage = {
   mediaAlt:
     "A collie-type dog seen from behind, walking away up a leaf-strewn forest path between tall conifers.",
   reviewBy: "2027-09-01",
+  // Held. A handoff page: its title targets no query anyone types, and it
+  // exists to end the series rather than to be found. Index only if the site
+  // starts acquiring impressions for the questions it answers.
+  indexable: false,
   status: "in-review",
 
   sections: [
@@ -2527,6 +2543,92 @@ export const stages: readonly PuppyStage[] = [
   nineToTwelveMonths,
   beyondTheFirstYear,
 ];
+
+/**
+ * The publication dates a stage may put in its structured data.
+ *
+ * Empty while the stage is in review, which is the point: an unpublished page
+ * makes no claim about when it was published. `reviewBy` is not consulted here
+ * and must never be \u2014 it is a future re-check deadline, and the previous
+ * version of this logic fed it straight into `datePublished`, so publishing
+ * would have emitted a publication date a year from now.
+ *
+ * The throw is a second lock behind the type union. The union already makes a
+ * published stage without `publishedAt` a compile error, so this can only fire
+ * if something casts around it. It fails the build rather than quietly
+ * dropping the field, because a page whose status claims publication and whose
+ * markup denies it is the contradiction this whole change exists to prevent.
+ */
+export function stagePublicationDates(stage: PuppyStage): {
+  datePublished?: string;
+  dateModified?: string;
+} {
+  if (stage.status !== "published") {
+    return {};
+  }
+
+  if (!stage.publishedAt) {
+    throw new Error(
+      `Puppy stage "${stage.slug}" is published with no publishedAt. Set a real ` +
+        "first-publication date; reviewBy is a re-check deadline, not a publication date.",
+    );
+  }
+
+  return {
+    datePublished: stage.publishedAt,
+    dateModified: stage.updatedAt ?? stage.publishedAt,
+  };
+}
+
+/**
+ * Whether a stage may be indexed, and therefore advertised in the sitemap.
+ *
+ * Both halves are required and they answer different questions: `status` is
+ * whether the content is finished, `indexable` is whether we want it found.
+ * "Published but not indexable" is a real supported state \u2014 public, linked
+ * from the rail, deliberately out of the index \u2014 and `indexable` alone can
+ * never cause indexing, which is why setting it ahead of launch is safe.
+ */
+export function isStageIndexable(stage: PuppyStage): boolean {
+  return stage.status === "published" && stage.indexable;
+}
+
+/**
+ * Index policy for the Journey hub.
+ *
+ * `/puppy` is not a `PuppyStage` \u2014 it has no editorial review lifecycle; it
+ * is a hub with an onboarding form \u2014 so it carries its own flag rather than
+ * being forced into the stage model. It lives here so the Journey's whole
+ * index policy is readable in one place.
+ *
+ * `false` today. The launch gate recommended indexing it in the first wave;
+ * flipping this is that decision, taken deliberately and on its own. It has no
+ * bearing on `/my-puppy`, which is unconditionally `noindex` at the route.
+ */
+export const JOURNEY_HUB_INDEXABLE = false;
+
+/**
+ * Every Journey path that belongs in the sitemap, in render order.
+ *
+ * The mirror of `publishedArticles()`, and it exists for the same reason: one
+ * field driving both the `noindex` meta and sitemap membership is how the two
+ * are kept from contradicting each other. The Journey had only the metadata
+ * half, so publishing a stage would have made it indexable while leaving it
+ * out of the sitemap \u2014 and the test asserting no Journey route appears
+ * would have carried on passing.
+ *
+ * Redirect sources, `/my-puppy` and every query-string state are absent by
+ * construction: nothing here can produce a path that is not a public stage or
+ * the hub.
+ *
+ * Empty today, and a test asserts it.
+ */
+export function indexableJourneyPaths(): readonly string[] {
+  return [
+    ...(JOURNEY_HUB_INDEXABLE ? ["/puppy"] : []),
+    ...stages.filter(isStageIndexable).map((stage) => `/puppy/${stage.slug}`),
+  ];
+}
 
 /* ------------------------------------------------------------- the roadmap */
 

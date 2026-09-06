@@ -38,6 +38,10 @@ import {
   findRoadmapStage,
   isBeforeJourney,
   isJourneyComplete,
+  isStageIndexable,
+  indexableJourneyPaths,
+  JOURNEY_HUB_INDEXABLE,
+  stagePublicationDates,
   JOURNEY_BEGINS_AT_DAYS,
   journeyPhases,
   JOURNEY_ENDS_AFTER_MONTHS,
@@ -62,7 +66,10 @@ import {
   twelveWeeks,
 } from "@/features/puppy/stages";
 import type { RoadmapStage } from "@/features/puppy/stages";
+import type { PuppyStage } from "@/features/puppy/model";
 import { buildSitemapEntries } from "@/lib/seo/sitemap";
+import { articleSchema } from "@/lib/seo/structured-data";
+import { absoluteUrl, canonicalUrl } from "@/lib/seo/urls";
 
 const FEATURE_DIR = fileURLToPath(new URL("./", import.meta.url));
 
@@ -3243,6 +3250,226 @@ function readerFacingStrings(stage: (typeof stages)[number]): string[] {
   }
   return out.filter(Boolean);
 }
+
+/**
+ * A stage in a state the repository is deliberately never in.
+ *
+ * Publishing a real stage to test publication would leave the repository
+ * published, which is exactly what this milestone must not do. So the
+ * publication and index-policy rules are exercised against derived copies:
+ * the real stage supplies the content, the override supplies the state.
+ */
+function withState(
+  stage: PuppyStage,
+  state: Partial<Pick<PuppyStage, "status" | "publishedAt" | "updatedAt" | "indexable">>,
+): PuppyStage {
+  return { ...stage, ...state } as PuppyStage;
+}
+
+describe("publication dates", () => {
+  const real = stages[0]!;
+
+  it("never lets reviewBy reach a publication field", () => {
+    // The defect this replaces: `datePublished: stage.reviewBy`. Every stage
+    // carries 2027-09-01, so publishing would have claimed a publication date
+    // a year in the future.
+    for (const stage of stages) {
+      expect(stage.reviewBy).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      const dates = stagePublicationDates(stage);
+      expect(Object.values(dates)).not.toContain(stage.reviewBy);
+    }
+
+    // Even when published, reviewBy is not consulted.
+    const published = withState(real, { status: "published", publishedAt: "2026-09-06" });
+    const dates = stagePublicationDates(published);
+    expect(dates.datePublished).not.toBe(published.reviewBy);
+    expect(dates.dateModified).not.toBe(published.reviewBy);
+    expect(dates.datePublished).toBe("2026-09-06");
+  });
+
+  it("emits no publication dates while a stage is in review", () => {
+    for (const stage of stages) {
+      expect(stage.status).toBe("in-review");
+      expect(stagePublicationDates(stage)).toEqual({});
+      // And the union forbids a date existing at all in this state.
+      expect(stage.publishedAt).toBeUndefined();
+      expect(stage.updatedAt).toBeUndefined();
+    }
+  });
+
+  it("uses publishedAt for datePublished once published", () => {
+    const dates = stagePublicationDates(
+      withState(real, { status: "published", publishedAt: "2026-10-01" }),
+    );
+    expect(dates).toEqual({ datePublished: "2026-10-01", dateModified: "2026-10-01" });
+  });
+
+  it("prefers updatedAt for dateModified, and falls back to publishedAt", () => {
+    const revised = stagePublicationDates(
+      withState(real, { status: "published", publishedAt: "2026-10-01", updatedAt: "2027-02-14" }),
+    );
+    expect(revised).toEqual({ datePublished: "2026-10-01", dateModified: "2027-02-14" });
+
+    const unrevised = stagePublicationDates(
+      withState(real, { status: "published", publishedAt: "2026-10-01" }),
+    );
+    expect(unrevised.dateModified).toBe("2026-10-01");
+  });
+
+  it("fails loudly if a stage is published without a publication date", () => {
+    // The type union makes this a compile error; the cast is how a build could
+    // still reach it. It must throw rather than silently omit the field.
+    const broken = { ...real, status: "published" } as unknown as PuppyStage;
+    expect(() => stagePublicationDates(broken)).toThrow(/published with no publishedAt/);
+    expect(() => stagePublicationDates(broken)).toThrow(/reviewBy is a re-check deadline/);
+  });
+
+  it("keeps a future reviewBy out of Article structured data", () => {
+    // End to end through the schema builder, not just the helper: a future
+    // date must not appear in any publication field of the emitted JSON-LD.
+    for (const stage of stages) {
+      const schema = articleSchema({
+        headline: stage.title,
+        description: stage.metaDescription,
+        path: `/puppy/${stage.slug}`,
+        ...stagePublicationDates(stage),
+        author: { name: "The Pet Club Editorial Team", kind: "Organization" },
+        section: "Puppy Journey",
+      }) as Record<string, unknown>;
+
+      expect(schema.datePublished).toBeUndefined();
+      expect(schema.dateModified).toBeUndefined();
+      expect(JSON.stringify(schema)).not.toContain(stage.reviewBy);
+    }
+
+    // And when published, the dates are the real ones.
+    const published = withState(real, { status: "published", publishedAt: "2026-10-01" });
+    const schema = articleSchema({
+      headline: published.title,
+      description: published.metaDescription,
+      path: `/puppy/${published.slug}`,
+      ...stagePublicationDates(published),
+      author: { name: "The Pet Club Editorial Team", kind: "Organization" },
+      section: "Puppy Journey",
+    }) as Record<string, unknown>;
+    expect(schema.datePublished).toBe("2026-10-01");
+    expect(JSON.stringify(schema)).not.toContain(published.reviewBy);
+  });
+});
+
+describe("index policy", () => {
+  const real = stages[0]!;
+
+  it("keeps content state and index policy as separate decisions", () => {
+    // Four combinations, and only one is indexable. `indexable` alone can never
+    // cause indexing, which is what makes it safe to set before launch, and
+    // `status` alone is not enough either.
+    //
+    // `isStageIndexable` deliberately does not check `publishedAt`: whether a
+    // page may be found and whether it can state a publication date are
+    // different failures with different owners. The date is enforced by the
+    // union at compile time and by `stagePublicationDates` at build time.
+    const publishedIndexable = withState(real, {
+      status: "published",
+      publishedAt: "2026-10-01",
+      indexable: true,
+    });
+    expect(isStageIndexable(publishedIndexable)).toBe(true);
+    expect(
+      isStageIndexable(withState(real, { status: "published", publishedAt: "2026-10-01", indexable: false })),
+    ).toBe(false);
+    expect(isStageIndexable(withState(real, { status: "in-review", indexable: true }))).toBe(false);
+    expect(isStageIndexable(withState(real, { status: "in-review", indexable: false }))).toBe(false);
+  });
+
+  it("records the launch gate's policy without acting on it", () => {
+    const policy = Object.fromEntries(stages.map((s) => [s.slug, s.indexable]));
+    expect(policy).toEqual({
+      "8-weeks": true,
+      "9-11-weeks": true,
+      "12-weeks": true,
+      "3-months": false,
+      "4-6-months": true,
+      "7-8-months": true,
+      "9-12-months": true,
+      "beyond-the-first-year": false,
+    });
+    // None of it takes effect while every stage is in review.
+    expect(stages.filter(isStageIndexable)).toEqual([]);
+  });
+
+  it("keeps the hub's index policy separate from the stages and from /my-puppy", () => {
+    expect(JOURNEY_HUB_INDEXABLE).toBe(false);
+    // The hub is not a stage and must not be modelled as one.
+    expect(stages.some((s) => s.slug === "puppy")).toBe(false);
+    // Flipping the hub cannot pull /my-puppy in: it has no flag to flip.
+    const source = readFileSync(
+      fileURLToPath(new URL("../../app/my-puppy/page.tsx", import.meta.url)),
+      "utf8",
+    );
+    expect(source).toMatch(/noIndex: true/);
+    expect(source).not.toMatch(/isStageIndexable|JOURNEY_HUB_INDEXABLE|indexable/);
+  });
+});
+
+describe("Journey sitemap membership", () => {
+  const real = stages[0]!;
+  const urls = () => buildSitemapEntries().map((entry) => entry.url);
+
+  it("adds no Journey route while every stage is in review", () => {
+    expect(indexableJourneyPaths()).toEqual([]);
+    expect(urls().filter((url) => url.includes("/puppy"))).toEqual([]);
+  });
+
+  it("adds exactly one entry for a published, indexable stage", () => {
+    const paths = [real].filter((s) =>
+      isStageIndexable(withState(s, { status: "published", publishedAt: "2026-10-01", indexable: true })),
+    );
+    expect(paths).toHaveLength(1);
+
+    // And the same predicate that would put it in the sitemap is the one the
+    // page uses for `noindex`, so the two cannot disagree.
+    const stage = withState(real, { status: "published", publishedAt: "2026-10-01", indexable: true });
+    expect(isStageIndexable(stage)).toBe(true);
+  });
+
+  it("adds nothing for a published stage held out of the index", () => {
+    const held = withState(real, { status: "published", publishedAt: "2026-10-01", indexable: false });
+    expect(isStageIndexable(held)).toBe(false);
+  });
+
+  it("adds nothing for an in-review stage marked indexable", () => {
+    // The misconfiguration most likely to happen at launch: setting the policy
+    // flag and forgetting the status.
+    const misconfigured = withState(real, { status: "in-review", indexable: true });
+    expect(isStageIndexable(misconfigured)).toBe(false);
+  });
+
+  it("can never emit /my-puppy, a redirect source or a query-string state", () => {
+    // Structural, not incidental: every path is built from a stage slug or the
+    // hub constant, so there is no shape that produces these.
+    const everyPossiblePath = stages.map((stage) => `/puppy/${stage.slug}`).concat("/puppy");
+    for (const forbidden of ["/my-puppy", "/puppy/11-weeks", "/puppy/4-5-months"]) {
+      expect(everyPossiblePath).not.toContain(forbidden);
+    }
+    expect(everyPossiblePath.some((p) => p.includes("?"))).toBe(false);
+    expect(urls().some((url) => url.includes("my-puppy"))).toBe(false);
+    expect(urls().some((url) => url.includes("?"))).toBe(false);
+  });
+
+  it("would emit sitemap URLs that match each page's own canonical", () => {
+    for (const stage of stages) {
+      expect(absoluteUrl(`/puppy/${stage.slug}`)).toBe(canonicalUrl(`/puppy/${stage.slug}`));
+    }
+    expect(absoluteUrl("/puppy")).toBe(canonicalUrl("/puppy"));
+  });
+
+  it("emits no duplicate entries", () => {
+    const all = urls();
+    expect(new Set(all).size).toBe(all.length);
+    expect(new Set(indexableJourneyPaths()).size).toBe(indexableJourneyPaths().length);
+  });
+});
 
 describe("content safety guards", () => {
   it("scans every reader-facing string on all eight stages", () => {
