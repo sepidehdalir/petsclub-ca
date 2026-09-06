@@ -44,7 +44,16 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
                     {item.name}
                   </span>
                 ) : (
-                  <Link href={item.path} className="hover:text-pine-700 hover:underline">
+                  /*
+                    `inline-flex` with a min-height lifts the tap target to the
+                    24px WCAG 2.2 minimum. The text is unchanged and the row
+                    does not grow: the gap between crumbs already exceeds the
+                    two pixels this adds, so the trail looks identical.
+                  */
+                  <Link
+                    href={item.path}
+                    className="inline-flex min-h-6 items-center hover:text-pine-700 hover:underline"
+                  >
                     {item.name}
                   </Link>
                 )}

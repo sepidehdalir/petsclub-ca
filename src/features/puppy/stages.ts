@@ -30,7 +30,7 @@ export const nineToElevenWeeks: PuppyStage = {
     "What matters between nine and eleven weeks: the socialisation window, house-training, the vaccine appointments, and what to ask your veterinarian.",
   mediaId: "puppy-eleven-weeks",
   mediaAlt:
-    "A pale Labrador puppy sitting on a tiled floor, looking up — around the age this stage covers.",
+    "A pale yellow Labrador puppy sitting on a tiled floor indoors, ears soft, looking up and slightly past the camera.",
   reviewBy: "2027-09-01",
   status: "in-review",
 
@@ -57,7 +57,8 @@ export const nineToElevenWeeks: PuppyStage = {
       summary: "Physically capable, emotionally unfinished, and sleeping more than you think.",
       body: [
         "A puppy of this age is coordinated enough to get into genuine trouble and nowhere near old enough to make good decisions about it. Bladder capacity is still small, attention spans run in seconds rather than minutes, and the brain is doing most of its work asleep. Those things ease gradually across these three weeks rather than on any particular day.",
-        "This is also the period when many owners first notice a puppy hesitating at something it walked past cheerfully a week earlier. Wariness appearing where there was none is a normal part of development rather than a sign anything has gone wrong. The response is more distance and less intensity, never more insistence.",
+        "This is also the period when many owners first notice a puppy hesitating at something it walked past cheerfully a week earlier. What the evidence supports is narrower than the folklore around it: a puppy's readiness to approach something unfamiliar is highest very early \u2014 McEvoy and colleagues put the peak at roughly three to five weeks \u2014 and declines from there, which is the same shift that closes the socialisation window. The Merck Veterinary Manual describes attraction to unfamiliar people decreasing and avoidance responses becoming more pronounced from about twelve weeks. Neither is a stage with dates on it, and how much of it shows varies from puppy to puppy.",
+        "So hesitation here is worth reading as the window narrowing rather than as something going wrong, and the response is more distance and less intensity, never more insistence. What is not ordinary is fear that arrives suddenly, keeps getting worse, or comes with a puppy that is off in itself \u2014 pain and illness can present as a behaviour change at any age. That is a call to your veterinarian, and where it persists, to a qualified behaviour professional alongside them.",
       ],
       guide: {
         slug: "bringing-home-a-puppy-first-30-days",
@@ -274,6 +275,18 @@ export const nineToElevenWeeks: PuppyStage = {
       publisher: "Merck Veterinary Manual",
       url: "https://www.merckvetmanual.com/dog-owners/digestive-disorders-of-dogs/dental-development-of-dogs",
     },
+    {
+      label:
+        "Canine Socialisation: A Narrative Systematic Review \u2014 the tendency to approach unfamiliar stimuli peaks at about three to five weeks and declines thereafter",
+      publisher: "McEvoy, Baqueiro Espinosa, Crump and Arnott, Animals (2022)",
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9655304/",
+    },
+    {
+      label:
+        "Social behaviour of dogs \u2014 through the juvenile period, attraction to unfamiliar people decreases and avoidance responses are heightened",
+      publisher: "Merck Veterinary Manual",
+      url: "https://www.merckvetmanual.com/behavior/behavior-of-dogs/social-behavior-of-dogs",
+    },
   ],
 
   resources: [
@@ -286,7 +299,7 @@ export const nineToElevenWeeks: PuppyStage = {
 
   needsVerification: [
     "The developmental description (bladder capacity, attention span, sleep requirement) is written qualitatively and quotes no figure. Attach a source before any number is added — the 16–18 hours figure carried in the article library is still unsourced there too.",
-    "That a second period of wariness commonly appears in this window is described as normal development, with no week attached. Widely reported in behaviour literature; source it before publication, and do not pin it to a week without one.",
+    "The wariness claim was rewritten and sourced on 2026-09-06. The unsourced version said new wariness in this window is 'a normal part of development'; nothing found supports that as a claim about nine to eleven weeks specifically. What is sourced is the trajectory: McEvoy et al. 2022 put the peak tendency to approach novelty at three to five weeks with a decline after it, and Merck places heightened avoidance from about twelve weeks. Both are attributed, both are framed as a gradual shift rather than a stage, individual variation is stated, and a physical cause is named. No fear-period or fear-stage language appears, and none may be added \u2014 the differentiation gate found no peer-reviewed basis for one at any age.",
     "That three to four meals a day is typical at this age — stated as what most puppies are on rather than as a recommendation. Confirm against a veterinary nutrition source or soften further.",
     "This stage deliberately makes no claim about permanent teeth. Merck places the start of permanent eruption at around four to five months, so at nine to eleven weeks a puppy is chewing with its deciduous teeth and nothing is being replaced. Do not reintroduce eruption language here.",
     "The growth-plate reasoning behind limiting repetitive forced exercise is stated generally and names no age or distance rule. Attach a source before it is made more specific.",
@@ -321,7 +334,7 @@ export const twelveWeeks: PuppyStage = {
     "What matters at 12 weeks: why your puppy is probably not fully vaccinated yet, what socialisation is left, teething, first walks, and what to ask your veterinarian.",
   mediaId: "puppy-twelve-weeks",
   mediaAlt:
-    "A husky-type puppy in a plain harness sitting on a paved street — out in the world on a lead, at around the age this stage covers.",
+    "A husky-type puppy in a plain harness sitting on a paved street, lead slack, looking straight at the camera.",
   reviewBy: "2027-09-01",
   status: "in-review",
 
@@ -646,7 +659,7 @@ export const eightWeeks: PuppyStage = {
     "What matters at 8 weeks: the first days home, toilet routine, sleep, keeping the food the same, booking the first vet visit, and what is normal while a puppy settles.",
   mediaId: "puppy-eight-weeks",
   mediaAlt:
-    "A very young puppy settled in a bed with a pen panel behind it — around the age this stage covers.",
+    "A small, cream-coloured puppy in a plain collar lying settled in a soft bed indoors, with a pen panel just visible behind it.",
   reviewBy: "2027-09-01",
   status: "in-review",
 
@@ -963,7 +976,7 @@ export const threeMonths: PuppyStage = {
     "What matters around three months: consolidating training, generalising to new places, the end of the vaccination series, managing heavy chewing, and building the habits that carry into adolescence.",
   mediaId: "puppy-three-months",
   mediaAlt:
-    "A leggy young dog in a plain harness sitting attentively on grass — around the age this stage covers.",
+    "A leggy young dog in a plain yellow harness sitting on grass, ears up, looking attentively upwards.",
   reviewBy: "2027-09-01",
   status: "in-review",
 
@@ -1303,7 +1316,7 @@ export const fourToSixMonths: PuppyStage = {
     "What matters from four to six months: broader outings once the vaccination series is complete, permanent teeth arriving and finishing, training in harder places, the neutering decision, and the booster conversation that comes back around six months.",
   mediaId: "puppy-four-five-months",
   mediaAlt:
-    "A young dog in a plain harness standing on a park path — around the age this stage covers.",
+    "A young black-and-white dog in a plain harness standing on a paved park path, looking out across the grass.",
   reviewBy: "2027-09-01",
   status: "in-review",
 
@@ -1657,7 +1670,7 @@ export const sevenToEightMonths: PuppyStage = {
     "Why an adolescent dog seems to lose its training around seven and eight months, what the research actually found, and how to train and manage a dog whose reliability has dipped.",
   mediaId: "puppy-seven-eight-months",
   mediaAlt:
-    "A lean dog on a long line in open heathland, attention on something out of frame — which is both the problem and the tool at this stage.",
+    "A lean dog in a plain harness standing on open heathland at the end of a long line, attention fixed on something out of frame.",
   reviewBy: "2027-09-01",
   status: "in-review",
 
@@ -1969,7 +1982,7 @@ export const nineToTwelveMonths: PuppyStage = {
     "What changes between nine months and the first birthday: coming out of peak adolescence, when larger dogs are neutered, when adult food becomes appropriate, how exercise changes by size, and the first-year veterinary conversation.",
   mediaId: "puppy-nine-twelve-months",
   mediaAlt:
-    "A dark, lean dog in a plain harness standing alert in a frosted field — an animal that looks grown and is not finished.",
+    "A dark, lean dog in a plain harness standing alert in a frosted field of young tree planting, looking off to one side.",
   reviewBy: "2027-09-01",
   status: "in-review",
 
@@ -2294,7 +2307,7 @@ export const beyondTheFirstYear: PuppyStage = {
     "The final stage of the Puppy Journey: what changes when age stops driving care, whether your dog has actually finished growing, and where to go next for adult-dog guidance.",
   mediaId: "puppy-beyond-first-year",
   mediaAlt:
-    "A dog seen from behind, walking away up a forest path — the end of a series rather than the end of anything in the animal.",
+    "A collie-type dog seen from behind, walking away up a leaf-strewn forest path between tall conifers.",
   reviewBy: "2027-09-01",
   status: "in-review",
 
@@ -2405,7 +2418,7 @@ export const beyondTheFirstYear: PuppyStage = {
       title: "Dental and parasite maintenance",
       summary: "Two things that are now ordinary, and easy to let slide.",
       body: [
-        "The adult teeth have been in for the best part of a year. What matters now is maintenance — home care that actually happens, and a mouth that gets looked at properly rather than glanced at. Dental disease is one of the most common findings in adult dogs and one of the most preventable, and the work that prevents it is dull and daily.",
+        "The adult teeth have been fully in since well before this stage began \u2014 Merck puts the complete set in place by about seven months. What matters now is maintenance — home care that actually happens, and a mouth that gets looked at properly rather than glanced at. Dental disease is one of the most common findings in adult dogs and one of the most preventable, and the work that prevents it is dull and daily.",
         "Parasite prevention is the same shape of problem: it stops being a new decision and becomes a thing that quietly lapses. Heartworm prevention is seasonal in most of Canada and follows the local mosquito season; tick activity runs longer at both ends of the year than most people expect. Ask for the plan as dates, once a year, and put them somewhere you will see them.",
       ],
       guide: {
@@ -2784,6 +2797,29 @@ export const JOURNEY_BEGINS_AT_DAYS: number = Math.min(
  */
 export function isBeforeJourney(age: PuppyAge): boolean {
   return age.days < JOURNEY_BEGINS_AT_DAYS;
+}
+
+/**
+ * The phase at which this series stops saying "puppy".
+ *
+ * The stage pages already made this call in their own titles \u2014 "Your 4 to
+ * 6-Month-Old Puppy", then "Your 7 to 8-Month-Old Dog" \u2014 but the
+ * personalised headline said "Your puppy is\u2026" all the way to eighteen
+ * months, so a reader on `/puppy/9-12-months` saw the page call their animal a
+ * dog and the headline above it call the same animal a puppy.
+ *
+ * Adolescence is the boundary, and it is deliberately the *phase* rather than a
+ * month: it is the same judgement the stage titles already encode, made once
+ * and read from the roadmap so the two cannot drift apart again.
+ *
+ * The product is still called the Puppy Journey. That is its name, not a claim
+ * about the animal.
+ */
+export function journeyAnimalNoun(roadmap: RoadmapStage | null): "puppy" | "dog" {
+  if (!roadmap) return "puppy";
+  const index = roadmapStages.findIndex((stage) => stage.slug === roadmap.slug);
+  const adolescence = roadmapStages.findIndex((stage) => stage.phase === "adolescence");
+  return adolescence >= 0 && index >= adolescence ? "dog" : "puppy";
 }
 
 export function isJourneyComplete(age: PuppyAge): boolean {

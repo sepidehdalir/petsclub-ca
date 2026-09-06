@@ -41,6 +41,7 @@ import {
   JOURNEY_BEGINS_AT_DAYS,
   journeyPhases,
   JOURNEY_ENDS_AFTER_MONTHS,
+  journeyAnimalNoun,
   journeyMeta,
   roadmapByPhase,
   breedModifiers,
@@ -2326,6 +2327,62 @@ describe("hybrid age resolution", () => {
     expect(prose).toMatch(/not going to print one here|a conversation rather than a table/i);
   });
 
+  it("separates the Journey's end from the input guard, and calls no dog senior", () => {
+    // Two different limits, and they had been conflated in the copy: the
+    // Journey ends editorially at eighteen months, while MAX_PLAUSIBLE_DAYS is
+    // a typo guard on the date field. A dog between them is finished, not
+    // implausible — and a dog past the guard is a date to re-check, not a
+    // senior animal.
+    const today = { year: 2026, month: 9, day: 6 };
+    const at = (months: number) => {
+      const birth = addCalendarMonths(today, -months);
+      const result = resolveAge(birth, today);
+      return result.ok ? result.age : null;
+    };
+
+    for (const months of [19, 24, 35]) {
+      const age = at(months)!;
+      expect(age, `${months} months`).not.toBeNull();
+      expect(isJourneyComplete(age), `${months} months`).toBe(true);
+      expect(isBeforeJourney(age), `${months} months`).toBe(false);
+      expect(stageFor(age), `${months} months`).toBeNull();
+      expect(age.days, `${months} months`).toBeLessThanOrEqual(MAX_PLAUSIBLE_DAYS);
+    }
+
+    // 18 months is still inside the Journey; 36 is past the input guard.
+    expect(isJourneyComplete(at(18)!)).toBe(false);
+    expect(stageFor(at(18)!)?.slug).toBe("beyond-the-first-year");
+    expect(at(36)).toBeNull();
+    expect(resolveAge(addCalendarMonths(today, -36), today)).toEqual({
+      ok: false,
+      problem: "implausible",
+    });
+
+    // The boundary is exactly MAX_PLAUSIBLE_DAYS, not a month count.
+    const birth = civilFromDays(daysFromCivil(today) - MAX_PLAUSIBLE_DAYS);
+    expect(resolveAge(birth, today).ok).toBe(true);
+    expect(resolveAge(civilFromDays(daysFromCivil(birth) - 1), today).ok).toBe(false);
+  });
+
+  it("makes no senior claim and misstates no Journey length", () => {
+    const page = readFileSync(
+      fileURLToPath(new URL("../../app/my-puppy/page.tsx", import.meta.url)),
+      "utf8",
+    );
+    // Everything after the JSX begins — the copy, not the reasoning above it.
+    const copy = page
+      .split("\n")
+      .filter((line) => !line.trim().startsWith("//") && !line.trim().startsWith("*"))
+      .join("\n");
+
+    expect(copy).not.toMatch(/senior/i);
+    expect(copy).not.toMatch(/covers the first few years/i);
+    expect(copy).not.toMatch(/guides on senior care/i);
+    // And the honest replacement is there.
+    expect(copy).toMatch(/Worth checking that date/);
+    expect(copy).toMatch(/more than three years ago/);
+  });
+
   it("keeps the three non-stage states distinct, and promises nothing", () => {
     // Before the Journey, finished with it, and a roadmap entry without a page
     // are three different facts. The failure this guards against is them
@@ -2813,6 +2870,189 @@ describe("size is an answer, never an inference from \"not sure\"", () => {
   });
 });
 
+/**
+ * Vaccine *prescription*, as opposed to vaccine discussion.
+ *
+ * The stages must be free to cite AAHA and WSAVA ranges, to explain the
+ * conditional 26-week option, and to ask what a puppy's records show. What
+ * they may never do is tell a reader something is due because their puppy has
+ * reached an age. So `PRESCRIPTIVE` looks for an instruction or an assertion
+ * of due-ness, and `DESCRIPTIVE` is the hedging, attribution or refusal that
+ * turns a match back into a description. A sentence fails only when it matches
+ * the first and not the second.
+ */
+const PRESCRIPTIVE = [
+  /\bat \d+\s*(?:weeks?|months?)[^.]{0,50}\b(?:give|administer|vaccinate|inject)\b/i,
+  /\b(?:give|administer|vaccinate|inject)\b[^.]{0,60}\bat \d+\s*(?:weeks?|months?)/i,
+  /\bevery (?:puppy|dog|animal)\b[^.]{0,60}\b(?:needs|requires|must have|should have)\b[^.]{0,40}vaccin/i,
+  /\bvaccin\w*[^.]{0,40}\bis due\b[^.]{0,30}\bat\b\s*\d+/i,
+  /\b(?:is|are) due\b[^.]{0,25}\bat\s+(?:six|seven|eight|nine|ten|twelve|sixteen|\d+)\s*(?:weeks?|months?)/i,
+  /\ball puppies\b[^.]{0,60}\b(?:same|one|single)\b[^.]{0,20}(?:schedule|timetable)/i,
+  /\bdose (?:one|two|three|1|2|3)\b/i,
+  /\bmg\/kg\b|\bml per\b/i,
+  /\b(?:booster|vaccine|dose) (?:is|will be) (?:given|required|administered) at \d+/i,
+];
+
+const DESCRIPTIVE =
+  /\b(?:not|never|no)\b|usually|typically|often|may|might|can |depends|guideline|recommends?|advises?|puts? (?:the|it)|American Animal Hospital|World Small Animal|AAHA|WSAVA|ask|question|your veterinarian|clinic|records|varies|rather than|instead of|conditional|considering/i;
+
+/** Whether one sentence prescribes a vaccine rather than describing one. */
+function prescribesVaccine(sentence: string): boolean {
+  return PRESCRIPTIVE.some((pattern) => pattern.test(sentence)) && !DESCRIPTIVE.test(sentence);
+}
+
+describe("launch-readiness copy and media invariants", () => {
+  it("claims no review the stages have not had", () => {
+    // Every stage is `in-review`, so nothing may tell a reader they are
+    // reviewed. The hub said "written and reviewed" while the status field
+    // said otherwise, which is the kind of small overstatement that is only
+    // ever found by reading the two together.
+    const hub = readFileSync(fileURLToPath(new URL("../../app/puppy/page.tsx", import.meta.url)), "utf8");
+    const copy = hub.slice(hub.indexOf("const principles"));
+
+    expect(stages.every((stage) => stage.status === "in-review")).toBe(true);
+    expect(copy).not.toMatch(/written and reviewed|reviewed and (?:published|sourced)|fully reviewed|peer[- ]reviewed by/i);
+    expect(copy).toMatch(/stages are written/);
+  });
+
+  it("promises province and season help only where it exists", () => {
+    // Spring and autumn carry no modifiers, and ten jurisdictions carry none
+    // either. That is a deliberate state — there is nothing verified and
+    // material to say — so the copy may describe the layers as conditional
+    // and may not describe them as universal.
+    const hub = readFileSync(fileURLToPath(new URL("../../app/puppy/page.tsx", import.meta.url)), "utf8");
+    const copy = hub.slice(hub.indexOf("const principles"), hub.indexOf("export default"));
+
+    expect(copy).toMatch(/appears where a verified difference materially changes/i);
+    expect(copy).not.toMatch(/tells you what actually applies where you are/i);
+    expect(copy).not.toMatch(/(?:every|each) (?:province|season|time of year)/i);
+    expect(copy).not.toMatch(/always (?:personalis|personaliz|adapts)/i);
+
+    // The absence itself is legitimate and must stay expressible.
+    const seasons = new Set(seasonModifiers.map((m) => m.season));
+    expect(seasons.has("spring") || seasons.has("autumn")).toBe(false);
+    for (const season of ["spring", "autumn"] as const) {
+      for (const stage of stages) {
+        for (const section of resolveStage(stage, { season })) {
+          expect(section.seasonBlock, `${stage.slug}/${section.id}`).toBeUndefined();
+        }
+      }
+    }
+    // And a province with nothing to say renders nothing, without error.
+    for (const province of ["AB", "SK", "NU"] as const) {
+      const blocks = stages.flatMap((stage) =>
+        resolveStage(stage, { province }).flatMap((s) => s.provinceBlocks),
+      );
+      expect(blocks).toEqual([]);
+    }
+  });
+
+  it("requires no province modifier on every stage", () => {
+    // 7–8 months carries no Ontario block: the rabies duty was crossed months
+    // earlier and the booster runs from the certificate date, so there is
+    // nothing actionable to say that the stage either side does not already
+    // say better. Coverage is a function of material difference, not of
+    // filling a grid.
+    const withOntario = stages.filter((stage) =>
+      resolveStage(stage, { province: "ON" }).some((s) => s.provinceBlocks.length > 0),
+    );
+    expect(withOntario.length).toBeGreaterThan(0);
+    expect(withOntario.length).toBeLessThan(stages.length);
+
+    // Where a block does appear it is never decorative.
+    for (const modifier of provinceModifiers) {
+      expect(modifier.sources.length, `${modifier.stageSlug}/${modifier.sectionId}`).toBeGreaterThan(0);
+      expect(modifier.body.join(" ").length).toBeGreaterThan(200);
+    }
+  });
+
+  it("asserts no age or developmental status in hero alt text", () => {
+    // Three stages already refused to, because the source described an adult
+    // dog and the age could not be verified. Five others said "around the age
+    // this stage covers", which is an age claim about a photograph nobody
+    // verified. One standard now, for all eight.
+    const ageClaim = [
+      /around the age this stage covers/i,
+      /\bat (?:about |around )?\w+[- ]?(?:weeks?|months?)\b/i,
+      /\b\d+[- ](?:week|month)[- ]old\b/i,
+      /\bat this (?:stage|age)\b/i,
+      /\b(?:fully grown|not finished|still growing|looks grown|mature|adolescent)\b/i,
+    ];
+
+    for (const stage of stages) {
+      for (const pattern of ageClaim) {
+        expect(pattern.test(stage.mediaAlt), `${stage.slug}: ${stage.mediaAlt}`).toBe(false);
+      }
+      // It still has to describe the picture.
+      expect(stage.mediaAlt.length, stage.slug).toBeGreaterThan(40);
+      expect(stage.mediaAlt, stage.slug).toMatch(/dog|puppy|collie|labrador|husky/i);
+      expect(stage.mediaAlt, stage.slug).toMatch(/\b(?:sitting|standing|lying|walking|lies|sits|stands)\b/i);
+    }
+  });
+
+  it("sources or removes the wariness claim at nine to eleven weeks", () => {
+    const section = nineToElevenWeeks.sections.find((s) => s.id === "development")!;
+    const prose = [section.summary, ...section.body, ...(section.points ?? [])].join(" ");
+
+    // The unsourced normalisation is gone.
+    expect(prose).not.toMatch(/is a normal part of development rather than a sign/i);
+    // What replaced it is attributed, and to the right things.
+    expect(prose).toMatch(/McEvoy/);
+    expect(prose).toMatch(/three to five weeks/i);
+    expect(prose).toMatch(/Merck Veterinary Manual/);
+    expect(prose).toMatch(/twelve weeks/i);
+    expect(prose).toMatch(/varies from puppy to puppy|individual/i);
+    // A physical cause is named, and there is a route to help.
+    expect(prose).toMatch(/pain and illness|physical/i);
+    expect(prose).toMatch(/qualified behaviour professional/i);
+    // And none of the folklore came back.
+    expect(prose).not.toMatch(/fear period|fear stage|second fear/i);
+
+    // The sources are actually attached to the stage.
+    const urls = nineToElevenWeeks.sources.map((s) => s.url).join(" ");
+    expect(urls).toContain("PMC9655304");
+    expect(urls).toContain("merckvetmanual.com/behavior");
+  });
+
+  it("says puppy before adolescence and dog from adolescence on", () => {
+    const noun = (slug: string) => journeyAnimalNoun(findRoadmapStage(slug));
+    expect(noun("8-weeks")).toBe("puppy");
+    expect(noun("9-11-weeks")).toBe("puppy");
+    expect(noun("12-weeks")).toBe("puppy");
+    expect(noun("3-months")).toBe("puppy");
+    expect(noun("4-6-months")).toBe("puppy");
+    expect(noun("7-8-months")).toBe("dog");
+    expect(noun("9-12-months")).toBe("dog");
+    expect(noun("beyond-the-first-year")).toBe("dog");
+    // Before the Journey there is no stage, and "puppy" is right there.
+    expect(journeyAnimalNoun(null)).toBe("puppy");
+
+    // The rule matches the line the stage titles already drew, so the headline
+    // and the page it sits on can never disagree again.
+    for (const stage of stages) {
+      const expected = journeyAnimalNoun(findRoadmapStage(stage.slug));
+      const wrong = expected === "dog" ? "puppy" : "dog";
+      const title = stage.title.toLowerCase();
+      // A title need not name the animal at all — "Beyond the First Year" does
+      // not — but where it does, it must not name the other one.
+      expect(title, stage.slug).not.toMatch(new RegExp(`\\b${wrong}\\b`));
+      if (/\b(?:puppy|dog)\b/.test(title)) {
+        expect(title, stage.slug).toContain(expected);
+      }
+    }
+  });
+
+  it("keeps the dental claim true at both ends of the final stage", () => {
+    const section = beyondTheFirstYear.sections.find((s) => s.id === "teething")!;
+    const prose = section.body.join(" ");
+    // "The best part of a year" was about six months at the stage's entry.
+    expect(prose).not.toMatch(/best part of a year/i);
+    // The replacement is a fact about the teeth, not a duration to recompute.
+    expect(prose).toMatch(/since well before this stage began/i);
+    expect(prose).toMatch(/about seven months/i);
+  });
+});
+
 describe("content integrity", () => {
   it("points every guide link at an article that exists", () => {
     const slugs = new Set(articles.map((article) => article.slug));
@@ -2851,10 +3091,20 @@ describe("content integrity", () => {
     }
   });
 
-  it("gives every section at most one guide link, so it is not a related-posts block", () => {
+  it("points every guide link at a live article, never at a redirect", () => {
+    // Replaces an assertion that could not fail: `guide` is already optional
+    // and singular in the type, so checking that it is either absent or a
+    // string tested nothing. What is worth asserting is that the destination
+    // still exists and is not a slug we have since retired.
+    const live = new Set(articles.map((article) => article.slug));
+    const retired = ["11-weeks", "4-5-months"];
+
     for (const stage of stages) {
       for (const section of stage.sections) {
-        expect(section.guide === undefined || typeof section.guide.slug === "string").toBe(true);
+        if (!section.guide) continue;
+        expect(live.has(section.guide.slug), `${stage.slug}/${section.id}`).toBe(true);
+        expect(retired).not.toContain(section.guide.slug);
+        expect(section.guide.label.trim().length, `${stage.slug}/${section.id}`).toBeGreaterThan(8);
       }
     }
   });
@@ -2870,18 +3120,64 @@ describe("content integrity", () => {
     expect(findProvince("XX")).toBeNull();
   });
 
-  it("publishes no vaccination schedule anywhere in any stage", () => {
-    // The safety rule this product is built on. The vaccine section asks
-    // questions; it must never acquire a timetable.
-    const prose = JSON.stringify(nineToElevenWeeks.sections).toLowerCase();
-    for (const pattern of [
-      /at \d+ weeks[^.]{0,40}(give|administer|vaccinate)/,
-      /\bdose (one|two|three|1|2|3)\b/,
-      /\bmg\/kg\b/,
-      /\bml per\b/,
-    ]) {
-      expect(pattern.test(prose), `stage prose matches ${pattern}`).toBe(false);
+  it("prescribes no vaccine, on any stage, at any age", () => {
+    // The safety rule this product is built on, and the guard used to check
+    // one stage of eight while its name claimed all of them.
+    //
+    // The line is not "never mention an age". Stages legitimately cite AAHA
+    // and WSAVA ranges, discuss the 26-week option conditionally, and ask what
+    // a puppy's records already show. What is forbidden is *prescription*:
+    // telling a reader something is due because their puppy has reached an
+    // age. So the patterns below look for an imperative or an assertion of
+    // due-ness, and every sentence that matches is then checked for the
+    // hedging or attribution that makes it a description instead.
+    const offenders: string[] = [];
+    for (const stage of stages) {
+      const strings = [
+        stage.deck,
+        stage.metaDescription,
+        ...stage.sections.flatMap((section) => [
+          section.summary,
+          ...section.body,
+          ...(section.points ?? []),
+        ]),
+        ...stage.checklist.flatMap((item) => [item.label, item.detail ?? ""]),
+      ];
+      for (const text of strings) {
+        for (const sentence of text.split(/(?<=[.?!])\s+/)) {
+          for (const pattern of PRESCRIPTIVE) {
+            if (pattern.test(sentence) && !DESCRIPTIVE.test(sentence)) {
+              offenders.push(`${stage.slug}: ${sentence.slice(0, 110)}`);
+            }
+          }
+        }
+      }
     }
+    expect(offenders).toEqual([]);
+  });
+
+  it("still allows the discussion the stages actually need", () => {
+    // A guard that rejected these would be useless, because they are the
+    // content. Proving it accepts them is what stops the next person from
+    // loosening the prose to satisfy the test.
+    const allowed = [
+      "The American Animal Hospital Association recommends continuing the series until the puppy is older than sixteen weeks, and prefers eighteen to twenty weeks where distemper or parvovirus risk is high.",
+      "The World Small Animal Veterinary Association advises considering revaccination at or after 26 weeks of age as an alternative to waiting until twelve to sixteen months, not as an addition to it.",
+      "Which vaccines are core for this puppy, and which depend on where we live and what it will do?",
+      "It is not that a dose is due, and it is not an extra vaccine bolted onto the schedule.",
+      "Some have had a first vaccine from the breeder, some have not.",
+    ];
+    const rejected = [
+      "Give the second vaccine at 12 weeks.",
+      "Every puppy needs a booster vaccine at six months.",
+      "The next vaccination is due at 16 weeks.",
+      "All puppies follow the same schedule: dose one, dose two, dose three.",
+    ];
+
+    const flags = prescribesVaccine;
+
+    for (const sentence of allowed) expect(flags(sentence), `wrongly rejected: ${sentence}`).toBe(false);
+    for (const sentence of rejected) expect(flags(sentence), `wrongly allowed: ${sentence}`).toBe(true);
   });
 
   it("carries a review date and stays in review during this milestone", () => {

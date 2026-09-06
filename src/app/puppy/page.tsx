@@ -31,11 +31,11 @@ const principles = [
   },
   {
     title: "Canadian by default",
-    body: "Rabies rules, licensing thresholds and parasite timing all differ across this country. Tell us your province and the Journey tells you what actually applies where you are.",
+    body: "Rabies rules, licensing thresholds and winter itself all differ across this country. Guidance for your province, or for the time of year, appears where a verified difference materially changes what you should do \u2014 and stays out of the way where it does not. Silence there is an answer, not a gap.",
   },
   {
     title: "Questions, not a schedule",
-    body: "We do not publish a vaccination timetable, because the right one depends on your puppy, your region and your veterinarian. We give you the questions that get you the right answer.",
+    body: "The Journey never tells you a vaccine is due because your puppy has reached an age \u2014 that depends on its records, its risk, your region and your veterinarian. It gives you the questions that get you the right answer, and our vaccination guide sets out the guideline ranges those questions sit against.",
   },
 ] as const;
 
@@ -76,7 +76,7 @@ export default function PuppyJourneyPage() {
               </div>
 
               <p className="mt-5 text-body-sm text-foreground-muted">
-                {stages.length} stages are written and reviewed. You can{" "}
+                {stages.length} stages are written. You can{" "}
                 <Link
                   href={`/puppy/${firstStage.slug}`}
                   className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"

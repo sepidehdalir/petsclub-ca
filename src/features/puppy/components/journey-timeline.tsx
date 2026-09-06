@@ -45,10 +45,23 @@ export function JourneyTimeline({ currentSlug, className }: JourneyTimelineProps
 
       <div className="mt-4 space-y-5">
         {roadmapByPhase().map(({ phase, stages: phaseStages }) => (
-          <section key={phase.id}>
-            <h3 className="px-2.5 font-sans text-micro uppercase text-foreground-subtle">
+          /*
+            The phase label groups navigation rows; it is not a heading in the
+            document outline. As an `h3` it sat between the page `h1` and the
+            first content `h2`, so every stage page read as h1 -> h3 -> h2 —
+            an invalid jump, and a misleading outline, since "Early puppy" is
+            not a section of the article.
+            `aria-labelledby` gives the group the same name for a screen
+            reader without putting it in the heading order. The visual result
+            is identical.
+          */
+          <section key={phase.id} aria-labelledby={`journey-phase-${phase.id}`}>
+            <p
+              id={`journey-phase-${phase.id}`}
+              className="px-2.5 font-sans text-micro uppercase text-foreground-subtle"
+            >
               {phase.label}
-            </h3>
+            </p>
             <p className="mt-1 px-2.5 text-caption text-foreground-subtle">{phase.note}</p>
 
             <ol className="mt-2 space-y-0.5">

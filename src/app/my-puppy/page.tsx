@@ -24,6 +24,7 @@ import {
   findPhase,
   isBeforeJourney,
   isJourneyComplete,
+  journeyAnimalNoun,
   journeyHeadlineAge,
   journeyMeta,
   roadmapStageFor,
@@ -224,26 +225,46 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
   const { date: today } = resolveToday({ province: provinceParam });
   const result = resolveAge(birth, today);
 
+  // An input problem, not an editorial one.
+  //
+  // `MAX_PLAUSIBLE_DAYS` is a guard against a mistyped date of birth and has
+  // nothing to do with how far the Journey runs — `JOURNEY_ENDS_AFTER_MONTHS`
+  // does that, and a dog past it gets the Journey Complete screen. So this
+  // state may not say how long the Journey is, and it may not call the animal
+  // anything. It used to do both: it claimed the Journey "covers the first few
+  // years" (it ends at eighteen months) and sent the owner of a dog that had
+  // just turned three to senior-care reading. Three is not senior, and this
+  // page has no basis for deciding when any dog is.
   if (!result.ok) {
     return (
       <Placeholder
-        title={result.problem === "future" ? "That date is in the future" : "That is beyond puppyhood"}
+        title={
+          result.problem === "future" ? "That date is in the future" : "Worth checking that date"
+        }
         body={
           result.problem === "future"
             ? "A puppy born after today is a hard problem for us. Check the year and try again."
-            : "The Puppy Journey covers the first few years. For an older dog, our guides on senior care and everyday health will be more use."
+            : "That date of birth is more than three years ago, which is usually a mistyped year rather than a puppy. Go back and check it."
         }
       >
         {result.problem === "implausible" ? (
           <p className="mt-4 text-body text-foreground-muted">
-            Try{" "}
+            If the date is right, then this is an adult dog and the Journey has nothing age-staged
+            left to offer it — the library is organised by subject from here, starting with{" "}
             <Link
-              href="/guides/senior-dogs-and-cats"
+              href={articlePath("loose-leash-walking-and-recall")}
               className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"
             >
-              caring for a senior dog or cat
+              training you maintain rather than finish
             </Link>{" "}
-            instead.
+            and{" "}
+            <Link
+              href={articlePath("dental-care-for-dogs-and-cats")}
+              className="font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900"
+            >
+              the dental care that is easy to let slide
+            </Link>
+            .
           </p>
         ) : null}
       </Placeholder>
@@ -350,7 +371,7 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
     return (
       <Placeholder
         currentSlug={roadmap?.slug ?? ""}
-        title={`Your puppy is ${journeyHeadlineAge(age, roadmap)}`}
+        title={`Your ${journeyAnimalNoun(roadmap)} is ${journeyHeadlineAge(age, roadmap)}`}
         facts={journeyMeta(age, roadmap)}
         body={
           roadmap ? journeyStateCopy.noPage.body : "There is no stage in the Journey for this age."
@@ -383,9 +404,11 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
   // label where it is measured in months. The stage's own name is in the
   // eyebrow above either way, so the two are never confused.
   const agePhrase = journeyHeadlineAge(age, roadmap);
+  // "Puppy" through early development, "dog" from adolescence on — the same
+  // line the stage titles draw. A named breed sidesteps the question.
   const headline = breed && breed.slug !== "mixed"
     ? `Your ${breed.name} is ${agePhrase}`
-    : `Your puppy is ${agePhrase}`;
+    : `Your ${journeyAnimalNoun(roadmap)} is ${agePhrase}`;
 
   const facts = [
     ...journeyMeta(age, roadmap),
