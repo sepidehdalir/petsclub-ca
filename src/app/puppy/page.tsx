@@ -65,7 +65,10 @@ export default function PuppyJourneyPage() {
 
             <div className="lg:col-span-5">
               <div className="rounded-card border border-border bg-surface-muted p-6 sm:p-7">
-                <JourneyTimeline currentSlug="11-weeks" />
+                {/* No puppy has been entered yet, so no row is "you are here".
+                    The 11-week row still reads as the finished one — it is the
+                    only entry without a "soon" badge. */}
+                <JourneyTimeline currentSlug="" />
               </div>
 
               <p className="mt-5 text-body-sm text-foreground-muted">

@@ -5,7 +5,7 @@ import { useMemo, useState, useSyncExternalStore } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Field, fieldIds, Input, Select } from "@/components/ui/field";
-import { resolveAgeFromInput, todayInToronto } from "@/features/puppy/age";
+import { resolveAgeFromInput, todayLocal } from "@/features/puppy/age";
 import { allBreeds, provinces } from "@/features/puppy/model";
 import {
   parseStoredPuppy,
@@ -68,8 +68,10 @@ export function OnboardingForm() {
   const setBreed = setBreedEdit;
   const setProvince = setProvinceEdit;
 
-  const result = dob ? resolveAgeFromInput(dob) : null;
-  const today = todayInToronto();
+  // Client-side, so the reader's own calendar is available and is the correct
+  // answer — no province mapping and no UTC guess needed here.
+  const today = todayLocal();
+  const result = dob ? resolveAgeFromInput(dob, today) : null;
   const maxDate = `${today.year}-${String(today.month).padStart(2, "0")}-${String(today.day).padStart(2, "0")}`;
 
   const problemMessage =

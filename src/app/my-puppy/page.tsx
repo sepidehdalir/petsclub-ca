@@ -7,8 +7,8 @@ import {
   formatCivilDate,
   parseCivilDate,
   resolveAge,
+  resolveToday,
   seasonOf,
-  todayInToronto,
 } from "@/features/puppy/age";
 import { StageView } from "@/features/puppy/components/stage-view";
 import { JourneyTimeline } from "@/features/puppy/components/journey-timeline";
@@ -16,26 +16,6 @@ import { findBreed, findProvince, sizeGroups } from "@/features/puppy/model";
 import type { BreedSlug, ProvinceCode } from "@/features/puppy/model";
 import { roadmapStageForDays, stageForDays } from "@/features/puppy/stages";
 import { createMetadata } from "@/lib/seo/metadata";
-
-/**
- * The personalised Journey.
- *
- * **Always `noindex`.** Every combination of date of birth, breed and province
- * produces a different page, and there are tens of thousands of them. Letting
- * a crawler index that space would create exactly the programmatic duplication
- * the blueprint set out to avoid — so the canonical points at the public stage
- * page, which is the single indexable version of this content.
- *
- * `noIndex` also sets `follow: false`, which is a slightly blunt instrument
- * here, but the internal links a reader needs are all reachable from `/puppy`
- * and from the article library, so nothing is stranded.
- */
-export const metadata: Metadata = createMetadata({
-  title: "Your Puppy Journey",
-  description: "Your puppy's Journey, personalised to their age.",
-  path: "/puppy/11-weeks",
-  noIndex: true,
-});
 
 interface MyPuppyPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -45,15 +25,87 @@ function single(value: string | string[] | undefined): string | undefined {
   return Array.isArray(value) ? value[0] : value;
 }
 
+/**
+ * Resolves the public page this personalised state is a variant of.
+ *
+ * The first version canonicalised every `/my-puppy` state to
+ * `/puppy/11-weeks`, which is only true when the puppy is actually eleven
+ * weeks old. For a four-month-old it told a crawler that this page is a
+ * duplicate of an unrelated age — a false identity claim, and precisely the
+ * kind of thing the rest of this project refuses to do to a machine.
+ *
+ * So: canonical to the matching stage when one exists, and to the Journey hub
+ * when it does not. The hub is the honest parent of a state we have not
+ * written a page for.
+ */
+function canonicalPathFor(
+  dobParam: string | undefined,
+  provinceParam: string | undefined,
+): string {
+  if (!dobParam) {
+    return "/puppy";
+  }
+
+  const birth = parseCivilDate(dobParam);
+  if (!birth) {
+    return "/puppy";
+  }
+
+  const { date: today } = resolveToday({ province: provinceParam, now: new Date() });
+  const age = resolveAge(birth, today);
+  if (!age.ok) {
+    return "/puppy";
+  }
+
+  const stage = stageForDays(age.age.days);
+  return stage ? `/puppy/${stage.slug}` : "/puppy";
+}
+
+/**
+ * The personalised Journey.
+ *
+ * **Always `noindex`.** Every combination of date of birth, breed and province
+ * produces a different page, and there are tens of thousands of them. Letting
+ * a crawler index that space would create exactly the programmatic duplication
+ * the blueprint set out to avoid — so the canonical points at whichever public
+ * page this state is genuinely a variant of.
+ *
+ * `noIndex` also sets `follow: false`, which is a slightly blunt instrument
+ * here, but the internal links a reader needs are all reachable from `/puppy`
+ * and from the article library, so nothing is stranded.
+ */
+export async function generateMetadata({
+  searchParams,
+}: MyPuppyPageProps): Promise<Metadata> {
+  const params = await searchParams;
+
+  return createMetadata({
+    title: "Your Puppy Journey",
+    description: "Your puppy's Journey, personalised to their age.",
+    path: canonicalPathFor(single(params.dob), single(params.province)),
+    noIndex: true,
+  });
+}
+
 /** A page state that is not a stage — no DOB, a bad one, or an age we have not written. */
 function Placeholder({
   title,
   body,
   children,
+  currentSlug = "",
 }: {
   title: string;
   body: string;
   children?: React.ReactNode;
+  /**
+   * The rail row to mark as "you are here", where the age resolves to one.
+   *
+   * Empty by default, and deliberately so: marking a row current is a claim
+   * about this reader's puppy. A seven-month-old shown a rail with "11 weeks"
+   * lit up is being told something false about their own dog, which is worse
+   * than a rail with nothing highlighted at all.
+   */
+  currentSlug?: string;
 }) {
   return (
     <Section spacing="default">
@@ -74,7 +126,7 @@ function Placeholder({
           </div>
           <div className="lg:col-span-5">
             <div className="rounded-card border border-border bg-surface-muted p-6 sm:p-7">
-              <JourneyTimeline currentSlug="11-weeks" />
+              <JourneyTimeline currentSlug={currentSlug} />
             </div>
           </div>
         </div>
@@ -108,7 +160,10 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
     );
   }
 
-  const today = todayInToronto();
+  // Server-rendered, so the browser's own date is not available here. The
+  // province supplies a representative zone when one exists; otherwise this
+  // falls to UTC, which is deterministic and therefore hydration-safe.
+  const { date: today } = resolveToday({ province: provinceParam });
   const result = resolveAge(birth, today);
 
   if (!result.ok) {
@@ -148,6 +203,7 @@ export default async function MyPuppyPage({ searchParams }: MyPuppyPageProps) {
     const roadmap = roadmapStageForDays(age.days);
     return (
       <Placeholder
+        currentSlug={roadmap?.slug ?? ""}
         title={`Your puppy is ${age.label}`}
         body={
           roadmap

@@ -84,9 +84,13 @@ export function StageView({
       <Section spacing="compact">
         <Container>
           <div className="lg:grid lg:grid-cols-12 lg:gap-12">
-            {/* Rail. Sticky from lg, where there is room for it to be useful. */}
+            {/* Rail. Sticky from lg, where there is room for it to be useful.
+                `top` has to clear the site masthead, which is itself sticky at
+                the top of the viewport and about 81px tall — at a smaller
+                offset the rail's heading and first stages scroll underneath
+                it and are simply not readable. */}
             <div className="lg:col-span-3">
-              <div className="lg:sticky lg:top-8">
+              <div className="lg:sticky lg:top-28">
                 <JourneyTimeline currentSlug={stage.slug} className="hidden lg:block" />
               </div>
             </div>

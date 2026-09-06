@@ -12,12 +12,14 @@
  * for most of the country for most of the day.
  *
  * So every date here is reduced to a *civil date* — year, month, day, with no
- * time and no zone — and compared as a day count. The only place a real clock
- * is read is `todayInToronto()`, and even that returns a civil date.
+ * time and no zone — and compared as a day count. A real clock is read in
+ * exactly two places, `todayInZone` and `todayLocal`, and both return civil
+ * dates.
  *
- * The consequence worth stating: this module is deterministic and has no
- * hidden dependency on where the server runs. `resolveAge` with the same two
- * civil dates returns the same answer in every deployment region.
+ * The consequence worth stating: `resolveAge` is pure. It takes two civil
+ * dates and returns the same answer in every deployment region, which is why
+ * "what is today" is a separate decision made by `resolveToday` and passed in
+ * rather than reached for. See the note above `TodaySource`.
  */
 
 /** A calendar date with no time and no zone. */
@@ -101,22 +103,135 @@ export function civilFromDays(days: number): CivilDate {
 }
 
 /**
- * Today, as a civil date in a fixed Canadian reference zone.
+ * ## Deciding what "today" is
  *
- * One zone rather than the server's, so a deployment region change cannot
- * shift every reader's puppy by a day. `en-CA` with an explicit time zone
- * gives `YYYY-MM-DD` directly.
+ * This is the part that was wrong in the first version, which read today as a
+ * Toronto civil date for every reader. Canada spans six time zones: at 01:30
+ * UTC it is already tomorrow in Toronto and still today in Vancouver, so a
+ * fixed Eastern reference ages a Vancouver puppy a day early for several
+ * hours every night — and does the reverse in Newfoundland.
+ *
+ * There is no single correct answer available on a server, so the resolution
+ * is a documented preference order and every result says which rung it came
+ * from:
+ *
+ *  1. **The browser's own local date.** Correct by construction, because it
+ *     is the reader's actual calendar. Available anywhere client-side.
+ *  2. **The province's representative zone**, where one defensibly exists.
+ *     Used for server rendering when a province has been supplied.
+ *  3. **UTC.** The last resort, and deterministic — which matters more than
+ *     being close, because a server-rendered value that varies with the
+ *     deployment region is a hydration bug waiting to happen.
  */
-export function todayInToronto(now: Date = new Date()): CivilDate {
+
+/** Which rung of the preference order produced a date. */
+export type TodaySource = "client" | "province" | "utc";
+
+export interface ResolvedToday {
+  date: CivilDate;
+  source: TodaySource;
+}
+
+/**
+ * Representative IANA zone for a province or territory.
+ *
+ * "Representative" is doing real work in that sentence. Several provinces are
+ * not internally uniform, and the entries below are the zone the overwhelming
+ * majority of the population is in rather than a claim about every community:
+ *
+ *  - **British Columbia** is Pacific except the Peace River region, which is
+ *    Mountain year-round.
+ *  - **Ontario** is Eastern except the northwest beyond about 90°W, which is
+ *    Central.
+ *  - **Quebec** is Eastern except the far east around Blanc-Sablon, which is
+ *    Atlantic and does not observe DST.
+ *  - **Saskatchewan** is Central year-round with no DST, except Lloydminster,
+ *    which keeps Alberta time.
+ *
+ * Each of those is wrong for a minority of readers for at most one hour a
+ * day, and is strictly better than UTC — which is wrong for *everyone* in the
+ * country every evening. The client's own date supersedes all of it whenever
+ * it is available.
+ *
+ * **Nunavut is deliberately absent.** It spans three zones with no dominant
+ * one, so there is nothing defensible to map it to and it falls through to
+ * UTC rather than being guessed at.
+ */
+const PROVINCE_TIME_ZONES: Readonly<Record<string, string>> = {
+  AB: "America/Edmonton",
+  BC: "America/Vancouver",
+  MB: "America/Winnipeg",
+  NB: "America/Moncton",
+  NL: "America/St_Johns",
+  NS: "America/Halifax",
+  NT: "America/Edmonton",
+  ON: "America/Toronto",
+  PE: "America/Halifax",
+  QC: "America/Toronto",
+  SK: "America/Regina",
+  YT: "America/Whitehorse",
+  // NU intentionally omitted — see the note above.
+};
+
+/** Whether a province maps to a single defensible zone. */
+export function hasRepresentativeTimeZone(province: string): boolean {
+  return province in PROVINCE_TIME_ZONES;
+}
+
+/**
+ * The civil date in a named IANA zone.
+ *
+ * `en-CA` formats as `YYYY-MM-DD`, so the parse below cannot fail for a valid
+ * Date and a valid zone.
+ */
+export function todayInZone(timeZone: string, now: Date = new Date()): CivilDate {
   const formatted = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "America/Toronto",
+    timeZone,
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
   }).format(now);
 
-  // `en-CA` is ISO-ordered, so this parse cannot fail for a valid Date.
   return parseCivilDate(formatted) ?? { year: 1970, month: 1, day: 1 };
+}
+
+/**
+ * The browser's own local civil date.
+ *
+ * Uses the local-time accessors rather than a formatter, so it reflects
+ * whatever zone the reader's device is actually set to — including one that
+ * is not Canadian at all. This is the accurate answer and the one to prefer
+ * wherever client code can supply it.
+ */
+export function todayLocal(now: Date = new Date()): CivilDate {
+  return { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() };
+}
+
+export interface ResolveTodayOptions {
+  /** The browser's local civil date, where the caller has one. Wins outright. */
+  clientDate?: CivilDate | null;
+  /** Province or territory code, used for server rendering. */
+  province?: string | null;
+  /** Injectable clock, for tests. */
+  now?: Date;
+}
+
+/** Applies the preference order above and reports which rung answered. */
+export function resolveToday({
+  clientDate,
+  province,
+  now = new Date(),
+}: ResolveTodayOptions = {}): ResolvedToday {
+  if (clientDate) {
+    return { date: clientDate, source: "client" };
+  }
+
+  const zone = province ? PROVINCE_TIME_ZONES[province] : undefined;
+  if (zone) {
+    return { date: todayInZone(zone, now), source: "province" };
+  }
+
+  return { date: todayInZone("UTC", now), source: "utc" };
 }
 
 /** Why an age could not be resolved. Rendered as a message, never thrown. */
@@ -190,7 +305,7 @@ function describe(days: number, months: number): string {
  * Never throws. A bad date is a state the interface renders, not an exception
  * — someone mistyping a year should get a sentence, not a stack trace.
  */
-export function resolveAge(birth: CivilDate, today: CivilDate = todayInToronto()): AgeResult {
+export function resolveAge(birth: CivilDate, today: CivilDate): AgeResult {
   const days = daysBetween(birth, today);
 
   if (days < 0) {
@@ -216,7 +331,7 @@ export function resolveAge(birth: CivilDate, today: CivilDate = todayInToronto()
 }
 
 /** Parses and resolves in one step, for a raw form value. */
-export function resolveAgeFromInput(value: string, today?: CivilDate): AgeResult {
+export function resolveAgeFromInput(value: string, today: CivilDate): AgeResult {
   const birth = parseCivilDate(value);
   if (!birth) {
     return { ok: false, problem: "invalid" };

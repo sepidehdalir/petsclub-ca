@@ -14,7 +14,7 @@ function Paragraphs({ body, className }: { body: readonly string[]; className?: 
   return (
     <>
       {body.map((paragraph) => (
-        <p key={paragraph} className={cn("text-body text-foreground-reading", className)}>
+        <p key={paragraph} className={cn("text-body sm:text-body-lg text-foreground-reading", className)}>
           {paragraph}
         </p>
       ))}
@@ -50,9 +50,11 @@ export function StageSection({ section, defaultOpen = false }: StageSectionProps
       open={defaultOpen}
       className={cn(
         "group border-t border-border py-5 sm:py-6",
-        // Every section is open from `sm` up: on a desktop the disclosure is
-        // a nuisance, and the summary marker is hidden to match.
-        "sm:open:!block",
+        // Every section reads as expanded from `sm` up: on a desktop the
+        // disclosure is a nuisance, and the summary marker is hidden to
+        // match. That override is CSS, not markup, and it cannot be written
+        // as a utility — see `.stage-disclosure` in `globals.css`.
+        "stage-disclosure",
       )}
     >
       <summary
@@ -107,7 +109,7 @@ export function StageSection({ section, defaultOpen = false }: StageSectionProps
             {section.points.map((point) => (
               <li
                 key={point}
-                className="relative pl-6 text-body text-foreground-reading"
+                className="relative pl-6 text-body text-foreground-reading sm:text-body-lg"
               >
                 <span
                   aria-hidden="true"
@@ -159,7 +161,7 @@ export function StageSection({ section, defaultOpen = false }: StageSectionProps
             </p>
             <h3 className="mt-2 text-title-4 text-foreground">{block.heading}</h3>
             <div className="mt-2 space-y-3">
-              <Paragraphs body={block.body} className="text-body-sm" />
+              <Paragraphs body={block.body} className="text-body-sm sm:text-body" />
             </div>
           </div>
         ))}
@@ -171,7 +173,7 @@ export function StageSection({ section, defaultOpen = false }: StageSectionProps
             </p>
             <h3 className="mt-2 text-title-4 text-foreground">{section.seasonBlock.heading}</h3>
             <div className="mt-2 space-y-3">
-              <Paragraphs body={section.seasonBlock.body} className="text-body-sm" />
+              <Paragraphs body={section.seasonBlock.body} className="text-body-sm sm:text-body" />
             </div>
             {section.seasonBlock.guide ? (
               <p className="mt-3">

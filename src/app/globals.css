@@ -523,4 +523,40 @@
   .prose-article > figure {
     margin-top: 2em;
   }
+
+  /* Puppy Journey stage sections.
+     ------------------------------------------------------------------------
+     A stage is one long article rendered as native `<details>`, so that a
+     phone gets a scannable list of headings with no JavaScript. From `sm` up
+     the disclosure is a liability rather than a feature: there is room for
+     the whole article, the chevron is hidden, and a reader who cannot see
+     an affordance will never find the prose behind it.
+
+     Forcing that open is not expressible as a utility, because a closed
+     `<details>` is hidden by the user agent in two different ways and both
+     have to be undone:
+
+       - Chromium wraps the content in `::details-content` and applies
+         `content-visibility: hidden` to it;
+       - other engines apply `display: none` to the non-summary children.
+
+     Setting `display` on the `<details>` element itself — which is what a
+     `sm:open:!block` utility does — undoes neither, which is why the first
+     version of this page rendered fourteen of its fifteen sections as bare
+     headings on every desktop. */
+  @media (min-width: 640px) {
+    .stage-disclosure::details-content {
+      content-visibility: visible;
+      block-size: auto;
+    }
+
+    .stage-disclosure:not([open]) > *:not(summary) {
+      display: block;
+    }
+
+    /* Nothing is hidden, so nothing is clickable. */
+    .stage-disclosure > summary {
+      cursor: default;
+    }
+  }
 }
