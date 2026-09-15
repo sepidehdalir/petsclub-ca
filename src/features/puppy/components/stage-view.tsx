@@ -67,6 +67,10 @@ export function StageView({
             facts={facts}
             className={banner ? "mt-6" : undefined}
           />
+          <a href="#stage-checklist-heading"
+            className="mt-5 inline-flex min-h-11 items-center text-body-sm font-medium text-pine-700 underline underline-offset-4 hover:text-pine-900">
+            Open this stage&rsquo;s checklist
+          </a>
         </Container>
 
         <Container className="pb-10 sm:pb-12">
@@ -112,7 +116,14 @@ export function StageView({
                 ))}
 
                 <div className="mt-10 space-y-8 border-t border-border pt-8">
-                  <StageChecklist items={stage.checklist} />
+                  <StageChecklist
+                    items={stage.checklist}
+                    stageSlug={stage.slug}
+                    stageLabel={stage.label}
+                    birthDate={context.birth
+                      ? `${context.birth.year}-${String(context.birth.month).padStart(2, "0")}-${String(context.birth.day).padStart(2, "0")}`
+                      : undefined}
+                  />
 
                   <section aria-labelledby="stage-boundary-heading">
                     <h2
