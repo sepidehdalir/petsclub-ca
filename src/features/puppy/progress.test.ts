@@ -3,6 +3,7 @@ import { afterEach, test, vi } from "vitest";
 import { checklistScope, cleanCardName, clearChecklistProgress, parseChecklistProgress,
   publicJourneyShareUrl, readChecklistRaw, SHAREABLE_STAGES, writeChecklistProgress } from "./progress";
 import { emitJourneyEvent } from "./growth-events";
+import { savedJourneyHref } from "./saved-journey";
 
 /** These are unit tests; browser, full-build and release checks are separate. */
 afterEach(() => vi.unstubAllGlobals());
@@ -73,7 +74,55 @@ test("card names do not split Unicode and remove direction overrides", () => {
 test("event hooks contain only bounded, explicitly allowed fields", () => {
   const storage = installStorage();
   emitJourneyEvent("checklist_item_checked", { stageSlug: "/my-puppy?dob=SECRET", checkedCount: 999 });
-  const event = storage.dispatchEvent.mock.calls[0][0] as CustomEvent;
+  const firstCall = storage.dispatchEvent.mock.calls[0];
+  assert.ok(firstCall, "A local event should have been dispatched");
+  const event = firstCall[0] as CustomEvent;
+  assert.ok(event instanceof CustomEvent);
   assert.deepEqual(event.detail, { name: "checklist_item_checked", checkedCount: 100 });
   assert.equal(storage.data.size, 0);
+});
+test("server rendering does not require browser storage", () => {
+  vi.stubGlobal("window", undefined);
+  assert.equal(readChecklistRaw("12-weeks:guide"), null);
+  assert.equal(writeChecklistProgress("12-weeks:guide", ["a"]), false);
+  assert.equal(clearChecklistProgress("12-weeks:guide"), false);
+  assert.doesNotThrow(() => emitJourneyEvent("journey_resume_clicked"));
+});
+test("failed deletion is not reported as successful persistence", () => {
+  const storage = installStorage();
+  writeChecklistProgress("12-weeks:guide", ["a"]);
+  storage.localStorage.removeItem.mockImplementation(() => { throw new Error("blocked"); });
+  const prior = storage.dispatchEvent.mock.calls.length;
+  assert.equal(clearChecklistProgress("12-weeks:guide"), false);
+  assert.equal(storage.dispatchEvent.mock.calls.length, prior);
+  assert.deepEqual(parseChecklistProgress(readChecklistRaw("12-weeks:guide"), ["a"]), ["a"]);
+});
+test("invalid scope cannot modify unrelated browser keys", () => {
+  const storage = installStorage();
+  assert.equal(writeChecklistProgress("../petclub.puppy.v1", ["a"]), false);
+  assert.equal(clearChecklistProgress("../petclub.puppy.v1"), false);
+  assert.equal(storage.data.size, 0);
+});
+
+const TODAY = { year: 2026, month: 9, day: 14 };
+test.each([
+  null, "{", "null", "[]", '{"dob":42}', '{"dob":"2026-02-31"}',
+  '{"dob":"2027-01-01"}', '{"dob":"2010-01-01"}',
+])("invalid saved puppy has no resume link: %s", (raw) => {
+  assert.equal(savedJourneyHref(raw, TODAY), null);
+});
+test("legacy profile resumes without inventing size or location", () => {
+  assert.equal(savedJourneyHref('{"dob":"2026-06-18"}', TODAY), "/my-puppy?dob=2026-06-18");
+});
+test("unrecognised stored options and extra fields never enter resume URL", () => {
+  const raw = JSON.stringify({ dob: "2026-06-18", breedSlug: "not-a-breed", province: "not-a-province", sizeGroup: "not-a-size", name: "PRIVATE", redirect: "https://example.com" });
+  assert.equal(savedJourneyHref(raw, TODAY), "/my-puppy?dob=2026-06-18");
+});
+test("explicit unknown size is preserved rather than silently inferred", () => {
+  const href = savedJourneyHref('{"dob":"2026-06-18","sizeGroup":"unknown"}', TODAY);
+  assert.ok(href);
+  assert.equal(new URL(href, "https://thepetclub.ca").searchParams.get("size"), "unknown");
+});
+test("oversized saved profile fails closed", () => {
+  assert.equal(savedJourneyHref("x".repeat(10001), TODAY), null);
 });
