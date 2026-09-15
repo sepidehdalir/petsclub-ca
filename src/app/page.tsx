@@ -1,147 +1,67 @@
 import type { Metadata } from "next";
 
-import { DemoContentNotice } from "@/components/shared/demo-content-notice";
 import { ButtonLink } from "@/components/ui/button";
-import { Card, CardBody, LinkCard } from "@/components/ui/card";
+import { LinkCard } from "@/components/ui/card";
 import { Container, Section, SectionHeading } from "@/components/ui/layout-primitives";
 import { siteConfig } from "@/config/site";
-import { ThreadPreviewCard } from "@/features/community/components/thread-preview-card";
-import { demoThreads } from "@/features/community/fixtures";
 import { communityTaxonomy } from "@/features/community/taxonomy";
 import { ArticleListSection } from "@/features/editorial/components/article-list-section";
-import { LostFoundCard } from "@/features/lost-found/components/lost-found-card";
-import { demoLostFoundReports } from "@/features/lost-found/fixtures";
+import { SavedJourneyLink } from "@/features/puppy/components/saved-journey-link";
 import { createMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createMetadata({
   path: "/",
-  description: siteConfig.description,
+  description: "Age-based puppy guides, device-saved checklists and practical pet care reading for life in Canada. Start the Puppy Journey without an account.",
 });
 
-/** Topic entry points surfaced in the "Explore" grid. */
 const exploreTopics = [
-  {
-    href: "/dogs",
-    title: "Dogs",
-    description: "Puppies, health, nutrition, training and breeds.",
-  },
-  {
-    href: "/cats",
-    title: "Cats",
-    description: "Kittens, behaviour, health and indoor enrichment.",
-  },
-  {
-    href: "/health",
-    title: "Health",
-    description: "Symptoms, prevention and working with your vet.",
-  },
-  {
-    href: "/food",
-    title: "Food",
-    description: "Diets, ingredients and brands sold in Canada.",
-  },
-  {
-    href: "/training",
-    title: "Training",
-    description: "Everyday skills, behaviour and building routines.",
-  },
-  {
-    href: "/guides",
-    title: "Canada Guides",
-    description: "Costs, insurance, travel and provincial rules.",
-  },
+  { href: "/dogs", title: "Dogs", description: "Puppies, health, nutrition, training and breeds." },
+  { href: "/cats", title: "Cats", description: "Kittens, behaviour, health and indoor enrichment." },
+  { href: "/health", title: "Health", description: "Symptoms, prevention and working with your vet." },
+  { href: "/food", title: "Food", description: "Diets, ingredients and brands sold in Canada." },
+  { href: "/training", title: "Training", description: "Everyday skills, behaviour and building routines." },
+  { href: "/guides", title: "Canada Guides", description: "Costs, insurance, travel and provincial rules." },
 ] as const;
 
 export default function HomePage() {
   return (
     <>
-      {/* ---------------------------------------------------------------- Hero */}
-      <Section as="section" spacing="spacious" aria-labelledby="hero-heading">
+      <Section spacing="spacious" aria-labelledby="hero-heading">
         <Container>
-          <div className="max-w-3xl">
-            <p className="text-label-lg uppercase text-pine-700">
-              {siteConfig.legalName}
-            </p>
-
-            <h1
-              id="hero-heading"
-              className="mt-4 text-display-3 text-foreground sm:text-display-2 lg:text-display-1"
-            >
-              Canada&rsquo;s community for pet parents.
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-body-lg text-foreground-muted">
-              Ask questions, share experiences, and discover trusted pet advice from across
-              Canada.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/community" size="lg">
-                Ask the Community
-              </ButtonLink>
-              <ButtonLink href="/guides" size="lg" variant="secondary">
-                Browse Canadian guides
-              </ButtonLink>
+          <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
+            <div className="min-w-0 lg:col-span-8">
+              <p className="text-label-lg uppercase text-pine-700">{siteConfig.legalName}</p>
+              <h1 id="hero-heading" className="mt-4 text-display-3 text-foreground sm:text-display-2 lg:text-display-1">
+                Your puppy. Their next small step.
+              </h1>
+              <p className="mt-6 max-w-2xl text-body-lg text-foreground-muted">
+                Find the guide for their age, keep track of this stage&rsquo;s checklist,
+                and return to the Journey as they grow. Made for pet life in Canada.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <ButtonLink href="/puppy" size="lg" className="h-auto min-h-12 whitespace-normal py-3 text-center">
+                  Start the Puppy Journey
+                </ButtonLink>
+                <ButtonLink href="/guides" size="lg" variant="secondary" className="h-auto min-h-12 whitespace-normal py-3 text-center">
+                  Browse Canadian guides
+                </ButtonLink>
+              </div>
+              <p className="mt-3 text-body-sm text-foreground-muted">No account or email required to get your guide. Saved checklists stay on this device.</p>
+              <SavedJourneyLink />
             </div>
+            <aside className="rounded-card border border-pine-200 bg-pine-50 p-6 sm:p-8 lg:col-span-4" aria-labelledby="small-steps-heading">
+              <h2 id="small-steps-heading" className="text-title-2 text-pine-900">A useful next step, not another endless feed.</h2>
+              <ol className="mt-6 space-y-5 text-body-sm text-foreground-reading">
+                <li><strong className="block text-pine-900">Find your stage</strong>Start with your puppy&rsquo;s date of birth, or browse an age guide.</li>
+                <li><strong className="block text-pine-900">Make a little progress</strong>Read the guidance and mark the checklist steps you have taken.</li>
+                <li><strong className="block text-pine-900">Pick up where you left off</strong>Return on the same device. Keep a progress card when you have something to celebrate.</li>
+              </ol>
+              <p className="mt-6 border-t border-pine-200 pt-4 text-caption text-foreground-muted">General information, not veterinary diagnosis or treatment.</p>
+            </aside>
           </div>
         </Container>
       </Section>
 
-      {/* ------------------------------------------------- Trending discussions */}
-      <Section tone="muted" aria-labelledby="trending-heading">
-        <Container>
-          <SectionHeading
-            id="trending-heading"
-            eyebrow="Community"
-            title="Trending discussions"
-            description="The questions Canadian pet parents are working through right now."
-            action={
-              <ButtonLink href="/community" variant="secondary" size="sm">
-                Browse all categories
-              </ButtonLink>
-            }
-          />
-
-          <DemoContentNotice className="mt-6">
-            Sample discussions — the community opens in an upcoming release
-          </DemoContentNotice>
-
-          <Card className="mt-4">
-            <CardBody className="py-2">
-              {demoThreads.map((thread) => (
-                <ThreadPreviewCard key={thread.id} thread={thread} />
-              ))}
-            </CardBody>
-          </Card>
-        </Container>
-      </Section>
-
-      {/* ------------------------------------------------------------- Explore */}
-      <Section aria-labelledby="explore-heading">
-        <Container>
-          <SectionHeading
-            id="explore-heading"
-            eyebrow="Explore"
-            title="Find your corner of The Pet Club"
-            description="Start with a topic, then dive into the discussions and guides underneath it."
-          />
-
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {exploreTopics.map((topic) => (
-              <li key={topic.href} className="flex">
-                <LinkCard
-                  className="w-full"
-                  href={topic.href}
-                  title={topic.title}
-                  description={topic.description}
-                />
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
-
-      {/* ----------------------------------------------------- Published guides */}
       <ArticleListSection
         surfacePath="/guides"
         id="guides-heading"
@@ -150,113 +70,44 @@ export default function HomePage() {
         description="Practical guides to caring for pets in Canada, with sources you can follow."
         tone="muted"
         limit={3}
-        action={
-          <ButtonLink href="/guides" variant="secondary" size="sm">
-            Browse all Canadian pet guides
-          </ButtonLink>
-        }
+        action={<ButtonLink href="/guides" variant="secondary" size="sm">Browse all Canadian pet guides</ButtonLink>}
       />
 
-      {/* ------------------------------------------------ Ask the community CTA */}
-      <Section aria-labelledby="ask-heading">
+      <Section aria-labelledby="explore-heading">
         <Container>
-          <div className="rounded-card border border-pine-200 bg-pine-50 px-6 py-12 sm:px-12 sm:py-16">
-            <div className="max-w-2xl">
-              <h2
-                id="ask-heading"
-                className="text-title-2 text-pine-900 sm:text-title-1"
-              >
-                Have a question about your pet?
-              </h2>
-              <p className="mt-4 text-body-lg text-pine-900/80">
-                Whether it is a first-week puppy problem, a vet bill you did not expect, or a
-                cat that has decided the litter box is optional — ask the people who have been
-                there.
-              </p>
-              <div className="mt-8">
-                <ButtonLink href="/community" size="lg">
-                  Ask the Community
-                </ButtonLink>
-              </div>
+          <SectionHeading id="explore-heading" eyebrow="Explore" title="Here for a different question?"
+            description="The Puppy Journey is one way in. Our wider guide library covers life with dogs and cats in Canada." />
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {exploreTopics.map((topic) => (
+              <li key={topic.href} className="flex"><LinkCard className="w-full" href={topic.href} title={topic.title} description={topic.description} /></li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
+      <Section tone="muted" aria-labelledby="start-heading">
+        <Container>
+          <div className="max-w-2xl">
+            <h2 id="start-heading" className="text-title-1 text-foreground">Not ready to enter details? Start with a guide.</h2>
+            <p className="mt-4 text-body-lg text-foreground-muted">The public Journey stages are available to read without a profile. Personalising the Journey is optional.</p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <ButtonLink href="/puppy/8-weeks" className="h-auto min-h-11 whitespace-normal py-3 text-center">Explore the 8-week guide</ButtonLink>
+              <ButtonLink href="/puppy" variant="secondary">See the whole Journey</ButtonLink>
             </div>
           </div>
         </Container>
       </Section>
 
-      {/* -------------------------------------------------- Lost & Found preview */}
-      <Section tone="muted" aria-labelledby="lost-found-heading">
+      <Section spacing="compact" aria-labelledby="all-topics-heading">
         <Container>
-          <SectionHeading
-            id="lost-found-heading"
-            eyebrow="Lost & Found"
-            title="Helping Canadian pets get home"
-            description="A dedicated Lost & Found tool with local alerts and searchable reports is on the roadmap."
-            action={
-              <ButtonLink href="/lost-found" variant="secondary" size="sm">
-                About Lost &amp; Found
-              </ButtonLink>
-            }
-          />
-
-          <DemoContentNotice className="mt-6">
-            Sample layout only — these are not real missing pets
-          </DemoContentNotice>
-
-          <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {demoLostFoundReports.map((report) => (
-              <li key={report.id} className="flex">
-                <LostFoundCard report={report} />
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------- Join the club */}
-      <Section aria-labelledby="join-heading">
-        <Container width="prose" className="text-center">
-          <h2 id="join-heading" className="text-display-3 text-foreground sm:text-display-2">
-            Join Canadian pet parents sharing advice, experiences and stories.
-          </h2>
-          <p className="mt-4 text-body-lg text-foreground-muted">
-            Creating an account takes a minute, and it is free. Membership will let you post
-            questions, follow topics and keep track of the answers that helped.
-          </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <ButtonLink href="/sign-up" size="lg">
-              Create your account
-            </ButtonLink>
-            <ButtonLink href="/community" size="lg" variant="secondary">
-              Browse the community
-            </ButtonLink>
-          </div>
-        </Container>
-      </Section>
-
-      {/*
-        Category anchors give the taxonomy an internal-linking surface on the
-        highest-authority page, without padding the homepage with copy.
-      */}
-      <Section as="section" spacing="compact" tone="muted" aria-labelledby="all-topics-heading">
-        <Container>
-          <h2
-            id="all-topics-heading"
-            className="font-sans text-label-lg uppercase text-foreground-muted"
-          >
-            All community categories
-          </h2>
+          <h2 id="all-topics-heading" className="font-sans text-label-lg uppercase text-foreground-muted">Community topics</h2>
+          <p className="mt-3 text-body-sm text-foreground-muted">The community area is being prepared. Its sample discussions are labelled; they are not live member activity.</p>
           <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
             {communityTaxonomy.map((group) => (
-              <li key={group.slug}>
-                <a
-                  href={`/community#${group.slug}`}
-                  className="text-body-sm text-foreground-muted transition-colors hover:text-pine-700 hover:underline"
-                >
-                  {group.name}
-                </a>
-              </li>
+              <li key={group.slug}><a href={`/community#${group.slug}`} className="text-body-sm text-foreground-muted hover:text-pine-700 hover:underline">{group.name}</a></li>
             ))}
           </ul>
+          <p className="mt-5 text-body-sm"><a href="/lost-found" className="text-pine-700 underline underline-offset-4">About the planned Lost &amp; Found tool</a></p>
         </Container>
       </Section>
     </>
