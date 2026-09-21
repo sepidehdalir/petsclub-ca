@@ -96,7 +96,12 @@ for (const scenario of scenarios) {
         result.imagesChecked = await images.count();
         for (let index = 0; index < result.imagesChecked; index += 1) {
           const image = images.nth(index);
-          await image.scrollIntoViewIfNeeded();
+          // Center each lazy image in the viewport. Chromium can consider an
+          // element "in view" while it only touches the lazy-load margin,
+          // which made the prior QA wait on a request that had not actually
+          // been triggered. This mirrors a reader scrolling the card into view.
+          await image.evaluate((node) => node.scrollIntoView({ block: 'center', inline: 'nearest' }));
+          await page.waitForTimeout(100);
           const element = await image.elementHandle();
           assert.ok(element);
           try {
