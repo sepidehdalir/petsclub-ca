@@ -144,7 +144,7 @@ for (const scenario of scenarios) {
         result.browserErrors = errors;
         result.failedResponses = badResponses;
         report.cases.push(result);
-        console.log(`${result.passed ? 'PASS' : 'FAIL'} ${scenario.name} ${path}${result.error ? `: ${result.error}` : ''}`);
+        process.stdout.write(`${result.passed ? 'PASS' : 'FAIL'} ${scenario.name} ${path}${result.error ? `: ${result.error}` : ''}\n`);
         await writeFile(join(out, 'report.json'), JSON.stringify(report, null, 2));
         await page.close();
       }
@@ -160,5 +160,5 @@ report.finishedAt = new Date().toISOString();
 report.passed = report.cases.filter((item) => item.passed).length;
 report.failed = report.cases.filter((item) => !item.passed).length;
 await writeFile(join(out, 'report.json'), JSON.stringify(report, null, 2));
-console.log(`Browser QA: ${report.passed} passed; ${report.failed} failed. See report.json and screenshots.`);
+process.stdout.write(`Browser QA: ${report.passed} passed; ${report.failed} failed. See report.json and screenshots.\n`);
 process.exitCode = report.failed ? 1 : 0;
