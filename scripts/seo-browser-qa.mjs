@@ -71,7 +71,9 @@ for (const scenario of scenarios) {
       const result = { browser: scenario.name, path, passed: false };
       const filename = `${scenario.name}-${path === '/' ? 'home' : path.slice(1).replaceAll('/', '-')}`;
       try {
-        const response = await page.goto(new URL(path, base).href, { waitUntil: 'networkidle' });
+        // Background prefetches are not a readiness signal. The explicit
+        // heading, fonts, image and interaction checks below remain required.
+        const response = await page.goto(new URL(path, base).href, { waitUntil: 'domcontentloaded' });
         assert.ok(response);
         result.status = response.status();
         assert.equal(result.status, 200);
