@@ -1,0 +1,60 @@
+name: Browser QA
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'scripts/seo-browser-qa.mjs'
+      - '.github/workflows/browser-qa.yml'
+      - 'next.config.ts'
+      - 'package*.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: browser-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-qa:
+    name: Desktop and mobile browser smoke tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      NEXT_PUBLIC_SITE_URL: https://thepetclub.ca
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked application dependencies
+        run: npm ci
+      - name: Build isolated production-mode application
+        run: npm run build
+      - name: Install isolated browser QA tools
+        run: |
+          npm install --prefix "$RUNNER_TEMP/petclub-qa-tools" --ignore-scripts --no-audit --no-fund playwright@1.63.0
+          "$RUNNER_TEMP/petclub-qa-tools/node_modules/.bin/playwright" install --with-deps chromium webkit
+      - name: Exercise local build at real desktop and mobile viewport sizes
+        env:
+          QA_TOOLS_DIR: ${{ runner.temp }}/petclub-qa-tools
+          QA_OUTPUT_DIR: ${{ runner.temp }}/petclub-qa-report
+        run: |
+          npm run start -- --hostname 127.0.0.1 > "$RUNNER_TEMP/petclub-qa-server.log" 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          node scripts/seo-browser-qa.mjs
+      - name: Save browser evidence, including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-browser-qa-${{ github.run_id }}
+          path: ${{ runner.temp }}/petclub-qa-report
+          retention-days: 14
+          if-no-files-found: warn

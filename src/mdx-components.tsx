@@ -8,6 +8,7 @@ import {
   ScheduleTable,
   VetNote,
 } from "@/features/editorial/components/article-callouts";
+import { isInReviewGuideLink } from "@/features/editorial/inline-guide-links";
 import { slugify } from "@/lib/utils/slug";
 
 /**
@@ -29,9 +30,10 @@ import { slugify } from "@/lib/utils/slug";
  *     added later without touching the content. Done with the site's existing
  *     `slugify` rather than a rehype plugin — no dependency, and it cannot
  *     disagree with the slugs used elsewhere.
- *  2. **Internal links become client-side navigations.** A relative `href`
- *     routes through `next/link`; an absolute one stays an `<a>` and picks up
- *     `rel="noreferrer"`.
+ *  2. **Links respect publication and navigation.** A link to a registered
+ *     in-review guide renders as plain text until that guide is published.
+ *     Other relative links use `next/link`; absolute ones stay an `<a>` and
+ *     pick up `rel="noreferrer"`. This does not privatise draft routes.
  *  3. **The editorial callouts**, registered globally so an article writes
  *     `<Note>` without an import statement at the top of the prose.
  */
@@ -75,6 +77,12 @@ const components = {
     </h3>
   ),
   a: ({ href, children, ...props }) => {
+    // Preserve the prose, but do not promote an unfinished destination. A
+    // published public-noindex guide still renders its normal working link.
+    if (isInReviewGuideLink(href)) {
+      return <>{children}</>;
+    }
+
     // Fragment and relative links stay inside the app; anything else is
     // treated as leaving the site.
     const isInternal = typeof href === "string" && /^[/#]/.test(href);

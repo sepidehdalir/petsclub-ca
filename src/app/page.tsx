@@ -8,8 +8,7 @@ import { siteConfig } from "@/config/site";
 import { ThreadPreviewCard } from "@/features/community/components/thread-preview-card";
 import { demoThreads } from "@/features/community/fixtures";
 import { communityTaxonomy } from "@/features/community/taxonomy";
-import { GuideCard } from "@/features/editorial/components/guide-card";
-import { plannedGuides } from "@/features/editorial/fixtures";
+import { ArticleListSection } from "@/features/editorial/components/article-list-section";
 import { LostFoundCard } from "@/features/lost-found/components/lost-found-card";
 import { demoLostFoundReports } from "@/features/lost-found/fixtures";
 import { createMetadata } from "@/lib/seo/metadata";
@@ -80,8 +79,8 @@ export default function HomePage() {
               <ButtonLink href="/community" size="lg">
                 Ask the Community
               </ButtonLink>
-              <ButtonLink href="/community" size="lg" variant="secondary">
-                Explore Discussions
+              <ButtonLink href="/guides" size="lg" variant="secondary">
+                Browse Canadian guides
               </ButtonLink>
             </div>
           </div>
@@ -142,35 +141,21 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* ------------------------------------------------------- Latest guides */}
-      <Section tone="muted" aria-labelledby="guides-heading">
-        <Container>
-          <SectionHeading
-            id="guides-heading"
-            eyebrow="Editorial"
-            title="Guides we are writing"
-            description="Researched, Canada-specific guides written and reviewed by our editorial team."
-            action={
-              <ButtonLink href="/guides" variant="secondary" size="sm">
-                See the guide plan
-              </ButtonLink>
-            }
-          />
-
-          <DemoContentNotice className="mt-6">
-            Planned titles — no article has been published yet
-          </DemoContentNotice>
-
-          {/* Two columns while only two titles remain unwritten. */}
-          <ul className="mt-4 grid gap-4 sm:grid-cols-2">
-            {plannedGuides.map((guide) => (
-              <li key={guide.id} className="flex">
-                <GuideCard guide={guide} />
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
+      {/* ----------------------------------------------------- Published guides */}
+      <ArticleListSection
+        surfacePath="/guides"
+        id="guides-heading"
+        eyebrow="Editorial"
+        title="Canadian pet care guides"
+        description="Practical guides to caring for pets in Canada, with sources you can follow."
+        tone="muted"
+        limit={3}
+        action={
+          <ButtonLink href="/guides" variant="secondary" size="sm">
+            Browse all Canadian pet guides
+          </ButtonLink>
+        }
+      />
 
       {/* ------------------------------------------------ Ask the community CTA */}
       <Section aria-labelledby="ask-heading">
