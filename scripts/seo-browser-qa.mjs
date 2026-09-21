@@ -90,12 +90,22 @@ for (const scenario of scenarios) {
         assert.ok(!/noindex/i.test(result.robots ?? ''), 'Published production-mode page unexpectedly noindex');
         result.localXRobotsTag = (await response.allHeaders())['x-robots-tag'] ?? null;
         assert.ok(!/noindex/i.test(result.localXRobotsTag ?? ''), 'Local production-mode header unexpectedly noindex');
-        // Trigger lazy images without changing layout or CSS, then wait for decoding.
-        await page.locator('main img').evaluateAll((images) => images.forEach((image) => { image.loading = 'eager'; }));
-        await page.waitForFunction(() => Array.from(document.querySelectorAll('main img')).every((image) => image.complete));
-        const broken = await page.locator('main img').evaluateAll((images) => images.filter((image) => image.naturalWidth === 0).map((image) => image.getAttribute('src')));
-        assert.equal(broken.length, 0, `Broken images: ${JSON.stringify(broken)}`);
-        result.imagesChecked = await page.locator('main img').count();
+        // Exercise native lazy loading as a reader scrolls; do not mutate
+        // loading attributes before React hydration can reset them.
+        const images = page.locator('main img');
+        result.imagesChecked = await images.count();
+        for (let index = 0; index < result.imagesChecked; index += 1) {
+          const image = images.nth(index);
+          await image.scrollIntoViewIfNeeded();
+          const element = await image.elementHandle();
+          assert.ok(element);
+          try {
+            await page.waitForFunction((node) => node.complete && node.naturalWidth > 0, element, { timeout: 15000 });
+          } finally {
+            await element.dispose();
+          }
+        }
+        await page.evaluate(() => window.scrollTo(0, 0));
         await page.screenshot({ path: join(out, `${filename}.png`), fullPage: true });
         if (path === '/') {
           assert.ok(!(await page.locator('body').innerText()).includes('no article has been published yet'));
@@ -139,6 +149,10 @@ for (const scenario of scenarios) {
         result.passed = true;
       } catch (error) {
         result.error = error instanceof Error ? error.message : String(error);
+        result.imageStates = await page.locator('main img').evaluateAll((images) => images.map((image) => ({
+          src: image.getAttribute('src'), currentSrc: image.currentSrc,
+          loading: image.loading, complete: image.complete, naturalWidth: image.naturalWidth,
+        }))).catch(() => []);
         await page.screenshot({ path: join(out, `${filename}-failure.png`), fullPage: true }).catch(() => {});
       } finally {
         result.browserErrors = errors;
