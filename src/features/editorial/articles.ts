@@ -1086,6 +1086,11 @@ export const articles: readonly Article[] = [
     relatedCategorySlugs: ["pet-insurance", "vet-costs"],
     sources: [
       {
+        label: "Pre-existing conditions — signs and symptoms can matter before a formal diagnosis",
+        publisher: "Fetch Pet Insurance Canada",
+        url: "https://www.fetchpet.com/canada/faqs/what-is-pre-existing-conditions",
+      },
+      {
         label: "How to resolve a property and other insurance complaint, and the escalation path",
         publisher: "Financial Services Regulatory Authority of Ontario",
         url: "https://www.fsrao.ca/consumers/property-and-other-insurance/how-resolve-property-and-other-insurance-complaint",
