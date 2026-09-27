@@ -1780,6 +1780,21 @@ describe("Puppy Journey dependency set", () => {
     }
   });
 
+  it("keeps the puppy insurance correction provider-sourced and non-deferrable", () => {
+    const article = articles.find((a) => a.slug === REVISED_PUPPY_SLUG)!;
+    const urls = (article.sources ?? []).map((source) => source.url);
+    expect(urls).toContain(
+      "https://www.fetchpet.com/canada/faqs/what-is-pre-existing-conditions",
+    );
+    expect(urls).toContain(
+      "https://www.trupanion.com/en-ca/pet-insurance-faq/article/when-does-my-coverage-begin",
+    );
+
+    const body = ARTICLE_BODIES.find((a) => a.slug === REVISED_PUPPY_SLUG)!.body;
+    expect(body).toMatch(/Do not delay veterinary care or an appointment/i);
+    expect(body).not.toMatch(/not pre-existing on Monday and is on Tuesday/i);
+  });
+
   it("publishes and indexes all fifteen, on the real launch date", () => {
     for (const slug of JOURNEY_DEPENDENCIES) {
       const article = articles.find((a) => a.slug === slug)!;
