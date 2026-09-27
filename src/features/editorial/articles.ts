@@ -533,6 +533,18 @@ export const articles: readonly Article[] = [
         publisher: "American Veterinary Society of Animal Behavior",
         url: "https://avsab.org/puppy-socialization-position-statement/",
       },
+      {
+        label:
+          "Pre-existing-condition definition — signs or symptoms before enrolment, the effective date, or during the waiting period",
+        publisher: "Fetch Pet Insurance Canada",
+        url: "https://www.fetchpet.com/canada/faqs/what-is-pre-existing-conditions",
+      },
+      {
+        label:
+          "Coverage start and waiting periods — conditions beginning during the applicable waiting period are treated as pre-existing",
+        publisher: "Trupanion Canada",
+        url: "https://www.trupanion.com/en-ca/pet-insurance-faq/article/when-does-my-coverage-begin",
+      },
     ],
     resources: [
       {
