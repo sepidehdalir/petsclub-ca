@@ -16,7 +16,6 @@ export default function EditorialPolicyPage() {
       title="Editorial Policy"
       description="How our guides are researched, reviewed and corrected."
       path="/editorial-policy"
-      pendingReview="editorial"
     >
       <h2>Scope</h2>
       <p>

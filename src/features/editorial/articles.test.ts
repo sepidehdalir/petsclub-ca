@@ -421,15 +421,19 @@ describe("article publication dates", () => {
     expect(articles.filter((a) => a.status === "in-review")).toHaveLength(20);
   });
 
-  it("dates all fifteen to one real first-publication day, and revises none", () => {
+  it("dates all fifteen to one real first-publication day, and records only explicit revisions", () => {
     const published = articles.filter((a) => a.status === "published");
-    // One launch, one date. Fifteen different dates would mean fifteen guesses.
+    // One launch, one first-publication date. A later factual correction may
+    // carry its own revision date without rewriting the original launch date.
     expect(new Set(published.map((a) => a.publishedAt))).toEqual(new Set([LAUNCH_DATE]));
     for (const article of published) {
-      expect(article.updatedAt, `${article.slug} carries a revision date`).toBeUndefined();
+      const revised = article.slug === REVISED_PUPPY_SLUG;
+      expect(article.updatedAt, `${article.slug} revision state`).toBe(
+        revised ? PUPPY_REVISION_DATE : undefined,
+      );
       expect(articlePublicationDates(article)).toEqual({
         datePublished: LAUNCH_DATE,
-        dateModified: LAUNCH_DATE,
+        dateModified: revised ? PUPPY_REVISION_DATE : LAUNCH_DATE,
       });
     }
   });
@@ -454,12 +458,13 @@ describe("article publication dates", () => {
     for (const date of ["2026-09-01", "2026-09-02", "2026-09-03", "2026-09-05"]) {
       expect(registry, `${date} still appears in the registry`).not.toContain(`"${date}"`);
     }
-    // Publication dates now exist, but only the real launch day may appear —
-    // and only on a published article. No revision date exists yet at all.
+    // First-publication dates remain the real launch day. Revision dates are
+    // allowed only where a published correction actually occurred.
     const dates = [...registry.matchAll(/\n {4}publishedAt: "([^"]+)"/g)].map((m) => m[1]);
     expect(dates).toHaveLength(15);
     expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE]));
-    expect(registry).not.toMatch(/\n {4}updatedAt:/);
+    const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
+    expect(revisions).toEqual([PUPPY_REVISION_DATE]);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
   });
 
@@ -1461,6 +1466,8 @@ describe("Batch A — Canadian legal and regulatory evidence", () => {
  * constant and the registry move together — the tests below compare the two.
  */
 const LAUNCH_DATE = "2026-09-06";
+const PUPPY_REVISION_DATE = "2026-09-27";
+const REVISED_PUPPY_SLUG = "bringing-home-a-puppy-first-30-days";
 
 /** The fifteen articles the Puppy Journey links from its stages. */
 const JOURNEY_DEPENDENCIES = [
@@ -1773,12 +1780,29 @@ describe("Puppy Journey dependency set", () => {
     }
   });
 
+  it("keeps the puppy insurance correction provider-sourced and non-deferrable", () => {
+    const article = articles.find((a) => a.slug === REVISED_PUPPY_SLUG)!;
+    const urls = (article.sources ?? []).map((source) => source.url);
+    expect(urls).toContain(
+      "https://www.fetchpet.com/canada/faqs/what-is-pre-existing-conditions",
+    );
+    expect(urls).toContain(
+      "https://www.trupanion.com/en-ca/pet-insurance-faq/article/when-does-my-coverage-begin",
+    );
+
+    const body = ARTICLE_BODIES.find((a) => a.slug === REVISED_PUPPY_SLUG)!.body;
+    expect(body).toMatch(/Do not delay veterinary care or an appointment/i);
+    expect(body).not.toMatch(/not pre-existing on Monday and is on Tuesday/i);
+  });
+
   it("publishes and indexes all fifteen, on the real launch date", () => {
     for (const slug of JOURNEY_DEPENDENCIES) {
       const article = articles.find((a) => a.slug === slug)!;
       expect(article.status, slug).toBe("published");
       expect(article.publishedAt, slug).toBe(LAUNCH_DATE);
-      expect(article.updatedAt, slug).toBeUndefined();
+      expect(article.updatedAt, slug).toBe(
+        slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined,
+      );
       expect(article.indexable, slug).toBe(true);
       expect(isArticleIndexable(article), slug).toBe(true);
     }
