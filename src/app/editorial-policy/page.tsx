@@ -6,7 +6,7 @@ import { createMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Editorial Policy",
   description:
-    "How The Pet Club researches, reviews, sources and corrects its Canadian pet guides.",
+    "Sourcing, publication status, AI assistance and corrections for Canadian pet guides.",
   path: "/editorial-policy",
 });
 
@@ -14,9 +14,8 @@ export default function EditorialPolicyPage() {
   return (
     <PolicyPage
       title="Editorial Policy"
-      description="How our guides are researched, reviewed and corrected."
+      description="Our approach to sourcing, publication status and corrections."
       path="/editorial-policy"
-      pendingReview="editorial"
     >
       <h2>Scope</h2>
       <p>
@@ -58,9 +57,10 @@ export default function EditorialPolicyPage() {
       <h2>Review and dating</h2>
       <p>
         A published guide carries the date it was published and, where it has been revised,
-        the date of that revision. A guide that has not completed review carries no date,
-        because it has not earned one. Guides covering costs, regulations or products are
-        re-checked on a schedule, since a stale rule is a wrong rule.
+        the date of that revision. Guides marked in review carry no publication date.
+        Publication status and dates do not establish that a named person or qualified
+        professional has reviewed a guide. Rules, costs and products can change; check
+        the linked source for current information.
       </p>
 
       <h2>Corrections</h2>
@@ -85,14 +85,15 @@ export default function EditorialPolicyPage() {
 
       <h2>Artificial intelligence</h2>
       <p>
-        We do not publish machine-generated articles. Tools may assist with research or editing,
-        but every published guide is written and reviewed by a person who is accountable for it.
+        AI tools may assist with research, drafting and editing. A published guide or house
+        byline does not establish human authorship or human review. Consult the guide&rsquo;s
+        sources and any explicitly named review credit when assessing its claims.
       </p>
 
       <h2>Who writes these guides</h2>
       <p>
-        The Pet Club editorial team are writers and researchers. We are not veterinarians, and we
-        say so on every page that touches health. No guide is described as veterinary-reviewed
+        The Pet Club Editorial Team is a house byline for the publication, not a named
+        individual or a claim of professional credentials. No guide is described as veterinary-reviewed
         unless a licensed veterinarian has read it and agreed to be named on it, with their
         licensing college and registration number shown so a reader can check. No guide currently
         carries such a review.
