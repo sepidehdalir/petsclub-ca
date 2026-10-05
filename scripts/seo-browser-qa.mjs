@@ -32,7 +32,7 @@ while (Date.now() < deadline) {
 }
 assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
-const routes = ['/', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks'];
+const routes = ['/', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days'];
 const scenarios = [
   { name: 'chromium-desktop', engine: chromium, viewport: { width: 1440, height: 900 }, mobile: false },
   { name: 'chromium-mobile', engine: chromium, viewport: { width: 390, height: 844 }, mobile: true },
@@ -79,6 +79,16 @@ for (const scenario of scenarios) {
         assert.equal(result.status, 200);
         await page.locator('h1').waitFor({ state: 'visible' });
         assert.equal(await page.locator('h1').count(), 1, 'Exactly one h1 is required');
+        const mainText = (await page.locator('main').innerText()).replace(/\s+/g, ' ');
+        if (path === '/guides/bringing-home-a-puppy-first-30-days') {
+          assert.match(mainText, /Read the policy before relying on timing/);
+          assert.match(mainText, /Do not delay veterinary care or an appointment/);
+          assert.match(mainText, /Correction — September 27, 2026/);
+          assert.match(mainText, /single daily-hour figure is not a reliable rule/);
+        }
+        if (path === '/editorial-policy') {
+          assert.doesNotMatch(mainText, /Draft — pending editorial review/);
+        }
         await page.evaluate(async () => { await document.fonts.ready; });
         result.viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
         assert.deepEqual(result.viewport, scenario.viewport, 'Requested viewport was not applied');

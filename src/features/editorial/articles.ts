@@ -498,13 +498,14 @@ export const articles: readonly Article[] = [
     indexable: true,
     status: "published",
     publishedAt: "2026-09-06",
+    updatedAt: "2026-09-27",
     veterinaryNotice: true,
     keyTakeaways: [
       "Sleep, toilet trips, socialisation and alone-time training are the whole first month — recall and lead work can wait.",
-      "Book the veterinary appointment and settle the insurance question before the puppy arrives, not after.",
+      "If you are considering insurance, review the policy early; do not delay veterinary care for insurance timing.",
       "Teach being alone from the first full day, in seconds. It is the most-skipped step and the hardest to fix later.",
       "A winter puppy needs a shovelled toilet patch and an owner dressed to stand outside with it.",
-      "Sixteen to eighteen hours of sleep a day is normal; most spectacular biting is an overtired puppy, not a badly behaved one.",
+      "Puppies sleep a great deal in short bouts, but a single daily-hour figure is not a reliable rule for every puppy.",
     ],
     relatedSlugs: [
       "puppy-vaccination-schedule-in-canada",
@@ -531,6 +532,18 @@ export const articles: readonly Article[] = [
         label: "Position statement on puppy socialization, and why it precedes full vaccination",
         publisher: "American Veterinary Society of Animal Behavior",
         url: "https://avsab.org/puppy-socialization-position-statement/",
+      },
+      {
+        label:
+          "Pre-existing-condition definition — signs or symptoms before enrolment, the effective date, or during the waiting period",
+        publisher: "Fetch Pet Insurance Canada",
+        url: "https://www.fetchpet.com/canada/faqs/what-is-pre-existing-conditions",
+      },
+      {
+        label:
+          "Coverage start and waiting periods — conditions beginning during the applicable waiting period are treated as pre-existing",
+        publisher: "Trupanion Canada",
+        url: "https://www.trupanion.com/en-ca/pet-insurance-faq/article/when-does-my-coverage-begin",
       },
     ],
     resources: [
