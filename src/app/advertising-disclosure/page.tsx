@@ -20,9 +20,10 @@ export default function AdvertisingDisclosurePage() {
     >
       <h2>Current status</h2>
       <p>
-        The Pet Club does not currently run advertising, affiliate links or sponsored content. There
-        is nothing to disclose today. This page states the commitments that will apply when
-        monetisation begins, so they are on the record before any money is involved.
+        This page sets out our intended approach to advertising, affiliate links and sponsored
+        content. It does not confirm affiliate-program enrollment, commercial agreements
+        or revenue. Any advertising, affiliate link or sponsored placement must carry a
+        disclosure where it appears.
       </p>
 
       <h2>Commitments</h2>

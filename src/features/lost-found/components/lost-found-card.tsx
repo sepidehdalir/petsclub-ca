@@ -1,7 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardBody } from "@/components/ui/card";
 import type { DemoLostFoundReport } from "@/features/lost-found/fixtures";
-import { formatRelativeDays } from "@/lib/utils/format";
 
 export interface LostFoundCardProps {
   report: DemoLostFoundReport;
@@ -24,6 +23,7 @@ export function LostFoundCard({ report, headingLevel: Heading = "h3" }: LostFoun
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant={isLost ? "accent" : "brand"}>{isLost ? "Lost" : "Found"}</Badge>
           <Badge variant="outline">{report.species}</Badge>
+          <Badge variant="outline">Example — not a real report</Badge>
         </div>
 
         <Heading className="text-title-4 text-foreground">
@@ -31,7 +31,7 @@ export function LostFoundCard({ report, headingLevel: Heading = "h3" }: LostFoun
         </Heading>
 
         <p className="mt-auto text-body-sm text-foreground-muted">
-          {report.city}, {report.province} &middot; {formatRelativeDays(report.reportedDaysAgo)}
+          Illustrative location: {report.city}, {report.province}
         </p>
       </CardBody>
     </Card>

@@ -8,8 +8,7 @@ import { siteConfig } from "@/config/site";
 import { ThreadPreviewCard } from "@/features/community/components/thread-preview-card";
 import { demoThreads } from "@/features/community/fixtures";
 import { communityTaxonomy } from "@/features/community/taxonomy";
-import { GuideCard } from "@/features/editorial/components/guide-card";
-import { plannedGuides } from "@/features/editorial/fixtures";
+import { ArticleListSection } from "@/features/editorial/components/article-list-section";
 import { LostFoundCard } from "@/features/lost-found/components/lost-found-card";
 import { demoLostFoundReports } from "@/features/lost-found/fixtures";
 import { createMetadata } from "@/lib/seo/metadata";
@@ -78,10 +77,10 @@ export default function HomePage() {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href="/community" size="lg">
-                Ask the Community
+                Explore community categories
               </ButtonLink>
-              <ButtonLink href="/community" size="lg" variant="secondary">
-                Explore Discussions
+              <ButtonLink href="/guides" size="lg" variant="secondary">
+                Browse Canadian guides
               </ButtonLink>
             </div>
           </div>
@@ -94,8 +93,8 @@ export default function HomePage() {
           <SectionHeading
             id="trending-heading"
             eyebrow="Community"
-            title="Trending discussions"
-            description="The questions Canadian pet parents are working through right now."
+            title="Example discussion topics"
+            description="Illustrative topics for the planned community. Posting and replies are not available yet."
             action={
               <ButtonLink href="/community" variant="secondary" size="sm">
                 Browse all categories
@@ -142,35 +141,21 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* ------------------------------------------------------- Latest guides */}
-      <Section tone="muted" aria-labelledby="guides-heading">
-        <Container>
-          <SectionHeading
-            id="guides-heading"
-            eyebrow="Editorial"
-            title="Guides we are writing"
-            description="Researched, Canada-specific guides written and reviewed by our editorial team."
-            action={
-              <ButtonLink href="/guides" variant="secondary" size="sm">
-                See the guide plan
-              </ButtonLink>
-            }
-          />
-
-          <DemoContentNotice className="mt-6">
-            Planned titles — no article has been published yet
-          </DemoContentNotice>
-
-          {/* Two columns while only two titles remain unwritten. */}
-          <ul className="mt-4 grid gap-4 sm:grid-cols-2">
-            {plannedGuides.map((guide) => (
-              <li key={guide.id} className="flex">
-                <GuideCard guide={guide} />
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
+      {/* ----------------------------------------------------- Published guides */}
+      <ArticleListSection
+        surfacePath="/guides"
+        id="guides-heading"
+        eyebrow="Editorial"
+        title="Canadian pet care guides"
+        description="Practical guides to caring for pets in Canada, with sources you can follow."
+        tone="muted"
+        limit={3}
+        action={
+          <ButtonLink href="/guides" variant="secondary" size="sm">
+            Browse all Canadian pet guides
+          </ButtonLink>
+        }
+      />
 
       {/* ------------------------------------------------ Ask the community CTA */}
       <Section aria-labelledby="ask-heading">
@@ -186,11 +171,11 @@ export default function HomePage() {
               <p className="mt-4 text-body-lg text-pine-900/80">
                 Whether it is a first-week puppy problem, a vet bill you did not expect, or a
                 cat that has decided the litter box is optional — ask the people who have been
-                there.
+                there when posting opens. For now, browse our published Canadian guides.
               </p>
               <div className="mt-8">
                 <ButtonLink href="/community" size="lg">
-                  Ask the Community
+                  Explore community categories
                 </ButtonLink>
               </div>
             </div>
@@ -234,8 +219,8 @@ export default function HomePage() {
             Join Canadian pet parents sharing advice, experiences and stories.
           </h2>
           <p className="mt-4 text-body-lg text-foreground-muted">
-            Creating an account takes a minute, and it is free. Membership will let you post
-            questions, follow topics and keep track of the answers that helped.
+            Accounts are free. Posting questions, following topics and community replies
+            are planned features and are not available yet.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <ButtonLink href="/sign-up" size="lg">

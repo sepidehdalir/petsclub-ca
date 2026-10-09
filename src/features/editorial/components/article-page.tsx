@@ -8,7 +8,6 @@ import { Media } from "@/components/ui/media";
 import {
   articlePath,
   getArticleSection,
-  relatedArticles,
   type Article,
   articlePublicationDates,
 } from "@/features/editorial/articles";
@@ -23,6 +22,7 @@ import {
   RelatedDiscussion,
   VeterinaryBoundary,
 } from "@/features/editorial/components/article-furniture";
+import { publishedRelatedArticles } from "@/features/editorial/published-discovery";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { getMediaAsset } from "@/media/manifest";
 
@@ -56,7 +56,7 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
   const author = getAuthor(article.authorId);
   const reviewer = article.reviewerId ? findReviewer(article.reviewerId) : null;
   const asset = getMediaAsset(article.mediaId);
-  const related = relatedArticles(article);
+  const related = publishedRelatedArticles(article);
   const path = articlePath(article.slug);
 
   return (

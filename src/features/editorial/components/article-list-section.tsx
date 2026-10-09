@@ -1,6 +1,8 @@
+import type { ReactNode } from "react";
+
 import { Container, Section, SectionHeading } from "@/components/ui/layout-primitives";
-import { articlesForSurface } from "@/features/editorial/articles";
 import { ArticleCard } from "@/features/editorial/components/article-card";
+import { publishedArticlesForSurface } from "@/features/editorial/published-discovery";
 import { cn } from "@/lib/utils/cn";
 
 export interface ArticleListSectionProps {
@@ -12,17 +14,19 @@ export interface ArticleListSectionProps {
   title: string;
   description?: string;
   tone?: "canvas" | "muted";
+  /** Optional short preview; applied after filtering out in-review articles. */
+  limit?: number;
+  /** A contextual route to the full guide library, for preview surfaces. */
+  action?: ReactNode;
 }
 
 /**
  * The published articles belonging to one surface.
  *
- * Renders nothing at all when the surface has no articles yet. That is the
- * whole point of returning `null` rather than an empty state here: the topic
- * pages already carry an honest "no guides commissioned yet" message from
- * their planned-guides section, and a second empty panel above it would be
- * padding. A section front should never be inflated to look busier than the
- * publication actually is.
+ * Renders nothing at all when the surface has no published articles. Drafts
+ * remain available to the editorial workflow but are never advertised here
+ * as finished guides. Publication and indexability stay separate: a published
+ * public-noindex guide is still a legitimate destination for a reader.
  */
 export function ArticleListSection({
   surfacePath,
@@ -31,8 +35,10 @@ export function ArticleListSection({
   title,
   description,
   tone = "canvas",
+  limit,
+  action,
 }: ArticleListSectionProps) {
-  const surfaceArticles = articlesForSurface(surfacePath);
+  const surfaceArticles = publishedArticlesForSurface(surfacePath, limit);
 
   if (surfaceArticles.length === 0) {
     return null;
@@ -53,6 +59,7 @@ export function ArticleListSection({
           eyebrow={eyebrow}
           title={title}
           description={description}
+          action={action}
         />
 
         {lead ? (

@@ -35,16 +35,15 @@ export default function AboutPage() {
 
       <h2>Where the project is today</h2>
       <p>
-        The Pet Club is early. This release establishes the platform foundation: the community
-        structure, the design system, the database and the security model. Discussion,
-        publishing, member profiles and Lost &amp; Found follow in subsequent milestones. We
-        would rather ship an honest, small product than a large one padded with placeholder
-        content.
+        The Pet Club is early. Published guides and the Puppy Journey are available.
+        Other guides remain in review, and community and Lost &amp; Found areas include
+        labelled sample content. A guide&rsquo;s publication status is separate from any
+        named professional review.
       </p>
 
       <h2>What we will not do</h2>
       <ul>
-        <li>Publish generated articles to fill space.</li>
+        <li>Publish unsupported claims to fill space.</li>
         <li>Present sample content as real community activity.</li>
         <li>Recommend a product because it pays the most, without disclosing the arrangement.</li>
         <li>Offer veterinary diagnosis. That is your veterinarian&rsquo;s job, not ours.</li>
