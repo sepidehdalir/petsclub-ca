@@ -97,6 +97,10 @@ export default function RootLayout({
       lang={siteConfig.language}
       className={`${publicSans.variable} ${newsreader.variable}`}
     >
+      <head>
+        {/* Public ownership token issued by Impact; this is not a tracking script. */}
+        <meta name="impact-site-verification" {...{ value: "5b261ee5-c774-4f38-a7d1-624bbecb9b6c" }} />
+      </head>
       <body className="flex min-h-dvh flex-col">
         {/*
           Keyboard users reach the main content without tabbing the whole
