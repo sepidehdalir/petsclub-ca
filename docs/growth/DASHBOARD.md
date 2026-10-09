@@ -28,3 +28,7 @@ Observed 2026-10-09. Source: official Google Search Console export. Web search, 
 5. Review empty community search surfaces against authentic content needs; do not manufacture activity or submit fake discussions to drive indexing.
 
 Refresh using direct GSC export weekly when authorized. Keep the source report date and selected filters with each snapshot. Review conversions only from a real partner/analytics report. See SEARCH-BASELINE.md, search-baseline.json and EXPERIMENTS.md for evidence and metric definitions.
+
+## Indexing follow-up — October 9
+
+The dog-cost guide's live inspection passed (“Page can be indexed”) and a request for indexing was accepted. It was not indexed in the inspection snapshot; do not increment the indexed-page count until a later Google report confirms it.

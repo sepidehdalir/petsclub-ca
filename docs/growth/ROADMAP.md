@@ -4,11 +4,11 @@ Scoring: impact × confidence ÷ (effort + risk), relative 1–5 scales. Priorit
 
 | Priority | Work | State | Score |
 | --- | --- | --- | --- |
-| P0 | Framework security patch with full checks and rollback point | Investigating | 6.25 |
-| P0 | Remove example activity metrics and clarify unavailable services | Implemented on branch; release verification pending | 5 |
+| P0 | Framework security patch with full checks and rollback point | Released; runtime audit zero vulnerabilities; five dev advisories remain | 6.25 |
+| P0 | Remove example activity metrics and clarify unavailable services | Released and production verified | 5 |
 | P1 | Obtain fresh GSC + indexing exports or authorized property access | Completed through authenticated browser; baseline saved | 4 |
 | P1 | Identify real analytics property and privacy/consent implementation | Access/configuration needed | 4 |
-| P1 | Reusable approved affiliate offer component and click hook | Implemented on branch; no partner activated | 3 |
+| P1 | Reusable approved affiliate offer component and click hook | Released; no partner or analytics collector activated | 3 |
 | P1 | Insurance PR #13 evidence and methodology completion | Existing draft retained | 2.5 |
 | P1 | Affiliate applications: contract/identity fields completed by owner | Not submitted; terms unknown | 2.5 |
 | P2 | Real Canadian product research for crate/lead buying needs | Not started | 2 |
