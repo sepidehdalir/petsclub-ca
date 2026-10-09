@@ -923,6 +923,8 @@ export const articles: readonly Article[] = [
     ],
     relatedCategorySlugs: ["cat-behaviour", "general-cat-discussion", "kittens"],
     sources: [
+      { label: "Catit Senses 2.0 Digger listing and care instructions", publisher: "Homes Alive Pets", url: "https://www.homesalive.ca/cat/bowls-and-feeders/automatic/catit-senses-2-0-digger.html" },
+      { label: "Catit Senses 2.0 Wave Circuit listing and care instructions", publisher: "Homes Alive Pets", url: "https://www.homesalive.ca/cat/toys/catit-senses/catit-senses-2-0-wave-circuit.html" },
       {"label": "2025 indoor cat environmental needs statement", "publisher": "Feline Veterinary Medical Association", "url": "https://catvets.com/resource/2025-meeting-the-physical-and-emotional-needs-of-indoor-cats/"},
       {"label": "Feline enrichment ideas", "publisher": "BC SPCA", "url": "https://spca.bc.ca/article/how-to-keep-your-cat-happy-feline-enrichment-tips/"},
     ],
@@ -958,6 +960,9 @@ export const articles: readonly Article[] = [
       "kitten-vaccination-schedule-in-canada",
     ],
     relatedCategorySlugs: ["vet-costs", "pet-insurance", "cat-food-and-nutrition"],
+    sources: [
+      { label: "Catit Senses 2.0 Digger listing and care instructions", publisher: "Homes Alive Pets", url: "https://www.homesalive.ca/cat/bowls-and-feeders/automatic/catit-senses-2-0-digger.html" },
+    ],
     resources: [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",

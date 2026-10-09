@@ -26,6 +26,10 @@ export default function PrivacyPolicyPage() {
         binding legal document.
       </p>
 
+      <h2>Current optional tools</h2>
+      <p>The contact enquiry composer prepares a draft in your browser and sends no form content to our server. Opening the email draft transfers it to your chosen email application; you decide whether to send it.</p>
+      <p>Optional Google Analytics is disabled unless a verified measurement identifier is configured and you choose Allow analytics in the footer. It measures public pages and product or partnership clicks. Google may receive technical browser information and use first-party cookies. We do not send email addresses, enquiry text, search queries or account URLs as event parameters. See <a href="https://policies.google.com/technologies/partner-sites">how Google uses information from sites using its services</a>. The choice lasts for the current page session; you can turn it off in the footer. Turning it off stops our event collection and removes accessible first-party Analytics cookies.</p>
+
       <h2>What we intend to collect</h2>
       <ul>
         <li>

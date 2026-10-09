@@ -67,3 +67,22 @@ Insurance preview QA found the shared article footer still invited users to ask 
 ### Authorized publication batch — October 9
 
 Resolved PR #13’s execution-log conflict by retaining both chronological records (f192a8c). Owner explicitly authorized publishing fact-checked guides. Assessed all 20 pending repository bodies/verification queues; prepared 11 nonclinical publications and held 9 clinical/behavioural guides for a qualified veterinarian. Ten guides substantially rewritten, insurance corrected against its existing primary-source register and current complaint/terms pages. Registry metadata/takeaways/source scope and reading lengths reconciled. Original URLs retained. Publication-date and sitemap expectations updated to 26 published guides, 9 held guides, 74 sitemap entries; original fifteen dates retained. No live CMS/DB inventory claimed. Full release checks and live verification follow.
+
+
+## Publication deployment on October 9 2026
+
+PR #13 merged at b873441170d6c67fa262fa725dc9f13882935741 after 484 local tests, lint, type checks, build and green GitHub desktop/mobile QA. Vercel production deployment dpl_2aEij4rVJsEzTBtVmfdAMuxqDgqX is READY and serves the custom domain. Public release checks confirm 26 published and 9 held guides, 74 sitemap URLs, correct canonicals, library links and dated Article schema for published guides. Held guides remain dateless and noindex,nofollow, absent from sitemap and library. Detailed read-only evidence is publication-verification.json. An initial crawl found one incorrect /lost-and-found link in the missing-pet article; the commerce continuation corrects it to /lost-found. This does not establish Google indexing of the new articles.
+
+## Commerce and service continuation on October 9 2026
+
+Prepared a centralized retailer product registry, two-feature comparison, product card, disclosure and ordinary outbound buttons for the indoor enrichment and cat budget guides. Affiliate enrollment is still zero; no fake ID, rate or review. Affiliate click expiry is checked at actual interaction time. Optional consent-based GA4 adapter is prepared but not reported as collected or verified. It sends only allowlisted public paths and bounded registry identifiers, and installs no collector until a real configured stream and visitor consent exist. Custom newsletter or purchase events are not fabricated.
+
+The contact page now prepares locally an editable partnership/sponsorship/correction email draft. It sends no server message or subscriber data. Inbox delivery remains unverified. Three editable Pinterest SVG templates and PNG exports plus metadata are prepared, not posted. Affiliate applications, advertising/newsletter blockers and community-specific Reddit workflow are documented.
+
+Owner requested creation of the missing GA4 property. Existing Analytics account disallows property creation. Prepared an independent ThePetClub.ca account/property, Canada, Vancouver time, CAD, Pets & Animals, small business, traffic and engagement objectives, optional sharing off. Final Canadian Terms of Service and Data Processing Terms acceptance is pending explicit owner confirmation; no account/property or G-ID has been claimed created.
+
+Authenticated Supabase via its existing GitHub login, found petsclub.ca paused on the Free plan, and resumed it without purchasing or changing plans. Restoration completed. Actual public table list is categories, posts, profiles, threads; schema picker shows only those application tables and standard Supabase schemas, with no separate article CMS. Public posts and threads were each checked in the restored Table Editor and contain 0 records. No unpublished, scheduled or duplicate article was found in this authenticated database. No external CMS was supplied.
+
+Authenticated the existing Google publisher account: AdMob is the only active product. Opened the official AdSense upgrade wizard, which asks the owner to confirm existing payee/account information before proceeding. No duplicate account, application submission, ad script or ads.txt seller claim was created.
+
+Final continuation lint, type checks, tests, build, CI, deployment and live interaction checks are still pending at this entry.

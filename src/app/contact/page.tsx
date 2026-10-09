@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { InquiryComposer } from "@/features/partnerships/inquiry-composer";
 import { PolicyPage } from "@/components/shared/policy-page";
 import { siteConfig } from "@/config/site";
 import { createMetadata } from "@/lib/seo/metadata";
@@ -26,9 +27,10 @@ export default function ContactPage() {
         >
           {siteConfig.contactEmail}
         </a>
-        . A contact form with routing for editorial corrections, moderation appeals and
-        partnership enquiries is planned; until then a single inbox is the honest answer.
+        . The enquiry composer below helps prepare a message for your email service.
       </p>
+
+      <InquiryComposer />
 
       <h2>Editorial corrections</h2>
       <p>

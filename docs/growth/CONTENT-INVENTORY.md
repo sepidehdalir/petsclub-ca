@@ -71,3 +71,6 @@ All 20 pending repository guides were assessed from their bodies and internal ve
 | arthritis-and-mobility-in-dogs-and-cats | Differentials, species-specific pain signs, exercise/weight guidance and treatment/supplement framing. |
 
 Prepared publication set: indoor/outdoor cats; renting; indoor enrichment; cat budget; insurance; travel; adoption; missing pets; moving provinces; emergency preparedness; veterinary estimate budgeting. New content removes clinical schedules, national cost/lifespan averages, unsupported recovery success claims and blanket provincial conclusions. No human or veterinary review credit is invented.
+
+
+Authenticated database follow-up on October 9, 2026: resumed the paused petsclub.ca Free-plan Supabase project. The actual public schema contains categories, posts, profiles and threads; posts and threads each show 0 records. The schema selector lists standard Supabase schemas and no separate article CMS. The repository remains the identified article source: 35 entries, 26 published, 9 clinical holds. An unspecified external CMS cannot be excluded without owner-provided access.
