@@ -6,11 +6,13 @@
 
 Links use `sponsored nofollow noopener`, following Google's link qualification guidance: https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links . Navigation works without JavaScript; local click notification is best-effort.
 
-`thepetclub:affiliate-click` CustomEvent contains offer_id and partner only. It is a hook, NOT stored analytics, a conversion, or revenue. No collector, cookies or personal identifiers have been enabled. A consent-aware real analytics adapter must be configured and tested before reporting click totals. Associate an offer with its article in the approved registry/report mapping; do not include personal URL queries in analytics.
+`thepetclub:affiliate-click` CustomEvent contains offer_id and partner only. It is a hook, NOT stored analytics, a conversion, or revenue. No collector, cookies or personal identifiers have been enabled. A consent-aware analytics adapter is deployed but inactive; a real GA4 stream must be configured and collection tested before reporting click totals. Associate an offer with its article in the approved registry/report mapping; do not include personal URL queries in analytics.
 
-Static offer dates are checked at render/build time. A future activation must schedule regular verification/rebuilds, or move offer validity to a dynamic server lookup. Do not rely on runtime expiry of cached static HTML.
+Offer dates are checked at render/build time and rechecked on actual client interaction. Expired offers prevent navigation and show an accessible explanation. Keep regular source/contract reviews and rebuilds for cached content.
 
 ## Programs verified on primary pages
+
+Five routes are now verified: Amazon Canada, Chewy Canada, Fetch Canada, Trupanion Canada and PetSafe. The three-row table below preserves the first research batch; see [the complete application register](AFFILIATE-APPLICATIONS.md) for all five, offered terms and owner actions. Zero applications submitted and zero approvals established.
 
 | Program | Verified public information | Still unknown / not approved |
 | --- | --- | --- |
@@ -40,3 +42,7 @@ Primary sources reviewed:
 - AdSense: https://support.google.com/adsense/answer/9724 — original policy-compliant content, site access and adult account holder requirements; approval not automatic.
 
 Eight Google search clicks do not prove eligibility or ineligibility for session/pageview thresholds. No ad account applications, terms acceptance or ad tags performed. Measure the actual audience and complete privacy-policy work before activation.
+
+## Live continuation
+
+Two ordinary unpaid product references and a comparison are live in the indoor enrichment and cat-budget guides. No approved affiliate offer exists. The contact page prepares partnership/sponsorship email drafts locally; it sends nothing and inbox delivery is unverified. The existing Google publisher account has AdMob only; AdSense for Content requires the owner’s account/payee confirmation and application. Newsletter delivery requires a restricted Resend key, confirmed consent/unsubscribe infrastructure and an authorized sender identity/address. See REVENUE-READINESS.md.

@@ -1,6 +1,6 @@
 # Content inventory — 2026-10-09
 
-Initial baseline: 35 registered MDX guides, 15 published and 20 in review. Current release candidate: 26 published records and 9 veterinary holds; see the continuation below. Publication status is verified against the registry; search performance is available in SEARCH-BASELINE.md; draft noindex was separately confirmed. These are triage actions, not completed editorial reviews.
+Initial baseline: 35 registered MDX guides, 15 published and 20 in review. Current live release: 26 published records and 9 veterinary holds, verified on the custom domain. Eleven new nonclinical publications passed source/editorial checks; nine clinical drafts still require qualified review. Search performance is available in SEARCH-BASELINE.md. The table below preserves the initial triage baseline; current publication results follow it.
 
 | Guide | State | Initial action | Release requirement |
 | --- | --- | --- | --- |
@@ -56,7 +56,7 @@ See SEARCH-BASELINE.md and search-baseline.json. Authenticated browser access an
 
 ## Publication continuation — October 9
 
-All 20 pending repository guides were assessed from their bodies and internal verification queues. Eleven nonclinical guides were rewritten or corrected and prepared for publication under the owner’s explicit authorization. The nine below remain in review, dateless, excluded from discovery and sitemap, and noindex/nofollow. This is a safety hold, not a claim that their clinical content has been validated. Production publication is recorded after live release verification. The repository schema has community tables only; no article/CMS/scheduled table is defined. Live database contents have not been authenticated or exhaustively enumerated.
+All 20 pending repository guides were assessed from their bodies and internal verification queues. Eleven nonclinical guides were rewritten or corrected and published under the owner’s explicit authorization. The nine below remain in review, dateless, excluded from discovery and sitemap, and noindex/nofollow. This is a safety hold, not a claim that their clinical content has been validated. Production publication was verified after PR #13 and again after PR #18. The authenticated database follow-up below supersedes the earlier access limitation.
 
 | Held guide | Required qualified review |
 | --- | --- |
@@ -70,7 +70,7 @@ All 20 pending repository guides were assessed from their bodies and internal ve
 | cat-urinary-blockage-flutd | Emergency time-to-death framing, triage, risk factors, clinical treatment and diet claims. |
 | arthritis-and-mobility-in-dogs-and-cats | Differentials, species-specific pain signs, exercise/weight guidance and treatment/supplement framing. |
 
-Prepared publication set: indoor/outdoor cats; renting; indoor enrichment; cat budget; insurance; travel; adoption; missing pets; moving provinces; emergency preparedness; veterinary estimate budgeting. New content removes clinical schedules, national cost/lifespan averages, unsupported recovery success claims and blanket provincial conclusions. No human or veterinary review credit is invented.
+Published continuation set: indoor/outdoor cats; renting; indoor enrichment; cat budget; insurance; travel; adoption; missing pets; moving provinces; emergency preparedness; veterinary estimate budgeting. New content removes clinical schedules, national cost/lifespan averages, unsupported recovery success claims and blanket provincial conclusions. No human or veterinary review credit is invented.
 
 
 Authenticated database follow-up on October 9, 2026: resumed the paused petsclub.ca Free-plan Supabase project. The actual public schema contains categories, posts, profiles and threads; posts and threads each show 0 records. The schema selector lists standard Supabase schemas and no separate article CMS. The repository remains the identified article source: 35 entries, 26 published, 9 clinical holds. An unspecified external CMS cannot be excluded without owner-provided access.

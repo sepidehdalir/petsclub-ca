@@ -13,7 +13,7 @@ Observed 2026-10-09. Source: official Google Search Console export. Web search, 
 | Canada clicks / impressions | 8 / 846 | Qualified audience geography signal |
 | Mobile clicks / impressions | 6 / 456 | CTR 1.32% |
 | Desktop clicks / impressions | 2 / 501 | CTR 0.40% |
-| Sessions / returning visitors | Unknown | Analytics access unverified |
+| Sessions / returning visitors | Unknown | New property awaits owner approval of Google contracts; no verified collection |
 | Affiliate clicks / transactions | Unknown | No active offers or collector |
 | Approved commissions / cash | Unknown | No evidence of revenue |
 | Display revenue / operating cost / profit | Unknown | Never substitute zero for missing data |
@@ -36,3 +36,7 @@ The dog-cost guide's live inspection passed (“Page can be indexed”) and a re
 ### Subsequent URL inspection — October 9
 
 Direct GSC URL inspection now confirms **URL is on Google / Page is indexed** for the dog-cost guide. Last crawl: October 9, 2026, 11:46:49 AM in the displayed local timezone, Googlebot smartphone, fetch successful, crawling/indexing allowed. Google-selected canonical is the inspected URL. The aggregate report still shows 39 indexed pages; do not add one mechanically. Temporal association with the prior request does not establish causation or a traffic gain.
+
+### Insurance publication follow-up — October 9
+
+The old inspection snapshot showed exclusion by noindex from a September 7 crawl. After publication, the live test at 1:09 PM reported URL available to Google and Page can be indexed, with valid Breadcrumbs. Request indexing returned Indexing requested. This is accepted crawl-queue submission, not confirmed indexing; aggregate counts remain unchanged.
