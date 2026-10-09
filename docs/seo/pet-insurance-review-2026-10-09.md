@@ -55,3 +55,7 @@ The educational draft is substantially corrected, but final factual/editorial ap
 3. Confirm complaints guidance with a qualified reviewer where needed.
 4. Approve the educational article separately from any future rankings, quote study or affiliate placement.
 5. Only after editorial approval change publication state, then verify canonical, sitemap, robots and mobile rendering.
+
+## Publication authorization and final scope — October 9 continuation
+
+The owner explicitly authorized publication after factual/editorial checks. The general educational guide passes the source-limited review; GIO, FSRA and Fetch primary pages were rechecked. Publication does not claim a human or veterinary review. No provider ranking, current-plan benefit comparison or affiliate offer is approved. The earlier approval blocker is superseded by this authorization. Province-specific contract review remains a gate for any future commercial comparison, not an unfulfilled promise in this educational guide. Release verification is recorded in the execution log.

@@ -1,6 +1,6 @@
 # Content inventory — 2026-10-09
 
-35 registered MDX guides: 15 published, 20 in review. Publication status is verified against the registry; search performance is available in SEARCH-BASELINE.md; draft noindex was separately confirmed. These are triage actions, not completed editorial reviews.
+Initial baseline: 35 registered MDX guides, 15 published and 20 in review. Current release candidate: 26 published records and 9 veterinary holds; see the continuation below. Publication status is verified against the registry; search performance is available in SEARCH-BASELINE.md; draft noindex was separately confirmed. These are triage actions, not completed editorial reviews.
 
 | Guide | State | Initial action | Release requirement |
 | --- | --- | --- | --- |
@@ -53,3 +53,21 @@ No article has been newly approved, published, removed, merged or redirected in 
 ## Direct Search Console access recovered
 
 See SEARCH-BASELINE.md and search-baseline.json. Authenticated browser access and official CSV export supersede the earlier connector-only access blocker. Current metrics: 8 clicks / 976 impressions over exported dates 2026-09-06–2026-10-06; 39 indexed and 40 not indexed as of the 2026-10-03 indexing report. Analytics sessions, conversions and revenue still unavailable.
+
+## Publication continuation — October 9
+
+All 20 pending repository guides were assessed from their bodies and internal verification queues. Eleven nonclinical guides were rewritten or corrected and prepared for publication under the owner’s explicit authorization. The nine below remain in review, dateless, excluded from discovery and sitemap, and noindex/nofollow. This is a safety hold, not a claim that their clinical content has been validated. Production publication is recorded after live release verification. The repository schema has community tables only; no article/CMS/scheduled table is defined. Live database contents have not been authenticated or exhaustively enumerated.
+
+| Held guide | Required qualified review |
+| --- | --- |
+| bringing-home-a-kitten-first-30-days | Toxic plant exposure timing, paediatric triage, feeding transitions and early behaviour; unsupported surrender/superlative assertions. |
+| kitten-vaccination-schedule-in-canada | Current vaccine classification, intervals, FeLV and booster guidance, adverse-event triage and provincial legal thresholds. |
+| separation-anxiety-in-dogs | Diagnostic distinction, departure treatment protocol, safety signals and medication framing; single-study instruction-count claim. |
+| introducing-a-second-cat | Staged behaviour protocol, conflict interpretation, injury assessment and pheromone evidence; unsupported fixed timelines. |
+| senior-dogs-and-cats | Life stages, diagnostic signs, examination/testing frequency, cognitive and mobility recommendations. |
+| end-of-life-care-for-pets | Quality-of-life framework, clinical urgency, sedation/euthanasia description and professional scope. |
+| litter-box-problems-in-cats | Medical differentials, urgency, marking versus toileting algorithm, product and cleaning claims. |
+| cat-urinary-blockage-flutd | Emergency time-to-death framing, triage, risk factors, clinical treatment and diet claims. |
+| arthritis-and-mobility-in-dogs-and-cats | Differentials, species-specific pain signs, exercise/weight guidance and treatment/supplement framing. |
+
+Prepared publication set: indoor/outdoor cats; renting; indoor enrichment; cat budget; insurance; travel; adoption; missing pets; moving provinces; emergency preparedness; veterinary estimate budgeting. New content removes clinical schedules, national cost/lifespan averages, unsupported recovery success claims and blanket provincial conclusions. No human or veterinary review credit is invented.

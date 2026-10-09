@@ -63,3 +63,7 @@ Direct authenticated GSC inspection now shows dog-cost guide indexed, smartphone
 ### Article availability follow-up
 
 Insurance preview QA found the shared article footer still invited users to ask members despite posting being unavailable. Separate UI fix clarifies planned category browsing. Existing tests encode the deliberate policy of keeping editorial workflow banners internal, so the proposed draft notice was withdrawn and that policy retained. No MDX body, publication state or indexability rule changed. Insurance evidence remains in draft PR #13; this UI fix is reviewed and released separately.
+
+### Authorized publication batch — October 9
+
+Resolved PR #13’s execution-log conflict by retaining both chronological records (f192a8c). Owner explicitly authorized publishing fact-checked guides. Assessed all 20 pending repository bodies/verification queues; prepared 11 nonclinical publications and held 9 clinical/behavioural guides for a qualified veterinarian. Ten guides substantially rewritten, insurance corrected against its existing primary-source register and current complaint/terms pages. Registry metadata/takeaways/source scope and reading lengths reconciled. Original URLs retained. Publication-date and sitemap expectations updated to 26 published guides, 9 held guides, 74 sitemap entries; original fifteen dates retained. No live CMS/DB inventory claimed. Full release checks and live verification follow.
