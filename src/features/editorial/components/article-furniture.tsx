@@ -277,10 +277,10 @@ export function RelatedDiscussion({ categorySlugs }: RelatedDiscussionProps) {
         id="related-discussion-heading"
         className="font-sans text-label uppercase text-foreground-subtle"
       >
-        Ask the community
+        Explore community categories
       </h2>
       <p className="mt-2 text-body-sm text-foreground-muted">
-        Questions this guide does not answer are the ones worth asking other Canadian owners.
+        Browse the planned categories for this topic. Member posting and replies are not available yet.
       </p>
       <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
         {categories.map(({ category }) => (
