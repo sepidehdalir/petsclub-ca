@@ -79,15 +79,6 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
             ]}
           />
 
-          {article.status === "in-review" ? (
-            <div className="mb-5 rounded-md border border-border bg-surface-muted p-4">
-              <p className="font-sans text-label uppercase">Editorial draft — in review</p>
-              <p className="mt-1 text-body-sm text-foreground-muted">
-                This guide has not been approved for publication. Its factual review is still in progress.
-              </p>
-            </div>
-          ) : null}
-
           <p className="font-sans text-label uppercase">
             <Link href={section.surfacePath} className="text-pine-700 hover:text-pine-900">
               {section.name}

@@ -57,4 +57,4 @@ Next dependencies: correct GA4 property identifier/access, accepted affiliate ac
 
 ### Article availability follow-up
 
-Insurance preview QA found the shared article footer still invited users to ask members despite posting being unavailable. Separate UI fix clarifies planned category browsing and adds an explicit editorial-draft notice to in-review articles only. No MDX body, publication state or indexability rule changed. Insurance evidence remains in draft PR #13; this UI fix is reviewed and released separately.
+Insurance preview QA found the shared article footer still invited users to ask members despite posting being unavailable. Separate UI fix clarifies planned category browsing. Existing tests encode the deliberate policy of keeping editorial workflow banners internal, so the proposed draft notice was withdrawn and that policy retained. No MDX body, publication state or indexability rule changed. Insurance evidence remains in draft PR #13; this UI fix is reviewed and released separately.
