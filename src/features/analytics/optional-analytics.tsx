@@ -86,7 +86,11 @@ export function OptionalAnalytics({ measurementId, allowedPaths }: { measurement
     {allowed && location ? <Script id="petclub-ga4" src={`https://www.googletagmanager.com/gtag/js?id=${configuredId}`} strategy="afterInteractive" onReady={() => {
       if (!analyticsHostAllowed(window.location.hostname)) return;
       window.dataLayer ??= [];
-      window.gtag ??= (...args: unknown[]) => { window.dataLayer?.push(args); };
+      // Google command queues use an Arguments object, not a plain event array.
+      window.gtag ??= function (..._args: unknown[]) {
+        // eslint-disable-next-line prefer-rest-params -- gtag.js requires its documented Arguments command shape.
+        window.dataLayer?.push(arguments);
+      };
       if (!initialized.current) {
         initialized.current = true;
         window.gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
