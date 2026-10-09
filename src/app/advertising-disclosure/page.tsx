@@ -26,6 +26,9 @@ export default function AdvertisingDisclosurePage() {
         disclosure where it appears.
       </p>
 
+      <h2>Product examples</h2>
+      <p>Current enrichment examples link to ordinary retailer listings and earn no commission. Comparisons describe listed features and practical selection considerations; we have not tested the products. We do not publish customer star ratings, claimed therapeutic benefits, or guaranteed prices and availability.</p>
+
       <h2>Commitments</h2>
       <ul>
         <li>

@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+import { OptionalAnalytics } from "@/features/analytics/optional-analytics";
+import { articlePath, publishedArticles } from "@/features/editorial/articles";
+import { informationalRoutes, topicRoutes } from "@/config/navigation";
 import { Wordmark } from "@/components/layout/wordmark";
 import { Container } from "@/components/ui/layout-primitives";
 import { footerNavigation } from "@/config/navigation";
@@ -54,6 +57,8 @@ export function SiteFooter() {
             </div>
           </nav>
         </div>
+
+        <OptionalAnalytics measurementId={process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID} allowedPaths={["/", ...topicRoutes, ...informationalRoutes, ...publishedArticles().map((article) => articlePath(article.slug))]} />
 
         <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 text-caption text-foreground-subtle sm:flex-row sm:items-center sm:justify-between">
           <p>

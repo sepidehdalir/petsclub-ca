@@ -1,0 +1,606 @@
+{
+  "observed_at": "2026-10-09T20:02:55.815101+00:00",
+  "origin": "https://thepetclub.ca",
+  "sitemap_urls": 74,
+  "published": 26,
+  "held": 9,
+  "failed": [],
+  "articles": [
+    {
+      "slug": "winter-dog-care-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/winter-dog-care-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "indoor-or-outdoor-cats-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/indoor-or-outdoor-cats-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-10-09",
+      "passed": true
+    },
+    {
+      "slug": "renting-with-a-pet-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/renting-with-a-pet-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-10-09",
+      "passed": true
+    },
+    {
+      "slug": "bringing-home-a-puppy-first-30-days",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/bringing-home-a-puppy-first-30-days"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "puppy-vaccination-schedule-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/puppy-vaccination-schedule-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "crate-training-a-puppy-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/crate-training-a-puppy-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "cost-of-owning-a-dog-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/cost-of-owning-a-dog-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "bringing-home-a-kitten-first-30-days",
+      "status": "in-review",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/bringing-home-a-kitten-first-30-days"
+      ],
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "in_sitemap": false,
+      "library_link": false,
+      "article_schema": true,
+      "datePublished": null,
+      "passed": true
+    },
+    {
+      "slug": "kitten-vaccination-schedule-in-canada",
+      "status": "in-review",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/kitten-vaccination-schedule-in-canada"
+      ],
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "in_sitemap": false,
+      "library_link": false,
+      "article_schema": true,
+      "datePublished": null,
+      "passed": true
+    },
+    {
+      "slug": "indoor-cat-enrichment-canadian-homes",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/indoor-cat-enrichment-canadian-homes"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-10-09",
+      "passed": true
+    },
+    {
+      "slug": "cost-of-owning-a-cat-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/cost-of-owning-a-cat-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-10-09",
+      "passed": true
+    },
+    {
+      "slug": "pet-insurance-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/pet-insurance-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-10-09",
+      "passed": true
+    },
+    {
+      "slug": "finding-a-veterinarian-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/finding-a-veterinarian-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "emergency-vet-visits-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/emergency-vet-visits-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "travelling-with-a-pet-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/travelling-with-a-pet-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-10-09",
+      "passed": true
+    },
+    {
+      "slug": "parasite-prevention-for-pets-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/parasite-prevention-for-pets-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "spaying-and-neutering-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/spaying-and-neutering-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "adopting-a-pet-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/adopting-a-pet-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-10-09",
+      "passed": true
+    },
+    {
+      "slug": "separation-anxiety-in-dogs",
+      "status": "in-review",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/separation-anxiety-in-dogs"
+      ],
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "in_sitemap": false,
+      "library_link": false,
+      "article_schema": true,
+      "datePublished": null,
+      "passed": true
+    },
+    {
+      "slug": "summer-heat-safety-for-dogs-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/summer-heat-safety-for-dogs-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "introducing-a-second-cat",
+      "status": "in-review",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/introducing-a-second-cat"
+      ],
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "in_sitemap": false,
+      "library_link": false,
+      "article_schema": true,
+      "datePublished": null,
+      "passed": true
+    },
+    {
+      "slug": "dental-care-for-dogs-and-cats",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/dental-care-for-dogs-and-cats"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "when-a-pet-goes-missing-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/when-a-pet-goes-missing-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-10-09",
+      "passed": true
+    },
+    {
+      "slug": "pet-licensing-across-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/pet-licensing-across-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "senior-dogs-and-cats",
+      "status": "in-review",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/senior-dogs-and-cats"
+      ],
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "in_sitemap": false,
+      "library_link": false,
+      "article_schema": true,
+      "datePublished": null,
+      "passed": true
+    },
+    {
+      "slug": "puppy-socialisation-checklist",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/puppy-socialisation-checklist"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "moving-provinces-with-a-pet",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/moving-provinces-with-a-pet"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-10-09",
+      "passed": true
+    },
+    {
+      "slug": "pet-emergency-preparedness-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/pet-emergency-preparedness-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-10-09",
+      "passed": true
+    },
+    {
+      "slug": "reading-a-canadian-pet-food-label",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/reading-a-canadian-pet-food-label"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    },
+    {
+      "slug": "end-of-life-care-for-pets",
+      "status": "in-review",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/end-of-life-care-for-pets"
+      ],
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "in_sitemap": false,
+      "library_link": false,
+      "article_schema": true,
+      "datePublished": null,
+      "passed": true
+    },
+    {
+      "slug": "litter-box-problems-in-cats",
+      "status": "in-review",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/litter-box-problems-in-cats"
+      ],
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "in_sitemap": false,
+      "library_link": false,
+      "article_schema": true,
+      "datePublished": null,
+      "passed": true
+    },
+    {
+      "slug": "cat-urinary-blockage-flutd",
+      "status": "in-review",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/cat-urinary-blockage-flutd"
+      ],
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "in_sitemap": false,
+      "library_link": false,
+      "article_schema": true,
+      "datePublished": null,
+      "passed": true
+    },
+    {
+      "slug": "what-veterinary-care-costs-in-canada",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/what-veterinary-care-costs-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-10-09",
+      "passed": true
+    },
+    {
+      "slug": "arthritis-and-mobility-in-dogs-and-cats",
+      "status": "in-review",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/arthritis-and-mobility-in-dogs-and-cats"
+      ],
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "in_sitemap": false,
+      "library_link": false,
+      "article_schema": true,
+      "datePublished": null,
+      "passed": true
+    },
+    {
+      "slug": "loose-leash-walking-and-recall",
+      "status": "published",
+      "http_status": 200,
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/loose-leash-walking-and-recall"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "in_sitemap": true,
+      "library_link": true,
+      "article_schema": true,
+      "datePublished": "2026-09-06",
+      "passed": true
+    }
+  ],
+  "limitation": "Public release verification, not evidence of Google indexing or an independent clinical review."
+}

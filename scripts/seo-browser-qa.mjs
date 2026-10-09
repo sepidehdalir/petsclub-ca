@@ -32,7 +32,7 @@ while (Date.now() < deadline) {
 }
 assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
-const routes = ['/', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days'];
+const routes = ['/', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/contact'];
 const scenarios = [
   { name: 'chromium-desktop', engine: chromium, viewport: { width: 1440, height: 900 }, mobile: false },
   { name: 'chromium-mobile', engine: chromium, viewport: { width: 390, height: 844 }, mobile: true },
@@ -161,6 +161,36 @@ for (const scenario of scenarios) {
         if (path === '/guides/winter-dog-care-in-canada') {
           result.inlineDraftLinks = await page.locator('a[href*="/guides/arthritis-and-mobility-in-dogs-and-cats"]').count();
           assert.equal(result.inlineDraftLinks, 0, 'Known in-review destination is still promoted');
+        }
+        if (path === '/guides/indoor-cat-enrichment-canadian-homes' || path === '/guides/cost-of-owning-a-cat-in-canada') {
+          const clicks = [];
+          await page.exposeFunction('recordProductClick', (detail) => clicks.push(detail));
+          await page.evaluate(() => {
+            window.addEventListener('thepetclub:product-click', (event) => window.recordProductClick(event.detail));
+            // This credential-free test checks the actual button/event without leaving the application.
+            document.addEventListener('click', (event) => {
+              if (event.target.closest('a[href^="https://www.homesalive.ca/"]')) event.preventDefault();
+            });
+          });
+          const cta = page.getByRole('link', { name: 'View retailer details for Catit Senses 2.0 Digger', exact: true });
+          assert.ok(await cta.isVisible());
+          await cta.click();
+          await page.locator('main').innerText();
+          assert.deepEqual(clicks, [{ product_id: 'catit-digger' }], 'One product event per actual click');
+          assert.match(await page.locator('main').innerText(), /have not tested these products/);
+          result.productInteraction = 'Actual click emitted exactly one local event; no GA collector configured';
+          if (path.endsWith('indoor-cat-enrichment-canadian-homes')) {
+            assert.equal(await page.getByRole('region', { name: 'Scrollable comparison table' }).count(), 1);
+          }
+        }
+        if (path === '/contact') {
+          await page.getByLabel('Organisation (optional)', { exact: true }).fill('QA example');
+          await page.getByLabel('Message', { exact: true }).fill('QA draft only; do not send.');
+          await page.getByRole('button', { name: 'Prepare email draft', exact: true }).click();
+          const emailDraft = page.getByRole('link', { name: 'Open email draft', exact: true });
+          assert.match(await emailDraft.getAttribute('href'), /^mailto:hello@thepetclub\.ca\?subject=/);
+          assert.match(await page.locator('main').innerText(), /No message has been sent/);
+          result.enquiryComposer = 'Draft preparation passed; no submission or email was sent';
         }
         assert.deepEqual(errors, [], 'Browser execution errors');
         assert.deepEqual(badResponses, [], 'Failed same-origin requests');
