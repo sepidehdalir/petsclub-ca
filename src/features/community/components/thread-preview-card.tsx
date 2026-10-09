@@ -2,7 +2,6 @@ import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { demoThreadHref, type DemoThread } from "@/features/community/fixtures";
-import { formatCount, formatRelativeHours } from "@/lib/utils/format";
 
 export interface ThreadPreviewCardProps {
   thread: DemoThread;
@@ -13,10 +12,8 @@ export interface ThreadPreviewCardProps {
 /**
  * Compact preview of a discussion.
  *
- * Milestone 1 renders fixture data through this component; Milestone 2 will
- * pass real `threads` rows with the same shape. Timestamps come from a fixed
- * hour offset rather than a clock read, so the output is deterministic and
- * cannot drift between the server render and hydration.
+ * This component renders examples only. Never attach activity counts or
+ * recency to illustrative topics; real discussions need a separate renderer.
  */
 export function ThreadPreviewCard({
   thread,
@@ -37,18 +34,9 @@ export function ThreadPreviewCard({
         </Link>
       </Heading>
 
-      <dl className="flex flex-wrap items-center gap-x-4 gap-y-1 text-body-sm text-foreground-muted">
-        <div className="flex items-center gap-1.5">
-          <dt className="sr-only">Replies</dt>
-          <dd>
-            {formatCount(thread.replyCount)} {thread.replyCount === 1 ? "reply" : "replies"}
-          </dd>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <dt className="sr-only">Last activity</dt>
-          <dd>{formatRelativeHours(thread.lastActivityHoursAgo)}</dd>
-        </div>
-      </dl>
+      <p className="text-body-sm text-foreground-muted">
+        Example topic — no member discussion or replies yet.
+      </p>
     </article>
   );
 }

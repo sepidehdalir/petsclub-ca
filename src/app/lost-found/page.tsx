@@ -17,7 +17,7 @@ import { createMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Lost & Found pets",
   description:
-    "Community help for lost and found pets across Canada. Post a missing dog or cat, or help reunite a found pet with their family.",
+    "First steps for a missing pet in Canada and information about our planned Lost & Found service. Reporting and alerts are not available yet.",
   path: "/lost-found",
 });
 
@@ -58,7 +58,7 @@ export default function LostFoundPage() {
             id="lf-status-heading"
             eyebrow="Status"
             title="What exists today"
-            description="Lost & Found currently lives in the community forums. A dedicated tool with local alerts, photo uploads and searchable reports is planned for a later milestone."
+            description="The category pages are available to browse, but posting, reports and local alerts are not available yet. Contact your municipal animal services and nearby shelters directly for help with a missing pet."
           />
 
           {lostFoundGroup ? (

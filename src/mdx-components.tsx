@@ -8,6 +8,7 @@ import {
   ScheduleTable,
   VetNote,
 } from "@/features/editorial/components/article-callouts";
+import { AffiliateOffer } from "@/features/commerce/affiliate-offer";
 import { isInReviewGuideLink } from "@/features/editorial/inline-guide-links";
 import { slugify } from "@/lib/utils/slug";
 
@@ -105,6 +106,7 @@ const components = {
   VetNote,
   Checklist,
   ScheduleTable,
+  AffiliateOffer,
 } satisfies MDXComponents;
 
 export function useMDXComponents(): MDXComponents {

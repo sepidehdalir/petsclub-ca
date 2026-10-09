@@ -1,0 +1,3292 @@
+{
+  "observed_at": "2026-10-09T18:24:39.942700+00:00",
+  "sitemap_urls": 63,
+  "pages": [
+    {
+      "url": "https://thepetclub.ca",
+      "status": 200,
+      "final_url": "https://thepetclub.ca",
+      "title": "The Pet Club \u2014 Canada's community for pet parents.",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Ask questions, share experiences, and discover trusted pet advice from across Canada."
+      ],
+      "schemas": 1,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-behaviour",
+        "/community/dog-food-and-nutrition",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/bringing-home-a-puppy-first-30-days",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/winter-dog-care-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/sign-up",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community",
+      "title": "Community | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Discussion categories for Canadian pet parents \u2014 dogs, cats, health, food, training, Canadian pet life and Lost & Found."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/canadian-pet-products",
+        "/community/cat-behaviour",
+        "/community/cat-breeds",
+        "/community/cat-food-and-nutrition",
+        "/community/cat-health",
+        "/community/dog-breeds",
+        "/community/dog-food-and-nutrition",
+        "/community/dog-health",
+        "/community/dog-training-and-behaviour",
+        "/community/found-pets",
+        "/community/general-cat-discussion",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/kittens",
+        "/community/lost-cats",
+        "/community/lost-dogs",
+        "/community/memorials",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/pet-stories",
+        "/community/provincial-questions",
+        "/community/puppies",
+        "/community/travelling-with-pets",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/dogs",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/dogs",
+      "title": "Dogs in Canada | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/dogs"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Puppies, health, nutrition, training and breeds \u2014 discussion and guides for Canadian dog owners."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-breeds",
+        "/community/dog-food-and-nutrition",
+        "/community/dog-health",
+        "/community/dog-training-and-behaviour",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/bringing-home-a-puppy-first-30-days",
+        "/guides/cost-of-owning-a-dog-in-canada",
+        "/guides/crate-training-a-puppy-in-canada",
+        "/guides/loose-leash-walking-and-recall",
+        "/guides/puppy-socialisation-checklist",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/summer-heat-safety-for-dogs-in-canada",
+        "/guides/winter-dog-care-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/cats",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/cats",
+      "title": "Cats in Canada | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/cats"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Kittens, behaviour, health and nutrition \u2014 discussion and guides for Canadian cat owners."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-behaviour",
+        "/community/cat-breeds",
+        "/community/cat-food-and-nutrition",
+        "/community/cat-health",
+        "/community/general-cat-discussion",
+        "/community/introduce-yourself",
+        "/community/kittens",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/health",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/health",
+      "title": "Pet health | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/health"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Symptoms, preventative care, vet costs and insurance, discussed by pet owners across Canada."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-health",
+        "/community/dog-health",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/dental-care-for-dogs-and-cats",
+        "/guides/emergency-vet-visits-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/reading-a-canadian-pet-food-label",
+        "/guides/spaying-and-neutering-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/food",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/food",
+      "title": "Pet food and nutrition | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/food"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Kibble, raw, fresh and prescription diets available in Canada, compared by the people feeding them."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/canadian-pet-products",
+        "/community/cat-food-and-nutrition",
+        "/community/dog-food-and-nutrition",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/training",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/training",
+      "title": "Training and behaviour | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/training"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Practical training and behaviour help for dogs and cats, from owners and trainers across Canada."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-behaviour",
+        "/community/dog-training-and-behaviour",
+        "/community/introduce-yourself",
+        "/community/kittens",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides",
+      "title": "Canada Guides | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Canada-specific pet guides covering costs, insurance, nutrition and care \u2014 researched and reviewed by the Pet Club editorial team."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/bringing-home-a-puppy-first-30-days",
+        "/guides/cost-of-owning-a-dog-in-canada",
+        "/guides/crate-training-a-puppy-in-canada",
+        "/guides/dental-care-for-dogs-and-cats",
+        "/guides/emergency-vet-visits-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/loose-leash-walking-and-recall",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/pet-licensing-across-canada",
+        "/guides/puppy-socialisation-checklist",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/reading-a-canadian-pet-food-label",
+        "/guides/spaying-and-neutering-in-canada",
+        "/guides/summer-heat-safety-for-dogs-in-canada",
+        "/guides/winter-dog-care-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/lost-found",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/lost-found",
+      "title": "Lost & Found pets | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/lost-found"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Community help for lost and found pets across Canada. Post a missing dog or cat, or help reunite a found pet with their family."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/found-pets",
+        "/community/introduce-yourself",
+        "/community/lost-cats",
+        "/community/lost-dogs",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/winter-dog-care-in-canada",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/winter-dog-care-in-canada",
+      "title": "Winter Dog Care in Canada | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/winter-dog-care-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Why there is no single \u201ctoo cold\u201d temperature, what road salt actually does to paws, and the winter hazards that put Canadian dogs in front of a vet."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-health",
+        "/community/dog-training-and-behaviour",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/bringing-home-a-puppy-first-30-days",
+        "/guides/crate-training-a-puppy-in-canada",
+        "/guides/emergency-vet-visits-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/summer-heat-safety-for-dogs-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/bringing-home-a-puppy-first-30-days",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/bringing-home-a-puppy-first-30-days",
+      "title": "Bringing Home a Puppy: The First 30 Days | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/bringing-home-a-puppy-first-30-days"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "What actually fills a puppy\u2019s first month, week by week: sleep, house-training in winter, socialisation on a deadline, and alone-time training."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-training-and-behaviour",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/cost-of-owning-a-dog-in-canada",
+        "/guides/crate-training-a-puppy-in-canada",
+        "/guides/loose-leash-walking-and-recall",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/pet-licensing-across-canada",
+        "/guides/puppy-socialisation-checklist",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/spaying-and-neutering-in-canada",
+        "/guides/winter-dog-care-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/puppy-vaccination-schedule-in-canada",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/puppy-vaccination-schedule-in-canada",
+      "title": "Puppy Vaccination Schedule in Canada | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/puppy-vaccination-schedule-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Why a puppy needs a series rather than one shot, what core and non-core mean in Canada, and the questions worth asking at the first appointment."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-health",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/bringing-home-a-puppy-first-30-days",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/puppy-socialisation-checklist",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/puppy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/crate-training-a-puppy-in-canada",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/crate-training-a-puppy-in-canada",
+      "title": "Crate Training a Puppy in Canada | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/crate-training-a-puppy-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "A four-week crate training plan, how long is too long, the five common mistakes, and how to tell when a crate is the wrong tool for your dog."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-training-and-behaviour",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/bringing-home-a-puppy-first-30-days",
+        "/guides/cost-of-owning-a-dog-in-canada",
+        "/guides/winter-dog-care-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/cost-of-owning-a-dog-in-canada",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/cost-of-owning-a-dog-in-canada",
+      "title": "How Much Does It Cost to Own a Dog in Canada? | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/cost-of-owning-a-dog-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Every cost category of owning a dog in Canada, what actually drives the number, and an hour-long method for building a real figure for your own city."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-food-and-nutrition",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/dental-care-for-dogs-and-cats",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/reading-a-canadian-pet-food-label",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/finding-a-veterinarian-in-canada",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/finding-a-veterinarian-in-canada",
+      "title": "How to Choose a Veterinarian in Canada | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/finding-a-veterinarian-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "How to choose a veterinary practice before an emergency: what to weigh, the questions worth a phone call, and why the after-hours answer matters most."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/provincial-questions",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/emergency-vet-visits-in-canada",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/spaying-and-neutering-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/emergency-vet-visits-in-canada",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/emergency-vet-visits-in-canada",
+      "title": "Emergency Vet Visits in Canada: How to Prepare | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/emergency-vet-visits-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "The hour of preparation that decides how the worst night goes: destination, transport, records and money \u2014 plus the one rule for when you are unsure."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/cost-of-owning-a-dog-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/winter-dog-care-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/parasite-prevention-for-pets-in-canada",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/parasite-prevention-for-pets-in-canada",
+      "title": "Parasite Prevention in Canada, by Region and Season | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/parasite-prevention-for-pets-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Where blacklegged ticks are established in Canada, why heartworm prevention starts on 1 June, and the autumn month most owners stop too early."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-health",
+        "/community/dog-health",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/bringing-home-a-puppy-first-30-days",
+        "/guides/cost-of-owning-a-dog-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/summer-heat-safety-for-dogs-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/spaying-and-neutering-in-canada",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/spaying-and-neutering-in-canada",
+      "title": "Spaying and Neutering in Canada: Timing, Cost and Recovery | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/spaying-and-neutering-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Why the timing guidance changed for large-breed dogs, what recovery actually asks of you, and the two Canadian costs that change the arithmetic."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-health",
+        "/community/dog-health",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/cost-of-owning-a-dog-in-canada",
+        "/guides/crate-training-a-puppy-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/summer-heat-safety-for-dogs-in-canada",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/summer-heat-safety-for-dogs-in-canada",
+      "title": "Summer Heat Safety for Dogs in Canada | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/summer-heat-safety-for-dogs-in-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Why there is no safe temperature, the back-of-hand pavement test, heatstroke signs, and how to read wildfire smoke and the AQHI for a dog."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-health",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/emergency-vet-visits-in-canada",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/winter-dog-care-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/dental-care-for-dogs-and-cats",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/dental-care-for-dogs-and-cats",
+      "title": "Dental Care for Dogs and Cats | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/dental-care-for-dogs-and-cats"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Why dental disease is invisible, what a professional dental under anaesthetic actually does, and why AAHA does not recommend anaesthesia-free cleaning."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-health",
+        "/community/dog-health",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/bringing-home-a-puppy-first-30-days",
+        "/guides/cost-of-owning-a-dog-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/pet-licensing-across-canada",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/pet-licensing-across-canada",
+      "title": "Dog and Cat Licensing Across Canada | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/pet-licensing-across-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Licensing is municipal, not provincial. How Toronto, Ottawa, Calgary, Edmonton and Vancouver differ on species, age thresholds and what is included."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/canadian-pet-products",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/provincial-questions",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/spaying-and-neutering-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/puppy-socialisation-checklist",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/puppy-socialisation-checklist",
+      "title": "Puppy Socialisation: What to Actually Expose a Puppy To | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/puppy-socialisation-checklist"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "What to actually socialise a puppy to, how to tell an exposure is helping rather than harming, and why a puppy that won\u2019t eat is over threshold."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-training-and-behaviour",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/bringing-home-a-puppy-first-30-days",
+        "/guides/loose-leash-walking-and-recall",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/winter-dog-care-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/reading-a-canadian-pet-food-label",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/reading-a-canadian-pet-food-label",
+      "title": "How to Read a Canadian Pet Food Label | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/reading-a-canadian-pet-food-label"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Pet food is not regulated in Canada the way you think. Who oversees what, which parts of the label matter, and why AAFCO is a US voluntary standard."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/canadian-pet-products",
+        "/community/cat-food-and-nutrition",
+        "/community/dog-food-and-nutrition",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/cost-of-owning-a-dog-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/guides/loose-leash-walking-and-recall",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/guides/loose-leash-walking-and-recall",
+      "title": "Loose-Leash Walking and Recall | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/guides/loose-leash-walking-and-recall"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "How to build lead walking and recall in the order that works, why the long line matters, and the mistakes that break a recall permanently."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-training-and-behaviour",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/bringing-home-a-puppy-first-30-days",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/puppy-socialisation-checklist",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/puppy",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/puppy",
+      "title": "Puppy Journey | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/puppy"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "An age-aware guide to your puppy's first year, built around where you live and when your puppy was born."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/puppy/12-weeks",
+        "/puppy/3-months",
+        "/puppy/4-6-months",
+        "/puppy/7-8-months",
+        "/puppy/8-weeks",
+        "/puppy/9-11-weeks",
+        "/puppy/9-12-months",
+        "/puppy/beyond-the-first-year",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/puppy/8-weeks",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/puppy/8-weeks",
+      "title": "Your 8-Week-Old Puppy | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/puppy/8-weeks"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "What matters at 8 weeks: the first days home, toilet routine, sleep, keeping the food the same, booking the first vet visit, and what is normal while a puppy settles."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/bringing-home-a-puppy-first-30-days",
+        "/guides/crate-training-a-puppy-in-canada",
+        "/guides/emergency-vet-visits-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/pet-licensing-across-canada",
+        "/guides/puppy-socialisation-checklist",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/reading-a-canadian-pet-food-label",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/puppy",
+        "/puppy/12-weeks",
+        "/puppy/3-months",
+        "/puppy/4-6-months",
+        "/puppy/7-8-months",
+        "/puppy/9-11-weeks",
+        "/puppy/9-12-months",
+        "/puppy/beyond-the-first-year",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/puppy/9-11-weeks",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/puppy/9-11-weeks",
+      "title": "Your 9 to 11-Week-Old Puppy | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/puppy/9-11-weeks"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "What matters between nine and eleven weeks: the socialisation window, house-training, the vaccine appointments, and what to ask your veterinarian."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/bringing-home-a-puppy-first-30-days",
+        "/guides/crate-training-a-puppy-in-canada",
+        "/guides/emergency-vet-visits-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/puppy-socialisation-checklist",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/reading-a-canadian-pet-food-label",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/puppy",
+        "/puppy/12-weeks",
+        "/puppy/3-months",
+        "/puppy/4-6-months",
+        "/puppy/7-8-months",
+        "/puppy/8-weeks",
+        "/puppy/9-12-months",
+        "/puppy/beyond-the-first-year",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/puppy/12-weeks",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/puppy/12-weeks",
+      "title": "Your 12-Week-Old Puppy | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/puppy/12-weeks"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "What matters at 12 weeks: why your puppy is probably not fully vaccinated yet, what socialisation is left, teething, first walks, and what to ask your veterinarian."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/crate-training-a-puppy-in-canada",
+        "/guides/dental-care-for-dogs-and-cats",
+        "/guides/emergency-vet-visits-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/loose-leash-walking-and-recall",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/pet-licensing-across-canada",
+        "/guides/puppy-socialisation-checklist",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/reading-a-canadian-pet-food-label",
+        "/guides/spaying-and-neutering-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/puppy",
+        "/puppy/3-months",
+        "/puppy/4-6-months",
+        "/puppy/7-8-months",
+        "/puppy/8-weeks",
+        "/puppy/9-11-weeks",
+        "/puppy/9-12-months",
+        "/puppy/beyond-the-first-year",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/puppy/4-6-months",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/puppy/4-6-months",
+      "title": "Your 4 to 6-Month-Old Puppy | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/puppy/4-6-months"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "What matters from four to six months: broader outings once the vaccination series is complete, permanent teeth arriving and finishing, training in harder places, the neutering decision, and the booster conversation that comes back around six months."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/dental-care-for-dogs-and-cats",
+        "/guides/emergency-vet-visits-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/loose-leash-walking-and-recall",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/puppy-socialisation-checklist",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/reading-a-canadian-pet-food-label",
+        "/guides/spaying-and-neutering-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/puppy",
+        "/puppy/12-weeks",
+        "/puppy/3-months",
+        "/puppy/7-8-months",
+        "/puppy/8-weeks",
+        "/puppy/9-11-weeks",
+        "/puppy/9-12-months",
+        "/puppy/beyond-the-first-year",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/puppy/7-8-months",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/puppy/7-8-months",
+      "title": "Your 7 to 8-Month-Old Dog | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/puppy/7-8-months"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Why an adolescent dog seems to lose its training around seven and eight months, what the research actually found, and how to train and manage a dog whose reliability has dipped."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/dental-care-for-dogs-and-cats",
+        "/guides/emergency-vet-visits-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/loose-leash-walking-and-recall",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/pet-licensing-across-canada",
+        "/guides/puppy-socialisation-checklist",
+        "/guides/reading-a-canadian-pet-food-label",
+        "/guides/spaying-and-neutering-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/puppy",
+        "/puppy/12-weeks",
+        "/puppy/3-months",
+        "/puppy/4-6-months",
+        "/puppy/8-weeks",
+        "/puppy/9-11-weeks",
+        "/puppy/9-12-months",
+        "/puppy/beyond-the-first-year",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/puppy/9-12-months",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/puppy/9-12-months",
+      "title": "Your 9 to 12-Month-Old Dog | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/puppy/9-12-months"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "What changes between nine months and the first birthday: coming out of peak adolescence, when larger dogs are neutered, when adult food becomes appropriate, how exercise changes by size, and the first-year veterinary conversation."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/dental-care-for-dogs-and-cats",
+        "/guides/emergency-vet-visits-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/loose-leash-walking-and-recall",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/pet-licensing-across-canada",
+        "/guides/puppy-socialisation-checklist",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/reading-a-canadian-pet-food-label",
+        "/guides/spaying-and-neutering-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/puppy",
+        "/puppy/12-weeks",
+        "/puppy/3-months",
+        "/puppy/4-6-months",
+        "/puppy/7-8-months",
+        "/puppy/8-weeks",
+        "/puppy/9-11-weeks",
+        "/puppy/beyond-the-first-year",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/general-dog-discussion",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/general-dog-discussion",
+      "title": "General Dog Discussion \u2014 Dogs | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/general-dog-discussion"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Open conversation about life with dogs in Canada."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-breeds",
+        "/community/dog-food-and-nutrition",
+        "/community/dog-health",
+        "/community/dog-training-and-behaviour",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/puppies",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/puppies",
+      "title": "Puppies \u2014 Dogs | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/puppies"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Bringing a puppy home, socialisation, sleep and early routines."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-breeds",
+        "/community/dog-food-and-nutrition",
+        "/community/dog-health",
+        "/community/dog-training-and-behaviour",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/dog-health",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/dog-health",
+      "title": "Dog Health \u2014 Dogs | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/dog-health"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Symptoms, vet visits, preventative care and recovery experiences."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-breeds",
+        "/community/dog-food-and-nutrition",
+        "/community/dog-training-and-behaviour",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/dog-food-and-nutrition",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/dog-food-and-nutrition",
+      "title": "Dog Food & Nutrition \u2014 Dogs | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/dog-food-and-nutrition"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Kibble, raw, fresh and prescription diets available in Canada."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-breeds",
+        "/community/dog-health",
+        "/community/dog-training-and-behaviour",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/dog-training-and-behaviour",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/dog-training-and-behaviour",
+      "title": "Training & Behaviour \u2014 Dogs | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/dog-training-and-behaviour"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Recall, reactivity, crate training and working with Canadian trainers."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-breeds",
+        "/community/dog-food-and-nutrition",
+        "/community/dog-health",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/dog-breeds",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/dog-breeds",
+      "title": "Breeds \u2014 Dogs | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/dog-breeds"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Breed traits, breed-specific care and finding reputable breeders or rescues."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/dog-food-and-nutrition",
+        "/community/dog-health",
+        "/community/dog-training-and-behaviour",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/general-cat-discussion",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/general-cat-discussion",
+      "title": "General Cat Discussion \u2014 Cats | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/general-cat-discussion"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Open conversation about life with cats in Canada."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-behaviour",
+        "/community/cat-breeds",
+        "/community/cat-food-and-nutrition",
+        "/community/cat-health",
+        "/community/introduce-yourself",
+        "/community/kittens",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/kittens",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/kittens",
+      "title": "Kittens \u2014 Cats | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/kittens"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Early weeks, litter training, vaccinations and kitten-proofing."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-behaviour",
+        "/community/cat-breeds",
+        "/community/cat-food-and-nutrition",
+        "/community/cat-health",
+        "/community/general-cat-discussion",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/cat-health",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/cat-health",
+      "title": "Cat Health \u2014 Cats | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/cat-health"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Urinary health, dental care, weight management and vet experiences."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-behaviour",
+        "/community/cat-breeds",
+        "/community/cat-food-and-nutrition",
+        "/community/general-cat-discussion",
+        "/community/introduce-yourself",
+        "/community/kittens",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/cat-food-and-nutrition",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/cat-food-and-nutrition",
+      "title": "Cat Food & Nutrition \u2014 Cats | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/cat-food-and-nutrition"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Wet, dry and prescription diets, plus hydration and feeding routines."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-behaviour",
+        "/community/cat-breeds",
+        "/community/cat-health",
+        "/community/general-cat-discussion",
+        "/community/introduce-yourself",
+        "/community/kittens",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/cat-behaviour",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/cat-behaviour",
+      "title": "Behaviour \u2014 Cats | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/cat-behaviour"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Litter box issues, scratching, enrichment and multi-cat households."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-breeds",
+        "/community/cat-food-and-nutrition",
+        "/community/cat-health",
+        "/community/general-cat-discussion",
+        "/community/introduce-yourself",
+        "/community/kittens",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/cat-breeds",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/cat-breeds",
+      "title": "Breeds \u2014 Cats | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/cat-breeds"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Breed traits, grooming needs and adopting from Canadian rescues."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-behaviour",
+        "/community/cat-food-and-nutrition",
+        "/community/cat-health",
+        "/community/general-cat-discussion",
+        "/community/introduce-yourself",
+        "/community/kittens",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/pet-insurance",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/pet-insurance",
+      "title": "Pet Insurance \u2014 Canadian Pet Life | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/pet-insurance"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Comparing Canadian pet insurance providers, coverage and real claim outcomes."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/canadian-pet-products",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/provincial-questions",
+        "/community/travelling-with-pets",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/vet-costs",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/vet-costs",
+      "title": "Vet Costs \u2014 Canadian Pet Life | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/vet-costs"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "What procedures actually cost across provinces and how to plan for them."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/canadian-pet-products",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/provincial-questions",
+        "/community/travelling-with-pets",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/canadian-pet-products",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/canadian-pet-products",
+      "title": "Canadian Pet Products \u2014 Canadian Pet Life | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/canadian-pet-products"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Canadian-made and Canada-available food, gear and supplies."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/provincial-questions",
+        "/community/travelling-with-pets",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/travelling-with-pets",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/travelling-with-pets",
+      "title": "Travelling With Pets \u2014 Canadian Pet Life | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/travelling-with-pets"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Flying within Canada, road trips, border crossings and paperwork."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/canadian-pet-products",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/provincial-questions",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/pet-friendly-canada",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/pet-friendly-canada",
+      "title": "Pet-Friendly Canada \u2014 Canadian Pet Life | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/pet-friendly-canada"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Pet-friendly rentals, patios, parks, trails and hotels across the country."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/canadian-pet-products",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/provincial-questions",
+        "/community/travelling-with-pets",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/provincial-questions",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/provincial-questions",
+      "title": "Provincial Questions \u2014 Canadian Pet Life | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/provincial-questions"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Bylaws, licensing and province-specific rules for pet owners."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/canadian-pet-products",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/travelling-with-pets",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/introduce-yourself",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/introduce-yourself",
+      "title": "Introduce Yourself \u2014 Community | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/introduce-yourself"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "New here? Tell the community about you and your pets."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/memorials",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/pet-stories",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/pet-photos",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/pet-photos",
+      "title": "Pet Photos \u2014 Community | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/pet-photos"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Share photos of your dogs, cats and other companions."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/memorials",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/pet-stories",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/pet-stories",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/pet-stories",
+      "title": "Pet Stories \u2014 Community | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/pet-stories"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Adoption stories, milestones and the moments worth writing down."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/memorials",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/memorials",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/memorials",
+      "title": "Memorials \u2014 Community | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/memorials"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "A gentle space to remember the pets we have lost."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/pet-stories",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/lost-dogs",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/lost-dogs",
+      "title": "Lost Dogs \u2014 Lost & Found | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/lost-dogs"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Post a missing dog with the details that help neighbours recognise them."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/found-pets",
+        "/community/introduce-yourself",
+        "/community/lost-cats",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/lost-cats",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/lost-cats",
+      "title": "Lost Cats \u2014 Lost & Found | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/lost-cats"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Post a missing cat and coordinate local search efforts."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/found-pets",
+        "/community/introduce-yourself",
+        "/community/lost-dogs",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community/found-pets",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community/found-pets",
+      "title": "Found Pets \u2014 Lost & Found | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community/found-pets"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Found a pet? Post here to help reunite them with their family."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/lost-cats",
+        "/community/lost-dogs",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/about",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/about",
+      "title": "About | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/about"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "ThePetClub.ca is a Canadian pet community and information platform for pet parents across the country."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/contact",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/contact",
+      "title": "Contact | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/contact"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "How to reach the Pet Club team about the community, editorial or partnerships."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/community-guidelines",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/community-guidelines",
+      "title": "Community Guidelines | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/community-guidelines"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "The rules that keep The Pet Club a useful, kind place for Canadian pet parents."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/editorial-policy",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/editorial-policy",
+      "title": "Editorial Policy | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/editorial-policy"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Sourcing, publication status, AI assistance and corrections for Canadian pet guides."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/privacy-policy",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/privacy-policy",
+      "title": "Privacy Policy | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/privacy-policy"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "How ThePetClub.ca handles personal information."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/terms-of-use",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/terms-of-use",
+      "title": "Terms of Use | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/terms-of-use"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "The terms that will govern use of ThePetClub.ca."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/advertising-disclosure",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/advertising-disclosure",
+      "title": "Advertising Disclosure | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/advertising-disclosure"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "How ThePetClub.ca will handle advertising, affiliate links and sponsored placements."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    }
+  ],
+  "linked_pages": [
+    {
+      "url": "https://thepetclub.ca/",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/",
+      "title": "The Pet Club \u2014 Canada's community for pet parents.",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "description": [
+        "Ask questions, share experiences, and discover trusted pet advice from across Canada."
+      ],
+      "schemas": 1,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/cat-behaviour",
+        "/community/dog-food-and-nutrition",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/puppies",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/bringing-home-a-puppy-first-30-days",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/winter-dog-care-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/sign-up",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/puppy/3-months",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/puppy/3-months",
+      "title": "Your 3-Month-Old Puppy | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/puppy/3-months"
+      ],
+      "robots": [
+        "noindex, follow"
+      ],
+      "description": [
+        "What matters around three months: consolidating training, generalising to new places, the end of the vaccination series, managing heavy chewing, and building the habits that carry into adolescence."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/crate-training-a-puppy-in-canada",
+        "/guides/dental-care-for-dogs-and-cats",
+        "/guides/emergency-vet-visits-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/loose-leash-walking-and-recall",
+        "/guides/parasite-prevention-for-pets-in-canada",
+        "/guides/puppy-socialisation-checklist",
+        "/guides/puppy-vaccination-schedule-in-canada",
+        "/guides/reading-a-canadian-pet-food-label",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/puppy",
+        "/puppy/12-weeks",
+        "/puppy/4-6-months",
+        "/puppy/7-8-months",
+        "/puppy/8-weeks",
+        "/puppy/9-11-weeks",
+        "/puppy/9-12-months",
+        "/puppy/beyond-the-first-year",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/puppy/beyond-the-first-year",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/puppy/beyond-the-first-year",
+      "title": "Beyond the First Year | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/puppy/beyond-the-first-year"
+      ],
+      "robots": [
+        "noindex, follow"
+      ],
+      "description": [
+        "The final stage of the Puppy Journey: what changes when age stops driving care, whether your dog has actually finished growing, and where to go next for adult-dog guidance."
+      ],
+      "schemas": 3,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/guides/cost-of-owning-a-dog-in-canada",
+        "/guides/dental-care-for-dogs-and-cats",
+        "/guides/emergency-vet-visits-in-canada",
+        "/guides/finding-a-veterinarian-in-canada",
+        "/guides/loose-leash-walking-and-recall",
+        "/guides/reading-a-canadian-pet-food-label",
+        "/guides/spaying-and-neutering-in-canada",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/puppy",
+        "/puppy/12-weeks",
+        "/puppy/3-months",
+        "/puppy/4-6-months",
+        "/puppy/7-8-months",
+        "/puppy/8-weeks",
+        "/puppy/9-11-weeks",
+        "/puppy/9-12-months",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/search",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/search",
+      "title": "Search | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/search"
+      ],
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "description": [
+        "Search The Pet Club discussions, guides and Canadian pet resources."
+      ],
+      "schemas": 2,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/canadian-pet-products",
+        "/community/cat-behaviour",
+        "/community/cat-breeds",
+        "/community/cat-food-and-nutrition",
+        "/community/cat-health",
+        "/community/dog-breeds",
+        "/community/dog-food-and-nutrition",
+        "/community/dog-health",
+        "/community/dog-training-and-behaviour",
+        "/community/found-pets",
+        "/community/general-cat-discussion",
+        "/community/general-dog-discussion",
+        "/community/introduce-yourself",
+        "/community/kittens",
+        "/community/lost-cats",
+        "/community/lost-dogs",
+        "/community/memorials",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/pet-stories",
+        "/community/provincial-questions",
+        "/community/puppies",
+        "/community/travelling-with-pets",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    },
+    {
+      "url": "https://thepetclub.ca/sign-up",
+      "status": 200,
+      "final_url": "https://thepetclub.ca/sign-up",
+      "title": "Create an account | The Pet Club",
+      "h1": 1,
+      "canonical": [
+        "https://thepetclub.ca/sign-up"
+      ],
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "description": [
+        "Join The Pet Club \u2014 Canada's community for pet parents."
+      ],
+      "schemas": 1,
+      "links": [
+        "/",
+        "/about",
+        "/advertising-disclosure",
+        "/cats",
+        "/community",
+        "/community-guidelines",
+        "/community/introduce-yourself",
+        "/community/pet-friendly-canada",
+        "/community/pet-insurance",
+        "/community/pet-photos",
+        "/community/vet-costs",
+        "/contact",
+        "/dogs",
+        "/editorial-policy",
+        "/food",
+        "/guides",
+        "/health",
+        "/lost-found",
+        "/privacy-policy",
+        "/search",
+        "/sign-in",
+        "/terms-of-use",
+        "/training"
+      ],
+      "analytics_tags": false
+    }
+  ],
+  "limitation": "Public HTTP audit only; no Search Console indexing, field CWV, visits, conversions or revenue data."
+}

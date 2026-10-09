@@ -1,0 +1,1739 @@
+{
+  "source": "Official Google Search Console CSV export",
+  "observed_on": "2026-10-09",
+  "selected_range": "Last 3 months",
+  "exported_dates": [
+    "2026-09-06",
+    "2026-10-06"
+  ],
+  "clicks": 8,
+  "impressions": 976,
+  "ctr_percent": 0.819672131147541,
+  "average_position_ui": 27.7,
+  "indexed_pages": 39,
+  "not_indexed_pages": 40,
+  "indexing_report_updated_on": "2026-10-03",
+  "indexing_reasons": {
+    "noindex": 15,
+    "redirect": 1,
+    "discovered_not_indexed": 24
+  },
+  "queries": [
+    {
+      "Top queries": "pet club",
+      "Clicks": "4",
+      "Impressions": "21",
+      "CTR": "19.05%",
+      "Position": "4.1"
+    },
+    {
+      "Top queries": "pet club membership",
+      "Clicks": "1",
+      "Impressions": "29",
+      "CTR": "3.45%",
+      "Position": "5.86"
+    },
+    {
+      "Top queries": "pet club insurance",
+      "Clicks": "1",
+      "Impressions": "1",
+      "CTR": "100%",
+      "Position": "3"
+    },
+    {
+      "Top queries": "jj pet club",
+      "Clicks": "0",
+      "Impressions": "44",
+      "CTR": "0%",
+      "Position": "7.91"
+    },
+    {
+      "Top queries": "j&j pet club",
+      "Clicks": "0",
+      "Impressions": "34",
+      "CTR": "0%",
+      "Position": "8.59"
+    },
+    {
+      "Top queries": "pet",
+      "Clicks": "0",
+      "Impressions": "30",
+      "CTR": "0%",
+      "Position": "26.47"
+    },
+    {
+      "Top queries": "dog and pet",
+      "Clicks": "0",
+      "Impressions": "19",
+      "CTR": "0%",
+      "Position": "27.95"
+    },
+    {
+      "Top queries": "animal insurance cost",
+      "Clicks": "0",
+      "Impressions": "18",
+      "CTR": "0%",
+      "Position": "66.17"
+    },
+    {
+      "Top queries": "pet membership",
+      "Clicks": "0",
+      "Impressions": "17",
+      "CTR": "0%",
+      "Position": "44.82"
+    },
+    {
+      "Top queries": "pet insurance british columbia",
+      "Clicks": "0",
+      "Impressions": "15",
+      "CTR": "0%",
+      "Position": "64.87"
+    },
+    {
+      "Top queries": "average cost of pet insurance",
+      "Clicks": "0",
+      "Impressions": "15",
+      "CTR": "0%",
+      "Position": "84.07"
+    },
+    {
+      "Top queries": "emergency vet visit cost canada",
+      "Clicks": "0",
+      "Impressions": "14",
+      "CTR": "0%",
+      "Position": "43"
+    },
+    {
+      "Top queries": "pet shop club",
+      "Clicks": "0",
+      "Impressions": "14",
+      "CTR": "0%",
+      "Position": "64.57"
+    },
+    {
+      "Top queries": "pet medical insurance",
+      "Clicks": "0",
+      "Impressions": "14",
+      "CTR": "0%",
+      "Position": "66.79"
+    },
+    {
+      "Top queries": "pet photos",
+      "Clicks": "0",
+      "Impressions": "13",
+      "CTR": "0%",
+      "Position": "23"
+    },
+    {
+      "Top queries": "food and cat",
+      "Clicks": "0",
+      "Impressions": "13",
+      "CTR": "0%",
+      "Position": "65.23"
+    },
+    {
+      "Top queries": "pet health club canada",
+      "Clicks": "0",
+      "Impressions": "11",
+      "CTR": "0%",
+      "Position": "20.36"
+    },
+    {
+      "Top queries": "pet dog pet",
+      "Clicks": "0",
+      "Impressions": "11",
+      "CTR": "0%",
+      "Position": "37.91"
+    },
+    {
+      "Top queries": "cat insurance",
+      "Clicks": "0",
+      "Impressions": "10",
+      "CTR": "0%",
+      "Position": "29.4"
+    },
+    {
+      "Top queries": "canada pets",
+      "Clicks": "0",
+      "Impressions": "9",
+      "CTR": "0%",
+      "Position": "36.33"
+    },
+    {
+      "Top queries": "petclub",
+      "Clicks": "0",
+      "Impressions": "8",
+      "CTR": "0%",
+      "Position": "7.38"
+    },
+    {
+      "Top queries": "cat insurance canada",
+      "Clicks": "0",
+      "Impressions": "7",
+      "CTR": "0%",
+      "Position": "14.71"
+    },
+    {
+      "Top queries": "pets",
+      "Clicks": "0",
+      "Impressions": "7",
+      "CTR": "0%",
+      "Position": "47.86"
+    },
+    {
+      "Top queries": "pet owners - #petowners",
+      "Clicks": "0",
+      "Impressions": "7",
+      "CTR": "0%",
+      "Position": "78.86"
+    },
+    {
+      "Top queries": "pet insurance prices",
+      "Clicks": "0",
+      "Impressions": "6",
+      "CTR": "0%",
+      "Position": "80.83"
+    },
+    {
+      "Top queries": "pets club",
+      "Clicks": "0",
+      "Impressions": "5",
+      "CTR": "0%",
+      "Position": "4.2"
+    },
+    {
+      "Top queries": "puppy vaccination schedule canada",
+      "Clicks": "0",
+      "Impressions": "5",
+      "CTR": "0%",
+      "Position": "9"
+    },
+    {
+      "Top queries": "12 week puppy",
+      "Clicks": "0",
+      "Impressions": "5",
+      "CTR": "0%",
+      "Position": "27"
+    },
+    {
+      "Top queries": "pet photo album",
+      "Clicks": "0",
+      "Impressions": "5",
+      "CTR": "0%",
+      "Position": "46.2"
+    },
+    {
+      "Top queries": "pet owners",
+      "Clicks": "0",
+      "Impressions": "5",
+      "CTR": "0%",
+      "Position": "77.4"
+    },
+    {
+      "Top queries": "average price of pet insurance",
+      "Clicks": "0",
+      "Impressions": "5",
+      "CTR": "0%",
+      "Position": "80"
+    },
+    {
+      "Top queries": "pet life insurance",
+      "Clicks": "0",
+      "Impressions": "4",
+      "CTR": "0%",
+      "Position": "42.25"
+    },
+    {
+      "Top queries": "food for cat",
+      "Clicks": "0",
+      "Impressions": "4",
+      "CTR": "0%",
+      "Position": "43.75"
+    },
+    {
+      "Top queries": "contact pet health club",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "6.67"
+    },
+    {
+      "Top queries": "club pet",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "7.67"
+    },
+    {
+      "Top queries": "pet health club",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "18.67"
+    },
+    {
+      "Top queries": "12 week old puppy",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "23.33"
+    },
+    {
+      "Top queries": "training pets",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "43.33"
+    },
+    {
+      "Top queries": "pet pictures",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "46.67"
+    },
+    {
+      "Top queries": "blog veterinario petclub",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "58.33"
+    },
+    {
+      "Top queries": "cat nutrition",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "61"
+    },
+    {
+      "Top queries": "cat diet",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "62"
+    },
+    {
+      "Top queries": "pet cat",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "72.67"
+    },
+    {
+      "Top queries": "the pet club",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "1"
+    },
+    {
+      "Top queries": "thepetclub",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "7"
+    },
+    {
+      "Top queries": "j and j pet club",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "8"
+    },
+    {
+      "Top queries": "pet for dog",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "20"
+    },
+    {
+      "Top queries": "pet advice",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "23"
+    },
+    {
+      "Top queries": "pet pics",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "27"
+    },
+    {
+      "Top queries": "how to get pet insurance",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "27.5"
+    },
+    {
+      "Top queries": "food for pet",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "28"
+    },
+    {
+      "Top queries": "food for pets",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "38.5"
+    },
+    {
+      "Top queries": "cat diet food",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "47"
+    },
+    {
+      "Top queries": "pet nutrition",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "48.5"
+    },
+    {
+      "Top queries": "pet insurance quotes",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "53.5"
+    },
+    {
+      "Top queries": "animal insurance for cats",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "62"
+    },
+    {
+      "Top queries": "dental insurance for dogs",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "63.5"
+    },
+    {
+      "Top queries": "pet insurance plan",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "65.5"
+    },
+    {
+      "Top queries": "pet dental cover",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "66"
+    },
+    {
+      "Top queries": "how much is pet insurance in canada",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "70.5"
+    },
+    {
+      "Top queries": "canada cats",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "71.5"
+    },
+    {
+      "Top queries": "cat food diet",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "73.5"
+    },
+    {
+      "Top queries": "friendly pets",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "75"
+    },
+    {
+      "Top queries": "how much is pet insurance canada",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "75"
+    },
+    {
+      "Top queries": "pet insurance in canada",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "77.5"
+    },
+    {
+      "Top queries": "pet insurance dental coverage",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "80"
+    },
+    {
+      "Top queries": "dog insurance cost",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "81.5"
+    },
+    {
+      "Top queries": "pet insurance plans",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "82.5"
+    },
+    {
+      "Top queries": "24-hour vet advice",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "88.5"
+    },
+    {
+      "Top queries": "my pets club",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "2"
+    },
+    {
+      "Top queries": "pet club health",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "2"
+    },
+    {
+      "Top queries": "pet clube",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "2"
+    },
+    {
+      "Top queries": "canadian cat breeds",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "5"
+    },
+    {
+      "Top queries": "petculture",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "7"
+    },
+    {
+      "Top queries": "petlife insurance",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "8"
+    },
+    {
+      "Top queries": "pet health club customer service",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "9"
+    },
+    {
+      "Top queries": "dog health insurance canada",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "16"
+    },
+    {
+      "Top queries": "p e t",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "16"
+    },
+    {
+      "Top queries": "pets photos",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "19"
+    },
+    {
+      "Top queries": "pet insurance burnaby",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "20"
+    },
+    {
+      "Top queries": "insurance pet insurance",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "24"
+    },
+    {
+      "Top queries": "pet culture canada",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "26"
+    },
+    {
+      "Top queries": "the spruce pets",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "26"
+    },
+    {
+      "Top queries": "12 weeks old dog",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "27"
+    },
+    {
+      "Top queries": "puppy 12 weeks",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "27"
+    },
+    {
+      "Top queries": "pet dog",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "30"
+    },
+    {
+      "Top queries": "the pet",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "31"
+    },
+    {
+      "Top queries": "\"pets\" blog",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "32"
+    },
+    {
+      "Top queries": "pet owner",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "32"
+    },
+    {
+      "Top queries": "veterinary food for cats",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "33"
+    },
+    {
+      "Top queries": "puppy vet in burnaby",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "34"
+    },
+    {
+      "Top queries": "ckc pet insurance",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "36"
+    },
+    {
+      "Top queries": "kitty litter for dogs",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "38"
+    },
+    {
+      "Top queries": "cat nutrition food",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "39"
+    },
+    {
+      "Top queries": "food for cats",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "39"
+    },
+    {
+      "Top queries": "pet dogs",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "39"
+    },
+    {
+      "Top queries": "all about pets",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "40"
+    },
+    {
+      "Top queries": "dogfood",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "41"
+    },
+    {
+      "Top queries": "food diet for dogs",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "42"
+    },
+    {
+      "Top queries": "how many cats can you have",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "43"
+    },
+    {
+      "Top queries": "cat food nutrition",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "46"
+    },
+    {
+      "Top queries": "pets cats",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "46"
+    },
+    {
+      "Top queries": "cat health insurance canada",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "47"
+    },
+    {
+      "Top queries": "exotic pet insurance",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "47"
+    },
+    {
+      "Top queries": "pet health",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "47"
+    },
+    {
+      "Top queries": "diet food for cats",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "49"
+    },
+    {
+      "Top queries": "vet dog food",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "49"
+    },
+    {
+      "Top queries": "cat health insurance",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "51"
+    },
+    {
+      "Top queries": "dog feeding",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "52"
+    },
+    {
+      "Top queries": "dog life insurance",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "53"
+    },
+    {
+      "Top queries": "cats diet",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "54"
+    },
+    {
+      "Top queries": "pet kitten",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "55"
+    },
+    {
+      "Top queries": "pet photo book",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "55"
+    },
+    {
+      "Top queries": "cat nutrition and diet",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "56"
+    },
+    {
+      "Top queries": "feline diet",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "56"
+    },
+    {
+      "Top queries": "cat diets",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "60"
+    },
+    {
+      "Top queries": "dog diet",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "60"
+    },
+    {
+      "Top queries": "spca neutering",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "61"
+    },
+    {
+      "Top queries": "pet insurance for renting",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "64"
+    },
+    {
+      "Top queries": "animal health insurance",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "66"
+    },
+    {
+      "Top queries": "meal replacement for cats",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "68"
+    },
+    {
+      "Top queries": "diet dog",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "69"
+    },
+    {
+      "Top queries": "how much is cat insurance canada",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "69"
+    },
+    {
+      "Top queries": "pet cats",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "71"
+    },
+    {
+      "Top queries": "pet health insurance",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "71"
+    },
+    {
+      "Top queries": "petdog",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "73"
+    },
+    {
+      "Top queries": "house cat diet",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "75"
+    },
+    {
+      "Top queries": "pet insurance cost",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "76"
+    },
+    {
+      "Top queries": "pet insurance price",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "80"
+    },
+    {
+      "Top queries": "cost to spay a dog",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "81"
+    },
+    {
+      "Top queries": "typical pet insurance cost",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "83"
+    },
+    {
+      "Top queries": "dog neutering cost",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "86"
+    },
+    {
+      "Top queries": "pet ownership",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "86"
+    },
+    {
+      "Top queries": "cheap pet insurance",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "88"
+    },
+    {
+      "Top queries": "neutering dog",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "92"
+    },
+    {
+      "Top queries": "a pet insurance",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "94"
+    },
+    {
+      "Top queries": "cat in canada",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "94"
+    },
+    {
+      "Top queries": "dental care cat",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "94"
+    },
+    {
+      "Top queries": "dog neuter surgery",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "94"
+    },
+    {
+      "Top queries": "cat care",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "95"
+    },
+    {
+      "Top queries": "cat dental care",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "98"
+    },
+    {
+      "Top queries": "puppy socialization",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "98"
+    }
+  ],
+  "pages": [
+    {
+      "Top pages": "https://thepetclub.ca/",
+      "Clicks": "5",
+      "Impressions": "247",
+      "CTR": "2.02%",
+      "Position": "16.63"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/guides/pet-licensing-across-canada",
+      "Clicks": "1",
+      "Impressions": "205",
+      "CTR": "0.49%",
+      "Position": "8.39"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/about",
+      "Clicks": "1",
+      "Impressions": "72",
+      "CTR": "1.39%",
+      "Position": "22.9"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/guides/spaying-and-neutering-in-canada",
+      "Clicks": "1",
+      "Impressions": "59",
+      "CTR": "1.69%",
+      "Position": "13.93"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/community/pet-insurance",
+      "Clicks": "0",
+      "Impressions": "80",
+      "CTR": "0%",
+      "Position": "48.8"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/community/vet-costs",
+      "Clicks": "0",
+      "Impressions": "56",
+      "CTR": "0%",
+      "Position": "74.61"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/community/cat-food-and-nutrition",
+      "Clicks": "0",
+      "Impressions": "39",
+      "CTR": "0%",
+      "Position": "56.82"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/food",
+      "Clicks": "0",
+      "Impressions": "32",
+      "CTR": "0%",
+      "Position": "18.44"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/contact",
+      "Clicks": "0",
+      "Impressions": "31",
+      "CTR": "0%",
+      "Position": "59.26"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/community/pet-photos",
+      "Clicks": "0",
+      "Impressions": "26",
+      "CTR": "0%",
+      "Position": "30.96"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/community",
+      "Clicks": "0",
+      "Impressions": "24",
+      "CTR": "0%",
+      "Position": "73.54"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/guides/emergency-vet-visits-in-canada",
+      "Clicks": "0",
+      "Impressions": "19",
+      "CTR": "0%",
+      "Position": "42.37"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/puppy/12-weeks",
+      "Clicks": "0",
+      "Impressions": "15",
+      "CTR": "0%",
+      "Position": "22.73"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/guides/reading-a-canadian-pet-food-label",
+      "Clicks": "0",
+      "Impressions": "13",
+      "CTR": "0%",
+      "Position": "7.38"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/health",
+      "Clicks": "0",
+      "Impressions": "11",
+      "CTR": "0%",
+      "Position": "13.82"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/cats",
+      "Clicks": "0",
+      "Impressions": "11",
+      "CTR": "0%",
+      "Position": "66.18"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/community/canadian-pet-products",
+      "Clicks": "0",
+      "Impressions": "9",
+      "CTR": "0%",
+      "Position": "32.89"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/guides/dental-care-for-dogs-and-cats",
+      "Clicks": "0",
+      "Impressions": "9",
+      "CTR": "0%",
+      "Position": "68.44"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/guides/winter-dog-care-in-canada",
+      "Clicks": "0",
+      "Impressions": "7",
+      "CTR": "0%",
+      "Position": "5.29"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/guides/finding-a-veterinarian-in-canada",
+      "Clicks": "0",
+      "Impressions": "6",
+      "CTR": "0%",
+      "Position": "6.33"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/guides/puppy-socialisation-checklist",
+      "Clicks": "0",
+      "Impressions": "6",
+      "CTR": "0%",
+      "Position": "20.83"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/community/dog-food-and-nutrition",
+      "Clicks": "0",
+      "Impressions": "6",
+      "CTR": "0%",
+      "Position": "47.17"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/community/introduce-yourself",
+      "Clicks": "0",
+      "Impressions": "6",
+      "CTR": "0%",
+      "Position": "54.67"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/guides/parasite-prevention-for-pets-in-canada",
+      "Clicks": "0",
+      "Impressions": "5",
+      "CTR": "0%",
+      "Position": "8.2"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/training",
+      "Clicks": "0",
+      "Impressions": "5",
+      "CTR": "0%",
+      "Position": "42.6"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/guides/loose-leash-walking-and-recall",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "3.33"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/guides/bringing-home-a-puppy-first-30-days",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "11.67"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/community-guidelines",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "20.67"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/community/pet-friendly-canada",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "23.33"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/community/dog-breeds",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "32.5"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/community/cat-breeds",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "5"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/dogs",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "5"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/puppy",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "8"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/editorial-policy",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "10"
+    },
+    {
+      "Top pages": "https://thepetclub.ca/advertising-disclosure",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "21"
+    }
+  ],
+  "countries": [
+    {
+      "Country": "Canada",
+      "Clicks": "8",
+      "Impressions": "846",
+      "CTR": "0.95%",
+      "Position": "27.67"
+    },
+    {
+      "Country": "United States",
+      "Clicks": "0",
+      "Impressions": "65",
+      "CTR": "0%",
+      "Position": "19.37"
+    },
+    {
+      "Country": "United Kingdom",
+      "Clicks": "0",
+      "Impressions": "15",
+      "CTR": "0%",
+      "Position": "35"
+    },
+    {
+      "Country": "India",
+      "Clicks": "0",
+      "Impressions": "8",
+      "CTR": "0%",
+      "Position": "124.38"
+    },
+    {
+      "Country": "Germany",
+      "Clicks": "0",
+      "Impressions": "4",
+      "CTR": "0%",
+      "Position": "17.5"
+    },
+    {
+      "Country": "Panama",
+      "Clicks": "0",
+      "Impressions": "4",
+      "CTR": "0%",
+      "Position": "45"
+    },
+    {
+      "Country": "Pakistan",
+      "Clicks": "0",
+      "Impressions": "3",
+      "CTR": "0%",
+      "Position": "3"
+    },
+    {
+      "Country": "Poland",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "5.5"
+    },
+    {
+      "Country": "United Arab Emirates",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "6.5"
+    },
+    {
+      "Country": "South Africa",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "10"
+    },
+    {
+      "Country": "Australia",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "29.5"
+    },
+    {
+      "Country": "Netherlands",
+      "Clicks": "0",
+      "Impressions": "2",
+      "CTR": "0%",
+      "Position": "59"
+    },
+    {
+      "Country": "Russia",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "1"
+    },
+    {
+      "Country": "Japan",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "2"
+    },
+    {
+      "Country": "Philippines",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "2"
+    },
+    {
+      "Country": "Bangladesh",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "4"
+    },
+    {
+      "Country": "Brazil",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "4"
+    },
+    {
+      "Country": "Sri Lanka",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "4"
+    },
+    {
+      "Country": "Sweden",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "5"
+    },
+    {
+      "Country": "Turkey",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "5"
+    },
+    {
+      "Country": "Cook Islands",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "6"
+    },
+    {
+      "Country": "Italy",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "6"
+    },
+    {
+      "Country": "Jamaica",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "6"
+    },
+    {
+      "Country": "France",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "7"
+    },
+    {
+      "Country": "Egypt",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "9"
+    },
+    {
+      "Country": "Mexico",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "9"
+    },
+    {
+      "Country": "Trinidad & Tobago",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "9"
+    },
+    {
+      "Country": "Hong Kong",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "10"
+    },
+    {
+      "Country": "Thailand",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "11"
+    },
+    {
+      "Country": "Guam",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "18"
+    },
+    {
+      "Country": "Nicaragua",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "33"
+    },
+    {
+      "Country": "Iraq",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "34"
+    },
+    {
+      "Country": "China",
+      "Clicks": "0",
+      "Impressions": "1",
+      "CTR": "0%",
+      "Position": "172"
+    }
+  ],
+  "devices": [
+    {
+      "Device": "Mobile",
+      "Clicks": "6",
+      "Impressions": "456",
+      "CTR": "1.32%",
+      "Position": "17.97"
+    },
+    {
+      "Device": "Desktop",
+      "Clicks": "2",
+      "Impressions": "501",
+      "CTR": "0.4%",
+      "Position": "36.5"
+    },
+    {
+      "Device": "Tablet",
+      "Clicks": "0",
+      "Impressions": "19",
+      "CTR": "0%",
+      "Position": "28.63"
+    }
+  ],
+  "daily": [
+    {
+      "Date": "2026-09-06",
+      "Clicks": "0",
+      "Impressions": "0",
+      "CTR": "",
+      "Position": ""
+    },
+    {
+      "Date": "2026-09-07",
+      "Clicks": "0",
+      "Impressions": "7",
+      "CTR": "0%",
+      "Position": "13.6"
+    },
+    {
+      "Date": "2026-09-08",
+      "Clicks": "1",
+      "Impressions": "38",
+      "CTR": "2.63%",
+      "Position": "32.2"
+    },
+    {
+      "Date": "2026-09-09",
+      "Clicks": "0",
+      "Impressions": "47",
+      "CTR": "0%",
+      "Position": "43.7"
+    },
+    {
+      "Date": "2026-09-10",
+      "Clicks": "0",
+      "Impressions": "28",
+      "CTR": "0%",
+      "Position": "27.9"
+    },
+    {
+      "Date": "2026-09-11",
+      "Clicks": "0",
+      "Impressions": "31",
+      "CTR": "0%",
+      "Position": "48.4"
+    },
+    {
+      "Date": "2026-09-12",
+      "Clicks": "0",
+      "Impressions": "41",
+      "CTR": "0%",
+      "Position": "52.9"
+    },
+    {
+      "Date": "2026-09-13",
+      "Clicks": "1",
+      "Impressions": "50",
+      "CTR": "2%",
+      "Position": "48.6"
+    },
+    {
+      "Date": "2026-09-14",
+      "Clicks": "1",
+      "Impressions": "24",
+      "CTR": "4.17%",
+      "Position": "43.5"
+    },
+    {
+      "Date": "2026-09-15",
+      "Clicks": "0",
+      "Impressions": "24",
+      "CTR": "0%",
+      "Position": "46.9"
+    },
+    {
+      "Date": "2026-09-16",
+      "Clicks": "0",
+      "Impressions": "33",
+      "CTR": "0%",
+      "Position": "49.4"
+    },
+    {
+      "Date": "2026-09-17",
+      "Clicks": "2",
+      "Impressions": "33",
+      "CTR": "6.06%",
+      "Position": "25.9"
+    },
+    {
+      "Date": "2026-09-18",
+      "Clicks": "0",
+      "Impressions": "35",
+      "CTR": "0%",
+      "Position": "25.1"
+    },
+    {
+      "Date": "2026-09-19",
+      "Clicks": "0",
+      "Impressions": "35",
+      "CTR": "0%",
+      "Position": "17.5"
+    },
+    {
+      "Date": "2026-09-20",
+      "Clicks": "0",
+      "Impressions": "37",
+      "CTR": "0%",
+      "Position": "17.4"
+    },
+    {
+      "Date": "2026-09-21",
+      "Clicks": "0",
+      "Impressions": "38",
+      "CTR": "0%",
+      "Position": "20.7"
+    },
+    {
+      "Date": "2026-09-22",
+      "Clicks": "0",
+      "Impressions": "33",
+      "CTR": "0%",
+      "Position": "19.3"
+    },
+    {
+      "Date": "2026-09-23",
+      "Clicks": "1",
+      "Impressions": "32",
+      "CTR": "3.12%",
+      "Position": "26.6"
+    },
+    {
+      "Date": "2026-09-24",
+      "Clicks": "0",
+      "Impressions": "26",
+      "CTR": "0%",
+      "Position": "9.1"
+    },
+    {
+      "Date": "2026-09-25",
+      "Clicks": "1",
+      "Impressions": "34",
+      "CTR": "2.94%",
+      "Position": "27.1"
+    },
+    {
+      "Date": "2026-09-26",
+      "Clicks": "0",
+      "Impressions": "22",
+      "CTR": "0%",
+      "Position": "9.9"
+    },
+    {
+      "Date": "2026-09-27",
+      "Clicks": "0",
+      "Impressions": "23",
+      "CTR": "0%",
+      "Position": "14.2"
+    },
+    {
+      "Date": "2026-09-28",
+      "Clicks": "0",
+      "Impressions": "32",
+      "CTR": "0%",
+      "Position": "17.2"
+    },
+    {
+      "Date": "2026-09-29",
+      "Clicks": "0",
+      "Impressions": "30",
+      "CTR": "0%",
+      "Position": "17.4"
+    },
+    {
+      "Date": "2026-09-30",
+      "Clicks": "0",
+      "Impressions": "40",
+      "CTR": "0%",
+      "Position": "16.6"
+    },
+    {
+      "Date": "2026-10-01",
+      "Clicks": "0",
+      "Impressions": "27",
+      "CTR": "0%",
+      "Position": "15.2"
+    },
+    {
+      "Date": "2026-10-02",
+      "Clicks": "0",
+      "Impressions": "39",
+      "CTR": "0%",
+      "Position": "12.1"
+    },
+    {
+      "Date": "2026-10-03",
+      "Clicks": "0",
+      "Impressions": "32",
+      "CTR": "0%",
+      "Position": "16.8"
+    },
+    {
+      "Date": "2026-10-04",
+      "Clicks": "0",
+      "Impressions": "34",
+      "CTR": "0%",
+      "Position": "22.9"
+    },
+    {
+      "Date": "2026-10-05",
+      "Clicks": "0",
+      "Impressions": "34",
+      "CTR": "0%",
+      "Position": "38.2"
+    },
+    {
+      "Date": "2026-10-06",
+      "Clicks": "1",
+      "Impressions": "37",
+      "CTR": "2.7%",
+      "Position": "21.1"
+    }
+  ]
+}

@@ -49,3 +49,6 @@ next-env.d.ts
 
 # local agent/editor settings
 .claude/settings.local.json
+
+# Python audit script cache
+__pycache__/

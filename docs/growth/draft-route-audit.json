@@ -1,0 +1,925 @@
+[
+  {
+    "url": "https://thepetclub.ca/guides/indoor-or-outdoor-cats-in-canada",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/indoor-or-outdoor-cats-in-canada",
+    "title": "Indoor, Outdoor, or In Between: How Cats Live in Canada | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/indoor-or-outdoor-cats-in-canada"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "The Canadian risks that actually matter, what an indoor cat needs in return, and the middle options most well-run households land on."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/cat-behaviour",
+      "/community/cat-health",
+      "/community/general-cat-discussion",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/renting-with-a-pet-in-canada",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/renting-with-a-pet-in-canada",
+    "title": "Renting With a Pet in Canada | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/renting-with-a-pet-in-canada"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "Tenancy law is provincial, and a \u201cno pets\u201d clause that is unenforceable in one province binds in another. What to establish, and how to be the easy yes."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/canadian-pet-products",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/cost-of-owning-a-dog-in-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/bringing-home-a-kitten-first-30-days",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/bringing-home-a-kitten-first-30-days",
+    "title": "Bringing Home a Kitten: The First 30 Days | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/bringing-home-a-kitten-first-30-days"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "One room to start, two litter boxes, a carrier left out permanently, and never playing with your hands \u2014 the first month with a kitten, in order."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/cat-behaviour",
+      "/community/general-cat-discussion",
+      "/community/introduce-yourself",
+      "/community/kittens",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/parasite-prevention-for-pets-in-canada",
+      "/guides/reading-a-canadian-pet-food-label",
+      "/guides/spaying-and-neutering-in-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/kitten-vaccination-schedule-in-canada",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/kitten-vaccination-schedule-in-canada",
+    "title": "Kitten Vaccination Schedule in Canada | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/kitten-vaccination-schedule-in-canada"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "What FVRCP and rabies cover, why a kitten needs a series rather than one shot, and a straight answer on vaccinating an indoor-only cat."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/cat-health",
+      "/community/introduce-yourself",
+      "/community/kittens",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/puppy-vaccination-schedule-in-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/indoor-cat-enrichment-canadian-homes",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/indoor-cat-enrichment-canadian-homes",
+    "title": "Indoor Cat Enrichment in Canadian Homes | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/indoor-cat-enrichment-canadian-homes"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "The five things a cat needs to be able to do indoors, how to supply each in a Canadian home, and a ten-minute weekly rotation that keeps it working."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/cat-behaviour",
+      "/community/general-cat-discussion",
+      "/community/introduce-yourself",
+      "/community/kittens",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/cost-of-owning-a-cat-in-canada",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/cost-of-owning-a-cat-in-canada",
+    "title": "How Much Does It Cost to Own a Cat in Canada? | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/cost-of-owning-a-cat-in-canada"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "The cost categories of owning a cat in Canada, the two lines nobody models \u2014 litter and the second cat \u2014 and an hour-long method for your own figure."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/cat-food-and-nutrition",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/cost-of-owning-a-dog-in-canada",
+      "/guides/dental-care-for-dogs-and-cats",
+      "/guides/reading-a-canadian-pet-food-label",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/pet-insurance-in-canada",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/pet-insurance-in-canada",
+    "title": "Pet Insurance in Canada: What It Covers and What It Doesn\u2019t | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/pet-insurance-in-canada"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "What accident, illness and wellness cover actually do, the four numbers that settle a claim, and why a policy\u2019s exclusions matter more than its monthly price."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/bringing-home-a-puppy-first-30-days",
+      "/guides/cost-of-owning-a-dog-in-canada",
+      "/guides/emergency-vet-visits-in-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/travelling-with-a-pet-in-canada",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/travelling-with-a-pet-in-canada",
+    "title": "Travelling With a Pet in Canada | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/travelling-with-a-pet-in-canada"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "Domestic travel with a dog or cat: identification, restraint in the car, lodging policies in writing, and finding a vet at the other end before you need one."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/travelling-with-pets",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/emergency-vet-visits-in-canada",
+      "/guides/winter-dog-care-in-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/adopting-a-pet-in-canada",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/adopting-a-pet-in-canada",
+    "title": "Adopting a Dog or Cat in Canada | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/adopting-a-pet-in-canada"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "What shelters, rescues and breeders each owe you, the questions the CFIA says to ask, and the 2022 import rule that covers rescue and fostering."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/general-cat-discussion",
+      "/community/general-dog-discussion",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/bringing-home-a-puppy-first-30-days",
+      "/guides/cost-of-owning-a-dog-in-canada",
+      "/guides/finding-a-veterinarian-in-canada",
+      "/guides/pet-licensing-across-canada",
+      "/guides/spaying-and-neutering-in-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/separation-anxiety-in-dogs",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/separation-anxiety-in-dogs",
+    "title": "Separation Anxiety in Dogs: Telling It Apart and Treating It | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/separation-anxiety-in-dogs"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "How to tell distress from protest, the graduated departure protocol that has evidence behind it, and why plans with too many instructions fail."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/dog-health",
+      "/community/dog-training-and-behaviour",
+      "/community/general-dog-discussion",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/bringing-home-a-puppy-first-30-days",
+      "/guides/crate-training-a-puppy-in-canada",
+      "/guides/finding-a-veterinarian-in-canada",
+      "/guides/puppy-socialisation-checklist",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/introducing-a-second-cat",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/introducing-a-second-cat",
+    "title": "Introducing a Second Cat, or a Cat and a Dog | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/introducing-a-second-cat"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "A staged introduction for a second cat \u2014 scent before sight \u2014 plus the silent signs of conflict owners miss, and how cat-and-dog differs."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/cat-behaviour",
+      "/community/general-cat-discussion",
+      "/community/introduce-yourself",
+      "/community/kittens",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/when-a-pet-goes-missing-in-canada",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/when-a-pet-goes-missing-in-canada",
+    "title": "When a Pet Goes Missing in Canada | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/when-a-pet-goes-missing-in-canada"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "What to do in the first hour, why a lost cat is hiding within a few houses, and the microchip limitation the CVMA is explicit about."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/general-cat-discussion",
+      "/community/general-dog-discussion",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/pet-licensing-across-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/senior-dogs-and-cats",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/senior-dogs-and-cats",
+    "title": "Caring for a Senior Dog or Cat | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/senior-dogs-and-cats"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "Senior is the last quarter of expected lifespan \u2014 seven for a large dog, ten for a cat. What changes, what it might really be, and what to change at home."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/cat-health",
+      "/community/dog-health",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/cost-of-owning-a-dog-in-canada",
+      "/guides/dental-care-for-dogs-and-cats",
+      "/guides/emergency-vet-visits-in-canada",
+      "/guides/winter-dog-care-in-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/moving-provinces-with-a-pet",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/moving-provinces-with-a-pet",
+    "title": "Moving to Another Province With a Pet | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/moving-provinces-with-a-pet"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "Rabies law, tenancy law and municipal licensing all change when you move province. What to check, in what order, and the ten minutes that matters most."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/provincial-questions",
+      "/community/travelling-with-pets",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/finding-a-veterinarian-in-canada",
+      "/guides/pet-licensing-across-canada",
+      "/guides/puppy-vaccination-schedule-in-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/pet-emergency-preparedness-canada",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/pet-emergency-preparedness-canada",
+    "title": "Pets, Wildfires and Evacuation: Emergency Preparedness in Canada | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/pet-emergency-preparedness-canada"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "Most evacuation shelters accept only service animals. How to plan where a pet goes, and the 72-hour kit \u2014 including the water volumes nobody expects."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/general-cat-discussion",
+      "/community/general-dog-discussion",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/emergency-vet-visits-in-canada",
+      "/guides/summer-heat-safety-for-dogs-in-canada",
+      "/guides/winter-dog-care-in-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/end-of-life-care-for-pets",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/end-of-life-care-for-pets",
+    "title": "End-of-Life Care, and Knowing When It Is Time | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/end-of-life-care-for-pets"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "How quality of life is actually assessed, what euthanasia involves, and the practical decisions worth making in a quiet week rather than a hard one."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/cat-health",
+      "/community/dog-health",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/cost-of-owning-a-dog-in-canada",
+      "/guides/finding-a-veterinarian-in-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/litter-box-problems-in-cats",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/litter-box-problems-in-cats",
+    "title": "Litter Box Problems in Cats | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/litter-box-problems-in-cats"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "Why medical causes come first, how to tell toileting from marking, and the litter box audit that resolves most cases."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/cat-behaviour",
+      "/community/cat-health",
+      "/community/general-cat-discussion",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/cat-urinary-blockage-flutd",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/cat-urinary-blockage-flutd",
+    "title": "Urinary Blockage and FLUTD in Cats | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/cat-urinary-blockage-flutd"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "Straining with little or no urine is an emergency. What FLUTD covers, which cats are at higher risk, and how the signs are triaged."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/cat-health",
+      "/community/general-cat-discussion",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/emergency-vet-visits-in-canada",
+      "/guides/finding-a-veterinarian-in-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/what-veterinary-care-costs-in-canada",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/what-veterinary-care-costs-in-canada",
+    "title": "What Veterinary Care Actually Costs in Canada | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/what-veterinary-care-costs-in-canada"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "Why no Canadian authority publishes veterinary prices, how a bill is structured line by line, and how to get a real figure for your own city."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/provincial-questions",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/cost-of-owning-a-dog-in-canada",
+      "/guides/dental-care-for-dogs-and-cats",
+      "/guides/emergency-vet-visits-in-canada",
+      "/guides/pet-licensing-across-canada",
+      "/guides/spaying-and-neutering-in-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  },
+  {
+    "url": "https://thepetclub.ca/guides/arthritis-and-mobility-in-dogs-and-cats",
+    "status": 200,
+    "final_url": "https://thepetclub.ca/guides/arthritis-and-mobility-in-dogs-and-cats",
+    "title": "Arthritis and Mobility in Dogs and Cats | The Pet Club",
+    "h1": 1,
+    "canonical": [
+      "https://thepetclub.ca/guides/arthritis-and-mobility-in-dogs-and-cats"
+    ],
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "description": [
+      "The signs of joint pain in dogs and cats, why cats rarely limp, what multimodal treatment means, and the home changes that matter most."
+    ],
+    "schemas": 3,
+    "links": [
+      "/",
+      "/about",
+      "/advertising-disclosure",
+      "/cats",
+      "/community",
+      "/community-guidelines",
+      "/community/cat-health",
+      "/community/dog-health",
+      "/community/introduce-yourself",
+      "/community/pet-friendly-canada",
+      "/community/pet-insurance",
+      "/community/pet-photos",
+      "/community/vet-costs",
+      "/contact",
+      "/dogs",
+      "/editorial-policy",
+      "/food",
+      "/guides",
+      "/guides/winter-dog-care-in-canada",
+      "/health",
+      "/lost-found",
+      "/privacy-policy",
+      "/search",
+      "/terms-of-use",
+      "/training"
+    ],
+    "analytics_tags": false
+  }
+]
