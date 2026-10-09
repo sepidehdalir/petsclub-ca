@@ -32,3 +32,7 @@ Refresh using direct GSC export weekly when authorized. Keep the source report d
 ## Indexing follow-up — October 9
 
 The dog-cost guide's live inspection passed (“Page can be indexed”) and a request for indexing was accepted. It was not indexed in the inspection snapshot; do not increment the indexed-page count until a later Google report confirms it.
+
+### Subsequent URL inspection — October 9
+
+Direct GSC URL inspection now confirms **URL is on Google / Page is indexed** for the dog-cost guide. Last crawl: October 9, 2026, 11:46:49 AM in the displayed local timezone, Googlebot smartphone, fetch successful, crawling/indexing allowed. Google-selected canonical is the inspected URL. The aggregate report still shows 39 indexed pages; do not add one mechanically. Temporal association with the prior request does not establish causation or a traffic gain.
