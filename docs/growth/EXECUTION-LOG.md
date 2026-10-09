@@ -36,3 +36,11 @@ See SEARCH-BASELINE.md and search-baseline.json. Authenticated browser access an
 ### Local validation
 
 Patched dependency run completed: lint passed, typecheck passed, 484 tests in 13 files passed, Next.js 16.3.8 production build generated 99/99 pages. Code review confirmed serializable client props, ordinary anchor fallback, bounded event payload, no collector/storage, and per-card example disclosure. One final CSS radius token correction is included in the committed head and will be checked by CI.
+
+### First commit and preview evidence
+
+Commit 190b9c6679e320d195edc50aead54211ab976ba6 pushed; PR #16 created. Exact-head CI and Desktop/mobile Browser QA passed (runs 37974854292 and 37974854271). Preview dpl_EZo619vZS6cuJ6joafTySqbM1kP6 READY at https://petsclub-91lvrd0v0-celinadalir-stacks-projects.vercel.app.
+
+Authenticated browser preview check: correct example labels, no fictional reply/time strings, 390px viewport and 390px document width; local mobile menu opens and Escape closes it. Preview canonical points to https://thepetclub.ca. Authenticated HTTP fetch returns 200; preview has X-Robots-Tag: noindex. Preview robots inherits production origin and allows crawling; exclusion is supplied by the Vercel header, not Disallow / on this build. No project protection setting disabled. CLI authenticated fetch generated its supported project bypass credential without printing its value.
+
+Browser review found category description strings still telling users to post missing-pet reports. They were corrected in the taxonomy as a final follow-up. Lint, types and 484 tests passed again; final commit/preview CI must pass before merge.

@@ -176,17 +176,17 @@ export const communityTaxonomy: readonly CommunityCategoryGroup[] = [
       {
         slug: "lost-dogs",
         name: "Lost Dogs",
-        description: "Post a missing dog with the details that help neighbours recognise them.",
+        description: "Planned missing-dog category. Reports and posting are not available yet.",
       },
       {
         slug: "lost-cats",
         name: "Lost Cats",
-        description: "Post a missing cat and coordinate local search efforts.",
+        description: "Planned missing-cat category. Reports and posting are not available yet.",
       },
       {
         slug: "found-pets",
         name: "Found Pets",
-        description: "Found a pet? Post here to help reunite them with their family.",
+        description: "Planned found-pet category. Reports and posting are not available yet.",
       },
     ],
   },
