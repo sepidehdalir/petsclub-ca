@@ -54,3 +54,9 @@ Production deployment dpl_26saN5WX2TnLKjpozXjfnPnJb4Dt became READY and thepetcl
 GSC live URL test for https://thepetclub.ca/guides/cost-of-owning-a-dog-in-canada on Oct 9 at 11:45 AM reported available to Google, page can be indexed, and one valid Breadcrumbs item. Request indexing returned “Indexing requested” and accepted the URL into the priority crawl queue. It was not yet indexed in inspection; this action is not indexing confirmation. Screenshot evidence retained locally outside the repository.
 
 Next dependencies: correct GA4 property identifier/access, accepted affiliate account and approved real link, and factual/editorial review before publishing any of the 20 pending guides. There is still no stored affiliate analytics or demonstrated revenue. Five development lint-chain advisories remain; runtime audit has zero reported vulnerabilities.
+
+### Continuation: insurance evidence and indexing — October 9
+
+Reconciled main into existing draft PR #13 and prepared corrected insurance body, takeaways, source register and open publication requirements. Current primary/provider documents reviewed for six providers and official complaints sources. New review in docs/seo/pet-insurance-review-2026-10-09.md; previous September evidence remains historical. No publication-state change, ranking, partner activation or production release in this continuation.
+
+Direct authenticated GSC inspection now shows dog-cost guide indexed, smartphone crawl October 9 at 11:46:49 AM, successful fetch and matching selected canonical. Aggregate indexed report remains 39. No repeated indexing request; no attribution of causation or traffic increase. GA4 identifier/access remains unresolved, and no unrelated property data is used.

@@ -45,3 +45,7 @@ Search Console context: the owner-supplied official export (data through 2026-09
 - Obtain the current province-appropriate sample policy/coverage guide for each provider selected for the comparison.
 - Build a normalized table for: accident wait, illness wait, orthopaedic wait, deductible type, reimbursement options, annual/per-condition/lifetime limits, exam fees, dental illness/injury, hereditary/congenital, behavioural care, prescription food, rehab/alternative therapy, direct-pay capability, curable-condition reconsideration, enrollment-age rules, and province availability.
 - Treat pricing as a separate quote study with a fixed pet profile and location; do not mix carrier marketing averages into the coverage table.
+
+## Superseding review — 2026-10-09
+
+See pet-insurance-review-2026-10-09.md for the current evidence pass and revised educational draft. The September matrix is historical research, not current publication approval.

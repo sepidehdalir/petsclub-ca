@@ -1086,10 +1086,10 @@ export const articles: readonly Article[] = [
     status: "in-review",
     veterinaryNotice: true,
     keyTakeaways: [
-      "Buy insurance for the catastrophe, not the routine — a wellness add-on is a payment plan for costs you can already predict.",
+      "Separate unexpected-care cover from routine-care benefits; compare wellness limits and cost, and check whether it is an insurance endorsement.",
       "A claim is settled by four values: the deductible and how it resets, the reimbursement rate, every limit, and which line items are eligible at all.",
-      "Pre-existing does not require a diagnosis. A symptom noted in a file can make a related condition ineligible years later.",
-      "Waiting periods differ by condition type and are where cover is most often lost. Find them in the wording and diary the dates.",
+      "Pre-existing definitions can include signs or symptoms before diagnosis; any reconsideration of a resolved condition depends on the policy.",
+      "Waiting periods differ by policy and condition type. Find them in the wording and note when each type of cover begins.",
       "Compare the policy documents, not the quotes. Two identical-looking premiums can differ by an entire category of disease.",
     ],
     relatedSlugs: [
@@ -1106,12 +1106,42 @@ export const articles: readonly Article[] = [
       {
         label: "How to resolve a property and other insurance complaint, and the escalation path",
         publisher: "Financial Services Regulatory Authority of Ontario",
-        url: "https://www.fsrao.ca/consumers/property-and-other-insurance/how-resolve-property-and-other-insurance-complaint",
+        url: "https://www.fsrao.ca/submit-complaint-fsra",
       },
       {
         label: "Dispute resolution — how a general insurance complaint escalates",
         publisher: "Insurance Bureau of Canada",
         url: "https://www.ibc.ca/insurance-basics/how-insurance-works/dispute-resolution",
+      },
+      {
+        label: "Canadian deductible structure and province-specific product caveats",
+        publisher: "Trupanion Canada",
+        url: "https://www.trupanion.com/en-ca/pet-insurance-faq/article/deductibles",
+      },
+      {
+        label: "Claim calculation and coverage of earlier-year conditions at renewal — printed pages 9–10",
+        publisher: "PHI Direct",
+        url: "https://www.phidirect.com/hubfs/PHI-Direct-Documents/PHI-CA-Policy-Document-Online.pdf?hsLang=en-ca",
+      },
+      {
+        label: "Canada sample plans — annual deductible, calculation order and temporary exclusions",
+        publisher: "Spot Pet Insurance Canada",
+        url: "https://spotpetinsurance.ca/spot-sample-policy-ca.pdf",
+      },
+      {
+        label: "Accident and illness terms — claim calculation and pre-existing conditions",
+        publisher: "Pets Plus Us",
+        url: "https://www.petsplusus.com/sites/default/files/2026-03/AI%20TNC%20ENG%2011-2025.pdf",
+      },
+      {
+        label: "Free subscriber-insurer complaint review, final position letter and non-binding recommendations",
+        publisher: "General Insurance OmbudService",
+        url: "https://giocanada.org/how-the-process-works/",
+      },
+      {
+        label: "Canadian policy terms and wellness endorsement structure",
+        publisher: "Fetch Pet Insurance Canada",
+        url: "https://www.fetchpet.com/canada/terms-conditions",
       },
     ],
     resources: [
@@ -1127,13 +1157,10 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "Whether every consumer pet policy sold in Canada excludes pre-existing conditions, or whether any insurer offers a route back for a resolved condition — stated as a general rule with a conditional exception; confirm against several current policy wordings before it is any firmer.",
-      "That reimbursement is typically calculated after the deductible rather than before — the article deliberately tells the reader to check which, rather than asserting one. Confirm the market norm before naming it.",
-      "Whether direct payment to a clinic exists in the Canadian market at all, and with which insurers — currently described as “not universal” and dependent on the clinic agreeing.",
-      "That premiums commonly rise with an animal’s age, and whether an insurer may add an exclusion at renewal for a condition already claimed on. Both are described as questions to ask, not as facts.",
-      "That insurers routinely request the full veterinary history when a significant claim is made. Sourced from nothing yet; confirm or soften.",
-      "The exclusion categories list (breeding, elective procedures, preventable disease where vaccination lapsed, behavioural treatment, hereditary conditions) is framed as “categories to look for” rather than as any insurer’s actual terms. Keep that framing unless each can be sourced.",
-      "Whether Canadian policies commonly apply lifetime limits as well as annual and per-condition ones.",
+      "Final factual/editorial approval of the revised educational guide, including complaints guidance; publication is not authorized by evidence collection alone.",
+      "Re-check linked sample policies and declarations applicable to the reader's province immediately before publication; Trupanion's linked sample carries V11.201902 and may not match all current products.",
+      "Complete any future provider comparison's province, current product version, underwriter, configurable benefits, limits and exclusions before ranking or activating affiliate offers.",
+      "Do not introduce claims about market-wide cheapest premiums, most frequent denial causes, average costs or lifetime financial returns without independent evidence; those claims were removed.",
     ],
   },
   {
