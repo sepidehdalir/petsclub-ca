@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-09T18:24:39.942700+00:00",
+  "observed_at": "2026-10-09T18:49:57.940840+00:00",
   "sitemap_urls": 63,
   "pages": [
     {
@@ -428,7 +428,7 @@
         "index, follow"
       ],
       "description": [
-        "Community help for lost and found pets across Canada. Post a missing dog or cat, or help reunite a found pet with their family."
+        "First steps for a missing pet in Canada and information about our planned Lost & Found service. Reporting and alerts are not available yet."
       ],
       "schemas": 2,
       "links": [
@@ -2602,7 +2602,7 @@
         "index, follow"
       ],
       "description": [
-        "Post a missing dog with the details that help neighbours recognise them."
+        "Planned missing-dog category. Reports and posting are not available yet."
       ],
       "schemas": 2,
       "links": [
@@ -2646,7 +2646,7 @@
         "index, follow"
       ],
       "description": [
-        "Post a missing cat and coordinate local search efforts."
+        "Planned missing-cat category. Reports and posting are not available yet."
       ],
       "schemas": 2,
       "links": [
@@ -2690,7 +2690,7 @@
         "index, follow"
       ],
       "description": [
-        "Found a pet? Post here to help reunite them with their family."
+        "Planned found-pet category. Reports and posting are not available yet."
       ],
       "schemas": 2,
       "links": [
