@@ -6,7 +6,7 @@
 
 Links use `sponsored nofollow noopener`, following Google's link qualification guidance: https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links . Navigation works without JavaScript; local click notification is best-effort.
 
-`thepetclub:affiliate-click` CustomEvent contains offer_id and partner only. It is a hook, NOT stored analytics, a conversion, or revenue. No collector, cookies or personal identifiers have been enabled. A consent-aware analytics adapter is deployed but inactive; a real GA4 stream must be configured and collection tested before reporting click totals. Associate an offer with its article in the approved registry/report mapping; do not include personal URL queries in analytics.
+`thepetclub:affiliate-click` CustomEvent contains offer_id and partner only. It is a hook, NOT stored analytics, a conversion, or revenue. The dedicated GA4 adapter is connected and loads only after explicit visitor consent. Real ordinary product clicks were verified in Realtime; affiliate collection cannot be verified until a real accepted offer exists. Associate an offer with its article in the approved registry/report mapping; do not include personal URL queries in analytics.
 
 Offer dates are checked at render/build time and rechecked on actual client interaction. Expired offers prevent navigation and show an accessible explanation. Keep regular source/contract reviews and rebuilds for cached content.
 
@@ -46,3 +46,7 @@ Eight Google search clicks do not prove eligibility or ineligibility for session
 ## Live continuation
 
 Two ordinary unpaid product references and a comparison are live in the indoor enrichment and cat-budget guides. No approved affiliate offer exists. The contact page prepares partnership/sponsorship email drafts locally; it sends nothing and inbox delivery is unverified. The existing Google publisher account has AdMob only; AdSense for Content requires the owner’s account/payee confirmation and application. Newsletter delivery requires a restricted Resend key, confirmed consent/unsubscribe infrastructure and an authorized sender identity/address. See REVENUE-READINESS.md.
+
+## وضعیت نهایی اندازه‌گیری — ۹ اکتبر ۲۰۲۶
+
+GA4 متصل و ثبت بازدید و دو کلیک معمولی محصول تأیید شد. اطلاعات دقیق در EXECUTION-REPORT-FA.md ثبت شده است. پیشنهاد افیلیت فعال وجود ندارد؛ شمارش فروش، کمیسیون یا درآمد قابل اثبات نیست. مسیر Fetch در آزمون ثبت‌نام غیرفعال بود؛ ثبت‌نام شبکهٔ عمومی را درخواست Fetch محسوب نمی‌کنیم.

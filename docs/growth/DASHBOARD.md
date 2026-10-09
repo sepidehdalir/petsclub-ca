@@ -13,8 +13,8 @@ Observed 2026-10-09. Source: official Google Search Console export. Web search, 
 | Canada clicks / impressions | 8 / 846 | Qualified audience geography signal |
 | Mobile clicks / impressions | 6 / 456 | CTR 1.32% |
 | Desktop clicks / impressions | 2 / 501 | CTR 0.40% |
-| Sessions / returning visitors | Unknown | New property awaits owner approval of Google contracts; no verified collection |
-| Affiliate clicks / transactions | Unknown | No active offers or collector |
+| Sessions / returning visitors | Unknown | GA4 connected; one QA browser observed in Realtime; audience baseline not established |
+| Affiliate clicks / transactions | Unknown | No active affiliate offers; ordinary product clicks verified in GA4 |
 | Approved commissions / cash | Unknown | No evidence of revenue |
 | Display revenue / operating cost / profit | Unknown | Never substitute zero for missing data |
 | Newsletter subscribers | Unknown | No verified subscriber source |
@@ -40,3 +40,9 @@ Direct GSC URL inspection now confirms **URL is on Google / Page is indexed** fo
 ### Insurance publication follow-up — October 9
 
 The old inspection snapshot showed exclusion by noindex from a September 7 crawl. After publication, the live test at 1:09 PM reported URL available to Google and Page can be indexed, with valid Breadcrumbs. Request indexing returned Indexing requested. This is accepted crawl-queue submission, not confirmed indexing; aggregate counts remain unchanged.
+
+### اتصال واقعی Analytics — ۹ اکتبر ۲۰۲۶
+
+حساب 411384874 و property شمارهٔ 558310997 با نام ThePetClub.ca ساخته شدند. جریان تولید 16098203244 برای https://thepetclub.ca با شناسهٔ G-FQHD46L0EP متصل است. Realtime یک مرورگر آزمون و دو product_click واقعی را نشان داد: catit-digger و catit-wave، هرکدام یک رویداد. این داده آزمون است و نشانهٔ افزایش ترافیک یا درآمد نیست. جمعیت مخاطب و نرخ تبدیل هنوز مبنای قابل‌اتکایی ندارند.
+
+ارسال مجدد sitemap.xml پذیرفته شد. گزارش Google هنوز آخرین خواندن ۳ اکتبر و ۶۳ نشانی کشف‌شده را نمایش می‌دهد؛ نسخهٔ زنده ۷۴ نشانی دارد. شمارش ایندکس را افزایش ندادیم.
