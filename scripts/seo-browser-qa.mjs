@@ -166,19 +166,26 @@ for (const scenario of scenarios) {
           const clicks = [];
           await page.exposeFunction('recordProductClick', (detail) => clicks.push(detail));
           await page.evaluate(() => {
-            window.addEventListener('thepetclub:product-click', (event) => window.recordProductClick(event.detail));
+            window.addEventListener('thepetclub:affiliate-click', (event) => window.recordProductClick(event.detail));
             // This credential-free test checks the actual button/event without leaving the application.
             document.addEventListener('click', (event) => {
-              if (event.target.closest('a[href^="https://www.homesalive.ca/"]')) event.preventDefault();
+              if (event.target.closest('a[href^="https://www.amazon.ca/"]')) event.preventDefault();
             });
           });
-          const cta = page.getByRole('link', { name: 'View retailer details for Catit Senses 2.0 Digger', exact: true });
+          const cta = page.getByRole('link', { name: 'View on Amazon.ca', exact: true }).first();
+          const destination = new URL(await cta.getAttribute('href'));
+          assert.equal(destination.hostname, 'www.amazon.ca');
+          assert.equal(destination.searchParams.get('tag'), 'thepetclub09-20');
+          assert.match(destination.pathname, /\/dp\/B015P13QMM$/);
+          assert.match(await cta.getAttribute('rel'), /sponsored/);
+          assert.match(await cta.getAttribute('rel'), /nofollow/);
           assert.ok(await cta.isVisible());
           await cta.click();
           await page.locator('main').innerText();
-          assert.deepEqual(clicks, [{ product_id: 'catit-digger' }], 'One product event per actual click');
+          assert.deepEqual(clicks, [{ offer_id: 'amazon-catit-digger', partner: 'Amazon Canada' }], 'One affiliate event per actual click');
+          assert.match(await page.locator('main').innerText(), /As an Amazon Associate I earn from qualifying purchases/);
           assert.match(await page.locator('main').innerText(), /have not tested these products/);
-          result.productInteraction = 'Actual click emitted exactly one local event; no GA collector configured';
+          result.productInteraction = 'Actual affiliate click emitted exactly one local event with verified offer ID; no GA collector configured';
           if (path.endsWith('indoor-cat-enrichment-canadian-homes')) {
             assert.equal(await page.getByRole('region', { name: 'Scrollable comparison table' }).count(), 1);
           }
