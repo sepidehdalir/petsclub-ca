@@ -77,7 +77,7 @@ export default function HomePage() {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href="/community" size="lg">
-                Ask the Community
+                Explore community categories
               </ButtonLink>
               <ButtonLink href="/guides" size="lg" variant="secondary">
                 Browse Canadian guides
@@ -93,8 +93,8 @@ export default function HomePage() {
           <SectionHeading
             id="trending-heading"
             eyebrow="Community"
-            title="Trending discussions"
-            description="The questions Canadian pet parents are working through right now."
+            title="Example discussion topics"
+            description="Illustrative topics for the planned community. Posting and replies are not available yet."
             action={
               <ButtonLink href="/community" variant="secondary" size="sm">
                 Browse all categories
@@ -171,11 +171,11 @@ export default function HomePage() {
               <p className="mt-4 text-body-lg text-pine-900/80">
                 Whether it is a first-week puppy problem, a vet bill you did not expect, or a
                 cat that has decided the litter box is optional — ask the people who have been
-                there.
+                there when posting opens. For now, browse our published Canadian guides.
               </p>
               <div className="mt-8">
                 <ButtonLink href="/community" size="lg">
-                  Ask the Community
+                  Explore community categories
                 </ButtonLink>
               </div>
             </div>
@@ -219,8 +219,8 @@ export default function HomePage() {
             Join Canadian pet parents sharing advice, experiences and stories.
           </h2>
           <p className="mt-4 text-body-lg text-foreground-muted">
-            Creating an account takes a minute, and it is free. Membership will let you post
-            questions, follow topics and keep track of the answers that helped.
+            Accounts are free. Posting questions, following topics and community replies
+            are planned features and are not available yet.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <ButtonLink href="/sign-up" size="lg">

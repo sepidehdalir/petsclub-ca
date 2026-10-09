@@ -19,7 +19,7 @@ export default function CommunityPage() {
       <PageHeader
         eyebrow="Community"
         title="The Pet Club Community"
-        description={`Ask a question, share what worked, or read what other Canadian pet parents have been through. ${allCommunityCategories.length} categories across ${communityTaxonomy.length} areas.`}
+        description={`Explore the planned community. Posting and replies are not available yet. ${allCommunityCategories.length} categories across ${communityTaxonomy.length} areas.`}
         breadcrumbs={[{ name: "Community", path: "/community" }]}
       />
 
