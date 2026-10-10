@@ -634,6 +634,22 @@
 .club-jump-link { display: inline-block; color: #294b36; font-weight: 600; padding-block: .7rem; border-bottom: 1px solid currentColor; }
 .club-compare-body > p, .club-compare-body > ul { max-width: 46rem; }
 #product-comparison { scroll-margin-top: 7rem; }
+#article-body, #article-sources-heading, #related-reading-heading { scroll-margin-top: 7rem; }
+.club-guide-finder { display: grid; gap: 2rem; align-items: center; padding: 2rem 0; border-bottom: 1px solid var(--color-border); }
+.club-guide-finder h2 { font-family: var(--font-serif); font-size: clamp(1.8rem, 3vw, 2.4rem); letter-spacing: -.025em; line-height: 1.2; margin: .5rem 0; }
+.club-guide-finder p { color: var(--color-foreground-muted); }
+.club-guide-search { display: flex; align-items: end; gap: .75rem; }
+.club-guide-search > div { min-width: 0; }
+.club-guide-search button { min-height: 48px; }
+.club-guide-shortcuts, .club-article-shortcuts { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-top: 1rem; }
+.club-guide-shortcuts a, .club-article-shortcuts a { display: inline-flex; align-items: center; min-height: 44px; color: #294b36; font-size: .875rem; text-decoration: underline; text-underline-offset: .25em; }
+.club-guide-shortcuts a:focus-visible, .club-article-shortcuts a:focus-visible, .club-puppy-reading:focus-visible { outline: 3px solid #947441; outline-offset: 4px; border-radius: .2rem; }
+.club-puppy-feature { display: grid; gap: 2rem; align-items: center; }
+.club-puppy-feature h2 { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -.035em; margin: .8rem 0 1rem; }
+.club-puppy-feature p:not(.club-eyebrow) { color: #525a51; max-width: 34rem; line-height: 1.7; margin-bottom: 1.5rem; }
+.club-puppy-reading { display: block; width: fit-content; min-height: 44px; padding-top: 1rem; color: #294b36; font-size: .875rem; text-decoration: underline; text-underline-offset: .25em; }
+@media (min-width: 768px) { .club-guide-finder { grid-template-columns: .8fr 1.2fr; } .club-puppy-feature { grid-template-columns: .85fr 1.15fr; gap: 3rem; } }
+@media (max-width: 639px) { .club-guide-search { align-items: stretch; flex-direction: column; } .club-guide-search button { width: 100%; } }
 .club-compare-body { max-width: none; width: 100%; }
 .club-product-panel > p { margin: .25rem 0; font-size: .95rem; line-height: 1.65; }
 .club-product-panel h3 { margin-top: .5rem; }
@@ -662,7 +678,8 @@
 .club-product-considerations h4 { font-family: var(--font-sans); font-size: .8rem; font-weight: 650; margin: 0 0 .4rem; }
 .club-product-considerations p { margin: 0; color: #62685d; font-size: .83rem; line-height: 1.65; }
 .club-product-action { margin-top: auto; }
-.club-product-action a { min-height: 48px; border-radius: .75rem; transition: background .2s ease, transform .2s ease; }
+.club-product-action a { min-height: 48px; width: 100%; justify-content: center; border-radius: .75rem; transition: background .2s ease, transform .2s ease; }
+.club-product-image-credit { font-size: .75rem; color: #62685d; margin: 0 0 .75rem; }
 .club-product-action a:focus-visible { outline: 3px solid #947441; outline-offset: 4px; }
 .club-product-editorial-note { margin: .5rem 0 1rem; font-size: .8rem; line-height: 1.6; color: #62685d; }
 .club-product-single { max-width: 38rem; }

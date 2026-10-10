@@ -6,19 +6,17 @@ import { PageHeader } from "@/components/shared/page-header";
 import { ButtonLink } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/ui/card";
 import { Container, Section, SectionHeading } from "@/components/ui/layout-primitives";
-import { EmptyState } from "@/components/ui/states";
 import {
   allCommunityCategories,
   communityCategoryPath,
   findCommunityCategory,
 } from "@/features/community/taxonomy";
+import { editorialConversationStarters } from "@/features/community/editorial-conversation-starters";
+import { ArticleCard } from "@/features/editorial/components/article-card";
+import { publishedArticles } from "@/features/editorial/articles";
 import { createMetadata } from "@/lib/seo/metadata";
 
-/**
- * Every category is known at build time, so all 25 pages are prerendered and
- * served from the CDN. `dynamicParams = false` makes an unknown slug a clean
- * 404 rather than an on-demand render of a category that does not exist.
- */
+/** Categories are static, and their editorial resources are approved articles. */
 export const dynamicParams = false;
 
 export function generateStaticParams(): Array<{ categorySlug: string }> {
@@ -47,13 +45,14 @@ export default async function CommunityCategoryPage(
 ) {
   const { categorySlug } = await props.params;
   const match = findCommunityCategory(categorySlug);
-
-  if (!match) {
-    notFound();
-  }
+  if (!match) notFound();
 
   const { category, group } = match;
   const siblings = group.children.filter((child) => child.slug !== category.slug);
+  const resources = publishedArticles()
+    .filter((article) => article.relatedCategorySlugs?.includes(category.slug))
+    .slice(0, 4);
+  const prompts = editorialConversationStarters[category.slug] ?? [];
 
   return (
     <>
@@ -65,42 +64,76 @@ export default async function CommunityCategoryPage(
           { name: "Community", path: "/community" },
           { name: category.name, path: communityCategoryPath(category.slug) },
         ]}
+        actions={
+          <ButtonLink href="/guides" variant="editorialQuiet">
+            Browse Canadian pet guides ↗
+          </ButtonLink>
+        }
       />
 
-      <Section aria-labelledby="discussions-heading">
+      {resources.length > 0 ? (
+        <Section aria-labelledby="category-resources-heading">
+          <Container>
+            <SectionHeading
+              id="category-resources-heading"
+              title="Useful reads to get started"
+              description="Published guides selected from The Pet Club editorial library — not community posts."
+            />
+            <div className="mt-7 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {resources.map((article) => (
+                <ArticleCard
+                  key={article.slug}
+                  article={article}
+                  sizes="(min-width: 1024px) 260px, (min-width: 640px) 45vw, 92vw"
+                />
+              ))}
+            </div>
+          </Container>
+        </Section>
+      ) : null}
+
+      <Section tone={resources.length > 0 ? "muted" : "canvas"} aria-labelledby="conversation-heading">
         <Container>
           <SectionHeading
-            id="discussions-heading"
-            title="Discussions"
-            description={`Questions and conversations in ${category.name}.`}
+            id="conversation-heading"
+            title="Ideas for future conversations"
+            description="Editorial prompts to explore while we're preparing member posting. These are not real discussion threads or replies."
           />
-
-          {/*
-            No discussions exist yet, and none are invented here. The community
-            engine — posting, replying, sorting and moderation — is Milestone 2.
-          */}
-          <EmptyState
-            className="mt-8"
-            title="No discussions yet"
-            description="Posting opens when the community engine launches. Until then, browse the rest of the categories to see what The Pet Club will cover."
-            action={
-              <ButtonLink href="/community" variant="secondary">
-                Browse all categories
-              </ButtonLink>
-            }
-          />
+          {prompts.length > 0 ? (
+            <div className="mt-7 grid gap-4 md:grid-cols-2">
+              {prompts.map((prompt, index) => (
+                <Card key={prompt} className="h-full overflow-hidden">
+                  <CardBody className="flex h-full flex-col gap-4">
+                    <span className="font-sans text-label uppercase text-pine-700">
+                      Question {index + 1}
+                    </span>
+                    <h3 className="font-serif text-title-3 text-foreground">{prompt}</h3>
+                    <p className="mt-auto text-body-sm text-foreground-muted">
+                      Member answers are not open yet. For now, explore related Canadian pet guides.
+                    </p>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
+          ) : null}
+          <div className="mt-7 flex flex-wrap items-center gap-4">
+            <ButtonLink href="/guides">Explore published guides ↗</ButtonLink>
+            <ButtonLink href="/community" variant="secondary">All community topics</ButtonLink>
+          </div>
+          <p className="mt-4 text-caption text-foreground-muted">
+            This category is currently a reading resource. Posting, replies and member activity will be enabled in a separate release.
+          </p>
         </Container>
       </Section>
 
       {siblings.length > 0 ? (
-        <Section tone="muted" spacing="compact" aria-labelledby="related-heading">
+        <Section spacing="compact" aria-labelledby="related-heading">
           <Container>
             <SectionHeading
               id="related-heading"
               headingLevel="h2"
-              title={`More in ${group.name}`}
+              title={`Explore more in ${group.name}`}
             />
-
             <Card className="mt-6 overflow-hidden">
               <ul className="divide-y divide-border">
                 {siblings.map((sibling) => (

@@ -1,10 +1,19 @@
 import { describe, expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import { createElement } from "react";
-import { products } from "./products";
+import { approvedProductImage, products, type LicensedProductImage } from "./products";
 import { ProductCard, ProductComparison } from "./product-components";
 
 describe("public product examples", () => {
+  it("rejects incomplete permission records and wrong-model photographs", () => {
+    const product = products[0]!;
+    const image: LicensedProductImage = { productId: product.id, src: { src: "/test-only-licensed-model.webp", width: 800, height: 600 }, alt: "Exact product photograph", permissionReference: "test-only written permission", sourceUrl: "https://www.catit.com/products/toys/senses-digger/" };
+    expect(approvedProductImage({ ...product, image })).toEqual(image);
+    for (const invalid of [{ ...image, productId: "catit-wave" }, { ...image, permissionReference: " " }, { ...image, alt: " " }, { ...image, sourceUrl: "http://www.catit.com/" }, { ...image, sourceUrl: "https://m.media-amazon.com/example.jpg" }, { ...image, src: { ...image.src, width: 0 } }]) {
+      expect(approvedProductImage({ ...product, image: invalid })).toBeUndefined();
+    }
+    expect(products.every(item => approvedProductImage(item) === undefined)).toBe(true);
+  });
   it("keeps real specifications separate from approval and prices", () => {
     expect(products.map((item) => item.id)).toEqual(["catit-digger", "catit-wave"]);
     for (const item of products) {

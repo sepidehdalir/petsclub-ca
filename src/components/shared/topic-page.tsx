@@ -13,6 +13,8 @@ import {
   findCommunityCategory,
 } from "@/features/community/taxonomy";
 import { ArticleListSection } from "@/features/editorial/components/article-list-section";
+import { ArticleCard } from "@/features/editorial/components/article-card";
+import { publishedArticles } from "@/features/editorial/articles";
 import { GuideCard } from "@/features/editorial/components/guide-card";
 import { plannedGuides } from "@/features/editorial/fixtures";
 import { getMediaAsset } from "@/media/manifest";
@@ -43,6 +45,14 @@ export function TopicPage({ path }: TopicPageProps) {
     .filter((match): match is NonNullable<typeof match> => match !== null);
 
   const guides = plannedGuides.filter((guide) => topic.guideIds.includes(guide.id));
+  const topicalGuides = (path === "/food" || path === "/training")
+    ? publishedArticles().filter((article) => {
+        const terms = [article.title, ...article.tags].join(" ").toLowerCase();
+        return path === "/food"
+          ? /food|nutrition|feeding|diet|kibble/.test(terms)
+          : /training|socialisation|leash|recall|behaviour|crate/.test(terms);
+      }).slice(0, 6)
+    : [];
 
   return (
     <>
@@ -54,11 +64,11 @@ export function TopicPage({ path }: TopicPageProps) {
         media={{ asset: getMediaAsset(topic.mediaId) }}
         actions={
           <>
-            <ButtonLink href="/community" variant="editorial">
-              Ask the Community
+            <ButtonLink href="/guides" variant="editorial">
+              Read Canadian guides
             </ButtonLink>
             <ButtonLink href="/community" variant="editorialQuiet">
-              Browse all categories
+              Explore future community topics
             </ButtonLink>
           </>
         }
@@ -82,13 +92,35 @@ export function TopicPage({ path }: TopicPageProps) {
         description="Researched, Canada-specific writing from the Pet Club editorial team."
       />
 
+      {topicalGuides.length > 0 ? (
+        <Section tone="muted" aria-labelledby="topic-guide-picks-heading">
+          <Container>
+            <SectionHeading id="topic-guide-picks-heading"
+              eyebrow="Selected guides"
+              title={path === "/food" ? "Food and nutrition reading" : "Training for real life"}
+              description="Published advice selected from our Canadian pet editorial library."
+              action={<ButtonLink href="/guides" variant="editorialQuiet">All guides ↗</ButtonLink>}
+            />
+            <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {topicalGuides.map((article) => (
+                <ArticleCard
+                  key={article.slug}
+                  article={article}
+                  sizes="(min-width: 1024px) 340px, (min-width: 640px) 45vw, 92vw"
+                />
+              ))}
+            </div>
+          </Container>
+        </Section>
+      ) : null}
+
       <Section aria-labelledby="topic-categories-heading">
         <Container>
           <SectionHeading
             id="topic-categories-heading"
-            eyebrow="Discuss"
-            title={`${topic.name} discussion categories`}
-            description="Every question, experience and recommendation on this topic lives in one of these categories."
+            eyebrow="Explore"
+            title={`${topic.name} community topics`}
+            description="Browse editorial questions and related reading. Member posting and replies are not available yet."
           />
 
           <Card className="mt-8 overflow-hidden">
@@ -123,14 +155,14 @@ export function TopicPage({ path }: TopicPageProps) {
           <SectionHeading
             id="topic-guides-heading"
             eyebrow="Editorial"
-            title="What we are writing next"
-            description="Commissioned titles. Nothing has been published from this list yet."
+            title="On our editorial roadmap"
+            description="Future article ideas, not yet published."
           />
 
           {guides.length > 0 ? (
             <>
               <DemoContentNotice className="mt-6">
-                Planned titles — no article has been published yet
+                Planned titles — these are not live articles
               </DemoContentNotice>
 
               <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -145,8 +177,8 @@ export function TopicPage({ path }: TopicPageProps) {
             <EmptyState
               className="mt-8"
               title={`No ${topic.name.toLowerCase()} guides commissioned yet`}
-              description="The editorial platform launches in a later milestone. In the meantime, the community is the fastest way to get an answer."
-              action={<ButtonLink href="/community">Ask the Community</ButtonLink>}
+              description="Our published guide library already has useful advice. Explore it while new topics are researched."
+              action={<ButtonLink href="/guides">Browse published guides</ButtonLink>}
             />
           )}
         </Container>

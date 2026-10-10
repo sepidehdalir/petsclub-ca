@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { AffiliateLink } from "./affiliate-link";
 import { findAffiliateOffer } from "./offers";
-import { findProduct, type Product } from "./products";
+import { approvedProductImage, findProduct, type Product } from "./products";
 import { ProductLink } from "./product-link";
 
 export function CommerceDisclosure() {
@@ -18,11 +18,13 @@ function ProductAction({ product }: { product: Product }) {
 }
 
 function ProductPanel({ product }: { product: Product }) {
+  const image = approvedProductImage(product);
   return <article className="club-product-panel">
     <div className="club-product-photo">
-      {product.image ? <Image src={product.image.src} alt={product.image.alt} fill sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 560px" /> : <p className="club-product-asset-pending" role="status">Product photograph awaiting licensed asset</p>}
+      {image ? <Image src={image.src} alt={image.alt} fill sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 560px" /> : <p className="club-product-asset-pending" role="status">Product photograph awaiting licensed asset</p>}
     </div>
     <div className="club-product-content">
+      {image?.credit ? <p className="club-product-image-credit">{image.credit}</p> : null}
       <span className="club-eyebrow">{product.activity}</span>
       <h3>{product.name}</h3>
       <p className="club-product-description">{product.use}</p>

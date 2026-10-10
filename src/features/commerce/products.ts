@@ -2,10 +2,13 @@ import type { StaticImageData } from "next/image";
 
 /** Only populate after exact-model identification and commercial permission are documented. */
 export interface LicensedProductImage {
+  /** Must match the exact product record; lifestyle assets are never substitutes. */
+  productId: string;
   src: StaticImageData;
   alt: string;
   permissionReference: string;
   sourceUrl: string;
+  credit?: string;
 }
 
 export interface Product {
@@ -48,4 +51,18 @@ export const products: readonly Product[] = [
 ];
 export function findProduct(id: string) {
   return products.find((product) => product.id === id);
+}
+
+/** Metadata validation supports the separate human review of the written licence. */
+export function approvedProductImage(product: Product): LicensedProductImage | undefined {
+  const image = product.image;
+  if (!image || image.productId !== product.id || !image.alt.trim() || !image.permissionReference.trim()) return undefined;
+  if (!image.src.src.startsWith("/") || image.src.width <= 0 || image.src.height <= 0) return undefined;
+  try {
+    const source = new URL(image.sourceUrl);
+    if (source.protocol !== "https:") return undefined;
+    // Amazon images must use an official approved integration, never this local asset path.
+    if (/(^|\.)(amazon\.[a-z.]+|media-amazon\.com|ssl-images-amazon\.com)$/.test(source.hostname)) return undefined;
+  } catch { return undefined; }
+  return image;
 }
