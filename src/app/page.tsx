@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ButtonLink } from "@/components/ui/button";
+import { Button, ButtonLink } from "@/components/ui/button";
+import { Field, Input } from "@/components/ui/field";
 import { Container, Section } from "@/components/ui/layout-primitives";
 import { Media } from "@/components/ui/media";
 import { siteConfig } from "@/config/site";
@@ -36,6 +37,18 @@ export default function HomePage() {
     <nav aria-label="Explore The Pet Club" className="club-topic-strip"><Container><div className="club-topic-links">
       {([["/dogs", "For dog people"], ["/cats", "For cat people"], ["/guides", "Life in Canada"], ["/compare/catit-digger-vs-wave-circuit", "Product discovery"]] as const).map(([href, label]) => <Link key={href} href={href}>{label}<span aria-hidden="true">↗</span></Link>)}
     </div></Container></nav>
+    <Section spacing="compact" aria-labelledby="home-search-heading"><Container>
+      <div className="club-guide-finder">
+        <div><p className="club-eyebrow">Follow your curiosity</p><h2 id="home-search-heading">A good place to start.</h2><p>Find a guide for the question on your mind.</p></div>
+        <div>
+          <form action="/search" method="get" role="search" aria-label="Find published pet guides" className="club-guide-search">
+            <Field htmlFor="home-guide-query" label="What would you like to explore?" className="flex-1"><Input id="home-guide-query" type="search" name="q" maxLength={120} placeholder="Try cat enrichment or puppy supplies" /></Field>
+            <Button type="submit">Find guides ↗</Button>
+          </form>
+          <nav aria-label="Popular guide searches" className="club-guide-shortcuts"><Link href="/search?q=cat%20enrichment">Cat enrichment</Link><Link href="/search?q=puppy">New puppy</Link><Link href="/search?q=pet%20insurance">Pet insurance</Link></nav>
+        </div>
+      </div>
+    </Container></Section>
     <Section aria-labelledby="world-heading"><Container>
       <div className="club-section-intro"><div><p className="club-eyebrow">A world of good company</p><h2 id="world-heading">Their world. Your next chapter.</h2></div><p>From the first day home to the routines that make life better. Start with the companion beside you.</p></div>
       <div className="club-world-grid">
@@ -44,6 +57,10 @@ export default function HomePage() {
       </div>
     </Container></Section>
     <ArticleListSection surfacePath="/guides" id="latest-guides" eyebrow="The reading room" title="Good reads for real life." description="Practical, carefully sourced guides with Canadian pet owners in mind." limit={3} action={<ButtonLink href="/guides" variant="secondary">All guides ↗</ButtonLink>} />
+    <Section tone="muted" aria-labelledby="puppy-planner-heading"><Container><div className="club-puppy-feature">
+      <Media asset={getMediaAsset("dogs-black-lab-puppy")} ratio="landscape" sizes="(min-width: 1024px) 430px, (min-width: 640px) 40vw, 92vw" />
+      <div><p className="club-eyebrow">Small steps, together</p><h2 id="puppy-planner-heading">Their first year.<br />Your next small step.</h2><p>Explore age-based puppy guides and a practical checklist for your routine. Start where your puppy is today.</p><ButtonLink href="/puppy">Explore the puppy journey ↗</ButtonLink><Link href="/guides/bringing-home-a-puppy-first-30-days" className="club-puppy-reading">Read the first-month guide ↗</Link></div>
+    </div></Container></Section>
     <Section tone="muted" aria-labelledby="discovery-heading"><Container><div className="club-discovery">
       <Media asset={getMediaAsset("cats-feather-toy-play")} ratio="landscape" sizes="(min-width: 1152px) 540px, (min-width: 768px) 45vw, 92vw" />
       <div><p className="club-eyebrow">Thoughtful product discovery</p><h2 id="discovery-heading">A little more play.<br />A little less guesswork.</h2><p>Food puzzles or a ball circuit? Explore two different ways to enrich your cat’s day, with clear features and things to check before buying.</p><ButtonLink href="/compare/catit-digger-vs-wave-circuit">Explore the comparison ↗</ButtonLink><p className="text-caption text-foreground-muted mt-4">Retailer-listed features, not hands-on testing. Affiliate links are disclosed on the comparison page.</p></div>
