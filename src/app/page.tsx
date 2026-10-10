@@ -34,7 +34,7 @@ export default function HomePage() {
       </Container>
     </section>
     <nav aria-label="Explore The Pet Club" className="club-topic-strip"><Container><div className="club-topic-links">
-      {[["/dogs", "For dog people"], ["/cats", "For cat people"], ["/guides", "Life in Canada"], ["/compare/catit-digger-vs-wave-circuit", "Product discovery"]].map(([href, label]) => <Link key={href} href={href}>{label}<span aria-hidden="true">↗</span></Link>)}
+      {([["/dogs", "For dog people"], ["/cats", "For cat people"], ["/guides", "Life in Canada"], ["/compare/catit-digger-vs-wave-circuit", "Product discovery"]] as const).map(([href, label]) => <Link key={href} href={href}>{label}<span aria-hidden="true">↗</span></Link>)}
     </div></Container></nav>
     <Section aria-labelledby="world-heading"><Container>
       <div className="club-section-intro"><div><p className="club-eyebrow">A world of good company</p><h2 id="world-heading">Their world. Your next chapter.</h2></div><p>From the first day home to the routines that make life better. Start with the companion beside you.</p></div>

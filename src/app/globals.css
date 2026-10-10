@@ -629,3 +629,8 @@
 .club-article > header h1 { letter-spacing: -.035em; line-height: 1.08; }
 .club-article .prose-article h2 { border-top: 1px solid #dce2d1; padding-top: 1.2rem; margin-top: 2.8rem; }
 @media(max-width: 639px) { .club-product-grid { grid-template-columns: 1fr; } }
+.club-compare-hero { background: #f2eee6; padding: 3.5rem 0; }
+.club-compare-hero h1 { font-family: var(--font-serif); font-size: clamp(2.7rem, 5vw, 4.7rem); line-height: 1.04; letter-spacing: -.045em; margin: 1rem 0; }
+.club-jump-link { display: inline-block; color: #294b36; font-weight: 600; padding-block: .7rem; border-bottom: 1px solid currentColor; }
+.club-compare-body > p, .club-compare-body > ul { max-width: 46rem; }
+#product-comparison { scroll-margin-top: 7rem; }
