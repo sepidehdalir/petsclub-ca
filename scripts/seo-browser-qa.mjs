@@ -162,7 +162,7 @@ for (const scenario of scenarios) {
           result.inlineDraftLinks = await page.locator('a[href*="/guides/arthritis-and-mobility-in-dogs-and-cats"]').count();
           assert.equal(result.inlineDraftLinks, 0, 'Known in-review destination is still promoted');
         }
-        if (path === '/guides/indoor-cat-enrichment-canadian-homes' || path === '/guides/cost-of-owning-a-cat-in-canada') {
+        if (path === '/compare/catit-digger-vs-wave-circuit' || path === '/guides/indoor-cat-enrichment-canadian-homes' || path === '/guides/cost-of-owning-a-cat-in-canada') {
           const clicks = [];
           await page.exposeFunction('recordProductClick', (detail) => clicks.push(detail));
           await page.evaluate(() => {
@@ -186,7 +186,8 @@ for (const scenario of scenarios) {
           assert.match(await page.locator('main').innerText(), /As an Amazon Associate I earn from qualifying purchases/);
           assert.match(await page.locator('main').innerText(), /have not tested these products/);
           result.productInteraction = 'Actual affiliate click emitted exactly one local event with verified offer ID; no GA collector configured';
-          if (path.endsWith('indoor-cat-enrichment-canadian-homes')) {
+          if (path.endsWith('indoor-cat-enrichment-canadian-homes') || path.startsWith('/compare/')) {
+            await page.getByText('Compare the features side by side', { exact: true }).click();
             assert.equal(await page.getByRole('region', { name: 'Scrollable comparison table' }).count(), 1);
           }
         }
