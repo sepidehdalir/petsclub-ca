@@ -109,7 +109,7 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
             // The lead image, and the only one above the fold.
             priority
             showCredit
-            sizes="(min-width: 1152px) 1088px, (min-width: 640px) calc(100vw - 3rem), calc(100vw - 2rem)"
+            sizes="(min-width: 1152px) 520px, (min-width: 1024px) 46vw, (min-width: 640px) calc(100vw - 3rem), calc(100vw - 2rem)"
           />
         </Container>
       </header>
