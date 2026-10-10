@@ -1,47 +1,37 @@
-# Canadian affiliate applications
+# وضعیت جاری افیلیت — ۹ اکتبر ۲۰۲۶
 
-Five programs were researched on primary pages on October 9, 2026. Follow-up testing found Fetch’s advertised Ascend referrer inactive; that application route is not confirmed operational. None has received a ThePetClub application or approved this website. Advertised terms are not an accepted contract; activate tracking links only after the owner completes enrollment and the program supplies the real terms and identifiers.
+این گزارش وضعیت مشاهده‌شده را ثبت می‌کند. اطلاعات هویت، ایمیل حساب، مالیات و بانک در مخزن عمومی ذخیره نمی‌شود. انتخاب ایمیل جدید در گفت‌وگوی خصوصی ثبت شده؛ حساب تکراری Amazon یا Impact ساخته نشده است.
 
-## Verified routes and owner actions
+| برنامه / شبکه | ثبت‌نام و درخواست | تأیید و شناسه | لینک زنده | اقدام مالک یا مانع |
+| --- | --- | --- | --- | --- |
+| Amazon Canada | حساب موجود، سایت thepetclub.ca و ابزار SiteStripe مشاهده شد | thepetclub09-20؛ بررسی نهایی حساب هنوز وابسته به فروش‌های واجد شرایط و بررسی Amazon است | ۲ لینک یکتا، ۳ جایگاه در ۲ مقاله | مالیات CA: Submitted؛ US: Incomplete. بررسی روش پرداخت به تأیید امنیتی مالک رسید؛ آمادگی دریافت پول اثبات نشده |
+| Impact | حساب موجود PetBar و Marketplace فعال؛ تنها همکاری مشاهده‌شده در My Brands، Bluehost بود؛ Sent Invitations صفر | تأیید برنامهٔ مرتبط با حیوانات مشاهده نشد؛ شناسهٔ ناشر افیلیت پت ثبت نشده | ۰ | W8 الکترونیکی برای پرداخت برندهای آمریکایی درخواست شده. thepetclub.ca هنوز Connected مشاهده نشده |
+| Chewy Canada / Impact | توضیح دقیق سایت در فرم Apply آماده؛ عامل درخواست را ارسال نکرد | تأیید یا لینک صادرشده مشاهده نشد | ۰ | مالک اعلام کرده قرارداد را خودش بررسی و ارسال می‌کند؛ نتیجه هنوز مشاهده نشده. تحویل فقط در مناطق مشخص جنوب Ontario با پیشوند پستی K/L/M/N؛ صلاحیت ناشر کانادایی هنوز نیازمند تأیید برند |
+| Trupanion / Impact | مسیر رسمی پیشنهاد و قرارداد باز و بررسی شد؛ دکمه‌های ادامه تا پذیرش قرارداد غیرفعال‌اند | درخواست و تأیید مشاهده نشد | ۰ | مالک باید قرارداد اختصاصی را بررسی کند؛ بازار و شرایط استانی و محتوای مجاز قبل از تبلیغ بیمه تأیید شود |
+| PetSafe / Ascend | فرم عمومی سایت، توضیح، Canada/CAD، Pets و Content آماده؛ ورود ایمیل انتخاب‌شده در فرم تلاش شد اما نتیجهٔ ماندگار پس از قطع ابزار مرورگر دوباره مشاهده نشد | حساب جدید و ارسال درخواست اثبات نشده | ۰ | نخست نبود حساب Ascend موجود بررسی شود؛ رمز، مشخصات قانونی، طبقهٔ مالیاتی، PayPal، سن، CAPTCHA و قرارداد نیازمند مالک |
+| Fetch Canada / Ascend | صفحهٔ رسمی بررسی شد؛ مسیر refid=136295 پیام برنامهٔ غیرفعال داشت | ثبت‌نام یا تأیید Fetch اثبات نشده | ۰ | مسیر عملیاتی کانادایی جدید از خود Fetch لازم است؛ ثبت عمومی شبکه عضویت Fetch نیست |
+| Furbo / Awin | برنامهٔ عمومی شماره 59049 پیدا شد؛ بازارهای US/Canada و پیشنهاد عمومی ۱۰٪/۳۰ روز ذکر شده | حساب Awin، درخواست و تأیید مشاهده نشده | ۰ | بررسی حساب موجود، صلاحیت ناشر کانادایی و شرایط قراردادی؛ پرداخت یا حساب جدید بدون تکمیل مراحل مالک انجام نمی‌شود |
 
-| Program | Canadian route and public terms | Required next action |
-| --- | --- | --- |
-| Amazon Associates Canada | [Canada operating agreement](https://associates.amazon.ca/help/operating/agreement). Tagged Special Links and required Associate identification apply. No category commission or cookie duration is asserted here. | Owner registers or signs in, accepts the agreement, supplies payee, tax and banking details where required, lists the exact website and obtains its real tracking ID. Review the current participation and IP policies before activation. |
-| Chewy Canada | [Canadian affiliate program](https://www.chewy.com/ca/app/content/affiliate), Impact. Public page advertises 4% for Canadian orders. The offered Impact contract inspected October 9 specifies last-click attribution within 15 days, excludes CA gift cards, locks actions 27 days after the tracking month ends and pays approved transactions 20 days after the locking month ends. CAD; reversals can reach 100%; advertiser completion-page partner pixels are not allowed. These are offered terms, not an accepted agreement. Application signup requires contract acceptance before proceeding. | Owner creates or accesses an Impact publisher account, verifies website ownership, completes account/payment requirements and requests Chewy Canada. Record the accepted rate and attribution window, not just the marketing page. |
-| Fetch Canada | [Canadian affiliate program](https://www.fetchpet.com/canada/partner-with-us/affiliates), Pepperjam. Lead compensation and monthly reporting are advertised; no fixed payout or attribution duration established. | The advertised refid=136295 route currently reports “The program referrer is no longer active.” Obtain a current Canadian publisher application route from Fetch before enrollment; generic Ascend registration is not evidence of Fetch enrollment. Canadian lead eligibility, province restrictions and approved insurance wording remain unconfirmed. |
-| Trupanion Canada | [Canada affiliate program](https://www.trupanion.com/en-ca/affiliate), Impact. No exact public commission or cookie duration established. | Owner applies through this publisher route; confirm provincial eligibility, approved creatives and conversion definition. Do not substitute member refer-a-friend rewards for publisher enrollment. |
-| PetSafe | [Affiliate program](https://www.petsafe.com/about-us/petsafe-affiliate-program/), [Ascend application](https://www.ascendpartner.com/affiliate/registration?refid=141049). FAQ in the live page confirms US and Canadian residents. Advertises “+8% Commission” and up to 90-day attribution, subject to accepted terms. Trademark bidding and competing brand content restrictions apply. | Owner completes network registration and contract review. Confirm eligible Canadian transactions, destination storefront, shipping territory and the actual rate before creating offers. Canadian residence alone does not prove every Canadian transaction is eligible. |
+## مسیرهای رسمی
 
-Homes Alive's public ambassador form is an enquiry route, not proof of a publisher commission agreement. No primary Pet Valu affiliate agreement was established. Neither is counted among the five verified programs.
+- [Amazon Canada](https://associates.amazon.ca/)
+- [Impact](https://app.impact.com/)
+- [Chewy Canada](https://www.chewy.com/ca/app/content/affiliate) و [محدودهٔ تحویل](https://www.chewy.com/ca/app/content/faq)
+- [Trupanion Canada](https://www.trupanion.com/en-ca/affiliate)
+- [PetSafe](https://www.petsafe.com/about-us/petsafe-affiliate-program/) و [فرم Ascend](https://www.ascendpartner.com/affiliate/registration?refid=141049&usertype=2)
+- [Fetch Canada](https://www.fetchpet.com/canada/partner-with-us/affiliates)
+- [Furbo / Awin](https://ui.awin.com/merchant-profile/59049)
 
-## Application fields ready to use
+Homes Alive فرم سفیر دارد؛ قرارداد کمیسیون ناشر برای ThePetClub اثبات نشده و لینک‌های منبع آن عادی‌اند. نرخ‌ها و پیشنهادهای عمومی، قرارداد پذیرفته‌شده یا تأیید همکاری نیستند.
 
-- Website: https://thepetclub.ca
-- Publication: The Pet Club, English information for Canadian pet parents.
-- Subjects: Canadian pet costs, insurance policy questions, indoor enrichment, adoption, travel and everyday pet ownership.
-- Promotion model: contextual editorial references and disclosed comparisons; no purchased rankings, fabricated testing, trademark bidding or unsolicited outreach.
-- Example placements: /guides/indoor-cat-enrichment-canadian-homes and /guides/cost-of-owning-a-cat-in-canada. Insurance education: /guides/pet-insurance-in-canada.
-- Editorial policy: https://thepetclub.ca/editorial-policy
-- Advertising disclosure: https://thepetclub.ca/advertising-disclosure
-- Contact: https://thepetclub.ca/contact. Published address is hello@thepetclub.ca; ownership and inbox delivery must be confirmed by the owner before using it for account verification.
-- Observed search traffic: Search Console export, September 6 through October 6, 2026: 8 clicks, 976 impressions. These are search metrics, not monthly sessions, subscribers or affiliate revenue. GA4 visitor counts are not available yet.
+## پیاده‌سازی و اندازه‌گیری
 
-Suggested publisher description:
+دو لینک کامل SiteStripe برای Catit Digger با ASIN B015P13QMM و Catit Wave Circuit با ASIN B00D3NI7ZG در حساب موجود ساخته و مقصد واقعی هر دو در مرورگر تأیید شد. لینک اصلی تولیدشده حفظ شد؛ هیچ قیمت، امتیاز یا تجربهٔ آزمون ساختگی اضافه نشد.
 
-The Pet Club publishes Canadian pet ownership guides with source links, clear commercial disclosures and practical comparison criteria. We plan contextual links in relevant enrichment and budgeting guides and general education about insurance policy terms. We do not claim hands-on testing without evidence, accept payment for rankings, or present general information as individualized veterinary or insurance advice. Our current audience is small; the measured Search Console baseline is 8 clicks and 976 impressions for September 6 to October 6, 2026.
+مدیریت مرکزی offers.ts شامل میزبان HTTPS، شناسهٔ واقعی، افشا و تاریخ بازبینی است. تاریخ بازبینی ۸ نوامبر ۲۰۲۶ است؛ پس از مهلت، پیشنهاد بدون بازبینی تازه قابل استفاده نیست. افشای کنار دکمه، عبارت الزامی Amazon و rel=sponsored nofollow noopener روی دامنهٔ اصلی مشاهده شد.
 
-Owner-only fields: legal payee/entity name, residence, contact identity, mailing address, tax forms, banking details, authorized contract acceptance and ownership verification. Do not guess or store these in this public repository.
+متای عمومی مالکیت Impact روی صفحهٔ اصلی تولید منتشر شد؛ این اسکریپت ردیابی نیست. تأیید Connected در حساب شبکه هنوز مشاهده نشده است.
 
-## Activation and measurement
+GA4 با G-FQHD46L0EP وصل است. ترتیب Consent Mode اصلاح شد: denied پیش از بارگیری تگ، سپس فقط analytics با رضایت فعال می‌شود؛ رضایت در هر سند تازه خاموش است. رویداد affiliate_click در آزمون مرورگر برای کلیک واقعی دکمه با offer_id و partner تأیید شد. مشاهدهٔ همین رویداد در Google Realtime پس از انتشار هنوز انجام نشده: ابزار کنترل مرورگر در این مرحله قطع شد. GSC Wizard نیز اشتراک فعال ندارد؛ هیچ اشتراکی خریداری نشد.
 
-Store every approved offer once in `src/features/commerce/offers.ts`, with exact allowed destination host, real tracking link, disclosure and review deadline. Product assignments live in `products.ts`; article bodies reference IDs. No link cloaking or invented IDs. The click handler rechecks expiry even if the page was built earlier. For Amazon, add the program's required identification exactly as specified in the current agreement once participation is real, and use only licensed program assets.
-
-Affiliate clicks are intent signals. Partner dashboards establish attributed leads, qualifying orders, reversals and paid commissions. Reconcile anonymized aggregate reports with offer IDs; never invent site-side purchases or claim clicks are revenue. Configure GA4 custom dimensions for offer_id, partner, product_id and cta_id only when the correct Web stream exists. Confirm collection in Realtime or DebugView before marking it live.
-
-Canadian disclosure reference: [Competition Bureau guidance](https://competition-bureau.canada.ca/en/deceptive-marketing-practices/types-deceptive-marketing-practices/influencer-marketing-and-competition-act). A commission, gift or other material connection needs a clear disclosure with the placement; a bare brand link is not enough.
-
-## پیگیری ثبت‌نام و اندازه‌گیری — ۹ اکتبر ۲۰۲۶
-
-Amazon به صفحهٔ ورود حساب موجود رسیده است؛ حساب جدید ساخته نشده و مالک ورود، کد تأیید، قرارداد، مالیات و پرداخت را انجام می‌دهد. فرم PetSafe باز شد؛ توضیح عمومی سایت، نشانی وب، کشور Canada و ارز CAD آماده شدند. دستهٔ Pets، مخاطب Canada و روش انتشار Content نیز انتخاب شدند. نام قانونی، ایمیل مالک، رمز جدید، نشانی، تلفن، طبقهٔ مالیاتی و PayPal تکمیل نشده‌اند؛ هیچ فرم یا قرارداد ارسال نشده است. Chewy و Trupanion پیش از ورود شبکه، پذیرش پیشنهاد قراردادی می‌خواهند. در هر پنج برنامه تعداد درخواست‌های ارسال‌شده و تأییدهای اثبات‌شده صفر است.
-
-GA4 اختصاصی ساخته و متصل شد؛ ثبت واقعی product_click با دو شناسهٔ محصول در Realtime تأیید شد. چهار بُعد product_id، cta_id، offer_id و partner ذخیره شدند. ثبت واقعی affiliate_click تا دریافت پیشنهاد و لینک تأییدشده بررسی نشده است؛ ایجاد بُعد گزارش، تأیید شریک یا درآمد نیست.
+کلیک، فروش یا کمیسیون نیست. انتساب فروش و درآمد فقط از گزارش شریک و پس از پردازش و برگشت‌ها قابل تأیید است.
