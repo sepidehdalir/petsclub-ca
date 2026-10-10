@@ -99,6 +99,11 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
           </p>
 
           <ArticleByline article={article} className="mt-6" />
+          <nav aria-label="Article shortcuts" className="club-article-shortcuts">
+            <a href="#article-body">Read the guide ↓</a>
+            {(article.sources?.length ?? 0) > 0 ? <a href="#article-sources-heading">Sources</a> : null}
+            {related.length > 0 ? <a href="#related-reading-heading">Related reading</a> : null}
+          </nav>
         </Container>
 
         <Container className="pb-10 sm:pb-14">
@@ -122,7 +127,7 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
 
           {/* `prose` sets the reading measure and `prose-article` the long-form
               step; both live in `globals.css` beside the type scale. */}
-          <div className="prose prose-article mt-9 sm:mt-10">{children}</div>
+          <div id="article-body" tabIndex={-1} className="prose prose-article mt-9 sm:mt-10">{children}</div>
 
           <div className="mt-12 space-y-8">
             {article.veterinaryNotice ? <VeterinaryBoundary /> : null}
