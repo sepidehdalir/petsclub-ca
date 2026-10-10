@@ -20,9 +20,9 @@ function ProductAction({ product }: { product: Product }) {
 function ProductPanel({ product }: { product: Product }) {
   const image = approvedProductImage(product);
   return <article className="club-product-panel">
-    <div className="club-product-photo">
-      {image ? <Image src={image.src} alt={image.alt} fill sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 560px" /> : <p className="club-product-asset-pending" role="status">Product photograph awaiting licensed asset</p>}
-    </div>
+    {image ? <div className="club-product-photo">
+      <Image src={image.src} alt={image.alt} fill sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 560px" />
+    </div> : null}
     <div className="club-product-content">
       {image?.credit ? <p className="club-product-image-credit">{image.credit}</p> : null}
       <span className="club-eyebrow">{product.activity}</span>

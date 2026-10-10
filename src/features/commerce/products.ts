@@ -9,6 +9,11 @@ export interface LicensedProductImage {
   permissionReference: string;
   sourceUrl: string;
   credit?: string;
+  /** Record approval scope; a retailer feed licence may prohibit Amazon CTAs. */
+  permittedOfferIds: readonly string[];
+  reviewedOn: string;
+  expiresOn?: string;
+  modelVerificationReference: string;
 }
 
 export interface Product {
@@ -54,9 +59,13 @@ export function findProduct(id: string) {
 }
 
 /** Metadata validation supports the separate human review of the written licence. */
-export function approvedProductImage(product: Product): LicensedProductImage | undefined {
+export function approvedProductImage(product: Product, today = new Date().toISOString().slice(0, 10)): LicensedProductImage | undefined {
   const image = product.image;
   if (!image || image.productId !== product.id || !image.alt.trim() || !image.permissionReference.trim()) return undefined;
+  if (!image.modelVerificationReference.trim() || !image.permittedOfferIds.includes(product.offerId ?? "retailer-details")) return undefined;
+  const validDate = (value: string) => /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
+  if (!validDate(image.reviewedOn) || image.reviewedOn > today) return undefined;
+  if (image.expiresOn && (!validDate(image.expiresOn) || image.expiresOn < today)) return undefined;
   if (!image.src.src.startsWith("/") || image.src.width <= 0 || image.src.height <= 0) return undefined;
   try {
     const source = new URL(image.sourceUrl);
