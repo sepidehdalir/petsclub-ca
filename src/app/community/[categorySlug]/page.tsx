@@ -92,7 +92,7 @@ export default async function CommunityCategoryPage(
         </Section>
       ) : null}
 
-      <Section tone={resources.length > 0 ? "muted" : "default"} aria-labelledby="conversation-heading">
+      <Section tone={resources.length > 0 ? "muted" : "canvas"} aria-labelledby="conversation-heading">
         <Container>
           <SectionHeading
             id="conversation-heading"
