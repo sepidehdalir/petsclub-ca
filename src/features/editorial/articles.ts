@@ -306,6 +306,30 @@ export type Article = ArticleContent & ArticlePublication;
 
 export const articles: readonly Article[] = [
   {
+    slug: "choosing-a-dog-harness-in-canada",
+    section: "dogs",
+    subcategory: "Buying guides",
+    title: "Choosing a Dog Harness in Canada: Fit, Features and Returns",
+    deck: "Build a practical harness shortlist using model-specific sizing, attachment instructions, care requirements and Canadian retailer return conditions.",
+    metaDescription: "Compare dog harness sizing, attachment points, cleaning instructions and Canadian returns before buying. A practical checklist without untested product rankings.",
+    authorId: "pet-club-editorial",
+    readingMinutes: 3,
+    mediaId: "dogs-autumn-bridge",
+    tags: ["dogs", "harnesses", "buying-guides", "puppies"],
+    indexable: true,
+    status: "published",
+    publishedAt: "2026-10-10",
+    veterinaryNotice: true,
+    keyTakeaways: ["Use the exact model’s size chart, not a familiar size label.", "Check fastening, leash attachment and care instructions before purchase.", "Compare delivered cost and return eligibility with the Canadian retailer."],
+    relatedSlugs: ["loose-leash-walking-and-recall", "cost-of-owning-a-dog-in-canada", "bringing-home-a-puppy-first-30-days"],
+    relatedCategorySlugs: ["puppies"],
+    sources: [
+      { label: "Selecting and fitting a dog harness", publisher: "Edmonton Humane Society", url: "https://www.edmontonhumanesociety.com/wp-content/uploads/2024/05/2023-canine-harness-selection-EHS-Resources.pdf" },
+      { label: "Evolution Step-in Harness sizing and instructions", publisher: "RC Pets", url: "https://rcpets.com/evolution-step-in-harness/" },
+    ],
+    needsVerification: [],
+  },
+  {
     slug: "winter-dog-care-in-canada",
     section: "dogs",
     subcategory: "Seasonal care",

@@ -121,3 +121,12 @@ PR #19 پس از موفقیت CI 38006428423 و Browser QA 38006428380 ادغا�
 ## AdSense ownership setup — 2026-10-09
 
 Owner completed the AdSense onboarding step. Authenticated Google UI lists thepetclub.ca with Requires review and received payment information. Added the exact google-adsense-account meta tag issued by that account for ownership verification. Verification and review submission must be confirmed in the dashboard after production deployment; no advertising approval or revenue is implied. PetSafe remains an incomplete registration form; public description, Canada and Pets category prepared, with personal/payment/contract steps reserved for owner.
+
+
+## Independent buying guide and tracking verification — 2026-10-10
+
+PR #27's image-capable shared cards are deployed (9bd6261c). Approved exact-product photographs remain zero; no manufacturer licensing reply or approved affiliate feed has been obtained. Catit case 00807128 shows the original acknowledgement and the authorized follow-up sent at 10:54 AM today, with no permission response observed. No additional duplicate request was sent. Awin is at sign-in; Ascend displays account not activated. Impact remains with support.
+
+A fresh real Wave Circuit CTA click on the production comparison page, after choosing Allow analytics, appeared in the correct GA4 Realtime property as affiliate_click (count 1), with offer_id=amazon-catit-wave. The destination retains thepetclub09-20 and exact ASIN B00D3NI7ZG. This is a controlled browser verification, not evidence of organic traffic, sales or commission.
+
+PR #29 adds an original Canadian harness buying guide, sourced to Edmonton Humane Society and RC Pets, with incoming links from the dog budget and puppy preparation guides. No unapproved product photo, invented affiliate link, price or testing claim was added. Seven clinical drafts remain withheld for qualified review. Editorial tests passed; publication is conditional on full CI and Browser QA, merge and verification of the production deployment. The guide raises the registry to 36 entries, of which 29 are published, and sitemap coverage to 78 URLs once deployed.
