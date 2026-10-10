@@ -9,6 +9,8 @@ describe("public product examples", () => {
     expect(products.map((item) => item.id)).toEqual(["catit-digger", "catit-wave"]);
     for (const item of products) {
       expect(new URL(item.source).hostname).toBe("www.homesalive.ca");
+      expect(item.features).toHaveLength(3);
+      expect(new Set(item.features).size).toBe(3);
       expect(item.offerId).toBe("amazon-" + item.id);
     }
   });
@@ -24,5 +26,10 @@ describe("public product examples", () => {
     expect(html).toContain('scope="col"');
     expect(html).toContain('rel="sponsored nofollow noopener"');
     expect(html).not.toContain("aggregateRating");
+    expect(html).not.toContain(">Affiliate link<");
+    expect(html.match(/As an Amazon Associate/g)).toHaveLength(1);
+    expect(html.match(/Product photograph awaiting licensed asset/g)).toHaveLength(2);
+    expect(html.match(/tag=thepetclub09-20/g)).toHaveLength(2);
+    expect(html).not.toContain("club-product-number");
   });
 });

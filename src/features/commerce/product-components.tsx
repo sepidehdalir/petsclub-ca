@@ -1,31 +1,45 @@
 import Link from "next/link";
+import Image from "next/image";
 import { AffiliateLink } from "./affiliate-link";
 import { findAffiliateOffer } from "./offers";
 import { findProduct, type Product } from "./products";
 import { ProductLink } from "./product-link";
 
 export function CommerceDisclosure() {
-  return <p className="text-body-sm text-foreground-muted">
-    These examples compare retailer-listed features. We have not tested these products. We may earn a commission when you use a disclosed affiliate link and make a qualifying purchase. Ordinary source links earn us no commission. As an Amazon Associate I earn from qualifying purchases. <Link href="/advertising-disclosure" className="underline">Our advertising policy</Link>.
+  return <p className="club-commerce-disclosure">
+    We may earn a commission from purchases through these links. As an Amazon Associate I earn from qualifying purchases. <Link href="/advertising-disclosure">Our advertising policy</Link>.
   </p>;
 }
 
 function ProductAction({ product }: { product: Product }) {
   const offer = product.offerId ? findAffiliateOffer(product.offerId) : undefined;
-  if (offer) return <div className="club-product-action"><span className="text-caption text-foreground-muted">Affiliate link</span><AffiliateLink offer={offer} /></div>;
+  if (offer) return <div className="club-product-action"><AffiliateLink offer={offer} /></div>;
   return <ProductLink product={product} />;
+}
+
+function ProductPanel({ product }: { product: Product }) {
+  return <article className="club-product-panel">
+    <div className="club-product-photo">
+      {product.image ? <Image src={product.image.src} alt={product.image.alt} fill sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 560px" /> : <p className="club-product-asset-pending" role="status">Product photograph awaiting licensed asset</p>}
+    </div>
+    <div className="club-product-content">
+      <span className="club-eyebrow">{product.activity}</span>
+      <h3>{product.name}</h3>
+      <p className="club-product-description">{product.use}</p>
+      <ul className="club-product-features" aria-label={`${product.name} features`}>{product.features.map(feature => <li key={feature}>{feature}</li>)}</ul>
+      <div className="club-product-considerations"><h4>Before you choose</h4><p>{product.considerations}</p></div>
+      <ProductAction product={product} />
+    </div>
+  </article>;
 }
 
 export function ProductCard({ productId }: { productId: string }) {
   const product = findProduct(productId);
   if (!product) return null;
-  return <aside aria-label={product.name} className="my-8 rounded-card border border-border bg-surface-muted p-5">
+  return <aside aria-label={product.name} className="club-product-single my-8">
     <CommerceDisclosure />
-    <h3>{product.name}</h3>
-    <p>{product.use} {product.construction}</p>
-    <p>{product.considerations}</p>
-    <ProductAction product={product} />
-    <p className="mt-3 text-body-sm text-foreground-muted">Listing checked {product.checkedOn}. Confirm current price, stock, shipping and returns before buying. There is no need to buy every example.</p>
+    <ProductPanel product={product} />
+    <p className="club-product-editorial-note">We have not tested these products. Listing checked {product.checkedOn}. Confirm price, stock, shipping and returns on the retailer’s site.</p>
   </aside>;
 }
 
@@ -34,13 +48,8 @@ export function ProductComparison({ productIds }: { productIds: string[] }) {
   if (entries.length < 2) return null;
   return <section aria-label="Cat enrichment product comparison" className="club-comparison my-8">
     <CommerceDisclosure />
-    <div className="club-product-grid">{entries.map((product, index) => <article key={product.id} className="club-product-panel">
-      <div className="club-product-heading"><span className="club-eyebrow">{index === 0 ? "Food exploration" : "Chase & play"}</span><span aria-hidden="true" className="club-product-number">0{index + 1}</span></div>
-      <h3>{product.name}</h3>
-      <p>{product.use}</p>
-      <dl><div><dt>How it works</dt><dd>{product.construction}</dd></div><div><dt>Before choosing</dt><dd>{product.considerations}</dd></div></dl>
-      <ProductAction product={product} />
-    </article>)}</div>
+    <p className="club-product-editorial-note">Retailer-listed features, not a ranking. We have not tested these products.</p>
+    <div className="club-product-grid">{entries.map(product => <ProductPanel key={product.id} product={product} />)}</div>
     <details className="club-comparison-details"><summary>Compare the features side by side</summary>
       <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Scrollable comparison table"><table className="min-w-[32rem]"><caption>Two different activities, rather than a best-product ranking</caption><thead><tr><th scope="col">Example</th><th scope="col">Activity and design</th><th scope="col">Before choosing</th></tr></thead><tbody>{entries.map(product => <tr key={product.id}><th scope="row">{product.name}</th><td>{product.use} {product.construction}</td><td>{product.considerations}</td></tr>)}</tbody></table></div>
     </details>
