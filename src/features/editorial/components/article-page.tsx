@@ -60,7 +60,7 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
   const path = articlePath(article.slug);
 
   return (
-    <article>
+    <article className="club-article">
       <header className="border-b border-border bg-surface">
         <Container width="prose" className="pb-8 pt-5 sm:pt-9">
           <Breadcrumbs

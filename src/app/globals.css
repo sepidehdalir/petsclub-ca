@@ -560,3 +560,72 @@
     }
   }
 }
+
+/* The Pet Club editorial identity: warm paper, forest ink, generous image-led layouts. */
+.club-eyebrow { font-family: var(--font-sans); font-size: .72rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; color: #456247; }
+.club-hero { padding: 4rem 0 3.5rem; background: #f2eee6; overflow: hidden; }
+.club-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.club-hero h1 { font-family: var(--font-serif); font-size: clamp(3.5rem, 6.3vw, 6rem); font-weight: 500; letter-spacing: -.055em; line-height: .98; margin: 1.5rem 0; color: #213d2d; }
+.club-hero-deck { max-width: 29rem; font-size: 1.1rem; line-height: 1.7; color: #545b50; }
+.club-hero-note { margin-top: 2rem; font-size: .78rem; color: #62685c; }
+.club-hero-images { position: relative; padding: 0 3rem 2rem 0; }
+.club-hero-dog { transform: rotate(2deg); }
+.club-hero-dog > div { border-radius: 45% 45% .9rem .9rem; max-height: 530px; }
+.club-hero-cat { position: absolute; width: 46%; bottom: 0; right: -1rem; background: #fffdf7; padding: .55rem .55rem 0; transform: rotate(-5deg); box-shadow: 0 10px 35px #25392518; }
+.club-hero-cat span { display: block; font-family: var(--font-serif); font-size: .95rem; padding: .6rem .15rem; }
+.club-photo-label { position: absolute; bottom: .1rem; left: .3rem; font-size: .7rem; letter-spacing: .04em; }
+.club-topic-strip { border-block: 1px solid #dcded3; background: #faf8f3; }
+.club-topic-links { display: grid; grid-template-columns: repeat(4, 1fr); }
+.club-topic-links a { display: flex; align-items: center; justify-content: space-between; padding: 1.4rem 1rem; font-size: .9rem; border-right: 1px solid #dcded3; transition: background .2s; }
+.club-topic-links a:last-child { border-right: 0; }
+.club-topic-links a:hover { background: #e9eddf; }
+.club-section-intro { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 2rem; }
+.club-section-intro > p { max-width: 24rem; color: #60685e; line-height: 1.7; }
+.club-section-intro h2, .club-discovery h2, .club-canada h2, .club-community h2 { font-family: var(--font-serif); font-size: clamp(2.2rem, 3.7vw, 3.4rem); line-height: 1.1; letter-spacing: -.03em; font-weight: 500; margin: .8rem 0 1.2rem; }
+.club-world-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.club-world-card { display: block; }
+.club-world-card > div { padding-top: 1.5rem; }
+.club-world-card h3 { display: flex; justify-content: space-between; font-family: var(--font-serif); font-size: 2rem; margin: .5rem 0; }
+.club-world-card p { color: #60685e; }
+.club-world-card img { transition: transform .5s ease; }
+.club-world-card:hover img { transform: scale(1.035); }
+.club-discovery, .club-canada { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem; }
+.club-discovery p:not(.club-eyebrow), .club-canada p:not(.club-eyebrow) { margin-bottom: 1.5rem; line-height: 1.7; }
+.club-community { padding: 4rem 0; text-align: center; background: #e5ebdb; }
+.club-community p:not(.club-eyebrow) { max-width: 38rem; margin: 0 auto 1.5rem; line-height: 1.7; }
+@media (max-width: 767px) {
+  .club-hero { padding: 2.5rem 0; }
+  .club-hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .club-hero-copy { max-width: 35rem; }
+  .club-hero-images { max-width: 30rem; width: 100%; margin: auto; padding-right: 4rem; }
+  .club-hero-dog > div { max-height: 380px; }
+  .club-hero-cat { right: 0; }
+  .club-topic-links { grid-template-columns: 1fr 1fr; }
+  .club-topic-links a { padding: 1rem .65rem; font-size: .8rem; }
+  .club-topic-links a:nth-child(2) { border-right: 0; }
+  .club-topic-links a:nth-child(-n+2) { border-bottom: 1px solid #dcded3; }
+  .club-section-intro { display: block; }
+  .club-world-grid, .club-discovery, .club-canada { grid-template-columns: 1fr; gap: 2rem; }
+  .club-world-grid { gap: 2.5rem; }
+}
+@media (prefers-reduced-motion: reduce) { .club-world-card img { transition: none; } }
+.club-comparison > p:first-child { padding: 1rem 1.2rem; background: #f3f1ea; border-radius: .75rem; font-size: .8rem; line-height: 1.6; }
+.club-product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
+.club-product-panel { background: #f5f6ee; border: 1px solid #dce2d1; border-radius: 1rem; padding: 1.7rem; display: flex; flex-direction: column; }
+.club-product-panel:nth-child(2) { background: #f8f0e8; border-color: #e8dbcd; }
+.club-product-heading { display: flex; justify-content: space-between; align-items: center; }
+.club-product-number { font-family: var(--font-serif); font-size: 2.5rem; color: #70775c; }
+.club-product-panel h3 { font-family: var(--font-serif); font-size: 1.8rem; margin: .5rem 0 1rem; line-height: 1.15; }
+.club-product-panel dl { margin: 1rem 0 1.5rem; font-size: .88rem; }
+.club-product-panel dl > div { border-top: 1px solid #d9ddcf; padding: .9rem 0; }
+.club-product-panel dt { font-weight: 600; margin-bottom: .3rem; }
+.club-product-panel dd { margin: 0; color: #5d6459; line-height: 1.65; }
+.club-product-action { margin-top: auto; display: flex; flex-direction: column; gap: .4rem; }
+.club-product-action a { display: inline-flex; align-items: center; justify-content: center; padding: .85rem 1rem; border-radius: .5rem; background: #294b36; color: white; text-decoration: none; font-weight: 600; transition: background .2s; }
+.club-product-action a:hover { background: #173322; }
+.club-comparison-details { margin-top: 1.5rem; border-block: 1px solid #dce2d1; padding: 1rem 0; }
+.club-comparison-details summary { cursor: pointer; font-weight: 600; padding: .4rem 0; }
+.club-article > header { background: #f2eee6; }
+.club-article > header h1 { letter-spacing: -.035em; line-height: 1.08; }
+.club-article .prose-article h2 { border-top: 1px solid #dce2d1; padding-top: 1.2rem; margin-top: 2.8rem; }
+@media(max-width: 639px) { .club-product-grid { grid-template-columns: 1fr; } }
