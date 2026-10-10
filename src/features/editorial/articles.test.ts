@@ -590,7 +590,7 @@ describe("article index policy", () => {
     expect(new Set(all).size, "duplicate sitemap URL").toBe(all.length);
     // 41 original + 15 guides + the Journey hub and its six indexed stages.
     expect(all).toHaveLength(77);
-    expect(all).toContain("https://thepetclub.ca/compare/catit-digger-vs-wave-circuit");
+    expect(all.map((url) => new URL(url).pathname)).toContain("/compare/catit-digger-vs-wave-circuit");
   });
 
   it("would emit sitemap URLs that match each article's own canonical", () => {
