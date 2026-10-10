@@ -140,3 +140,6 @@ export const informationalRoutes: readonly string[] = [
   "/terms-of-use",
   "/advertising-disclosure",
 ] as const;
+
+/** Product comparisons with reviewed source specifications. */
+export const comparisonRoutes: readonly string[] = ["/compare/catit-digger-vs-wave-circuit"];

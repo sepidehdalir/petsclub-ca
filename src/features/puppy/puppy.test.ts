@@ -4431,11 +4431,11 @@ describe("stage robots policy", () => {
     expect(stageRobotsPolicy(held)).toBe("public-noindex");
   });
 
-  it("16. includes 76 routes: 28 guides and 7 Journey routes", () => {
+  it("16. includes 77 routes: 28 guides, 7 Journey routes and a comparison", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
     expect(urls.filter((url) => isJourneyRoute(url))).toHaveLength(7);
     expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(28);
-    expect(urls).toHaveLength(76);
+    expect(urls).toHaveLength(77);
     expect(new Set(urls).size, "duplicate sitemap URL").toBe(urls.length);
   });
 
