@@ -98,6 +98,7 @@ export default function RootLayout({
       className={`${publicSans.variable} ${newsreader.variable}`}
     >
       <head>
+        <meta name="google-adsense-account" content="ca-pub-6654381708684665" />
         {/* Public ownership token issued by Impact; this is not a tracking script. */}
         <meta name="impact-site-verification" {...{ value: "5b261ee5-c774-4f38-a7d1-624bbecb9b6c" }} />
       </head>
