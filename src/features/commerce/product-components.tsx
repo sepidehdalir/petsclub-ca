@@ -6,7 +6,7 @@ import { ProductLink } from "./product-link";
 
 export function CommerceDisclosure() {
   return <p className="text-body-sm text-foreground-muted">
-    These examples compare retailer-listed features. We have not tested these products or received payment for these selections. Ordinary retailer links earn us no commission. Any future affiliate offer carries its own disclosure. <Link href="/advertising-disclosure" className="underline">Our advertising policy</Link>.
+    These examples compare retailer-listed features. We have not tested these products. We may earn a commission when you use a disclosed affiliate link and make a qualifying purchase. Ordinary source links earn us no commission. As an Amazon Associate I earn from qualifying purchases. <Link href="/advertising-disclosure" className="underline">Our advertising policy</Link>.
   </p>;
 }
 

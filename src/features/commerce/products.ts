@@ -13,7 +13,7 @@ export interface Product {
 /** Retailer specifications, not hands-on reviews or a ranking. No price feed. */
 export const products: readonly Product[] = [
   {
-    id: "catit-digger", name: "Catit Senses 2.0 Digger",
+    id: "catit-digger", offerId: "amazon-catit-digger", name: "Catit Senses 2.0 Digger",
     use: "A food puzzle for a cat that enjoys reaching for dry food or treats.",
     construction: "Removable narrow and wide cups on a base.",
     considerations: "Check cup access for your cat’s size. Supervise use and remove damaged parts. Follow the retailer’s hand-washing instructions.",
@@ -21,7 +21,7 @@ export const products: readonly Product[] = [
     checkedOn: "2026-10-09",
   },
   {
-    id: "catit-wave", name: "Catit Senses 2.0 Wave Circuit",
+    id: "catit-wave", offerId: "amazon-catit-wave", name: "Catit Senses 2.0 Wave Circuit",
     use: "A track toy for a cat that enjoys batting a moving ball; it does not dispense food.",
     construction: "A raised, enclosed ball track with openings for play.",
     considerations: "Allow floor space for the assembled track. Supervise use and remove damaged parts. Follow the retailer’s hand-washing instructions.",

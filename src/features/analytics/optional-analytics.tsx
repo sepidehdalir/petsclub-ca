@@ -19,6 +19,7 @@ export function OptionalAnalytics({ measurementId, allowedPaths }: { measurement
   const [settingsOpen, setSettingsOpen] = useState(false);
   const lastPage = useRef<string | null>(null);
   const initialized = useRef(false);
+  const consentInitialized = useRef(false);
   const location = publicPageLocation(path, allowedPaths);
 
   useEffect(() => {
@@ -59,7 +60,17 @@ export function OptionalAnalytics({ measurementId, allowedPaths }: { measurement
   function enable() {
     if (!analyticsHostAllowed(window.location.hostname)) return;
     window[`ga-disable-${configuredId}`] = false;
-    window.gtag?.("consent", "update", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    window.dataLayer ??= [];
+    window.gtag ??= function (..._args: unknown[]) {
+      // eslint-disable-next-line prefer-rest-params -- Google's queue expects an Arguments object.
+      window.dataLayer?.push(arguments);
+    };
+    if (!consentInitialized.current) {
+      consentInitialized.current = true;
+      // Queue the denied defaults before the external tag can load.
+      window.gtag("consent", "default", { analytics_storage: "denied", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    }
+    window.gtag("consent", "update", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
     setAllowed(true);
   }
   function disable() {
@@ -93,7 +104,6 @@ export function OptionalAnalytics({ measurementId, allowedPaths }: { measurement
       };
       if (!initialized.current) {
         initialized.current = true;
-        window.gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
         window.gtag("js", new Date());
         window.gtag("config", configuredId, { send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false, page_location: location, page_referrer: "" });
       }

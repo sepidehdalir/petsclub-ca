@@ -5,8 +5,16 @@ const offer: AffiliateOffer = {
   approved: true, allowedHost: "example.com", verifiedOn: "2026-10-01", reviewBy: "2026-10-31", disclosure: "Test disclosure",
 };
 describe("affiliate activation guards", () => {
-  it("ships no invented commercial relationships", () => {
-    expect(affiliateOffers).toHaveLength(0);
+  it("ships only reviewed Amazon links for the verified account", () => {
+    expect(affiliateOffers).toHaveLength(2);
+    for (const entry of affiliateOffers) {
+      const url = new URL(entry.href);
+      expect(url.hostname).toBe("www.amazon.ca");
+      expect(url.searchParams.get("tag")).toBe("thepetclub09-20");
+      expect(url.pathname).toMatch(/\/dp\/[A-Z0-9]{10}$/);
+      expect(entry.disclosure).toContain("As an Amazon Associate I earn from qualifying purchases.");
+      expect(usableOffer(entry, "2026-10-09")).toBe(true);
+    }
     expect(findAffiliateOffer("unknown")).toBeUndefined();
   });
   it("accepts a reviewed offer only during its verification window", () => {

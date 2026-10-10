@@ -6,7 +6,7 @@ import { createMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Advertising Disclosure",
   description:
-    "How ThePetClub.ca will handle advertising, affiliate links and sponsored placements.",
+    "How ThePetClub.ca handles advertising, affiliate links and sponsored placements.",
   path: "/advertising-disclosure",
 });
 
@@ -14,20 +14,19 @@ export default function AdvertisingDisclosurePage() {
   return (
     <PolicyPage
       title="Advertising Disclosure"
-      description="How advertising and affiliate relationships will work on The Pet Club."
+      description="How advertising and affiliate relationships work on The Pet Club."
       path="/advertising-disclosure"
       pendingReview="legal"
     >
       <h2>Current status</h2>
       <p>
-        This page sets out our intended approach to advertising, affiliate links and sponsored
-        content. It does not confirm affiliate-program enrollment, commercial agreements
-        or revenue. Any advertising, affiliate link or sponsored placement must carry a
-        disclosure where it appears.
+        As an Amazon Associate I earn from qualifying purchases. We may earn a commission
+        when you follow a disclosed affiliate link and make a qualifying purchase.
+        Every affiliate placement carries a disclosure where it appears.
       </p>
 
       <h2>Product examples</h2>
-      <p>Current enrichment examples link to ordinary retailer listings and earn no commission. Comparisons describe listed features and practical selection considerations; we have not tested the products. We do not publish customer star ratings, claimed therapeutic benefits, or guaranteed prices and availability.</p>
+      <p>Current enrichment examples include disclosed Amazon.ca affiliate links. We may earn a commission from qualifying purchases; ordinary source links earn no commission. Comparisons describe listed features and practical selection considerations; we have not tested the products. We do not publish customer star ratings, claimed therapeutic benefits, or guaranteed prices and availability.</p>
 
       <h2>Commitments</h2>
       <ul>
