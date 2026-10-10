@@ -91,6 +91,7 @@ export const footerNavigation: readonly NavGroup[] = [
     title: "Resources",
     items: [
       { label: "Canada guides", href: "/guides" },
+      { label: "Cat enrichment comparison", href: "/compare/catit-digger-vs-wave-circuit" },
       { label: "Pet insurance", href: "/community/pet-insurance" },
       { label: "Vet costs", href: "/community/vet-costs" },
       { label: "Pet-friendly Canada", href: "/community/pet-friendly-canada" },
@@ -139,3 +140,6 @@ export const informationalRoutes: readonly string[] = [
   "/terms-of-use",
   "/advertising-disclosure",
 ] as const;
+
+/** Product comparisons with reviewed source specifications. */
+export const comparisonRoutes: readonly string[] = ["/compare/catit-digger-vs-wave-circuit"];

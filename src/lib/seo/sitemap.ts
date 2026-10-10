@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { informationalRoutes, topicRoutes } from "@/config/navigation";
+import { comparisonRoutes, informationalRoutes, topicRoutes } from "@/config/navigation";
 import {
   COMMUNITY_BASE_PATH,
   allCommunityCategories,
@@ -30,6 +30,7 @@ const ROUTE_GROUPS: readonly RouteGroup[] = [
   { paths: ["/"], priority: 1, changeFrequency: "daily" },
   { paths: [COMMUNITY_BASE_PATH], priority: 0.9, changeFrequency: "daily" },
   { paths: topicRoutes, priority: 0.8, changeFrequency: "weekly" },
+  { paths: comparisonRoutes, priority: 0.7, changeFrequency: "monthly" },
   {
     // Published *and* approved for indexing. `isArticleIndexable` is the same
     // predicate `/guides/[slug]` uses for its `noindex` meta, so the sitemap

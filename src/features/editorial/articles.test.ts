@@ -589,7 +589,8 @@ describe("article index policy", () => {
     expect(all.some((u) => u.includes("?"))).toBe(false);
     expect(new Set(all).size, "duplicate sitemap URL").toBe(all.length);
     // 41 original + 15 guides + the Journey hub and its six indexed stages.
-    expect(all).toHaveLength(76);
+    expect(all).toHaveLength(77);
+    expect(all.map((url) => new URL(url).pathname)).toContain("/compare/catit-digger-vs-wave-circuit");
   });
 
   it("would emit sitemap URLs that match each article's own canonical", () => {
@@ -1905,6 +1906,6 @@ describe("article robots policy", () => {
   it("15. includes exactly twenty-eight guides in the sitemap", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
     expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(28);
-    expect(urls).toHaveLength(76);
+    expect(urls).toHaveLength(77);
   });
 });
