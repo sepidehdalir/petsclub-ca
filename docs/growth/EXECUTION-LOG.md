@@ -117,3 +117,7 @@ PR #19 پس از موفقیت CI 38006428423 و Browser QA 38006428380 ادغا�
 مالک توقف تلاش تکراری Impact را خواست. پاسخ پشتیبانی و وضعیت دو رکورد هنوز نامعلوم؛ هیچ ثبت‌نام جدید یا قرارداد پذیرفته نشد. بررسی تولید ۳۵ راهنما مجدداً انجام شد؛ ۲۸ عمومی، هفت نگه‌داشته و ۷۶ URL sitemap. پوشش افیلیت واقعی دو مقاله، دو محصول و سه جایگاه است. مدرک واقعی GA4 قبلی حفظ شد؛ فروش/کمیسیون تأیید نشده. هفت پیش‌نویس بالینی همچنان برای متخصص نگه داشته شدند.
 
 سه مقالهٔ عمومی بودجه و بیمه، پیوندهای زمینه‌ای به هفت موضوع مرتبط منتشرشده دریافت کردند. Caption دو Pin که به مقالهٔ افیلیت‌دار می‌روند، افشای کمیسیون مقصد دارند؛ generator با متن ثبت‌شده هماهنگ شد. هیچ Pin منتشرشده یا درخواست AdSense ارسال‌شده ادعا نمی‌شود. سیاست حریم خصوصی هنوز پیش‌نویس و حساب‌های Ascend/Awin/Pinterest نیازمند ورود مالک‌اند. اعتبارسنجی و استقرار این تغییر مستقل باید پیش از گزارش زنده بودن کنترل شود.
+
+## AdSense ownership setup — 2026-10-09
+
+Owner completed the AdSense onboarding step. Authenticated Google UI lists thepetclub.ca with Requires review and received payment information. Added the exact google-adsense-account meta tag issued by that account for ownership verification. Verification and review submission must be confirmed in the dashboard after production deployment; no advertising approval or revenue is implied. PetSafe remains an incomplete registration form; public description, Canada and Pets category prepared, with personal/payment/contract steps reserved for owner.
