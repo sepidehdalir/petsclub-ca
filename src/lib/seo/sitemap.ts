@@ -30,6 +30,7 @@ const ROUTE_GROUPS: readonly RouteGroup[] = [
   { paths: ["/"], priority: 1, changeFrequency: "daily" },
   { paths: [COMMUNITY_BASE_PATH], priority: 0.9, changeFrequency: "daily" },
   { paths: topicRoutes, priority: 0.8, changeFrequency: "weekly" },
+  { paths: ["/compare/catit-digger-vs-wave-circuit"], priority: 0.7, changeFrequency: "monthly" },
   {
     // Published *and* approved for indexing. `isArticleIndexable` is the same
     // predicate `/guides/[slug]` uses for its `noindex` meta, so the sitemap
