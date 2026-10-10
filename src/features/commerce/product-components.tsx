@@ -12,7 +12,7 @@ export function CommerceDisclosure() {
 
 function ProductAction({ product }: { product: Product }) {
   const offer = product.offerId ? findAffiliateOffer(product.offerId) : undefined;
-  if (offer) return <div className="club-product-action"><span className="text-caption text-foreground-muted">Affiliate link</span><AffiliateLink offer={offer} /></div>;
+  if (offer) return <div className="club-product-action"><AffiliateLink offer={offer} /></div>;
   return <ProductLink product={product} />;
 }
 
