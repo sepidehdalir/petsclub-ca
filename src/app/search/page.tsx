@@ -58,7 +58,7 @@ export default async function SearchPage(props: PageProps<"/search">) {
                   ["Cat enrichment", "cat enrichment"],
                   ["Dog training", "dog training"],
                 ].map(([label, q]) => (
-                  <ButtonLink key={q} href={`/search?q=${encodeURIComponent(q)}`} variant="secondary" size="sm">
+                  <ButtonLink key={q} href={`/search?q=${encodeURIComponent(q ?? "")}`} variant="secondary" size="sm">
                     {label}
                   </ButtonLink>
                 ))}
