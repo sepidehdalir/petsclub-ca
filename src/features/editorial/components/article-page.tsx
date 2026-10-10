@@ -60,7 +60,7 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
   const path = articlePath(article.slug);
 
   return (
-    <article>
+    <article className="club-article">
       <header className="border-b border-border bg-surface">
         <Container width="prose" className="pb-8 pt-5 sm:pt-9">
           <Breadcrumbs
@@ -109,7 +109,7 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
             // The lead image, and the only one above the fold.
             priority
             showCredit
-            sizes="(min-width: 1152px) 1088px, (min-width: 640px) calc(100vw - 3rem), calc(100vw - 2rem)"
+            sizes="(min-width: 1152px) 520px, (min-width: 1024px) 46vw, (min-width: 640px) calc(100vw - 3rem), calc(100vw - 2rem)"
           />
         </Container>
       </header>

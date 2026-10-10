@@ -32,7 +32,7 @@ while (Date.now() < deadline) {
 }
 assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
-const routes = ['/', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/contact'];
+const routes = ['/', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/contact'];
 const scenarios = [
   { name: 'chromium-desktop', engine: chromium, viewport: { width: 1440, height: 900 }, mobile: false },
   { name: 'chromium-mobile', engine: chromium, viewport: { width: 390, height: 844 }, mobile: true },
@@ -127,7 +127,7 @@ for (const scenario of scenarios) {
         await page.screenshot({ path: join(out, `${filename}.png`), fullPage: true });
         if (path === '/') {
           assert.ok(!(await page.locator('body').innerText()).includes('no article has been published yet'));
-          result.guideCards = await page.locator('section[aria-labelledby="guides-heading"] h3').count();
+          result.guideCards = await page.locator('section[aria-labelledby="latest-guides"] h3').count();
           assert.equal(result.guideCards, 3, 'Homepage must show three published guide cards');
           if (scenario.mobile) {
             const open = page.getByRole('button', { name: 'Open menu', exact: true });
@@ -143,7 +143,7 @@ for (const scenario of scenarios) {
             await page.locator('dialog[open]').waitFor({ state: 'hidden' });
             result.mobileMenu = 'Open, close button and Escape passed';
           }
-          await page.getByRole('link', { name: 'Browse Canadian guides', exact: true }).click();
+          await page.getByRole('link', { name: 'Find your next read', exact: true }).click();
           await page.waitForURL(new URL('/guides', base).href);
           await page.locator('#published-guides-heading').waitFor({ state: 'visible' });
           result.heroGuideNavigation = 'passed';
@@ -162,7 +162,7 @@ for (const scenario of scenarios) {
           result.inlineDraftLinks = await page.locator('a[href*="/guides/arthritis-and-mobility-in-dogs-and-cats"]').count();
           assert.equal(result.inlineDraftLinks, 0, 'Known in-review destination is still promoted');
         }
-        if (path === '/guides/indoor-cat-enrichment-canadian-homes' || path === '/guides/cost-of-owning-a-cat-in-canada') {
+        if (path === '/compare/catit-digger-vs-wave-circuit' || path === '/guides/indoor-cat-enrichment-canadian-homes' || path === '/guides/cost-of-owning-a-cat-in-canada') {
           const clicks = [];
           await page.exposeFunction('recordProductClick', (detail) => clicks.push(detail));
           await page.evaluate(() => {
@@ -186,7 +186,8 @@ for (const scenario of scenarios) {
           assert.match(await page.locator('main').innerText(), /As an Amazon Associate I earn from qualifying purchases/);
           assert.match(await page.locator('main').innerText(), /have not tested these products/);
           result.productInteraction = 'Actual affiliate click emitted exactly one local event with verified offer ID; no GA collector configured';
-          if (path.endsWith('indoor-cat-enrichment-canadian-homes')) {
+          if (path.endsWith('indoor-cat-enrichment-canadian-homes') || path.startsWith('/compare/')) {
+            await page.getByText('Compare the features side by side', { exact: true }).click();
             assert.equal(await page.getByRole('region', { name: 'Scrollable comparison table' }).count(), 1);
           }
         }
