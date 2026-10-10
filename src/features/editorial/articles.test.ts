@@ -420,7 +420,7 @@ describe("cat planning publication scope", () => {
       const body = readBody(article);
       expect(article.status).toBe("published");
       expect(body).toMatch(/not .*?(?:clinical|protocol|medical)|does not set feeding/i);
-      expect(body).toMatch(/not been reviewed by a veterinarian|No veterinarian has reviewed/i);
+      expect(body).toMatch(/Veterinary review has not been performed|No veterinarian has reviewed/i);
       expect(body).not.toMatch(/hypoglyc|low blood sugar|hypovolae|dehydration|most common behavioural reason|most inter-cat conflict|two or three days|abscess|Feliway|scent swapping/i);
       expect(article.sources?.map((source) => source.url)).toContain("https://spca.bc.ca/get-help/pet-care/cats/");
     });
@@ -573,7 +573,7 @@ describe("article index policy", () => {
     expect(sitemap).not.toMatch(/publishedArticles\(\)/);
   });
 
-  it("puts exactly the twenty-six guides, and no query-string variant, in the sitemap", () => {
+  it("puts exactly the twenty-eight guides, and no query-string variant, in the sitemap", () => {
     const all = urls();
     const guides = all
       .filter((u) => new URL(u).pathname.startsWith("/guides/"))
@@ -589,7 +589,7 @@ describe("article index policy", () => {
     expect(all.some((u) => u.includes("?"))).toBe(false);
     expect(new Set(all).size, "duplicate sitemap URL").toBe(all.length);
     // 41 original + 15 guides + the Journey hub and its six indexed stages.
-    expect(all).toHaveLength(74);
+    expect(all).toHaveLength(76);
   });
 
   it("would emit sitemap URLs that match each article's own canonical", () => {
@@ -1902,9 +1902,9 @@ describe("article robots policy", () => {
     expect(articles.filter((a) => articleRobotsPolicy(a) === "public-noindex")).toEqual([]);
   });
 
-  it("15. includes exactly twenty-six guides in the sitemap", () => {
+  it("15. includes exactly twenty-eight guides in the sitemap", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
     expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(28);
-    expect(urls).toHaveLength(74);
+    expect(urls).toHaveLength(76);
   });
 });
