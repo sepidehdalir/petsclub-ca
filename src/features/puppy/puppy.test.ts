@@ -4316,7 +4316,6 @@ describe("pediatric medical consistency, Journey and articles", () => {
     const ARTICLES = [
       "emergency-vet-visits-in-canada",
       "bringing-home-a-puppy-first-30-days",
-      "bringing-home-a-kitten-first-30-days",
     ];
     const journeyText = stages.map(allStageText).join("\n");
     const corpus = [journeyText, ...ARTICLES.map(articleBody)].join("\n");

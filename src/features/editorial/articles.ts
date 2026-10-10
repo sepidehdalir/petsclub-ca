@@ -769,48 +769,31 @@ export const articles: readonly Article[] = [
      first and last positions of the group deliberately — those are diagonal in
      the two-column grid and two cards apart once it stacks into one column on
      a phone, which is the only arrangement that avoids the repeat reading as a
-     mistake at both widths. That is mitigation, not a fix. Three more verified
-     cat images are needed before this batch is published. */
+     mistake at both widths. That is mitigation, not a fix. Additional verified
+     cat images would improve visual variety in a future update. */
 
   {
     slug: "bringing-home-a-kitten-first-30-days",
     section: "cats",
     subcategory: "New owners",
-    title: "Bringing Home a Kitten: The First 30 Days",
-    deck: "A kitten asks less of your calendar than a puppy and much more of your house — one room to start, two litter boxes, a carrier left out for a decade, and never, ever playing with your hands.",
-    metaDescription:
-      "One room to start, two litter boxes, a carrier left out permanently, and never playing with your hands — the first month with a kitten, in order.",
+    title: "Bringing Home a Kitten: First-Month Preparation",
+    deck: "Prepare a starting room, organize records, arrange veterinary care and build a household budget before bringing a kitten home.",
+    metaDescription: "Prepare a starting room, organize records, arrange veterinary care and build a household budget before bringing a kitten home.",
     authorId: "pet-club-editorial",
-    readingMinutes: 9,
+    readingMinutes: 3,
     mediaId: "cats-kittens-at-window",
-    tags: ["kittens", "new-owners", "litter-box", "socialisation", "cats"],
+    tags: ["kittens", "new-owners", "planning", "budgeting", "cats"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-10-09",
     veterinaryNotice: true,
-    keyTakeaways: [
-      "Start in one room. A kitten settles by taking control of territory, and the whole house is too much to hold.",
-      "Two litter boxes for one kitten — one per cat plus one — uncovered, big, and never beside the food.",
-      "Leave the carrier out permanently as furniture. It is the highest-return thing in the article.",
-      "Never play with a kitten using your hands. Charming at eight weeks, a real problem at eight months.",
-      "Lilies, and string or ribbon of any kind, are the two household hazards worth dealing with before arrival.",
-    ],
+    keyTakeaways: ["Prepare the home and agree who handles everyday care.", "Keep actual records and mark missing information clearly.", "Discuss feeding and preventive care with your veterinary team.", "Use local quotes and check municipal requirements."],
     relatedSlugs: [
-      "kitten-vaccination-schedule-in-canada",
+      "finding-a-veterinarian-in-canada",
       "indoor-cat-enrichment-canadian-homes",
     ],
     relatedCategorySlugs: ["kittens", "general-cat-discussion", "cat-behaviour"],
-    sources: [
-      {
-        label: "Pediatric patients need proportionally more fluid than adults and can progress rapidly from mild dehydration to hypovolaemia",
-        publisher: "Lee JA, Cohn LA, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017 (PMID 27939859)",
-        url: "https://doi.org/10.1016/j.cvsm.2016.09.010",
-      },
-      {
-        label: "Which lilies are toxic to cats, and why pollen and vase water count",
-        publisher: "ASPCA Animal Poison Control Center",
-        url: "https://www.aspca.org/news/which-lilies-are-toxic-pets",
-      },
-    ],
+    sources: [{ label: "Cat care: bringing home a new cat and preparing separate spaces", publisher: "BC SPCA", url: "https://spca.bc.ca/get-help/pet-care/cats/" }],
     resources: [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
@@ -818,14 +801,7 @@ export const articles: readonly Article[] = [
         url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
       },
     ],
-    needsVerification: [
-      "PUBLICATION HOLD — qualified veterinary review is required for the clinical or behavioural assessment and intervention claims; no veterinarian has signed off this guide.",
-      "RESOLVED \u2014 NARROWED, 2026-09-06. The VetNote previously said kittens \u201chave very little reserve and can go downhill quickly\u201d \u2014 an unregistered general claim about physiological reserve, for which no source was found. It now names dehydration and low blood sugar specifically. Sourced to Lee JA and Cohn LA, \u201cFluid Therapy for Pediatric Patients\u201d, Veterinary Clinics of North America: Small Animal Practice 47(2), 2017, PMID 27939859, verified 2026-09-06: \u201cpediatric patients have a higher fluid requirement compared with adults and can rapidly progress from mild dehydration to hypovolemia\u201d, and pediatric fluid therapy \u201cmust address hydration, vascular fluid volume, electrolyte disturbances, or hypoglycemia\u201d. LIMITATION \u2014 fluid and glucose only, not reserve across every organ system. See the standing guardrail on the emergency guide; the three articles must not drift apart.",
-      "That litter box problems are the most common behavioural reason cats lose their homes — widely repeated, currently written as a general claim; source it or soften it.",
-      "The kitten socialisation period, described here as earlier and shorter than a puppy’s without naming weeks; attach a source before adding figures.",
-      "That most cats past kittenhood digest cow’s milk poorly — well established, but attach a veterinary source.",
-      "Which Canadian municipalities license cats, before the sentence implies a proportion.",
-    ],
+    needsVerification: ["RESOLVED 2026-10-09 — rewritten as home preparation, records and budgeting. Clinical assessment, treatment, fixed introduction timelines, product efficacy and unsourced superlatives were removed, not signed off. BC SPCA source checked for the limited room/resource guidance. No veterinary review is claimed."],
   },
   {
     slug: "kitten-vaccination-schedule-in-canada",
@@ -1633,57 +1609,28 @@ export const articles: readonly Article[] = [
   {
     slug: "introducing-a-second-cat",
     section: "cats",
-    subcategory: "Behaviour",
-    title: "Introducing a Second Cat, or a Cat and a Dog",
-    deck: "Cats decide who is family by smell, which is why the first ten minutes matter more than the next ten weeks. A staged introduction, and the quiet conflict most owners never notice.",
-    metaDescription:
-      "A staged introduction for a second cat \u2014 scent before sight \u2014 plus the silent signs of conflict owners miss, and how cat-and-dog differs.",
+    subcategory: "New owners",
+    title: "Planning for a Second Cat: Space, Budget and Support",
+    deck: "Check separate spaces, supplies, recurring costs and adoption support before adding a second cat to your Canadian household.",
+    metaDescription: "Check separate spaces, supplies, recurring costs and adoption support before adding a second cat to your Canadian household.",
     authorId: "pet-club-editorial",
-    readingMinutes: 7,
+    readingMinutes: 3,
     mediaId: "cats-two-resting-together",
     mediaAlt:
       "Two cats resting a few feet apart on a tiled floor \u2014 coexistence, which is the realistic goal.",
-    tags: ["multi-cat", "behaviour", "introductions", "cats", "training"],
+    tags: ["multi-cat", "new-owners", "budgeting", "cats"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-10-09",
     veterinaryNotice: true,
-    keyTakeaways: [
-      "Cats identify group members by smell, so the introduction is about scent long before it is about sight.",
-      "Separate room first, then swap bedding, then swap territory, then sight through a barrier \u2014 the cats' behaviour decides when to move on, not the calendar.",
-      "One per cat plus one, in separate locations: litter boxes, feeding stations, water, beds and scratching posts.",
-      "Most inter-cat conflict is silent. A cat blocking a doorway or avoiding half the house is the sign, not fighting.",
-      "\u201cThe first cat seems lonely\u201d is the most common reason given for a second cat and the least reliable one.",
-      "With a dog the failure mode is one bad moment rather than a slow stalemate \u2014 lead on, escape routes up high, and the cat sets the pace.",
-    ],
+    keyTakeaways: ["Check whether separate spaces are practical before adoption.", "Budget recurring and unplanned costs for both cats.", "Read official introduction guidance and ask individual questions.", "An introduction checklist cannot guarantee compatibility."],
     relatedSlugs: [
       "indoor-cat-enrichment-canadian-homes",
       "cost-of-owning-a-cat-in-canada",
     ],
     relatedCategorySlugs: ["cat-behaviour", "general-cat-discussion", "kittens"],
-    sources: [
-      {
-        label: "Step-by-step guide: how to introduce a new cat to other cats in your home",
-        publisher: "American Association of Feline Practitioners",
-        url: "https://catvets.com/wp-content/uploads/2024/07/Step-by-Step-Guide-How-to-Introduce-a-New-Cat-to-Other-Cats-in-Your-Home.pdf",
-      },
-      {
-        label: "Introducing cats, and introducing cats and dogs",
-        publisher: "International Cat Care",
-        url: "https://icatcare.org/articles/introducing-cats",
-      },
-      {
-        label: "Feline behaviour problems: aggression",
-        publisher: "Cornell Feline Health Center",
-        url: "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-aggression",
-      },
-    ],
-    needsVerification: [
-      "PUBLICATION HOLD — qualified veterinary review is required for the clinical or behavioural assessment and intervention claims; no veterinarian has signed off this guide.",
-      "The staged introduction sequence is drawn from feline behaviour guidance and is deliberately given without fixed timings. Confirm each stage against the AAFP guide before publication.",
-      "Synthetic pheromone products are mentioned as something that may help. Establish what evidence exists before that framing is strengthened, and name no product.",
-      "The list of silent conflict signs is behavioural description rather than a diagnostic tool. Source it against a named reference.",
-      "That bite wounds in cats abscess readily \u2014 clinically well established, not yet sourced here.",
-    ],
+    sources: [{ label: "Cat care: bringing home a new cat and preparing separate spaces", publisher: "BC SPCA", url: "https://spca.bc.ca/get-help/pet-care/cats/" }],
+    needsVerification: ["RESOLVED 2026-10-09 — rewritten as home preparation, records and budgeting. Clinical assessment, treatment, fixed introduction timelines, product efficacy and unsourced superlatives were removed, not signed off. BC SPCA source checked for the limited room/resource guidance. No veterinary review is claimed."],
   },
   {
     slug: "dental-care-for-dogs-and-cats",
@@ -2296,7 +2243,7 @@ export const articles: readonly Article[] = [
     veterinaryNotice: true,
     keyTakeaways: [
       "Straining in the box while producing little or no urine is an emergency at any hour. Phone immediately and do not attempt anything at home.",
-      "Cornell states the time from complete urinary obstruction until death may be less than twenty-four to forty-eight hours.",
+      "Do not use a predicted survival time as a deadline for seeking veterinary help.",
       "FLUTD is a category, not a diagnosis — it covers idiopathic cystitis, stones, obstruction, infection and more, and they are treated differently.",
       "Feline idiopathic cystitis, in which stress plays a recognised part, is the most common finding.",
       "Male and neutered male cats are at higher risk of obstruction because the urethra is longer and narrower.",
@@ -2380,7 +2327,7 @@ export const articles: readonly Article[] = [
     section: "health",
     subcategory: "Chronic conditions",
     title: "Arthritis and Mobility in Dogs and Cats",
-    deck: "Animals with joint pain do not limp — they do less. What owners actually notice, why cats hide it almost entirely, and the changes at home that do the most.",
+    deck: "Changes in activity and mobility to discuss with your veterinary team, and questions about assessment, management and the home environment.",
     metaDescription:
       "The signs of joint pain in dogs and cats, why cats rarely limp, what multimodal treatment means, and the home changes that matter most.",
     authorId: "pet-club-editorial",
@@ -2400,7 +2347,7 @@ export const articles: readonly Article[] = [
       "Treatment is multimodal by design: pain management, weight, controlled exercise, rehabilitation, diet, environment and sometimes surgery.",
       "Overweight is a recognised risk factor for development and progression, and it is the lever owners control most directly.",
       "Never give human pain medication — several are toxic to dogs and cats.",
-      "Traction on hard floors is free and is the change that most reliably restores an animal's confidence.",
+      "Discuss suitable floor traction and other environmental changes with the veterinary team.",
     ],
     relatedSlugs: [
       "senior-dogs-and-cats",
