@@ -15,7 +15,7 @@ import { getMediaAsset } from "@/media/manifest";
 export const metadata: Metadata = createMetadata({
   title: "Canada Guides",
   description:
-    "Canada-specific pet guides covering costs, insurance, nutrition and care — researched and reviewed by the Pet Club editorial team.",
+    "Canada-specific pet guides on licensing, costs, insurance, nutrition, training and care, with cited sources and practical Canadian context.",
   path: "/guides",
 });
 
@@ -46,7 +46,7 @@ export default function GuidesPage() {
         media={{ asset: getMediaAsset("guides-winter-walk") }}
         actions={
           <ButtonLink href="/community" variant="editorial">
-            Ask the Community
+            Browse Community Topics
           </ButtonLink>
         }
       />
