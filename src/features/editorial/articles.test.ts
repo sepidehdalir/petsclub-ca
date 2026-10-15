@@ -411,7 +411,8 @@ function withState(
 }
 
 const OCTOBER_PUBLICATIONS = ["bringing-home-a-kitten-first-30-days", "introducing-a-second-cat", "indoor-or-outdoor-cats-in-canada", "renting-with-a-pet-in-canada", "indoor-cat-enrichment-canadian-homes", "cost-of-owning-a-cat-in-canada", "pet-insurance-in-canada", "travelling-with-a-pet-in-canada", "adopting-a-pet-in-canada", "when-a-pet-goes-missing-in-canada", "moving-provinces-with-a-pet", "pet-emergency-preparedness-canada", "what-veterinary-care-costs-in-canada"];
-function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, "choosing-a-dog-harness-in-canada"]; }
+const OCTOBER_15_PUBLICATIONS = ["choosing-a-cat-puzzle-feeder", "pet-food-storage-container-original-bag"];
+function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_15_PUBLICATIONS, "choosing-a-dog-harness-in-canada"]; }
 
 describe("cat planning publication scope", () => {
   for (const slug of ["bringing-home-a-kitten-first-30-days", "introducing-a-second-cat"]) {
@@ -431,10 +432,10 @@ describe("article publication dates", () => {
   const real = articles[0]!;
 
   it("publishes the original fifteen original and thirteen October guides, holding seven clinical drafts", () => {
-    expect(articles).toHaveLength(36);
+    expect(articles).toHaveLength(38);
     const published = articles.filter((a) => a.status === "published").map((a) => a.slug);
     expect([...published].sort()).toEqual(expectedPublishedSlugs().sort());
-    expect(published).toHaveLength(29);
+    expect(published).toHaveLength(31);
     expect(articles.filter((a) => a.status === "in-review")).toHaveLength(7);
   });
 
@@ -442,9 +443,9 @@ describe("article publication dates", () => {
     const published = articles.filter((a) => a.status === "published");
     // One launch, one first-publication date. A later factual correction may
     // carry its own revision date without rewriting the original launch date.
-    expect(new Set(published.map((a) => a.publishedAt))).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10"]));
+    expect(new Set(published.map((a) => a.publishedAt))).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-15"]));
     for (const article of published) {
-      const publicationDate = article.slug === "choosing-a-dog-harness-in-canada" ? "2026-10-10" : OCTOBER_PUBLICATIONS.includes(article.slug) ? "2026-10-09" : LAUNCH_DATE;
+      const publicationDate = OCTOBER_15_PUBLICATIONS.includes(article.slug) ? "2026-10-15" : article.slug === "choosing-a-dog-harness-in-canada" ? "2026-10-10" : OCTOBER_PUBLICATIONS.includes(article.slug) ? "2026-10-09" : LAUNCH_DATE;
       const revised = article.slug === REVISED_PUPPY_SLUG;
       expect(article.updatedAt, `${article.slug} revision state`).toBe(
         revised ? PUPPY_REVISION_DATE : undefined,
@@ -479,8 +480,8 @@ describe("article publication dates", () => {
     // First-publication dates remain the real launch day. Revision dates are
     // allowed only where a published correction actually occurred.
     const dates = [...registry.matchAll(/\n {4}publishedAt: "([^"]+)"/g)].map((m) => m[1]);
-    expect(dates).toHaveLength(29);
-    expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10"]));
+    expect(dates).toHaveLength(31);
+    expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-15"]));
     const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
     expect(revisions).toEqual([PUPPY_REVISION_DATE]);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
@@ -553,8 +554,8 @@ describe("article index policy", () => {
     // reasons. What holds the other twenty is `status` — the honest reason.
     for (const article of articles) expect(article.indexable, article.slug).toBe(true);
     expect(indexableArticles().map((a) => a.slug).sort()).toEqual(expectedPublishedSlugs().sort());
-    expect(indexableArticles()).toHaveLength(29);
-    expect(publishedArticles()).toHaveLength(29);
+    expect(indexableArticles()).toHaveLength(31);
+    expect(publishedArticles()).toHaveLength(31);
   });
 
   it("drives the sitemap and the meta tag from one predicate", () => {
@@ -579,7 +580,7 @@ describe("article index policy", () => {
       .filter((u) => new URL(u).pathname.startsWith("/guides/"))
       .map((u) => new URL(u).pathname.replace("/guides/", ""));
     expect([...guides].sort()).toEqual(expectedPublishedSlugs().sort());
-    expect(guides).toHaveLength(29);
+    expect(guides).toHaveLength(31);
 
     // And none of the twenty held articles leaked in.
     const held = articles.filter((a) => a.status === "in-review").map((a) => a.slug);
@@ -589,7 +590,7 @@ describe("article index policy", () => {
     expect(all.some((u) => u.includes("?"))).toBe(false);
     expect(new Set(all).size, "duplicate sitemap URL").toBe(all.length);
     // 41 original + 15 guides + the Journey hub and its six indexed stages.
-    expect(all).toHaveLength(78);
+    expect(all).toHaveLength(80);
     expect(all.map((url) => new URL(url).pathname)).toContain("/compare/catit-digger-vs-wave-circuit");
   });
 
@@ -742,7 +743,7 @@ const ARTICLE_BODIES = articles.map((article) => ({
 
 describe("behaviour folklore across the article library", () => {
   it("scans every article body, not a sample", () => {
-    expect(ARTICLE_BODIES).toHaveLength(36);
+    expect(ARTICLE_BODIES).toHaveLength(38);
     for (const { slug, body } of ARTICLE_BODIES) {
       expect(body.length, `${slug} body is empty`).toBeGreaterThan(2000);
     }
@@ -1897,7 +1898,7 @@ describe("article robots policy", () => {
       const expected = article.status === "published" ? "index" : "private-noindex";
       expect(articleRobotsPolicy(article), article.slug).toBe(expected);
     }
-    expect(articles.filter((a) => articleRobotsPolicy(a) === "index")).toHaveLength(29);
+    expect(articles.filter((a) => articleRobotsPolicy(a) === "index")).toHaveLength(31);
     expect(articles.filter((a) => articleRobotsPolicy(a) === "private-noindex")).toHaveLength(7);
     // Nothing is in the middle state yet — that arrives with Journey Phase 2.
     expect(articles.filter((a) => articleRobotsPolicy(a) === "public-noindex")).toEqual([]);
@@ -1905,7 +1906,7 @@ describe("article robots policy", () => {
 
   it("15. includes exactly twenty-eight guides in the sitemap", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
-    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(29);
-    expect(urls).toHaveLength(78);
+    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(31);
+    expect(urls).toHaveLength(80);
   });
 });
