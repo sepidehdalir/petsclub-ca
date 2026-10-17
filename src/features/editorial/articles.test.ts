@@ -411,8 +411,8 @@ function withState(
 }
 
 const OCTOBER_PUBLICATIONS = ["bringing-home-a-kitten-first-30-days", "introducing-a-second-cat", "indoor-or-outdoor-cats-in-canada", "renting-with-a-pet-in-canada", "indoor-cat-enrichment-canadian-homes", "cost-of-owning-a-cat-in-canada", "pet-insurance-in-canada", "travelling-with-a-pet-in-canada", "adopting-a-pet-in-canada", "when-a-pet-goes-missing-in-canada", "moving-provinces-with-a-pet", "pet-emergency-preparedness-canada", "what-veterinary-care-costs-in-canada"];
-const OCTOBER_15_PUBLICATIONS = ["choosing-a-cat-puzzle-feeder", "pet-food-storage-container-original-bag"];
-function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_15_PUBLICATIONS, "choosing-a-dog-harness-in-canada"]; }
+const OCTOBER_16_PUBLICATIONS = ["choosing-a-cat-puzzle-feeder", "pet-food-storage-container-original-bag"];
+function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_16_PUBLICATIONS, "choosing-a-dog-harness-in-canada"]; }
 
 describe("cat planning publication scope", () => {
   for (const slug of ["bringing-home-a-kitten-first-30-days", "introducing-a-second-cat"]) {
@@ -443,9 +443,9 @@ describe("article publication dates", () => {
     const published = articles.filter((a) => a.status === "published");
     // One launch, one first-publication date. A later factual correction may
     // carry its own revision date without rewriting the original launch date.
-    expect(new Set(published.map((a) => a.publishedAt))).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-15"]));
+    expect(new Set(published.map((a) => a.publishedAt))).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16"]));
     for (const article of published) {
-      const publicationDate = OCTOBER_15_PUBLICATIONS.includes(article.slug) ? "2026-10-15" : article.slug === "choosing-a-dog-harness-in-canada" ? "2026-10-10" : OCTOBER_PUBLICATIONS.includes(article.slug) ? "2026-10-09" : LAUNCH_DATE;
+      const publicationDate = OCTOBER_16_PUBLICATIONS.includes(article.slug) ? "2026-10-16" : article.slug === "choosing-a-dog-harness-in-canada" ? "2026-10-10" : OCTOBER_PUBLICATIONS.includes(article.slug) ? "2026-10-09" : LAUNCH_DATE;
       const revised = article.slug === REVISED_PUPPY_SLUG;
       expect(article.updatedAt, `${article.slug} revision state`).toBe(
         revised ? PUPPY_REVISION_DATE : undefined,
@@ -481,7 +481,7 @@ describe("article publication dates", () => {
     // allowed only where a published correction actually occurred.
     const dates = [...registry.matchAll(/\n {4}publishedAt: "([^"]+)"/g)].map((m) => m[1]);
     expect(dates).toHaveLength(31);
-    expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-15"]));
+    expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16"]));
     const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
     expect(revisions).toEqual([PUPPY_REVISION_DATE]);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
