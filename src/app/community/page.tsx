@@ -1,3 +1,4 @@
+import { communityEnabled } from "@/features/community/live/server";
 import type { Metadata } from "next";
 
 import { PageHeader } from "@/components/shared/page-header";
@@ -19,7 +20,7 @@ export default function CommunityPage() {
       <PageHeader
         eyebrow="Community"
         title="The Pet Club Community"
-        description={`Explore the planned community. Posting and replies are not available yet. ${allCommunityCategories.length} categories across ${communityTaxonomy.length} areas.`}
+        description={communityEnabled() ? "Ask questions and share experiences with Canadian pet parents. Read the community guidelines before posting." : `Explore the planned community. Posting and replies are not available yet. ${allCommunityCategories.length} categories across ${communityTaxonomy.length} areas.`}
         breadcrumbs={[{ name: "Community", path: "/community" }]}
       />
 
