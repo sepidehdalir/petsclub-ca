@@ -363,7 +363,7 @@ const assets = {
     photographer: "cottonbro studio",
     source: "Pexels",
     sourceUrl:
-      "https://www.pexels.com/photo/a-hand-pouring-brown-dog-food-from-a-paper-bag-into-a-white-bowl-6568942/",
+      "https://www.pexels.com/photo/a-person-pouring-dog-food-on-the-bowl-6568942/",
     licence: PEXELS_LICENCE,
     showsPeople: false,
   },

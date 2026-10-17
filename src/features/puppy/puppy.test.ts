@@ -4216,9 +4216,9 @@ describe("indexing", () => {
     expect(puppyRoutes.every((name) => stages.some((stage) => stage.slug === name))).toBe(true);
   });
 
-  it("keeps the current article library at 36 entries", () => {
+  it("keeps the current article library at 38 entries", () => {
     // Includes the published Canadian harness buying guide.
-    expect(articles.length).toBe(36);
+    expect(articles.length).toBe(38);
   });
 
   it("drives robots and sitemap from the same two stage fields", () => {
@@ -4431,11 +4431,11 @@ describe("stage robots policy", () => {
     expect(stageRobotsPolicy(held)).toBe("public-noindex");
   });
 
-  it("16. includes 78 routes: 29 guides, 7 Journey routes and a comparison", () => {
+  it("16. includes 80 routes: 31 guides, 7 Journey routes and a comparison", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
     expect(urls.filter((url) => isJourneyRoute(url))).toHaveLength(7);
-    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(29);
-    expect(urls).toHaveLength(78);
+    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(31);
+    expect(urls).toHaveLength(80);
     expect(new Set(urls).size, "duplicate sitemap URL").toBe(urls.length);
   });
 
