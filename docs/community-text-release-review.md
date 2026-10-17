@@ -1,6 +1,14 @@
 # Text-only community release: draft for review
 
-Base: c13df7c28d76ef8b350574a39cbb0aeef8f5141a. This PR is not permission to deploy or apply SQL.
+Base: c13df7c28d76ef8b350574a39cbb0aeef8f5141a. Application release remains draft and unmerged.
+
+## Verified preparation status, 17 October 2026
+
+The owner separately approved the bounded database change. The exact SQL from commit 0da337df9a85c703fc4a6ad32b1d585c2b607e52 (blob edb78f24b96ec4f8d6063d1f6960919d70c6cf4e) was manually applied to the existing Supabase project at 17:25 UTC. It was not registered as an automatic migration; do not run it again blindly. Before application, the affected policy definitions, grants and helper definition were captured for review. This targeted snapshot is not a full database backup.
+
+Readback at 17:26 UTC confirmed the database feature flag is false, private tables use RLS and are inaccessible to authenticated members, anonymous RPC execution is denied, authenticated direct post/thread writes are denied, and the controlled RPC is available to authenticated sessions. Counts remained 1 profile, 30 categories and 0 threads/posts; new report/audit/operations tables were empty. No user role changed and no moderator exists. The public application is still the previous release with its community gate closed.
+
+Required launch checks below are still outstanding unless explicitly marked completed. The privacy proposal remains a draft. This preparation is not evidence of a working public forum.
 
 ## What is implemented
 
@@ -12,7 +20,7 @@ Base: c13df7c28d76ef8b350574a39cbb0aeef8f5141a. This PR is not permission to dep
 - User content has noindex metadata initially, no sitemap entries, and no shared user-specific cache.
 - Existing guides, affiliate register, consent, authentication configuration and product URLs are untouched.
 
-## Exact proposed database/security delta (NOT APPLIED)
+## Exact reviewed database/security delta (applied with feature disabled)
 
 The SQL is deliberately in `supabase/drafts/community_text_release.sql`, not the automatic migrations folder.
 
@@ -26,8 +34,8 @@ The SQL is deliberately in `supabase/drafts/community_text_release.sql`, not the
 
 ## Approval and release gates
 
-- Owner/security approval for the exact privilege/RLS/RPC changes above before promotion or application.
-- Read-only inventory of recovered live schema, migration history, effective grants, data and auth confirmation settings. Do not assume the live database matches source or is empty.
+- Completed: owner approval and bounded manual application of the exact database artifact above. Any new security change needs its own scoped approval.
+- Completed: read-only inventory of the four foundation migrations, recovered schema, policies, effective grants and aggregate counts. Auth/real session behaviour still requires integration verification.
 - Run the SQL in a disposable Supabase/PostgreSQL environment first, including real PostgREST permissions and two-session races. PGlite tests are useful but cannot prove those integrations.
 - Confirm a real moderator and working report-handling coverage; approve privacy/terms/guidelines for stored member content/report data and retention. No role assignment is performed by this PR.
 - Confirm backups/rollback and deployment source. Open BOTH gates only after approval: database settings row and server `COMMUNITY_ENABLED=true`. Neither is enabled here. Closing the app flag hides functionality without deleting member data.
