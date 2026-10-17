@@ -12,6 +12,15 @@ describe("community release safety", () => {
       readFileSync("src/features/community/live/actions.ts", "utf8"),
     ).not.toContain("ServiceRole");
   });
+  it("uses a serialized server request ID without generating randomness during hydration", () => {
+    const form = readFileSync("src/features/community/live/form.tsx", "utf8");
+    expect(form).toContain("useState(initialRequestId)");
+    expect(form).not.toContain("crypto.randomUUID");
+    for (const path of ["src/features/community/live/category-discussions.tsx", "src/app/community/discussions/[threadId]/page.tsx", "src/app/community/moderation/page.tsx"]) {
+      const source = readFileSync(path, "utf8");
+      expect((source.match(/<CommunityForm/g) ?? []).length).toBe((source.match(/requestId=\{crypto.randomUUID\(\)\}/g) ?? []).length);
+    }
+  });
   it("keeps the proposed SQL outside automatic migrations", () => {
     expect(existsSync("supabase/migrations/community_text_release.sql")).toBe(
       false,

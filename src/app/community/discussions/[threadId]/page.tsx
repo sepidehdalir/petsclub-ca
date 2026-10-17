@@ -80,6 +80,7 @@ export default async function Discussion({
             <details>
               <summary>Edit or remove your discussion</summary>
               <CommunityForm
+                requestId={crypto.randomUUID()}
                 operation="edit_thread"
                 target={t.id}
                 title={t.title}
@@ -87,6 +88,7 @@ export default async function Discussion({
                 label="Save changes"
               />
               <CommunityForm
+                requestId={crypto.randomUUID()}
                 operation="delete_thread"
                 target={t.id}
                 label="Remove discussion"
@@ -97,6 +99,7 @@ export default async function Discussion({
             <details>
               <summary>Report this discussion</summary>
               <CommunityForm
+                requestId={crypto.randomUUID()}
                 operation="report_thread"
                 target={t.id}
                 label="Send report"
@@ -107,6 +110,7 @@ export default async function Discussion({
             <details>
               <summary>Moderate discussion</summary>
               <CommunityForm
+                requestId={crypto.randomUUID()}
                 operation="moderate_thread"
                 target={t.id}
                 label="Apply moderation"
@@ -137,12 +141,14 @@ export default async function Discussion({
                     <details>
                       <summary>Edit or remove your reply</summary>
                       <CommunityForm
+                        requestId={crypto.randomUUID()}
                         operation="edit_post"
                         target={p.id}
                         body={p.body}
                         label="Save reply"
                       />
                       <CommunityForm
+                        requestId={crypto.randomUUID()}
                         operation="delete_post"
                         target={p.id}
                         label="Remove reply"
@@ -153,6 +159,7 @@ export default async function Discussion({
                   <details>
                     <summary>Report reply</summary>
                     <CommunityForm
+                      requestId={crypto.randomUUID()}
                       operation="report_post"
                       target={p.id}
                       label="Send report"
@@ -163,6 +170,7 @@ export default async function Discussion({
                   <details>
                     <summary>Moderate reply</summary>
                     <CommunityForm
+                      requestId={crypto.randomUUID()}
                       operation="moderate_post"
                       target={p.id}
                       label="Apply moderation"
@@ -180,6 +188,7 @@ export default async function Discussion({
           </nav>
           {confirmed && t.status === "published" ? (
             <CommunityForm
+              requestId={crypto.randomUUID()}
               key={t.reply_count}
               operation="reply"
               target={t.id}

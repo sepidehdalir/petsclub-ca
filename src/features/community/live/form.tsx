@@ -10,6 +10,7 @@ export function CommunityForm({
   title = "",
   body = "",
   label,
+  requestId: initialRequestId,
 }: {
   operation: CommunityMutation["operation"];
   target?: string;
@@ -17,14 +18,15 @@ export function CommunityForm({
   title?: string;
   body?: string;
   label: string;
+  requestId: string;
 }) {
   const [state, action, pending] = useActionState(mutateCommunity, {});
   const id = useId();
-  // Stable across retries; rotate only after a successful submission/remount.
+  // The server seed avoids hydration mismatch; preserve it across retries.
+  const [requestId] = useState(initialRequestId);
   const [titleText, setTitleText] = useState(title);
   const [bodyText, setBodyText] = useState(body);
   const [reasonText, setReasonText] = useState("");
-  const [requestId] = useState(() => crypto.randomUUID());
   const content = ["thread", "reply", "edit_thread", "edit_post"].includes(
     operation,
   );

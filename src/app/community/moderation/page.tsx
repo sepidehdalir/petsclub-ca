@@ -35,6 +35,7 @@ export default async function Moderation() {
                 Review discussion and replies
               </Link>
               <CommunityForm
+                requestId={crypto.randomUUID()}
                 operation="resolve_report"
                 target={r.id}
                 label="Resolve report"

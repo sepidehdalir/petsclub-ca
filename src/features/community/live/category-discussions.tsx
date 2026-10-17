@@ -78,6 +78,7 @@ export async function CategoryDiscussions({
       </nav>
       {user?.email_confirmed_at ? (
         <CommunityForm
+          requestId={crypto.randomUUID()}
           operation="thread"
           category={slug}
           label="Start a discussion"
