@@ -4216,9 +4216,9 @@ describe("indexing", () => {
     expect(puppyRoutes.every((name) => stages.some((stage) => stage.slug === name))).toBe(true);
   });
 
-  it("keeps the current article library at 38 entries", () => {
-    // Includes the published Canadian harness buying guide.
-    expect(articles.length).toBe(38);
+  it("keeps the current article library at 39 entries", () => {
+    // Includes the in-review cat-carrier buying guide; publication is unchanged.
+    expect(articles.length).toBe(39);
   });
 
   it("drives robots and sitemap from the same two stage fields", () => {
