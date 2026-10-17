@@ -8,7 +8,7 @@ create table community_private.settings (singleton boolean primary key default t
 insert into community_private.settings values (true, false);
 create table community_private.operations (
   actor uuid not null references auth.users(id) on delete cascade,
-  request_id uuid not null, payload jsonb not null, result uuid not null,
+  request_id uuid not null, payload_hash text not null, operation text not null, result uuid not null,
   created_at timestamptz not null default now(), primary key(actor,request_id)
 );
 create index operations_rate on community_private.operations(actor,created_at);
@@ -88,7 +88,7 @@ begin
  perform pg_advisory_xact_lock(hashtextextended(actor::text,0));
  select * into prior from community_private.operations o where o.actor=mutation.actor and o.request_id=community_mutate.request_id;
  if found then
-  if prior.payload is distinct from payload then raise exception 'request_reused'; end if;
+  if prior.payload_hash is distinct from encode(sha256(convert_to(payload::text,'UTF8')),'hex') then raise exception 'request_reused'; end if;
   return prior.result;
  end if;
  if not (is_mod and (op like 'moderate_%' or op='resolve_report')) and ((select count(*) from community_private.operations o where o.actor=mutation.actor and o.created_at>now()-interval '10 minutes') >= 20
@@ -102,7 +102,7 @@ begin
  if op='thread' then
   select * into c from public.categories where slug=payload->>'category' for share;
   if not found or not c.is_active or c.parent_id is null or exists(select 1 from public.categories where parent_id=c.id) then raise exception 'category_unavailable'; end if;
-  if (select count(*) from community_private.operations o where o.actor=mutation.actor and o.payload->>'operation'='thread' and o.created_at>now()-interval '1 hour')>=3 then raise exception 'thread_limit'; end if;
+  if (select count(*) from community_private.operations o where o.actor=mutation.actor and o.operation='thread' and o.created_at>now()-interval '1 hour')>=3 then raise exception 'thread_limit'; end if;
   result_id:=gen_random_uuid();
   insert into public.threads(id,author_id,category_id,title,slug,body) values(result_id,actor,c.id,title_value,result_id::text,body_value);
  elsif op='resolve_report' then
@@ -164,7 +164,7 @@ begin
   update public.threads set reply_count=(select count(*) from public.posts where thread_id=t.id and status='published'),
     last_activity_at=greatest(t.created_at,coalesce((select max(created_at) from public.posts where thread_id=t.id and status='published'),t.created_at)) where id=t.id;
  end if;
- insert into community_private.operations(actor,request_id,payload,result) values(actor,request_id,payload,result_id);
+ insert into community_private.operations(actor,request_id,payload_hash,operation,result) values(actor,request_id,encode(sha256(convert_to(payload::text,'UTF8')),'hex'),op,result_id);
  return result_id;
 end $$;
 revoke all on function public.community_mutate(uuid,jsonb) from public,anon;

@@ -249,7 +249,7 @@ await db.exec(
 );
 await denied(() => mutate(a, threadInput));
 await db.exec(
-  `reset role; insert into community_private.operations(actor,request_id,payload,result) select '${m}',gen_random_uuid(),'{}','${t}' from generate_series(1,100)`,
+  `reset role; insert into community_private.operations(actor,request_id,payload_hash,operation,result) select '${m}',gen_random_uuid(),'test-hash','reply','${t}' from generate_series(1,100)`,
 );
 await mutate(m, {
   operation: "moderate_thread",
@@ -281,13 +281,13 @@ await mutate(a, threadInput);
 await mutate(a, threadInput);
 await denied(() => mutate(a, threadInput));
 await db.exec(
-  `reset role; delete from community_private.operations where actor='${b}'; insert into community_private.operations(actor,request_id,payload,result) select '${b}',gen_random_uuid(),'{}','${t}' from generate_series(1,20)`,
+  `reset role; delete from community_private.operations where actor='${b}'; insert into community_private.operations(actor,request_id,payload_hash,operation,result) select '${b}',gen_random_uuid(),'test-hash','reply','${t}' from generate_series(1,20)`,
 );
 await denied(() =>
   mutate(b, { operation: "reply", target: t, body: "quota bypass" }),
 );
 await db.exec(
-  `reset role; update community_private.operations set created_at=now()-interval '1 hour' where actor='${b}'; insert into community_private.operations(actor,request_id,payload,result,created_at) select '${b}',gen_random_uuid(),'{}','${t}',now()-interval '1 hour' from generate_series(1,80)`,
+  `reset role; update community_private.operations set created_at=now()-interval '1 hour' where actor='${b}'; insert into community_private.operations(actor,request_id,payload_hash,operation,result,created_at) select '${b}',gen_random_uuid(),'test-hash','reply','${t}',now()-interval '1 hour' from generate_series(1,80)`,
 );
 await denied(() =>
   mutate(b, { operation: "reply", target: t, body: "daily quota bypass" }),
