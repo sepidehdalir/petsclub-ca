@@ -324,7 +324,8 @@ export const articles: readonly Article[] = [
       "canada"
     ],
     "indexable": true,
-    "status": "in-review",
+    "status": "published",
+    publishedAt: "2026-10-17",
     "veterinaryNotice": true,
     "keyTakeaways": [
       "Check your cat’s measurements and the exact model’s intended weight limit.",

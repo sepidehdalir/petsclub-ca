@@ -11,14 +11,14 @@ const body = readFileSync(
   "utf8",
 );
 
-describe("cat-carrier buying guide draft", () => {
-  it("has no publication date and stays out of public discovery and the sitemap", () => {
-    expect(article.status).toBe("in-review");
-    expect(article.publishedAt).toBeUndefined();
+describe("cat-carrier buying guide publication", () => {
+  it("publishes only this guide on 17 October and includes its canonical in discovery", () => {
+    expect(article.status).toBe("published");
+    expect(article.publishedAt).toBe("2026-10-17");
     expect(article.updatedAt).toBeUndefined();
-    expect(articleRobotsPolicy(article)).toBe("private-noindex");
-    expect(publishedArticles().map((item) => item.slug)).not.toContain(slug);
-    expect(buildSitemapEntries().map((item) => item.url)).not.toContain(`https://thepetclub.ca/guides/${slug}`);
+    expect(articleRobotsPolicy(article)).toBe("index");
+    expect(publishedArticles().map((item) => item.slug)).toContain(slug);
+    expect(buildSitemapEntries().map((item) => item.url)).toContain(`https://thepetclub.ca/guides/${slug}`);
   });
 
   it("uses primary guidance and distinguishes intended capacity from a safety margin", () => {

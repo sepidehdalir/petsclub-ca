@@ -32,7 +32,7 @@ while (Date.now() < deadline) {
 }
 assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
-const routes = ['/', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/contact'];
+const routes = ['/', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/contact'];
 const scenarios = [
   { name: 'chromium-desktop', engine: chromium, viewport: { width: 1440, height: 900 }, mobile: false },
   { name: 'chromium-mobile', engine: chromium, viewport: { width: 390, height: 844 }, mobile: true },
@@ -85,6 +85,51 @@ for (const scenario of scenarios) {
           assert.match(mainText, /Do not delay veterinary care or an appointment/);
           assert.match(mainText, /Correction — September 27, 2026/);
           assert.match(mainText, /single daily-hour figure is not a reliable rule/);
+        }
+        if (path === '/guides/choosing-a-cat-carrier-in-canada') {
+          assert.equal(await page.locator('h1').innerText(), 'Choosing a Cat Carrier in Canada: Size, Access and Fit');
+          assert.equal(await page.locator('time[datetime="2026-10-17"]').count(), 1);
+          assert.match(mainText, /We have not tested these products/);
+          assert.match(mainText, /intended maximum cat weight of 6 kg/);
+          assert.match(mainText, /maximum cat height of 30 cm/);
+          assert.match(mainText, /higher safety margin/);
+          assert.match(mainText, /flexible, soft-sided carriers/);
+          assert.match(mainText, /No affiliate relationship or hands-on product testing is claimed/);
+          const shoppingLinks = [
+            { label: 'Check the Catit PIXI Mio at Pet Valu', href: 'https://www.petvalu.ca/product/catit-pixi-mio-cat-bed-and-carrier/SCM15822' },
+            { label: 'Check the Sherpa Original Deluxe at PetSmart Canada', href: 'https://www.petsmart.ca/dog/crates-gates-and-containment/carriers-and-backpacks/sherpa-original-deluxe-pet-carrier-guaranteed-on-board-dog-and-cat-carrier-16-lbs-max-black-537.html' },
+          ];
+          const clicks = [];
+          await page.exposeFunction('recordCarrierShoppingClick', (href) => clicks.push(href));
+          await page.evaluate((destinations) => {
+            // Check the actual links without navigating to or contacting a retailer.
+            document.addEventListener('click', (event) => {
+              const link = event.target.closest('a');
+              if (link && destinations.includes(link.href)) {
+                event.preventDefault();
+                window.recordCarrierShoppingClick(link.href);
+              }
+            });
+          }, shoppingLinks.map((link) => link.href));
+          for (const link of shoppingLinks) {
+            const cta = page.getByRole('link', { name: link.label, exact: true });
+            assert.equal(await cta.count(), 1);
+            assert.equal(await cta.getAttribute('href'), link.href);
+            assert.ok(await cta.isVisible());
+            await cta.click();
+          }
+          await page.locator('main').innerText();
+          assert.deepEqual(clicks, shoppingLinks.map((link) => link.href));
+          const sourceLinks = await page.locator('section[aria-labelledby="article-sources-heading"] a').evaluateAll((nodes) => nodes.map((node) => node.href));
+          assert.deepEqual(sourceLinks, [
+            'https://www.edmontonhumanesociety.com/wp-content/uploads/2024/09/2024-choosing-cat-carrier-EHS-Resources.pdf',
+            'https://catfriendly.com/be-a-cat-friendly-caregiver/cat-carriers/',
+            'https://www.aircanada.com/ca/en/aco/home/plan/special-assistance/pets.html',
+            'https://www.catit.com/products/catit-pixi-mio-carrier/',
+            'https://sherpapet.com/products/sherpa-original-deluxe-travel-bag-pet-carrier?Color=Black&Size=Medium',
+          ]);
+          result.carrierShoppingLinks = 'Both named Canadian retailer links matched and handled one local click each; no external navigation';
+          result.carrierSourceLinks = 'All five primary-source destinations matched';
         }
         if (path === '/editorial-policy') {
           assert.doesNotMatch(mainText, /Draft — pending editorial review/);
@@ -152,6 +197,7 @@ for (const scenario of scenarios) {
           const list = page.locator('section[aria-labelledby="published-guides-heading"]');
           result.guideCards = await list.locator('h3').count();
           assert.ok(result.guideCards > 0, 'Published library must not be empty');
+          assert.equal(await list.locator('a[href="/guides/choosing-a-cat-carrier-in-canada"]').count(), 1, 'Published carrier guide is missing from the library');
           const card = list.locator('a[href="/guides/winter-dog-care-in-canada"]').first();
           await card.click();
           await page.waitForURL(new URL('/guides/winter-dog-care-in-canada', base).href);
