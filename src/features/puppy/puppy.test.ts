@@ -4217,7 +4217,7 @@ describe("indexing", () => {
   });
 
   it("keeps the current article library at 39 entries", () => {
-    // Includes the in-review cat-carrier buying guide; publication is unchanged.
+    // Includes the cat-carrier buying guide published on 17 October.
     expect(articles.length).toBe(39);
   });
 
@@ -4431,11 +4431,11 @@ describe("stage robots policy", () => {
     expect(stageRobotsPolicy(held)).toBe("public-noindex");
   });
 
-  it("16. includes 80 routes: 31 guides, 7 Journey routes and a comparison", () => {
+  it("16. includes 81 routes: 32 guides, 7 Journey routes and a comparison", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
     expect(urls.filter((url) => isJourneyRoute(url))).toHaveLength(7);
-    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(31);
-    expect(urls).toHaveLength(80);
+    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(32);
+    expect(urls).toHaveLength(81);
     expect(new Set(urls).size, "duplicate sitemap URL").toBe(urls.length);
   });
 
