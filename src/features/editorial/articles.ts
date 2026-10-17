@@ -306,6 +306,67 @@ export type Article = ArticleContent & ArticlePublication;
 
 export const articles: readonly Article[] = [
   {
+    "slug": "choosing-a-cat-carrier-in-canada",
+    "section": "cats",
+    "subcategory": "Buying guides",
+    "title": "Choosing a Cat Carrier in Canada: Size, Access and Fit",
+    "deck": "Compare cat-carrier size, access, closures and cleaning, then check Canadian shopping options and the requirements for your actual journey.",
+    "metaDescription": "Compare hard and soft cat carriers, check size and access, and review Canadian shopping options and airline rules before choosing a carrier for your cat.",
+    "authorId": "pet-club-editorial",
+    "readingMinutes": 6,
+    "mediaId": "health-cat-in-carrier",
+    "mediaAlt": "An orange tabby cat rests inside a pet carrier; this stock photograph does not show either product compared in the guide.",
+    "tags": [
+      "cats",
+      "carriers",
+      "buying-guides",
+      "travel",
+      "canada"
+    ],
+    "indexable": true,
+    "status": "published",
+    publishedAt: "2026-10-17",
+    "veterinaryNotice": true,
+    "keyTakeaways": [
+      "Check your cat’s measurements and the exact model’s intended weight limit.",
+      "Compare usable space, entry points, closures and cleaning access.",
+      "Confirm the transport operator’s current requirements and the seller’s return conditions before buying."
+    ],
+    "relatedSlugs": [
+      "travelling-with-a-pet-in-canada",
+      "cost-of-owning-a-cat-in-canada",
+      "pet-emergency-preparedness-canada"
+    ],
+    "sources": [
+      {
+        "label": "Choosing the Right Cat Carrier",
+        "publisher": "Edmonton Humane Society",
+        "url": "https://www.edmontonhumanesociety.com/wp-content/uploads/2024/09/2024-choosing-cat-carrier-EHS-Resources.pdf"
+      },
+      {
+        "label": "Choosing the Perfect Cat Carrier",
+        "publisher": "Cat Friendly Homes / FelineVMA",
+        "url": "https://catfriendly.com/be-a-cat-friendly-caregiver/cat-carriers/"
+      },
+      {
+        "label": "Current in-cabin carrier requirements",
+        "publisher": "Air Canada",
+        "url": "https://www.aircanada.com/ca/en/aco/home/plan/special-assistance/pets.html"
+      },
+      {
+        "label": "PIXI Mio specifications and intended size limits",
+        "publisher": "Catit",
+        "url": "https://www.catit.com/products/catit-pixi-mio-carrier/"
+      },
+      {
+        "label": "Original Deluxe product specifications",
+        "publisher": "Sherpa",
+        "url": "https://sherpapet.com/products/sherpa-original-deluxe-travel-bag-pet-carrier?Color=Black&Size=Medium"
+      }
+    ],
+    "needsVerification": []
+  },
+  {
     slug: "choosing-a-cat-puzzle-feeder",
     section: "cats",
     subcategory: "Buying guides",
