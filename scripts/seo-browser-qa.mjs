@@ -32,7 +32,7 @@ while (Date.now() < deadline) {
 }
 assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
-const routes = ['/', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/contact'];
+const routes = ['/', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
 const scenarios = [
   { name: 'chromium-desktop', engine: chromium, viewport: { width: 1440, height: 900 }, mobile: false },
   { name: 'chromium-mobile', engine: chromium, viewport: { width: 390, height: 844 }, mobile: true },
@@ -85,6 +85,21 @@ for (const scenario of scenarios) {
           assert.match(mainText, /Do not delay veterinary care or an appointment/);
           assert.match(mainText, /Correction — September 27, 2026/);
           assert.match(mainText, /single daily-hour figure is not a reliable rule/);
+        }
+        if (path === '/guides/choosing-a-cat-puzzle-feeder') {
+          const offer = page.locator('aside[aria-label="Affiliate offer"]');
+          assert.equal(await offer.count(), 1, 'One contextual offer, not a wall of links');
+          assert.match(await offer.innerText(), /As an Amazon Associate I earn from qualifying purchases/);
+          const cta = offer.getByRole('link', { name: 'View on Amazon.ca' });
+          const target = new URL(await cta.getAttribute('href'));
+          assert.equal(target.hostname, 'www.amazon.ca');
+          assert.ok(target.pathname.includes('/dp/B015P13QMM'));
+          assert.equal(target.searchParams.get('tag'), 'thepetclub09-20');
+          assert.match(await cta.getAttribute('rel'), /sponsored/);
+          assert.match(mainText, /No product here has been tested by The Pet Club/);
+          await cta.scrollIntoViewIfNeeded();
+          assert.ok(await cta.isVisible());
+          result.affiliateCheck = 'One visible disclosed exact Digger offer; original verified Amazon tag retained';
         }
         if (path === '/guides/choosing-a-cat-carrier-in-canada') {
           assert.equal(await page.locator('h1').innerText(), 'Choosing a Cat Carrier in Canada: Size, Access and Fit');
