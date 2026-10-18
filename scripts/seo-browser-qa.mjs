@@ -32,7 +32,7 @@ while (Date.now() < deadline) {
 }
 assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
-const routes = ['/', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
+const routes = ['/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
 const scenarios = [
   { name: 'chromium-desktop', engine: chromium, viewport: { width: 1440, height: 900 }, mobile: false },
   { name: 'chromium-mobile', engine: chromium, viewport: { width: 390, height: 844 }, mobile: true },
@@ -100,6 +100,23 @@ for (const scenario of scenarios) {
           await cta.scrollIntoViewIfNeeded();
           assert.ok(await cta.isVisible());
           result.affiliateCheck = 'One visible disclosed exact Digger offer; original verified Amazon tag retained';
+        }
+        if (['/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada'].includes(path)) {
+          assert.equal(await page.locator('time[datetime="2026-10-18"]').count(), 1);
+          assert.equal(await page.locator('table').count(), 1, 'One usable comparison or fitting worksheet');
+          assert.ok(await page.locator('table caption').innerText());
+          assert.ok((await page.locator('table th[scope="row"]').count()) >= 6);
+          assert.match(mainText, /No veterinarian has reviewed this guide/);
+          assert.match(mainText, /has not tested/);
+          assert.equal(await page.locator('aside[aria-label="Affiliate offer"]').count(), 0);
+          assert.ok(!mainText.includes('| --- |'), 'Markdown tables must render as real tables');
+          if (path.includes('choosing-dog-boots')) {
+            assert.match(mainText, /outdoor use only/);
+            assert.match(mainText, /four boots per package/);
+          } else {
+            assert.match(mainText, /32\.5 inches/);
+            assert.match(mainText, /sold separately/);
+          }
         }
         if (path === '/guides/choosing-a-cat-carrier-in-canada') {
           assert.equal(await page.locator('h1').innerText(), 'Choosing a Cat Carrier in Canada: Size, Access and Fit');

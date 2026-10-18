@@ -306,6 +306,119 @@ export type Article = ArticleContent & ArticlePublication;
 
 export const articles: readonly Article[] = [
   {
+    slug: "choosing-dog-boots-in-canada",
+    section: "dogs",
+    subcategory: "Buying guides",
+    title: "Choosing Dog Boots in Canada: Measure, Compare and Check the Fit",
+    deck: "Compare model-specific sizing, two-boot and four-boot packs, care and Canadian return terms before choosing dog boots.",
+    metaDescription: "Choose dog boots using model-specific measurements, pack quantities, care and return terms. Compare Ruffwear and Muttluks features without a tested ranking.",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "guides-dogs-winter-forest",
+    mediaAlt: "Two dogs stand among snow-covered pines in a winter forest.",
+    tags: [
+      "dog-boots",
+      "winter",
+      "buying-guides"
+    ],
+    indexable: true,
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Use the exact model’s measuring directions; width and length charts are not interchangeable.",
+      "Compare the cost of the required number of boots, including care and return conditions.",
+      "Read sole restrictions before a trial: some winter designs are specified for outdoor use only."
+    ],
+    relatedSlugs: [
+      "winter-dog-care-in-canada",
+      "choosing-a-dog-harness-in-canada",
+      "cost-of-owning-a-dog-in-canada"
+    ],
+    sources: [
+      {
+        label: "Cold Weather and Pets",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/related-resources/cold-weather-and-pets"
+      },
+      {
+        label: "Polar Trex Winter Boots: model, sizing and care",
+        publisher: "Ruffwear Canada",
+        url: "https://ruffwear.ca/products/polar-trex-winter-dog-boots"
+      },
+      {
+        label: "Sizing Muttluks Boots",
+        publisher: "Muttluks",
+        url: "https://muttluks.ca/pages/dog-boots-size-chart"
+      },
+      {
+        label: "Original Fleece-Lined Muttluks: package, materials and care",
+        publisher: "Muttluks",
+        url: "https://muttluks.ca/products/original-fleece-lined-muttluks"
+      }
+    ],
+    status: "published",
+    publishedAt: "2026-10-18",
+    needsVerification: []
+  },
+  {
+    slug: "choosing-a-cat-scratching-post-in-canada",
+    section: "cats",
+    subcategory: "Buying guides",
+    title: "Choosing a Cat Scratching Post in Canada: Surface, Size and Space",
+    deck: "Match a cat scratcher to observed habits, usable surface and home space, then compare manufacturer details and Canadian purchase conditions.",
+    metaDescription: "Choose a cat scratching post or board using surface, usable size and floor space. Compare two examples and a practical Canadian shopping worksheet.",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "cats-window-tabby",
+    mediaAlt: "A ginger tabby cat lies on a windowsill in daylight, watching outside.",
+    tags: [
+      "cat-scratchers",
+      "enrichment",
+      "buying-guides"
+    ],
+    indexable: true,
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Observe your cat’s scratching direction, preferred texture and location before shopping.",
+      "Separate usable scratching surface from overall product dimensions and floor footprint.",
+      "Check assembly, included accessories, replacements and Canadian return terms."
+    ],
+    relatedSlugs: [
+      "indoor-cat-enrichment-canadian-homes",
+      "cost-of-owning-a-cat-in-canada",
+      "choosing-a-cat-puzzle-feeder"
+    ],
+    sources: [
+      {
+        label: "Living with a Clawed Cat",
+        publisher: "Feline Veterinary Medical Association / Cat Friendly Homes",
+        url: "https://catfriendly.com/be-a-cat-friendly-caregiver/living-clawed-cat/"
+      },
+      {
+        label: "SmartCat Ultimate Scratching Post: manufacturer specifications",
+        publisher: "Pioneer Pet",
+        url: "https://pioneerpet.com/product/3832-ultimate-scratching-post/"
+      },
+      {
+        label: "SmartCat Ultimate Scratching Post: Canadian retail listing",
+        publisher: "Pet Valu",
+        url: "https://www.petvalu.ca/product/smartcat-ultimate-scratching-post/SCM06958"
+      },
+      {
+        label: "Senses Oval Scratcher: model and dimensions",
+        publisher: "Catit",
+        url: "https://www.catit.com/products/toys/senses-oval-scratcher/"
+      },
+      {
+        label: "Catit Senses 2.0 Oval Scratcher: Canadian listing",
+        publisher: "Homes Alive Pets",
+        url: "https://www.homesalive.ca/cat/scratchers/catit-senses-2-0-oval-scratcher.html"
+      }
+    ],
+    status: "published",
+    publishedAt: "2026-10-18",
+    needsVerification: []
+  },
+  {
     "slug": "choosing-a-cat-carrier-in-canada",
     "section": "cats",
     "subcategory": "Buying guides",
@@ -455,21 +568,24 @@ export const articles: readonly Article[] = [
     tags: ["winter", "seasonal-care", "paw-care", "safety", "dogs"],
     indexable: true,
     status: "published",
+    updatedAt: "2026-10-18",
     publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
-      "Read the dog, not the thermometer: coat type, size, age, health and acclimatisation matter more than the number.",
-      "Rinse and check paws after every winter walk — road salt and de-icers are the most common urban winter problem.",
+      "Consider weather and ground conditions alongside your dog's age, coat, health and signs of discomfort.",
+      "Inspect and clean paws after winter walks; road salt and de-icers can irritate them.",
       "Antifreeze and frozen water bodies are absolutes, not judgement calls.",
       "Short-coated, small, senior and recently clipped dogs need a waterproof coat that covers the chest and belly.",
       "Replace lost walking distance with nose work and training — mental work tires a dog disproportionately.",
     ],
     relatedSlugs: [
+      "choosing-dog-boots-in-canada",
       "bringing-home-a-puppy-first-30-days",
       "emergency-vet-visits-in-canada",
     ],
     relatedCategorySlugs: ["dog-health", "dog-training-and-behaviour", "general-dog-discussion"],
     sources: [
+      { label: "Cold Weather and Pets", publisher: "Canadian Veterinary Medical Association", url: "https://www.canadianveterinarians.net/related-resources/cold-weather-and-pets" },
       {
         label: "Cold weather animal safety — why there is no single temperature threshold",
         publisher: "American Veterinary Medical Association",
@@ -1026,10 +1142,12 @@ export const articles: readonly Article[] = [
     tags: ["indoor-cats", "enrichment", "behaviour", "apartments", "cats"],
     indexable: true,
     status: "published",
+    updatedAt: "2026-10-18",
     publishedAt: "2026-10-09",
     veterinaryNotice: true,
     keyTakeaways: ["Start with the individual cat and accessible choices.", "Install equipment securely and inspect wear.", "Enrichment is not a diagnosis or treatment for changed health or behaviour."],
     relatedSlugs: [
+      "choosing-a-cat-scratching-post-in-canada",
       "indoor-or-outdoor-cats-in-canada",
       "bringing-home-a-kitten-first-30-days",
     ],
