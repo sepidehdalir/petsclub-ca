@@ -43,7 +43,7 @@ export function PageHeader({
   media,
 }: PageHeaderProps) {
   return (
-    <header className="border-b border-border bg-surface">
+    <header className="club-page-hero border-b border-border bg-surface">
       {/* Tighter at the top than the bottom, and tighter still on a phone.
           The site header already sits directly above, so a symmetric pad
           reads as a gap between two bars rather than as the head of a page. */}
@@ -57,7 +57,7 @@ export function PageHeader({
             media && "grid items-center gap-7 lg:grid-cols-12 lg:gap-12",
           )}
         >
-          <div className={cn("space-y-3 sm:space-y-4", media ? "lg:col-span-7" : "max-w-3xl")}>
+          <div className={cn("club-page-intro space-y-3 sm:space-y-4", media ? "lg:col-span-7" : "max-w-3xl")}>
             {eyebrow ? (
               <p className="text-label uppercase text-pine-700">
                 {eyebrow}
@@ -67,6 +67,7 @@ export function PageHeader({
             <h1 className="text-display-3 text-foreground sm:text-display-2">
               {title}
             </h1>
+            <span className="club-page-note" aria-hidden="true">A little more life. A lot more love.</span>
 
             {description ? (
               // Body size on a phone, stepping up only once there is room for

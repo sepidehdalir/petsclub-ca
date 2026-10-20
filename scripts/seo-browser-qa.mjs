@@ -35,7 +35,7 @@ assert.ok(serverReady, 'The local application did not start within 60 seconds');
 const routes = ['/guides/cost-of-owning-a-dog-in-canada', '/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
 const sitemap = await (await fetch(new URL('/sitemap.xml', base))).text();
 const sitemapRoutes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => new URL(match[1]).pathname);
-const privateRoutes = ['/search', '/sign-in', '/sign-up', '/forgot-password', '/reset-password', '/auth/confirm', '/account', '/my-puppy'];
+const privateRoutes = ['/search', '/sign-in', '/sign-up', '/forgot-password', '/reset-password', '/auth/confirm', '/account', '/my-puppy', '/community/lost-dogs/new', '/community/found-pets/new'];
 const extraRoutes = ['/community', '/lost-found', '/puppy', '/puppy/3-months', '/puppy/beyond-the-first-year', ...privateRoutes];
 const staticRoutes = (await readdir('.next/server/app', { recursive: true }))
   .filter(file => file.endsWith('.html') && !file.startsWith('_'))
@@ -92,6 +92,11 @@ for (const scenario of scenarios) {
         assert.equal(result.status, 200);
         await page.locator('h1').waitFor({ state: 'visible' });
         assert.equal(await page.locator('h1').count(), 1, 'Exactly one h1 is required');
+        if (path !== '/') {
+          assert.equal(await page.locator('.site-interior').count(), 1, 'Inner pages must share the new design shell');
+          assert.ok(await page.locator('.club-footer-headline').isVisible(), 'New footer is present');
+          assert.match(await page.locator('h1').evaluate(el => getComputedStyle(el).fontFamily), /Bricolage/i);
+        }
         const mainText = (await page.locator('main').innerText()).replace(/\s+/g, ' ');
         if (path === '/guides/cost-of-owning-a-dog-in-canada') {
           assert.match(mainText, /Ontario Veterinary Medical Association/);

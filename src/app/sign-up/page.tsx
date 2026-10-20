@@ -16,7 +16,7 @@ export default function SignUpPage() {
   return (
     <AuthFormShell
       title="Join The Pet Club"
-      description="Create your Pet Club account. Community posting and replies are not open yet."
+      description="Your people are here. Create your Pet Club account to share stories and join the conversation."
       footer={
         <>
           Already have an account?{" "}

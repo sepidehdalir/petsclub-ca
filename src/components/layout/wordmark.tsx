@@ -1,4 +1,3 @@
-import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils/cn";
 
 export interface WordmarkProps {
@@ -20,20 +19,15 @@ export interface WordmarkProps {
  * after the domain move.
  */
 export function Wordmark({ className, showDomain = true }: WordmarkProps) {
-  const { lead, accent, suffix } = siteConfig.wordmark;
-
   return (
     <span
       className={cn(
-        "font-serif text-xl font-semibold tracking-tight text-foreground",
+        "club-wordmark text-foreground",
         className,
       )}
     >
-      {lead}
-      <span className="text-pine-700">{accent}</span>
-      {showDomain ? (
-        <span className="text-base font-normal text-foreground-subtle">{suffix}</span>
-      ) : null}
+      <svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="20" cy="27" rx="11" ry="9"/><ellipse cx="7" cy="16" rx="5" ry="7" transform="rotate(-25 7 16)"/><ellipse cx="16" cy="8" rx="5" ry="7"/><ellipse cx="27" cy="9" rx="5" ry="7" transform="rotate(15 27 9)"/><ellipse cx="34" cy="19" rx="5" ry="7" transform="rotate(30 34 19)"/></svg>
+      <span>the pet<br />club<span className="sr-only">{showDomain ? ".ca" : ""}</span></span>
     </span>
   );
 }

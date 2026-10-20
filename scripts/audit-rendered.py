@@ -30,6 +30,9 @@ for f in root.rglob('*.html'):
 manifest=json.loads(Path('.next/server/app-paths-manifest.json').read_text())
 dynamic={path.removesuffix('/page') or '/' for path in manifest if path.endswith('/page') and '[' not in path}
 redirects={'/puppy/11-weeks','/puppy/4-5-months'}
+def valid_dynamic(path):
+    # Composer routes only exist for known, prerendered category pages.
+    return path.endswith('/new') and path[:-4] in pages and path.startswith('/community/')
 issues=[]; edges=0; image_count=0
 for route,p in pages.items():
     if p.h1!=1: issues.append([route,'h1 count',p.h1])
@@ -40,7 +43,7 @@ for route,p in pages.items():
         if url.netloc and url.netloc not in ('thepetclub.ca','www.thepetclub.ca'): continue
         if url.scheme and url.scheme not in ('https','http'): continue
         path=unquote(url.path).rstrip('/') or ('/' if url.path else route)
-        if path not in pages and path not in dynamic and path not in redirects and not (Path('public')/path.lstrip('/')).is_file():
+        if path not in pages and path not in dynamic and path not in redirects and not valid_dynamic(path) and not (Path('public')/path.lstrip('/')).is_file():
             issues.append([route,'unresolved link',href]);continue
         edges+=1
         if url.fragment and path in pages and unquote(url.fragment) not in pages[path].ids:
