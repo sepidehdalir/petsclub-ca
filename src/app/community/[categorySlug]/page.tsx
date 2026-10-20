@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { PageHeader } from "@/components/shared/page-header";
+import { CommunityBoard } from "@/features/community/components/live-community";
 import { ButtonLink } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/ui/card";
 import { Container, Section, SectionHeading } from "@/components/ui/layout-primitives";
@@ -71,6 +72,8 @@ export default async function CommunityCategoryPage(
         }
       />
 
+      <Section><Container><CommunityBoard category={category.slug} /></Container></Section>
+
       {resources.length > 0 ? (
         <Section aria-labelledby="category-resources-heading">
           <Container>
@@ -96,8 +99,8 @@ export default async function CommunityCategoryPage(
         <Container>
           <SectionHeading
             id="conversation-heading"
-            title="Ideas for future conversations"
-            description="Editorial prompts to explore while we're preparing member posting. These are not real discussion threads or replies."
+            title="A little conversation starter"
+            description="Editorial prompts for your next conversation. These are ideas, not member posts."
           />
           {prompts.length > 0 ? (
             <div className="mt-7 grid gap-4 md:grid-cols-2">
@@ -109,7 +112,7 @@ export default async function CommunityCategoryPage(
                     </span>
                     <h3 className="font-serif text-title-3 text-foreground">{prompt}</h3>
                     <p className="mt-auto text-body-sm text-foreground-muted">
-                      Member answers are not open yet. For now, explore related Canadian pet guides.
+                      Have a story to share? Start a conversation with your fellow pet people.
                     </p>
                   </CardBody>
                 </Card>
@@ -121,7 +124,7 @@ export default async function CommunityCategoryPage(
             <ButtonLink href="/community" variant="secondary">All community topics</ButtonLink>
           </div>
           <p className="mt-4 text-caption text-foreground-muted">
-            This category is currently a reading resource. Posting, replies and member activity will be enabled in a separate release.
+            Sign in to publish and reply. Please keep personal details private and follow our community guidelines.
           </p>
         </Container>
       </Section>

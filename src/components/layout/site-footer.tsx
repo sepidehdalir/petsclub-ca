@@ -20,8 +20,9 @@ const COPYRIGHT_YEAR = 2026;
 
 export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-border bg-surface">
+    <footer className="club-site-footer mt-auto border-t border-border bg-surface">
       <Container className="py-12 lg:py-16">
+        <div className="club-footer-headline"><span>FOR THE LIFE</span><em>you share.</em><Link href="/puppy">Find your next good day <span aria-hidden="true">↗</span></Link></div>
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_2.4fr]">
           <div className="max-w-xs space-y-3">
             <Link href="/" className="inline-flex rounded-md" aria-label="ThePetClub.ca — home">
@@ -70,6 +71,7 @@ export function SiteFooter() {
           </p>
         </div>
         <p className="mt-4 text-caption text-foreground-muted">Designed &amp; developed by <a href="https://arvinify.com" className="underline underline-offset-4">Arvinify Technology Inc.</a></p>
+        <div className="club-footer-word" aria-hidden="true">the pet club<span>ALL PAWS WELCOME.</span></div>
       </Container>
     </footer>
   );

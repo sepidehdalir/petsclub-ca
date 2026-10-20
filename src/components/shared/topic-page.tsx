@@ -120,7 +120,7 @@ export function TopicPage({ path }: TopicPageProps) {
             id="topic-categories-heading"
             eyebrow="Explore"
             title={`${topic.name} community topics`}
-            description="Browse editorial questions and related reading. Member posting and replies are not available yet."
+            description="Your people, your questions, your everyday wins. Browse a topic and sign in to join the conversation."
           />
 
           <Card className="mt-8 overflow-hidden">

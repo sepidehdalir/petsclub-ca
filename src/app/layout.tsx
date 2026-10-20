@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Newsreader, Public_Sans } from "next/font/google";
+import { displayFont, bodyFont, accentFont } from "@/lib/fonts";
+import { SiteFrame } from "@/components/layout/site-frame";
 
 import { RouteChrome } from "@/components/layout/route-chrome";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -9,35 +10,16 @@ import { siteConfig } from "@/config/site";
 import { organizationSchema, webSiteSchema } from "@/lib/seo/structured-data";
 
 import "./globals.css";
+import "@/features/unleashed/interior.css";
 
 /**
  * Fonts are self-hosted by next/font: no third-party request on the critical
  * path, no FOUT from a late stylesheet, and `display: swap` keeps text
  * readable while the file loads.
  *
- * Both faces are variable, so the entire weight range arrives in one file per
- * style rather than one file per weight — fewer requests than the two static
- * serif weights this replaces, not more.
- *
- * Newsreader also carries an optical-size axis. With `font-optical-sizing`
- * left at its default of `auto`, the browser draws headlines from the display
- * cut and running text from the text cut of the same file. That is why it
- * replaces Source Serif 4, which was loaded at 600/700 only and so could set
- * neither body copy nor italics — the gap that blocked the article template.
+ * Homepage and inner pages share Bricolage Grotesque, DM Sans and Instrument
+ * Serif from one root font configuration, including client-side navigation.
  */
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  display: "swap",
-  style: ["normal", "italic"],
-  axes: ["opsz"],
-  variable: "--font-newsreader",
-});
-
-const publicSans = Public_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-public-sans",
-});
 
 export const metadata: Metadata = {
   // Resolves every relative metadata URL (Open Graph images, canonicals)
@@ -86,7 +68,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fcfcfa",
+  themeColor: "#f4f0e4",
   colorScheme: "light",
 };
 
@@ -96,7 +78,7 @@ export default function RootLayout({
   return (
     <html
       lang={siteConfig.language}
-      className={`${publicSans.variable} ${newsreader.variable}`}
+      className={`${displayFont.variable} ${bodyFont.variable} ${accentFont.variable}`}
     >
       <head>
         <meta name="google-adsense-account" content="ca-pub-6654381708684665" />
@@ -115,6 +97,7 @@ export default function RootLayout({
           Skip to main content
         </a>
 
+        <SiteFrame>
         <RouteChrome><SiteHeader /></RouteChrome>
 
         <main id="main-content" className="flex-1">
@@ -122,6 +105,7 @@ export default function RootLayout({
         </main>
 
         <RouteChrome><SiteFooter /></RouteChrome>
+        </SiteFrame>
 
         {/*
           Site-level structured data. Only Organization and WebSite are

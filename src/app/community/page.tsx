@@ -19,7 +19,7 @@ export default function CommunityPage() {
       <PageHeader
         eyebrow="Community"
         title="The Pet Club Community"
-        description={`Explore the planned community. Posting and replies are not available yet. ${allCommunityCategories.length} categories across ${communityTaxonomy.length} areas.`}
+        description={`Your people. Your kind of wonderful. Explore ${allCommunityCategories.length} categories across ${communityTaxonomy.length} areas, and sign in to join the conversation.`}
         breadcrumbs={[{ name: "Community", path: "/community" }]}
       />
 

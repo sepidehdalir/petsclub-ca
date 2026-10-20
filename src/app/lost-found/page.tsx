@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { DemoContentNotice } from "@/components/shared/demo-content-notice";
 import { PageHeader } from "@/components/shared/page-header";
 import { ButtonLink } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/ui/card";
@@ -10,14 +9,12 @@ import {
   communityCategoryPath,
   findCommunityGroup,
 } from "@/features/community/taxonomy";
-import { LostFoundCard } from "@/features/lost-found/components/lost-found-card";
-import { demoLostFoundReports } from "@/features/lost-found/fixtures";
 import { createMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createMetadata({
   title: "Lost & Found pets",
   description:
-    "First steps for a missing pet in Canada and information about our planned Lost & Found service. Reporting and alerts are not available yet.",
+    "First steps for a missing pet in Canada. Browse local community reports or sign in to share a lost or found pet report.",
   path: "/lost-found",
 });
 
@@ -45,10 +42,10 @@ export default function LostFoundPage() {
       <PageHeader
         eyebrow="Lost & Found"
         title="Lost & Found pets in Canada"
-        description="When a pet goes missing, the first hours matter most. The Pet Club is building a Canada-wide Lost & Found so a report reaches the people nearby who can actually help."
+        description="A little help can bring them home. Share a lost or found pet report with the community, and contact local animal services directly."
         breadcrumbs={[{ name: "Lost & Found", path: "/lost-found" }]}
         actions={
-          <ButtonLink href="/community/lost-dogs">Go to Lost &amp; Found categories</ButtonLink>
+          <ButtonLink href="/community/lost-dogs/new">Share a lost or found report ↗</ButtonLink>
         }
       />
 
@@ -57,8 +54,8 @@ export default function LostFoundPage() {
           <SectionHeading
             id="lf-status-heading"
             eyebrow="Status"
-            title="What exists today"
-            description="The category pages are available to browse, but posting, reports and local alerts are not available yet. Contact your municipal animal services and nearby shelters directly for help with a missing pet."
+            title="Every pair of eyes helps."
+            description="Browse community reports below. Reports are public posts, not emergency services or automated local alerts. Contact your municipal animal services and nearby shelters directly."
           />
 
           {lostFoundGroup ? (
@@ -123,22 +120,12 @@ export default function LostFoundPage() {
         <Container>
           <SectionHeading
             id="lf-preview-heading"
-            eyebrow="Coming soon"
-            title="What a report will look like"
-            description="The planned report format: species, distinguishing details, location and how recent the sighting is."
+            eyebrow="A helpful report"
+            title="Small details. Big difference."
+            description="Include the species, distinguishing details, general location and date. Avoid sharing your home address or private contact details in a public post."
           />
 
-          <DemoContentNotice className="mt-6">
-            Sample layout only — these are not real missing pets
-          </DemoContentNotice>
-
-          <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {demoLostFoundReports.map((report) => (
-              <li key={report.id} className="flex">
-                <LostFoundCard report={report} />
-              </li>
-            ))}
-          </ul>
+          <div className="mt-6"><ButtonLink href="/community/found-pets/new">Report a found pet ↗</ButtonLink></div>
         </Container>
       </Section>
     </>
