@@ -280,7 +280,7 @@ export function RelatedDiscussion({ categorySlugs }: RelatedDiscussionProps) {
         Explore community categories
       </h2>
       <p className="mt-2 text-body-sm text-foreground-muted">
-        Browse the planned categories for this topic. Member posting and replies are not available yet.
+        Find your people in the related categories. Sign in to share a question, a story or a helpful reply.
       </p>
       <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
         {categories.map(({ category }) => (

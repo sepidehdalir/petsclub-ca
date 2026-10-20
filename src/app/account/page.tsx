@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { PageHeader } from "@/components/shared/page-header";
+import { ProfileForm } from "@/features/auth/components/profile-form";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button, ButtonLink } from "@/components/ui/button";
@@ -149,6 +150,7 @@ export default async function AccountPage() {
             />
           )}
 
+          {profile ? <ProfileForm profile={profile} /> : null}
           <form action="/auth/sign-out" method="post" className="mt-8">
             <Button type="submit" variant="secondary">
               Sign out
