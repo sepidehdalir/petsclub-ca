@@ -224,7 +224,7 @@ for (const scenario of scenarios) {
           assert.equal(await open.getAttribute('aria-expanded'), 'true');
           await page.screenshot({ path: join(out, `${scenario.name}-menu-open.png`) });
           await page.getByRole('button', { name: 'Close menu', exact: true }).click();
-          assert.equal(await open.getAttribute('aria-expanded'), 'false');
+          await page.waitForFunction(() => document.querySelector('.menu-open')?.getAttribute('aria-expanded') === 'false');
           await open.click();
           await page.keyboard.press('Escape');
           await page.locator('.menu-dialog[open]').waitFor({ state: 'hidden' });
@@ -250,6 +250,28 @@ for (const scenario of scenarios) {
           await page.locator('.boop-button').click();
           assert.ok((await page.locator('.boop-status').innerText()).length > 0);
           result.homeInteractions = 'Dog/cat selection, recommendation navigation, filters, search, return and boop passed';
+          await page.emulateMedia({ reducedMotion: 'no-preference' });
+          await page.waitForFunction(() => document.querySelector('.unleashed')?.dataset.motion === 'on');
+          await page.waitForFunction(() => document.querySelector('.hero-film')?.getAttribute('src'));
+          const filmSrc = await page.locator('.hero-film').getAttribute('src');
+          assert.equal(filmSrc, scenario.viewport.width <= 760 ? '/unleashed/hero-loop-mobile.mp4' : '/unleashed/hero-loop.mp4');
+          result.motionLayout = [];
+          for (const section of ['#home', '#manifesto', '#clubhouse', '#play', '#field-notes', '.footer']) {
+            await page.locator(section).scrollIntoViewIfNeeded();
+            await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+            const size = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+            assert.ok(size.scrollWidth <= size.width + 1, `Motion-on horizontal overflow at ${section}`);
+            result.motionLayout.push({ section, ...size });
+          }
+          await page.locator('.throw-button').click();
+          assert.match(await page.locator('.play-status').innerText(), /ball is bouncing/);
+          const beforeThrow = await page.locator('.tennis-ball').evaluate(node => node.style.getPropertyValue('--ball-y'));
+          await page.waitForFunction(previous => document.querySelector('.tennis-ball')?.style.getPropertyValue('--ball-y') !== previous, beforeThrow);
+          await page.locator('.footer .motion-toggle').click();
+          assert.equal(await page.locator('.unleashed').getAttribute('data-motion'), 'off');
+          assert.ok(await page.locator('.hero-film').evaluate(video => video.paused));
+          result.motionControls = 'Responsive film source, six scroll positions, moving ball and pause passed';
+
         }
         if (path === '/guides') {
           const list = page.locator('section[aria-labelledby="published-guides-heading"]');

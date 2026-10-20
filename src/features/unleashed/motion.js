@@ -260,8 +260,8 @@ export function mountUnleashed(root) {
       }
     }
   };
-  let kind = 'dog';
-  let mood = 'new';
+  let kind = $('.clubhouse').dataset.kind || 'dog';
+  let mood = $('[data-mood][aria-pressed="true"]')?.dataset.mood || 'new';
   let clubTimer;
   const club = $('.clubhouse');
   function updateRecommendation() {
@@ -371,7 +371,10 @@ export function mountUnleashed(root) {
   on($('.menu-open'), 'click', () => openDialog(menu));
   $$('.search-open').forEach(button => on(button, 'click', () => { renderSearch(); openDialog(search); input.focus(); }));
   $$('dialog').forEach(dialog => {
-    on($('[data-close]', dialog), 'click', () => dialog.close());
+    on($('[data-close]', dialog), 'click', () => {
+      dialog.close();
+      if (dialog === menu) $('.menu-open').setAttribute('aria-expanded', 'false');
+    });
     on(dialog, 'close', () => { root.classList.remove('dialog-open'); $('.menu-open').setAttribute('aria-expanded', 'false'); updateFilm(); if (!state.sleeping) wakeBall(); });
     on(dialog, 'click', event => {
       if (event.target !== dialog) return;
@@ -422,6 +425,10 @@ export function mountUnleashed(root) {
     film.pause(); film.removeAttribute('src'); film.load();
     root.querySelectorAll('dialog[open]').forEach(dialog => dialog.close());
     root.classList.remove('dialog-open');
-    root.querySelectorAll('.boop-particle,.impact-ring').forEach(node => node.remove());
+    hero.classList.remove('is-booped');
+    $('.boop-button em').textContent = 'Boop.';
+    $('.boop-status').textContent = '';
+    $$('.is-changing').forEach(node => node.classList.remove('is-changing'));
+    root.querySelectorAll('.boop-particle,.bounce-ring').forEach(node => node.remove());
   };
 }
