@@ -5,7 +5,10 @@
 - Fresh production build: 95 prerendered pages, 5,628 internal link references, 302 local asset/font references; no unresolved paths, missing anchors/assets, duplicate IDs or canonical issues.
 - ESLint, TypeScript/build and 510 unit tests passed locally.
 - Browser QA now discovers every prerendered page plus dynamic auth/search/journey screens, tests all at 320px and 1440px, and exercises representative routes at 390px (Chromium/WebKit), 768px and 1024px. Workflow artifacts record per-route results and screenshots; the release requires a successful run.
-- 147 distinct external URLs probed from the initial build; response exceptions are recorded in external-link-audit.json.
+- 148 distinct external URLs probed from the fresh build (141 successful, 7 HTTP 403/503); response exceptions are recorded in external-link-audit.json.
+
+- Live checks: 10 media/robots/sitemap endpoints returned 200; unknown page, guide and community routes returned real 404s.
+- First expanded browser run: 347/352 passed; five Chromium checks read the Puppy Journey loading state before content arrived. The test now waits for the destination heading, preserving its content assertion.
 
 ## Repairs
 - Puppy Journey now explains a missing required birth date instead of silently ignoring submit.

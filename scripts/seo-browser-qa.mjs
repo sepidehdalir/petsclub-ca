@@ -241,6 +241,7 @@ for (const scenario of scenarios) {
           await page.locator('#puppy-dob').fill(dob.toISOString().slice(0, 10));
           await page.locator('form button[type="submit"]').click();
           await page.waitForURL('**/my-puppy?**');
+          await page.locator('main h1').waitFor({ state: 'visible' });
           assert.match(await page.locator('main').innerText(), /12 weeks/i);
           assert.ok(await page.locator('meta[name="robots"]').getAttribute('content').then(x => x.includes('noindex')));
           await page.goto(new URL(path, base).href);

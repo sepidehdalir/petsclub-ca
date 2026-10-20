@@ -1,16 +1,17 @@
 {
-  "checked": 147,
-  "scope": "Read-only HTTP probes of external links in prerendered HTML. HTTP 403/503 do not prove a broken destination. Initial build included one already-repaired adoption URL.",
+  "checked": 148,
+  "scope": "Fresh build external URLs; HTTP 403/503 are inconclusive, not proof of a broken destination.",
+  "successful": 140,
   "issues": [
     {
-      "url": "https://www.giocanada.org/",
+      "url": "https://giocanada.org/how-the-process-works/",
       "status": 503,
       "pages": [
         "guides/pet-insurance-in-canada.html"
       ]
     },
     {
-      "url": "https://giocanada.org/how-the-process-works/",
+      "url": "https://www.giocanada.org/",
       "status": 503,
       "pages": [
         "guides/pet-insurance-in-canada.html"
@@ -31,13 +32,6 @@
       ]
     },
     {
-      "url": "https://spca.bc.ca/i-need-help-with/pet-care-behaviour/faq-tag/cat-enrichment/",
-      "status": 404,
-      "pages": [
-        "guides/indoor-or-outdoor-cats-in-canada.html"
-      ]
-    },
-    {
       "url": "https://royalsocietypublishing.org/doi/10.1098/rsbl.2020.0097",
       "status": 403,
       "pages": [
@@ -45,24 +39,10 @@
       ]
     },
     {
-      "url": "https://spca.bc.ca/adoption/adoption-fees/",
-      "status": 404,
-      "pages": [
-        "guides/cost-of-owning-a-dog-in-canada.html"
-      ]
-    },
-    {
       "url": "https://avmajournals.avma.org/view/journals/javma/217/3/javma.2000.217.342.xml",
       "status": 403,
       "pages": [
         "guides/separation-anxiety-in-dogs.html"
-      ]
-    },
-    {
-      "url": "https://otc-cta.gc.ca/eng/air-carrier-tariffs-posted-websites",
-      "status": 503,
-      "pages": [
-        "guides/travelling-with-a-pet-in-canada.html"
       ]
     },
     {
