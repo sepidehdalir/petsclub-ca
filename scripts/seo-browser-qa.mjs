@@ -220,6 +220,48 @@ for (const scenario of scenarios) {
         if (path === '/') {
           assert.ok(!(await page.locator('body').innerText()).includes('no article has been published yet'));
           await page.locator('.unleashed[data-enhanced="true"]').waitFor();
+          // Page scrollWidth cannot detect text escaping a circular sticker.
+          result.circleLabels = await page.evaluate(() => {
+            const checks = [];
+            const inspect = (badge, state) => {
+              const previous = badge.getAttribute('style');
+              badge.style.setProperty('rotate', '0deg', 'important');
+              badge.style.setProperty('transform', 'none', 'important');
+              const box = badge.getBoundingClientRect();
+              const radius = box.width / 2;
+              const cx = box.left + radius, cy = box.top + box.height / 2;
+              const walker = document.createTreeWalker(badge.querySelector('.badge-copy'), NodeFilter.SHOW_TEXT);
+              let node;
+              while ((node = walker.nextNode())) {
+                if (!node.textContent.trim()) continue;
+                const range = document.createRange();
+                range.selectNodeContents(node);
+                for (const rect of range.getClientRects()) {
+                  for (const x of [rect.left - 1, rect.right + 1]) {
+                    for (const y of [rect.top, rect.bottom]) {
+                      checks.push({ badge: badge.className, state, text: node.textContent,
+                        inside: Math.hypot(x - cx, y - cy) <= radius * .96 });
+                    }
+                  }
+                }
+              }
+              if (previous === null) badge.removeAttribute('style');
+              else badge.setAttribute('style', previous);
+            };
+            document.querySelectorAll('.boop-button,.memory-sticker,.club-sticker,.belong-badge').forEach(b => inspect(b, 'default'));
+            const hero = document.querySelector('.hero');
+            const em = document.querySelector('.boop-button em');
+            const original = em.textContent;
+            hero.classList.add('is-booped');
+            em.textContent = 'Booped!';
+            inspect(document.querySelector('.boop-button'), 'booped');
+            hero.classList.remove('is-booped');
+            em.textContent = original;
+            return checks;
+          });
+          assert.ok(result.circleLabels.length > 0);
+          assert.deepEqual(result.circleLabels.filter(check => !check.inside), [], 'Badge text must fit inside the circle with a safety margin');
+          assert.equal(await page.locator('.boop-button .badge-copy svg use').getAttribute('href'), '#arrow');
           result.guideCards = await page.locator('.story').count();
           assert.equal(result.guideCards, 5, 'Five approved featured stories');
           assert.equal(await page.getByRole('link', { name: 'Arvinify Technology Inc.', exact: true }).count(), 1);

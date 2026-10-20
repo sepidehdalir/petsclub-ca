@@ -45,3 +45,19 @@ html:has(.unleashed){scroll-padding-top:28px}html:has(.unleashed[data-motion="on
 .unleashed .footer-links,.unleashed .footer-legal,.unleashed .footer-note,.unleashed .builder-credit,.unleashed .back-top,.unleashed .footer-wordmark>span{color:#151b14}
 .unleashed .footer-note{opacity:1}
 .unleashed .header-actions,.unleashed .main-nav,.unleashed .hero-topline{color:#151b14}
+
+/* Circle labels use their own diameter, with generous space for italic ink. */
+.unleashed :is(.boop-button,.memory-sticker,.club-sticker,.belong-badge){container-type:inline-size;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:0;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.unleashed .badge-copy{display:block;flex:none;width:68%;text-align:center;letter-spacing:0;line-height:1.1}
+.unleashed .boop-button>span.badge-copy{font-size:12cqw;line-height:1.15}
+.unleashed .boop-button .badge-copy em{display:block;font-size:28cqw;line-height:1.05}
+.unleashed .hero.is-booped .boop-button .badge-copy em{font-size:21cqw}
+.unleashed .boop-button .badge-copy svg{display:block;width:15cqw;height:15cqw;margin:3cqw auto 0}
+.unleashed .memory-sticker .badge-copy strong{display:block;font:800 27cqw/1 var(--display);letter-spacing:-.04em}
+.unleashed .memory-sticker .badge-copy em{display:block;font-size:20cqw;line-height:.95;margin-top:3cqw}
+.unleashed .club-sticker>span.badge-copy{font-size:9cqw;letter-spacing:0}
+.unleashed .club-sticker .badge-copy small{display:block;font-size:8cqw;line-height:1.2;letter-spacing:.03em}
+.unleashed .club-sticker .badge-copy strong{display:block;font-size:17cqw;line-height:1;margin:5cqw 0}
+.unleashed .belong-badge .badge-copy{font-size:11cqw;line-height:1.18}
+.unleashed .belong-badge .badge-copy svg{display:block;width:19cqw;height:19cqw;margin:6cqw auto 0;color:var(--orange)}
+.unleashed .play-caption{right:8%;max-width:80%;font-size:clamp(18px,2.2vw,24px);transform-origin:center;rotate:-4deg}
