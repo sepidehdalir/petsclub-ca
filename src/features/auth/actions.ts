@@ -32,7 +32,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 const NOT_CONFIGURED_STATE: AuthFormState = {
   status: "error",
   message:
-    "Accounts are not available on this deployment yet — Supabase is not configured. See the README for setup instructions.",
+    "Accounts are temporarily unavailable. Please try again later.",
 };
 
 /** Flattens a zod error into the `fieldErrors` shape the forms render. */

@@ -644,7 +644,7 @@ export const articles: readonly Article[] = [
     ],
     relatedCategorySlugs: ["cat-behaviour", "cat-health", "general-cat-discussion"],
     sources: [
-      {"label": "Indoor and outdoor cat welfare guidance", "publisher": "BC SPCA", "url": "https://spca.bc.ca/i-need-help-with/pet-care-behaviour/faq-tag/cat-enrichment/"},
+      {"label": "Indoor and outdoor cat welfare guidance", "publisher": "BC SPCA", "url": "https://spca.bc.ca/article/how-to-keep-your-cat-happy-feline-enrichment-tips/"},
     ],
     resources: [
       {

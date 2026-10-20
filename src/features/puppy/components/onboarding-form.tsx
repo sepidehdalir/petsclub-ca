@@ -103,6 +103,7 @@ export function OnboardingForm() {
   const maxDate = `${today.year}-${String(today.month).padStart(2, "0")}-${String(today.day).padStart(2, "0")}`;
 
   const problemMessage =
+    !dob ? "Enter your puppy’s date of birth to start your Journey." :
     result && !result.ok
       ? result.problem === "future"
         ? "That date is in the future. Check the year?"
