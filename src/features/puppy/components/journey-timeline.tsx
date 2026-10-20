@@ -7,6 +7,8 @@ export interface JourneyTimelineProps {
   /** The stage the reader is currently on. */
   currentSlug: string;
   className?: string;
+  /** Namespace when desktop and mobile rails coexist in the same document. */
+  idPrefix?: string;
 }
 
 const implemented = new Set(stages.map((stage) => stage.slug));
@@ -38,7 +40,7 @@ const implemented = new Set(stages.map((stage) => stage.slug));
  * phase, the widening cadence reads as the point rather than as a gap, which
  * is what it is.
  */
-export function JourneyTimeline({ currentSlug, className }: JourneyTimelineProps) {
+export function JourneyTimeline({ currentSlug, className, idPrefix = "journey" }: JourneyTimelineProps) {
   return (
     <nav aria-label="Puppy Journey stages" className={className}>
       <p className="font-sans text-label uppercase text-foreground-subtle">The journey</p>
@@ -55,9 +57,9 @@ export function JourneyTimeline({ currentSlug, className }: JourneyTimelineProps
             reader without putting it in the heading order. The visual result
             is identical.
           */
-          <section key={phase.id} aria-labelledby={`journey-phase-${phase.id}`}>
+          <section key={phase.id} aria-labelledby={`${idPrefix}-phase-${phase.id}`}>
             <p
-              id={`journey-phase-${phase.id}`}
+              id={`${idPrefix}-phase-${phase.id}`}
               className="px-2.5 font-sans text-micro uppercase text-foreground-subtle"
             >
               {phase.label}

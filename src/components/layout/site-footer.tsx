@@ -69,6 +69,7 @@ export function SiteFooter() {
             substitute for advice from a licensed veterinarian.
           </p>
         </div>
+        <p className="mt-4 text-caption text-foreground-muted">Designed &amp; developed by <a href="https://arvinify.com" className="underline underline-offset-4">Arvinify Technology Inc.</a></p>
       </Container>
     </footer>
   );

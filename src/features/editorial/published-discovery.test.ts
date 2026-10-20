@@ -141,14 +141,13 @@ describe("public components use the publication gate", () => {
     expect(page).not.toMatch(/\brelatedArticles\s*\(/);
   });
 
-  it("shows a bounded real guide preview instead of the obsolete launch placeholder", () => {
-    const home = source("../../app/page.tsx");
-    expect(home).toContain("<ArticleListSection");
-    expect(home).toContain('surfacePath="/guides"');
-    expect(home).toContain("limit={3}");
+  it("promotes only published guides from the approved homepage", () => {
+    const home = source("../unleashed/content.tsx");
+    const guideSlugs = [...home.matchAll(/href="\/guides\/([^"?#]+)"/g)].map(match => match[1]);
+    expect(guideSlugs.length).toBeGreaterThanOrEqual(4);
+    const published = new Set(publishedArticles().map(article => article.slug));
+    for (const slug of guideSlugs) expect(published.has(slug!)).toBe(true);
     expect(home).toContain('href="/guides"');
     expect(home).not.toContain("no article has been published yet");
-    expect(home).not.toContain("plannedGuides");
-    expect(home).not.toContain("See the guide plan");
   });
 });

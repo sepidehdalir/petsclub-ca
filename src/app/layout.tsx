@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Newsreader, Public_Sans } from "next/font/google";
 
+import { RouteChrome } from "@/components/layout/route-chrome";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { JsonLd } from "@/components/shared/json-ld";
@@ -114,13 +115,13 @@ export default function RootLayout({
           Skip to main content
         </a>
 
-        <SiteHeader />
+        <RouteChrome><SiteHeader /></RouteChrome>
 
         <main id="main-content" className="flex-1">
           {children}
         </main>
 
-        <SiteFooter />
+        <RouteChrome><SiteFooter /></RouteChrome>
 
         {/*
           Site-level structured data. Only Organization and WebSite are

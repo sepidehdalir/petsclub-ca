@@ -97,7 +97,7 @@ export function StageView({
                 stops that scroll chaining back into the article. */}
             <div className="lg:col-span-3">
               <div className="lg:sticky lg:top-28 lg:max-h-[calc(100vh-9rem)] lg:overflow-y-auto lg:overscroll-contain">
-                <JourneyTimeline currentSlug={stage.slug} className="hidden lg:block" />
+                <JourneyTimeline currentSlug={stage.slug} idPrefix="journey-desktop" className="hidden lg:block" />
               </div>
             </div>
 
@@ -186,7 +186,7 @@ export function StageView({
 
               {/* The rail again, below the content, on small screens. */}
               <div className="mt-12 border-t border-border pt-8 lg:hidden">
-                <JourneyTimeline currentSlug={stage.slug} />
+                <JourneyTimeline currentSlug={stage.slug} idPrefix="journey-mobile" />
               </div>
             </div>
           </div>

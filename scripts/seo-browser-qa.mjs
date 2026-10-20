@@ -34,6 +34,8 @@ assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
 const routes = ['/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
 const scenarios = [
+  { name: 'chromium-small', engine: chromium, viewport: { width: 320, height: 740 }, mobile: true },
+  { name: 'chromium-tablet', engine: chromium, viewport: { width: 768, height: 1024 }, mobile: true },
   { name: 'chromium-desktop', engine: chromium, viewport: { width: 1440, height: 900 }, mobile: false },
   { name: 'chromium-mobile', engine: chromium, viewport: { width: 390, height: 844 }, mobile: true },
   { name: 'webkit-mobile', engine: webkit, viewport: { width: 390, height: 844 }, mobile: true },
@@ -204,26 +206,50 @@ for (const scenario of scenarios) {
         await page.screenshot({ path: join(out, `${filename}.png`), fullPage: true });
         if (path === '/') {
           assert.ok(!(await page.locator('body').innerText()).includes('no article has been published yet'));
-          result.guideCards = await page.locator('section[aria-labelledby="latest-guides"] h3').count();
-          assert.equal(result.guideCards, 3, 'Homepage must show three published guide cards');
-          if (scenario.mobile) {
-            const open = page.getByRole('button', { name: 'Open menu', exact: true });
-            await open.click();
-            await page.locator('dialog[open]').waitFor({ state: 'visible' });
-            assert.equal(await open.getAttribute('aria-expanded'), 'true');
-            await page.screenshot({ path: join(out, `${scenario.name}-menu-open.png`) });
-            await page.getByRole('button', { name: 'Close menu', exact: true }).click();
-            await page.locator('dialog[open]').waitFor({ state: 'hidden' });
-            await open.click();
-            await page.locator('dialog[open]').waitFor({ state: 'visible' });
-            await page.keyboard.press('Escape');
-            await page.locator('dialog[open]').waitFor({ state: 'hidden' });
-            result.mobileMenu = 'Open, close button and Escape passed';
-          }
-          await page.getByRole('link', { name: 'Find your next read', exact: true }).click();
-          await page.waitForURL(new URL('/guides', base).href);
-          await page.locator('#published-guides-heading').waitFor({ state: 'visible' });
-          result.heroGuideNavigation = 'passed';
+          await page.locator('.unleashed[data-enhanced="true"]').waitFor();
+          result.guideCards = await page.locator('.story').count();
+          assert.equal(result.guideCards, 5, 'Five approved featured stories');
+          assert.equal(await page.getByRole('link', { name: 'Arvinify Technology Inc.', exact: true }).count(), 1);
+          const fontEvidence = await page.locator('#hero-title').evaluate(node => {
+            const family = getComputedStyle(node).fontFamily;
+            return { family, loaded: document.fonts.check(`700 32px ${family.split(',')[0]}`) };
+          });
+          assert.match(fontEvidence.family, /Bricolage/i);
+          assert.ok(fontEvidence.loaded, 'Display font loaded');
+          result.fonts = fontEvidence;
+          assert.equal(await page.locator('.hero-film').getAttribute('src'), null, 'Reduced motion must not download film');
+          const open = page.getByRole('button', { name: 'Open menu', exact: true });
+          await open.click();
+          await page.locator('.menu-dialog[open]').waitFor({ state: 'visible' });
+          assert.equal(await open.getAttribute('aria-expanded'), 'true');
+          await page.screenshot({ path: join(out, `${scenario.name}-menu-open.png`) });
+          await page.getByRole('button', { name: 'Close menu', exact: true }).click();
+          assert.equal(await open.getAttribute('aria-expanded'), 'false');
+          await open.click();
+          await page.keyboard.press('Escape');
+          await page.locator('.menu-dialog[open]').waitFor({ state: 'hidden' });
+          result.menu = 'Open, close, Escape and expanded state passed';
+          await page.locator('.world-switch [data-kind="cat"]').click();
+          await page.locator('[data-mood="outside"]').click();
+          assert.equal(await page.locator('.recommendation').getAttribute('href'), '/guides/choosing-a-cat-carrier-in-canada');
+          assert.equal(await page.locator('.club-all').getAttribute('href'), '/cats');
+          await page.locator('[data-filter="cats"]').click();
+          assert.equal(await page.locator('.story:visible').count(), 3);
+          await page.locator('[data-filter="all"]').click();
+          await page.locator('.header .search-open').click();
+          await page.locator('#guide-search').fill('boots');
+          assert.equal(await page.locator('.search-result').count(), 1);
+          assert.equal(await page.locator('.full-search').getAttribute('href'), '/search?q=boots');
+          await page.keyboard.press('Escape');
+          await page.locator('.recommendation').click();
+          await page.waitForURL(new URL('/guides/choosing-a-cat-carrier-in-canada', base).href);
+          await page.locator('h1').waitFor({ state: 'visible' });
+          assert.match(await page.locator('h1').innerText(), /Choosing a Cat Carrier/);
+          await page.goBack();
+          await page.locator('.unleashed[data-enhanced="true"]').waitFor();
+          await page.locator('.boop-button').click();
+          assert.ok((await page.locator('.boop-status').innerText()).length > 0);
+          result.homeInteractions = 'Dog/cat selection, recommendation navigation, filters, search, return and boop passed';
         }
         if (path === '/guides') {
           const list = page.locator('section[aria-labelledby="published-guides-heading"]');
