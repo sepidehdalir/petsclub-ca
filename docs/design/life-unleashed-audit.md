@@ -13,6 +13,7 @@ The approved immersive homepage now runs inside the existing Next.js application
 - Page-unmount cleanup for listeners, frames, timers, observers and video playback.
 - Scoped homepage CSS; narrow-width wrapping and minimum-width fixes.
 - “Designed & developed by Arvinify Technology Inc.” footer link on homepage and editorial pages.
+- Fixed a one-pixel editorial-header overflow at 320px, consistent Escape dismissal from search inputs, and small-text contrast on the orange footer. Hero poster loads eagerly.
 - Fixed duplicate desktop/mobile timeline IDs on eight existing puppy-stage pages.
 
 ## Evidence
@@ -22,7 +23,14 @@ The approved immersive homepage now runs inside the existing Next.js application
 - Production build: passed, 106 generated outputs.
 - Prerendered audit: 95 HTML pages, 5,631 internal link references, 302 local asset/font references, zero issues. See rendered-audit.json.
 - DOM/physics checks: ball bounds/settling, recommendations, filters, search, dialogs, reduced motion, offscreen suspension and unmount cancellation passed. These are simulated DOM checks, not a browser rendering claim.
-- Browser QA script updated for Chromium widths 320, 390, 768 and 1440, plus WebKit mobile. Covers fonts, horizontal overflow, image responses, menu, discovery, search and navigation. Execution status must be confirmed from CI.
+- Browser QA script updated for Chromium widths 320, 390, 768 and 1440, plus WebKit mobile. Covers fonts, horizontal overflow, image responses, menu, discovery, search and navigation. Passed: 90 browser scenarios, zero failures, in GitHub Actions run 39451079493 for application commit 9c62ce5c15dd811007f464e8361a47e91f7dc4da. Motion-on tests also verify film source selection, six scroll positions, moving ball, pause and a real server-rendered search request.
+
+## Browser evidence
+
+- CI: https://github.com/sepidehdalir/petsclub-ca/actions/runs/39451079481
+- Browser QA: https://github.com/sepidehdalir/petsclub-ca/actions/runs/39451079493
+- Screenshots/report artifact: seo-browser-qa-39451079493 (GitHub retention: 14 days).
+- Desktop and 320px mobile screenshots inspected visually; approved art direction and footer attribution preserved.
 
 ## Limits
 
