@@ -416,7 +416,7 @@ const OCTOBER_17_PUBLICATIONS = ["choosing-a-cat-carrier-in-canada"];
 const OCTOBER_18_PUBLICATIONS = ["choosing-dog-boots-in-canada", "choosing-a-cat-scratching-post-in-canada"];
 const OCTOBER_18_REVISIONS = ["winter-dog-care-in-canada", "indoor-cat-enrichment-canadian-homes"];
 function expectedRevisionDate(slug: string) {
-  return OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
+  return slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
 }
 function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_16_PUBLICATIONS, ...OCTOBER_17_PUBLICATIONS, ...OCTOBER_18_PUBLICATIONS, "choosing-a-dog-harness-in-canada"]; }
 
@@ -489,7 +489,7 @@ describe("article publication dates", () => {
     expect(dates).toHaveLength(34);
     expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18"]));
     const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
-    expect(revisions).toEqual(["2026-10-18", PUPPY_REVISION_DATE, "2026-10-18"]);
+    expect(revisions).toEqual(["2026-10-18", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-18"]);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
   });
 
@@ -1556,65 +1556,51 @@ describe("Batch D — vaccination and cost evidence", () => {
     }
   });
 
-  it("sources the licence-fee differential from two municipalities, dated", () => {
+  it("keeps licence-fee examples current and geographically attributed", () => {
     const b = body("cost-of-owning-a-dog-in-canada");
-    expect(b).toMatch(/September 2026/);
-    expect(b).toMatch(/Toronto lists \$25\.00/);
+    expect(b).toMatch(/As of October 2026, Toronto lists \$25\.00/);
     expect(b).toMatch(/\$60\.00/);
-    expect(b).toMatch(/Calgary lists \$45/);
+    expect(b).toMatch(/As of October 2026, Calgary lists \$45/);
     expect(b).toMatch(/\$71/);
-    // Two cities is not a national pattern, and the article says so.
     expect(b).toMatch(/not a Canadian pattern/i);
-    expect(b).not.toMatch(/Canadian cities generally charge/i);
-    const urls = sourceUrls("cost-of-owning-a-dog-in-canada");
-    expect(urls).toMatch(/toronto\.ca/);
-    expect(urls).toMatch(/calgary\.ca/);
+    expect(sourceUrls("cost-of-owning-a-dog-in-canada")).toMatch(/toronto\.ca/);
+    expect(sourceUrls("cost-of-owning-a-dog-in-canada")).toMatch(/calgary\.ca/);
   });
 
-  it("sources adoption bundling as named examples rather than a rule", () => {
+  it("sources adoption inclusions as named examples rather than a rule", () => {
     const b = body("cost-of-owning-a-dog-in-canada");
-    expect(b).toMatch(/BC SPCA/);
-    expect(b).toMatch(/Calgary Humane Society/);
     expect(b).toMatch(/Some adoption fees bundle/i);
     expect(b).toMatch(/two organisations, not a national rule/i);
     expect(b).not.toMatch(/Rescue fees usually bundle/i);
-    const urls = sourceUrls("cost-of-owning-a-dog-in-canada");
-    expect(urls).toMatch(/spca\.bc\.ca/);
-    expect(urls).toMatch(/calgaryhumane\.ca/);
+    expect(sourceUrls("cost-of-owning-a-dog-in-canada")).toContain("https://spca.bc.ca/adoption/how-to-adopt/");
+    expect(sourceUrls("cost-of-owning-a-dog-in-canada")).toContain("https://www.calgaryhumane.ca/adopt/");
   });
 
-  it("states the food-cost relationship the way Merck states it", () => {
-    const b = body("cost-of-owning-a-dog-in-canada");
-    // The old claim was wrong, not merely unsourced.
-    expect(b).not.toMatch(/scales almost directly with the dog/i);
-    expect(b).toMatch(/not a linear function of body weight/i);
-    expect(b).toMatch(/power of 0\.75/);
-    expect(b).toMatch(/costs multiples of a small one/i);
-    expect(b).toMatch(/30%/);
-    expect(sourceUrls("cost-of-owning-a-dog-in-canada")).toMatch(/merckvetmanual\.com\/management-and-nutrition/);
-    // No ration calculator crept in.
-    expect(b).not.toMatch(/\bkcal\b/i);
-  });
-
-  it("publishes no national cost figure, and no unsourced price", () => {
+  it("uses a scoped primary-source benchmark rather than an invented Canadian average", () => {
     const article = articles.find((a) => a.slug === "cost-of-owning-a-dog-in-canada")!;
+    const b = body(article.slug);
+    expect(article.publishedAt).toBe("2026-09-06");
+    expect(article.updatedAt).toBe("2026-10-20");
+    expect(b).toContain("Ontario Veterinary Medical Association's 2026–27 estimate is CAD $4,993");
+    expect(b).toContain("$416 a month when divided by 12");
+    expect(b).toContain("not a Canada-wide average or a quote for your dog");
+    expect(Math.round(4993 / 12)).toBe(416);
+    expect(b).toContain("OVMA-CostofCare-Canine.pdf?ext=.pdf");
+    expect(b).toContain("not a required spending schedule");
+    expect(b).toContain("Grooming, daycare, walking, boarding, acquisition and transport");
+    expect(b).not.toMatch(/the average Canadian dog costs/i);
+  });
+
+  it("provides a usable worksheet without prescribing feeding or insurance outcomes", () => {
     const b = body("cost-of-owning-a-dog-in-canada");
-
-    // The Sources section is no longer empty.
-    expect((article.sources ?? []).length).toBeGreaterThanOrEqual(5);
-
-    // Every dollar figure is dated and attributed to the city that sets it.
-    const priced = b.split(/(?<=[.?!])\s+/).filter((x) => /\$\s?[\d,]/.test(x));
-    expect(priced.length).toBeGreaterThan(0);
-    for (const sentence of priced) {
-      expect(sentence, `undated price: ${sentence.slice(0, 110)}`).toMatch(/as of \w+ \d{4}/i);
-      expect(sentence, `unattributed price: ${sentence.slice(0, 110)}`).toMatch(/Toronto|Calgary/);
-    }
-
-    // And the article still refuses a national number.
-    expect(b).toMatch(/does not give you a number, and that is deliberate/i);
-    expect(b).not.toMatch(/the average (?:Canadian )?dog costs/i);
-    expect(b).not.toMatch(/costs? about \$[\d,]+ (?:a|per) year/i);
+    expect(b).toContain("<ScheduleTable");
+    expect(b).toContain("not quoted");
+    expect(b).toContain("insurance-faq/article/how-to-tell-pre-existing-conditions");
+    expect(b).toContain("Do not delay veterinary care");
+    expect(b).not.toMatch(/stops being insurable|costs multiples of a small one|without a payment plan|fails if the emergency arrives in year one/);
+    expect(b).toContain("/guides/choosing-a-dog-harness-in-canada");
+    expect(b).toContain("/guides/pet-food-storage-container-original-bag");
+    expect(b).toContain("No veterinarian has reviewed this update");
   });
 });
 
