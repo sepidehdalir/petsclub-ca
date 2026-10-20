@@ -109,12 +109,12 @@ export interface ArticleSource {
  *
  * What this deliberately does not unlock: national averages, "typical" ranges
  * assembled from clinics we phoned, anything converted from US dollars, and
- * any figure whose only source is another article. The two cost guides keep
- * their no-figures position — their argument is that no honest national
- * average exists, and that argument is unaffected by a city publishing its own
- * licence fee.
+ * any figure whose only source is another article. An attributed provincial estimate may be used as a benchmark, not a
+ * national average or prescribed care schedule, when the original publisher
+ * supplies its year, scope and caveats. The dog-cost guide applies this
+ * exception to the OVMA 2026–27 estimate, checked October 20, 2026.
  *
- * Applied once so far, in `pet-licensing-across-canada`. Any future use starts
+ * Applied in the licensing and dog-budget guides. Any future use starts
  * by asking whether the number would survive all five tests, and the honest
  * answer for most pet costs in Canada is still no.
  */
@@ -935,23 +935,24 @@ export const articles: readonly Article[] = [
     section: "dogs",
     subcategory: "Money",
     title: "How Much Does It Cost to Own a Dog in Canada?",
-    deck: "No national average, because there isn’t an honest one. Instead: every cost category that exists, the one that decides whether ownership is comfortable, and how to build a real number for your own city in an hour.",
+    deck: "A dated Ontario benchmark, a monthly budget worksheet and local quote checks for food, veterinary care, licensing, equipment and unexpected costs.",
     metaDescription:
-      "Every cost category of owning a dog in Canada, what actually drives the number, and an hour-long method for building a real figure for your own city.",
+      "Build a Canadian dog budget with the OVMA 2026–27 Ontario benchmark, a monthly cost worksheet, local quotes and clear first-year and emergency-cost checks.",
     authorId: "pet-club-editorial",
-    readingMinutes: 9,
+    readingMinutes: 6,
     mediaId: "dogs-white-dog-leaves",
     tags: ["money", "budgeting", "pet-insurance", "vet-costs", "dogs"],
     indexable: true,
     status: "published",
     publishedAt: "2026-09-06",
+    updatedAt: "2026-10-20",
     veterinaryNotice: true,
     keyTakeaways: [
-      "This guide quotes no dollar figures on purpose: veterinary fees, food and municipal charges vary too much for a national average to be plannable.",
-      "Adult size is the variable that moves almost everything — food, drug doses, boarding and many procedures scale with weight.",
-      "The monthly cost is not the part that matters. Whether an unplanned four-figure veterinary bill is an inconvenience or a crisis is.",
-      "Insurance or a dedicated savings account both work; neither can be started on the day you need it.",
-      "An hour of phone calls to three local clinics produces a budget you can actually trust.",
+      "OVMA's 2026–27 adult-dog estimate is Ontario-specific, not a national average or a quote for your dog.",
+      "Separate startup purchases, monthly bills, planned occasional care and emergency arrangements.",
+      "Record quote dates and inclusions, and leave missing prices marked not quoted rather than zero.",
+      "Insurance coverage and out-of-pocket costs depend on the policy; do not delay veterinary care.",
+      "Use the original-bag storage and dog-harness checklists before buying equipment.",
     ],
     relatedSlugs: [
       "renting-with-a-pet-in-canada",
@@ -959,36 +960,13 @@ export const articles: readonly Article[] = [
     ],
     relatedCategorySlugs: ["vet-costs", "pet-insurance", "dog-food-and-nutrition"],
     sources: [
-      {
-        label:
-          "Pet licensing fees \u2014 the published rates for altered and unaltered dogs",
-        publisher: "City of Toronto",
-        url: "https://www.toronto.ca/community-people/animals-pets/pet-licensing/pet-licensing-fees/",
-      },
-      {
-        label:
-          "Pet licences and responsible pet ownership \u2014 the published licence fee schedule by sterilisation status",
-        publisher: "City of Calgary",
-        url: "https://www.calgary.ca/pets/licences.html",
-      },
-      {
-        label:
-          "Adoption fees \u2014 what an adoption includes: medical assessments, vaccinations, parasite treatment, spay or neuter surgery and microchip identification",
-        publisher: "BC SPCA",
-        url: "https://spca.bc.ca/adoption/adoption-fees/",
-      },
-      {
-        label:
-          "Adopt \u2014 what is included in an adoption: spay/neuter, microchip, up-to-date vaccines, wellness exam and six months of city licensing",
-        publisher: "Calgary Humane Society",
-        url: "https://www.calgaryhumane.ca/adopt",
-      },
-      {
-        label:
-          "Nutritional requirements of small animals \u2014 energy requirements are not a linear function of body weight, and two animals of the same weight can differ by up to 30%",
-        publisher: "Merck Veterinary Manual",
-        url: "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/nutritional-requirements-and-related-diseases-of-small-animals",
-      },
+      { label: "2026–27 annual dog and puppy cost estimates: Ontario provincial average", publisher: "Ontario Veterinary Medical Association", url: "https://www.ovma.org/getmedia/0be8d20a-759e-47b9-9b16-1607903774fe/OVMA-CostofCare-Canine.pdf?ext=.pdf" },
+      { label: "Pet-care planning and ownership commitments", publisher: "Ontario Veterinary Medical Association", url: "https://www.ovma.org/petcare" },
+      { label: "Current pet licensing fees", publisher: "City of Toronto", url: "https://www.toronto.ca/community-people/animals-pets/pet-licensing/pet-licensing-fees/" },
+      { label: "2026 pet licence fee schedule", publisher: "City of Calgary", url: "https://www.calgary.ca/pets/licences.html" },
+      { label: "How to adopt and what is included", publisher: "BC SPCA", url: "https://spca.bc.ca/adoption/how-to-adopt/" },
+      { label: "Adoption package inclusions", publisher: "Calgary Humane Society", url: "https://www.calgaryhumane.ca/adopt/" },
+      { label: "Canadian explanation of pre-existing-condition assessment", publisher: "Trupanion", url: "https://www.trupanion.com/en-ca/pet-insurance-faq/article/how-to-tell-pre-existing-conditions" },
     ],
     resources: [
       {
@@ -998,13 +976,10 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "EVIDENCE POLICY \u2014 no national cost estimate is being claimed, and none may be added. This article deliberately publishes no Canadian average, no annual total, no emergency-fund figure and no food price. Its method is to teach a reader to build their own budget from their own clinic, municipality and dog. The only dollar figures it carries are municipal licence fees read from the cities' own pages and dated. If a figure cannot be sourced to the body that sets it, it does not go in.",
-      "RESOLVED \u2014 VERIFIED, 2026-09-06. The licence-fee differential was previously \u201ctrue in the cities we checked informally\u201d. It now rests on two geographically distinct municipal fee pages, read directly: Toronto lists $25.00 for a spayed or neutered dog against $60.00 unaltered; Calgary's 2026 column lists $45 against $71. The article says two cities is not a Canadian pattern and tells the reader to look up their own. Both figures must be re-read at every scheduled review and deleted rather than carried stale.",
-      "RESOLVED \u2014 VERIFIED, 2026-09-06. Adoption-fee bundling is now sourced as examples rather than stated as usual practice. BC SPCA publishes that an adoption includes medical assessments, vaccinations, flea and parasite treatments, spay or neuter surgery and BC Pet Registry microchip identification. Calgary Humane Society publishes spay/neuter, microchip, up-to-date vaccines, a complimentary wellness exam and six months of city licensing. The article names both, says inclusions differ between organisations, and no longer implies a national norm.",
-      "RESOLVED \u2014 NARROWED, 2026-09-06. The food claim was wrong as written, not merely unsourced: it said cost \u201cscales almost directly with the dog's adult weight\u201d. Merck states that energy requirements are not a linear function of body weight and that resting requirement is calculated against weight to the power of 0.75, and that two animals of the same weight can differ by as much as 30% either way. The article now says it rises steeply but not in a straight line, keeps the true directional point that a large dog costs multiples of a small one, and carries the individual-variation caveat.",
-      "STANDING GUARDRAIL \u2014 no kcal formula, no brand comparison and no food price belongs in this article. The energy relationship is here to explain why size dominates a budget, not to let a reader calculate a ration.",
-      "That rescue adoption fees in Canada commonly include spay or neuter, initial vaccines and a microchip — stated as usual rather than universal.",
-      "Whether to name typical ranges for any category at all once Canadian figures can be sourced and dated.",
+      "RESOLVED — October 20, 2026: OVMA's own linked 2026–27 PDF was read and establishes the Ontario adult-dog estimate of CAD4993. Monthly416 is rounded annual/12 arithmetic, not a monthly quote. No Canadian average or individual treatment schedule is claimed.",
+      "RESOLVED — October 20, 2026: Toronto and Calgary fees reread from official current pages; BC SPCA stale adoption-fees URL replaced with the current how-to-adopt page. Named adoption examples are not generalised.",
+      "RESOLVED — October 20, 2026: Removed unsupported food-cost multiplier and overly absolute insurance/emergency claims. Current Canadian insurer source supports the limited medical-history explanation, not universal policy terms. No clinical recommendation or veterinary review is claimed.",
+      "STANDING GUARDRAIL — Recheck dated estimate and municipality fees at the next review. Published estimates may be cited only with year, geography, source and limits; they are not a personalised budget. Do not extrapolate clinical care from cost categories.",
     ],
   },
 

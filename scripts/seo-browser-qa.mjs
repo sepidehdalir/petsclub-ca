@@ -32,7 +32,7 @@ while (Date.now() < deadline) {
 }
 assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
-const routes = ['/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
+const routes = ['/guides/cost-of-owning-a-dog-in-canada', '/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
 const scenarios = [
   { name: 'chromium-desktop', engine: chromium, viewport: { width: 1440, height: 900 }, mobile: false },
   { name: 'chromium-mobile', engine: chromium, viewport: { width: 390, height: 844 }, mobile: true },
@@ -80,6 +80,19 @@ for (const scenario of scenarios) {
         await page.locator('h1').waitFor({ state: 'visible' });
         assert.equal(await page.locator('h1').count(), 1, 'Exactly one h1 is required');
         const mainText = (await page.locator('main').innerText()).replace(/\s+/g, ' ');
+        if (path === '/guides/cost-of-owning-a-dog-in-canada') {
+          assert.match(mainText, /Ontario Veterinary Medical Association/);
+          assert.match(mainText, /not a Canada-wide average or a quote for your dog/);
+          assert.match(mainText, /Updated October 20, 2026/);
+          assert.match(mainText, /Do not delay veterinary care/);
+          assert.equal(await page.locator('table').count(), 1);
+          assert.equal(await page.locator('table th[scope="row"]').count(), 9);
+          assert.ok(await page.locator('table caption').innerText());
+          assert.equal(await page.locator('time[datetime="2026-09-06"]').count(), 1);
+          assert.equal(await page.locator('time[datetime="2026-10-20"]').count(), 1);
+          assert.equal(await page.locator('a[href="/guides/pet-food-storage-container-original-bag"]').count(), 1);
+          assert.equal(await page.locator('aside[aria-label="Affiliate offer"]').count(), 0);
+        }
         if (path === '/guides/bringing-home-a-puppy-first-30-days') {
           assert.match(mainText, /Read the policy before relying on timing/);
           assert.match(mainText, /Do not delay veterinary care or an appointment/);
