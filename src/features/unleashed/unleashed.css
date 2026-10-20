@@ -41,3 +41,7 @@ html:has(.unleashed){scroll-padding-top:28px}html:has(.unleashed[data-motion="on
 .unleashed:not([data-enhanced=true]) .throw-button,
 .unleashed:not([data-enhanced=true]) .filters{visibility:hidden}
 @media(max-width:360px){.unleashed .header{gap:10px}.unleashed .header-actions{gap:10px}.unleashed .brand{font-size:23px}.unleashed .journal-toolbar{flex-wrap:wrap}.unleashed .filters{gap:16px}.unleashed .story{grid-template-columns:65px minmax(0,1fr) 22px;gap:10px}.unleashed .story>img{width:65px}.unleashed .footer-legal>span:last-child{margin-left:0}}
+/* Small footer/navigation copy needs more contrast than the display wordmark. */
+.unleashed .footer-links,.unleashed .footer-legal,.unleashed .footer-note,.unleashed .builder-credit,.unleashed .back-top,.unleashed .footer-wordmark>span{color:#151b14}
+.unleashed .footer-note{opacity:1}
+.unleashed .header-actions,.unleashed .main-nav,.unleashed .hero-topline{color:#151b14}

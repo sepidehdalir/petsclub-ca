@@ -371,6 +371,12 @@ export function mountUnleashed(root) {
   on($('.menu-open'), 'click', () => openDialog(menu));
   $$('.search-open').forEach(button => on(button, 'click', () => { renderSearch(); openDialog(search); input.focus(); }));
   $$('dialog').forEach(dialog => {
+    // Chromium's search input can consume Escape before native dialog dismissal.
+    on(dialog, 'keydown', event => {
+      if (event.key !== 'Escape') return;
+      event.preventDefault(); event.stopPropagation(); dialog.close();
+      if (dialog === menu) $('.menu-open').setAttribute('aria-expanded', 'false');
+    }, { capture: true });
     on($('[data-close]', dialog), 'click', () => {
       dialog.close();
       if (dialog === menu) $('.menu-open').setAttribute('aria-expanded', 'false');

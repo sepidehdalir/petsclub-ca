@@ -265,12 +265,21 @@ for (const scenario of scenarios) {
           }
           await page.locator('.throw-button').click();
           assert.match(await page.locator('.play-status').innerText(), /ball is bouncing/);
+          await page.locator('.playground').scrollIntoViewIfNeeded();
           const beforeThrow = await page.locator('.tennis-ball').evaluate(node => node.style.getPropertyValue('--ball-y'));
           await page.waitForFunction(previous => document.querySelector('.tennis-ball')?.style.getPropertyValue('--ball-y') !== previous, beforeThrow);
           await page.locator('.footer .motion-toggle').click();
           assert.equal(await page.locator('.unleashed').getAttribute('data-motion'), 'off');
           assert.ok(await page.locator('.hero-film').evaluate(video => video.paused));
           result.motionControls = 'Responsive film source, six scroll positions, moving ball and pause passed';
+          await page.locator('.header .search-open').click();
+          await page.locator('#guide-search').fill('boots');
+          await page.locator('.full-search').click();
+          await page.waitForURL(new URL('/search?q=boots', base).href);
+          await page.locator('#search-query').waitFor();
+          assert.equal(await page.locator('#search-query').inputValue(), 'boots');
+          assert.ok(await page.locator('main a[href="/guides/choosing-dog-boots-in-canada"]').count() > 0);
+          result.fullSearch = 'Homepage query reached the server-rendered search route and returned the published boots guide';
 
         }
         if (path === '/guides') {
