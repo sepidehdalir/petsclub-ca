@@ -37,6 +37,8 @@ jobs:
         run: npm ci
       - name: Build isolated production-mode application
         run: npm run build
+      - name: Audit every prerendered page, internal link, anchor and local asset
+        run: python scripts/audit-rendered.py
       - name: Install isolated browser QA tools
         run: |
           npm install --prefix "$RUNNER_TEMP/petclub-qa-tools" --ignore-scripts --no-audit --no-fund playwright@1.63.0

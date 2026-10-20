@@ -36,9 +36,10 @@ export default async function AccountPage() {
     return (
       <Section>
         <Container width="prose">
+          <h1 className="mb-6 text-title-1">Your account</h1>
           <ErrorState
-            title="Accounts are not enabled on this deployment"
-            description="Supabase credentials are not configured, so there is no account to show. See the README for the environment variables required."
+            title="Accounts are temporarily unavailable"
+            description="Please try again later. You can browse our public guides without signing in."
             action={<ButtonLink href="/">Back to the homepage</ButtonLink>}
           />
         </Container>
@@ -67,7 +68,7 @@ export default async function AccountPage() {
       <PageHeader
         eyebrow="Account"
         title={profile?.display_name ?? "Your account"}
-        description="Your Pet Club membership. Profile editing, pet profiles and notification settings arrive with a later milestone."
+        description="Your Pet Club membership details."
         breadcrumbs={[{ name: "Account", path: "/account" }]}
       />
 
@@ -144,7 +145,7 @@ export default async function AccountPage() {
             <ErrorState
               className="mt-6"
               title="No profile record found"
-              description="Your profile is normally created automatically when you register. If you are seeing this, the database trigger may not have been applied — check that all migrations have run."
+              description="We could not find your profile. Please contact us so we can help restore access."
             />
           )}
 

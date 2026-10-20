@@ -77,7 +77,7 @@ export default async function SearchPage(props: PageProps<"/search">) {
                       : `${results.length} ${results.length === 1 ? "guide" : "guides"} found`}
                   </h2>
                 </div>
-                <p className="text-body-sm text-foreground-muted">Results for “{query}”</p>
+                <p className="min-w-0 max-w-full text-body-sm text-foreground-muted [overflow-wrap:anywhere]">Results for “{query}”</p>
               </div>
               {results.length > 0 ? (
                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

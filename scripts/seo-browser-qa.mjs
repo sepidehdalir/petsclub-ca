@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -33,8 +33,18 @@ while (Date.now() < deadline) {
 assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
 const routes = ['/guides/cost-of-owning-a-dog-in-canada', '/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
+const sitemap = await (await fetch(new URL('/sitemap.xml', base))).text();
+const sitemapRoutes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => new URL(match[1]).pathname);
+const privateRoutes = ['/search', '/sign-in', '/sign-up', '/forgot-password', '/reset-password', '/auth/confirm', '/account', '/my-puppy'];
+const extraRoutes = ['/community', '/lost-found', '/puppy', '/puppy/3-months', '/puppy/beyond-the-first-year', ...privateRoutes];
+const staticRoutes = (await readdir('.next/server/app', { recursive: true }))
+  .filter(file => file.endsWith('.html') && !file.startsWith('_'))
+  .map(file => file === 'index.html' ? '/' : '/' + file.slice(0, -5));
+const allRoutes = [...new Set([...routes, ...sitemapRoutes, ...extraRoutes, ...staticRoutes])];
+const representativeRoutes = [...new Set([...routes, ...extraRoutes, '/health', '/food', '/training', '/about', '/privacy-policy', '/terms-of-use', '/community-guidelines'])];
 const scenarios = [
   { name: 'chromium-small', engine: chromium, viewport: { width: 320, height: 740 }, mobile: true },
+  { name: 'chromium-laptop', engine: chromium, viewport: { width: 1024, height: 768 }, mobile: false },
   { name: 'chromium-tablet', engine: chromium, viewport: { width: 768, height: 1024 }, mobile: true },
   { name: 'chromium-desktop', engine: chromium, viewport: { width: 1440, height: 900 }, mobile: false },
   { name: 'chromium-mobile', engine: chromium, viewport: { width: 390, height: 844 }, mobile: true },
@@ -59,7 +69,8 @@ for (const scenario of scenarios) {
       if (url.origin !== base.origin || !['GET', 'HEAD'].includes(request.method())) return route.abort();
       return route.continue();
     });
-    for (const path of routes) {
+    const selectedRoutes = ['chromium-small', 'chromium-desktop'].includes(scenario.name) ? allRoutes : representativeRoutes;
+    for (const path of selectedRoutes) {
       const page = await context.newPage();
       page.setDefaultTimeout(12000);
       const errors = [];
@@ -187,9 +198,9 @@ for (const scenario of scenarios) {
         result.layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
         assert.ok(result.layout.scrollWidth <= result.layout.width + 1, 'Horizontal overflow');
         result.canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
-        assert.equal(result.canonical?.replace(/\/$/, ''), `https://thepetclub.ca${path === '/' ? '' : path}`);
+        assert.equal(result.canonical?.replace(/\/$/, ''), `https://thepetclub.ca${path === '/' ? '' : path === '/my-puppy' ? '/puppy' : path}`);
         result.robots = await page.locator('meta[name="robots"]').evaluateAll((nodes) => nodes.map((node) => node.getAttribute('content')).join(', ')) || null;
-        assert.ok(!/noindex/i.test(result.robots ?? ''), 'Published production-mode page unexpectedly noindex');
+        assert.equal(/noindex/i.test(result.robots ?? ''), !sitemapRoutes.includes(path), 'Index policy matches public/private route');
         result.localXRobotsTag = (await response.allHeaders())['x-robots-tag'] ?? null;
         assert.ok(!/noindex/i.test(result.localXRobotsTag ?? ''), 'Local production-mode header unexpectedly noindex');
         // Verify every declared Next image URL returns successfully. Browser
@@ -215,8 +226,45 @@ for (const scenario of scenarios) {
           assert.equal(probe.status(), 200, `Image endpoint failed: ${state.src}`);
           result.imageStates.push({ ...state, probeStatus: probe.status() });
         }
+        result.domAudit = await page.evaluate(() => {
+          const ids = [...document.querySelectorAll('[id]')].map(node => node.id);
+          const missingAnchors = [...document.querySelectorAll('a[href^="#"]')]
+            .map(node => node.getAttribute('href'))
+            .filter(href => href.length > 1 && !document.getElementById(decodeURIComponent(href.slice(1))));
+          return { duplicateIds: ids.filter((id, i) => ids.indexOf(id) !== i), missingAnchors };
+        });
+        assert.deepEqual(result.domAudit, { duplicateIds: [], missingAnchors: [] });
+        if (path === '/puppy') {
+          await page.locator('form button[type="submit"]').click();
+          await page.getByText('Enter your puppy’s date of birth to start your Journey.', { exact: true }).waitFor();
+          const dob = new Date(); dob.setDate(dob.getDate() - 84);
+          await page.locator('#puppy-dob').fill(dob.toISOString().slice(0, 10));
+          await page.locator('form button[type="submit"]').click();
+          await page.waitForURL('**/my-puppy?**');
+          await page.locator('main h1').waitFor({ state: 'visible' });
+          assert.match(await page.locator('main').innerText(), /12 weeks/i);
+          assert.ok(await page.locator('meta[name="robots"]').getAttribute('content').then(x => x.includes('noindex')));
+          await page.goto(new URL(path, base).href);
+          result.puppyOnboarding = 'Empty date feedback and personalised journey navigation passed';
+        }
+        if (path === '/search') {
+          await page.locator('#search-query').fill('q'.repeat(120));
+          await page.getByRole('button', { name: 'Find guides', exact: true }).click();
+          await page.getByRole('heading', { name: 'No matching guides', exact: true }).waitFor();
+          const width = await page.evaluate(() => [document.documentElement.scrollWidth, innerWidth]);
+          assert.ok(width[0] <= width[1] + 1, 'Long search query must wrap on narrow screens');
+          await page.goto(new URL(path, base).href);
+          result.searchEmpty = 'No-result and long-query layout passed';
+        }
+        if (path === '/dogs' && scenario.viewport.width < 1024) {
+          await page.getByRole('button', { name: 'Open menu', exact: true }).click();
+          await page.getByRole('dialog', { name: 'Menu', exact: true }).waitFor();
+          await page.keyboard.press('Escape');
+          await page.getByRole('dialog', { name: 'Menu', exact: true }).waitFor({ state: 'hidden' });
+          result.editorialMenu = 'Open and Escape close passed';
+        }
         await page.evaluate(() => window.scrollTo(0, 0));
-        await page.screenshot({ path: join(out, `${filename}.png`), fullPage: true });
+        if (representativeRoutes.includes(path)) await page.screenshot({ path: join(out, `${filename}.png`), fullPage: true });
         if (path === '/') {
           assert.ok(!(await page.locator('body').innerText()).includes('no article has been published yet'));
           await page.locator('.unleashed[data-enhanced="true"]').waitFor();

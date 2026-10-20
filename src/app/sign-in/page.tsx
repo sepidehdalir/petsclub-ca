@@ -18,7 +18,7 @@ const CALLBACK_ERRORS: Record<string, string> = {
   "auth-callback":
     "That link has expired or has already been used. Sign in below, or request a new link.",
   "not-configured":
-    "Accounts are not available on this deployment yet — Supabase is not configured.",
+    "Accounts are temporarily unavailable. Please try again later.",
 };
 
 export default async function SignInPage(props: PageProps<"/sign-in">) {
@@ -39,7 +39,7 @@ export default async function SignInPage(props: PageProps<"/sign-in">) {
   return (
     <AuthFormShell
       title="Welcome back"
-      description="Sign in to join the conversation."
+      description="Sign in to view your Pet Club account."
       footer={
         <>
           New to The Pet Club?{" "}

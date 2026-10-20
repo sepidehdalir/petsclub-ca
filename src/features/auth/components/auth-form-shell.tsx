@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { ButtonLink } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/ui/card";
 import { Container, Section } from "@/components/ui/layout-primitives";
 import { isSupabaseConfigured } from "@/lib/env/public";
@@ -39,16 +40,15 @@ export function AuthFormShell({ title, description, children, footer }: AuthForm
             role="note"
             className="mt-8 rounded-card border border-clay-200 bg-clay-50 px-5 py-4 text-sm leading-relaxed text-clay-700"
           >
-            <strong className="font-semibold">Accounts are not enabled here.</strong> This
-            deployment has no Supabase credentials configured, so sign-up and sign-in cannot
-            work. The interface below is fully built — see the README for the environment
-            variables it needs.
+            <strong className="font-semibold">Accounts are temporarily unavailable.</strong>{" "}
+            You can still browse every public guide and use Puppy Journey without signing in.
+            <ButtonLink href="/guides" variant="secondary" className="mt-4">Browse guides</ButtonLink>
           </div>
         ) : null}
 
-        <Card className="mt-8">
+        {isSupabaseConfigured ? <Card className="mt-8">
           <CardBody className="p-6 sm:p-8">{children}</CardBody>
-        </Card>
+        </Card> : null}
 
         {footer ? (
           <div className="mt-6 text-center text-sm text-foreground-muted">{footer}</div>
