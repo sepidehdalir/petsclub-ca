@@ -416,7 +416,7 @@ const OCTOBER_17_PUBLICATIONS = ["choosing-a-cat-carrier-in-canada"];
 const OCTOBER_18_PUBLICATIONS = ["choosing-dog-boots-in-canada", "choosing-a-cat-scratching-post-in-canada"];
 const OCTOBER_18_REVISIONS = ["winter-dog-care-in-canada", "indoor-cat-enrichment-canadian-homes"];
 function expectedRevisionDate(slug: string) {
-  return slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
+  return slug === "pet-licensing-across-canada" ? "2026-10-21" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
 }
 function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_16_PUBLICATIONS, ...OCTOBER_17_PUBLICATIONS, ...OCTOBER_18_PUBLICATIONS, "choosing-a-dog-harness-in-canada"]; }
 
@@ -489,7 +489,7 @@ describe("article publication dates", () => {
     expect(dates).toHaveLength(34);
     expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18"]));
     const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
-    expect(revisions).toEqual(["2026-10-18", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-18"]);
+    expect(revisions).toEqual(["2026-10-18", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-18", "2026-10-21"]);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
   });
 
@@ -1364,14 +1364,18 @@ describe("Batch A — Canadian legal and regulatory evidence", () => {
     expect(sourceUrls("pet-licensing-across-canada")).toMatch(/pet-licensing-fees/);
   });
 
-  it("matches Edmonton's current bylaw and drops the unverified inclusion", () => {
+  it("matches Edmonton's current bylaw and scopes the verified microchip programme", () => {
     const b = body("pet-licensing-across-canada");
     expect(b).toMatch(/over 6 months of age/i);
     expect(b).toMatch(/19 May 2026/);
     expect(b).toMatch(/\$250/);
-    // The microchip-inclusion claim is gone.
-    expect(b).not.toMatch(/Edmonton's licence includes a microchip/i);
-    expect(b).toMatch(/separate microchip programme/i);
+    expect(b).toMatch(/appointment, proof of ownership and a valid City licence/);
+    expect(b).toContain("pet-microchip-program");
+    expect(b).toContain("Pet-licence application checklist");
+    expect(b).toContain("limited update");
+    expect(b).toContain("/guides/cost-of-owning-a-dog-in-canada");
+    const a = articles.find((item) => item.slug === "pet-licensing-across-canada")!;
+    expect(a.keyTakeaways.join(" ")).not.toMatch(/generally not exempt|does not transfer/);
   });
 
   it("claims no universal rule about licences transferring", () => {
