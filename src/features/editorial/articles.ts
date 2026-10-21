@@ -1955,7 +1955,7 @@ export const articles: readonly Article[] = [
     metaDescription:
       "Licensing is municipal, not provincial. How Toronto, Ottawa, Calgary, Edmonton and Vancouver differ on species, age thresholds and what is included.",
     authorId: "pet-club-editorial",
-    readingMinutes: 6,
+    readingMinutes: 8,
     mediaId: "guides-dog-collar-tag",
     mediaAlt:
       "A dog wearing a collar with a metal identification tag \u2014 the layer that works without a scanner.",
@@ -1968,7 +1968,7 @@ export const articles: readonly Article[] = [
     keyTakeaways: [
       "Licensing is municipal. Your city decides it, and neighbouring cities genuinely differ.",
       "Toronto, Ottawa, Calgary and Edmonton all license cats as well as dogs. Many municipalities do not.",
-      "Indoor cats are generally not exempt \u2014 Calgary and Edmonton both say so explicitly.",
+      "Calgary and Edmonton explicitly include indoor cats.",
       "Age thresholds differ: three months in Calgary, Ottawa and Vancouver; six months in Edmonton.",
       "Edmonton's included microchip programme requires an appointment, proof of ownership and a valid City licence.",
       "Licensing is not the rabies rule \u2014 that is provincial \u2014 but Ottawa layers its own vaccination requirement on top.",
