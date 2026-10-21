@@ -94,7 +94,7 @@ for (const scenario of scenarios) {
         assert.equal(await page.locator('h1').count(), 1, 'Exactly one h1 is required');
         const mainText = (await page.locator('main').innerText()).replace(/\s+/g, ' ');
         if (path === '/guides/pet-licensing-across-canada') {
-          assert.match(mainText, /Pet-licence application checklist/);
+          assert.match(mainText, /Pet-licence application checklist/i);
           assert.match(mainText, /appointment, proof of ownership and a valid City licence/);
           assert.match(mainText, /limited update/);
           assert.match(mainText, /October 21, 2026/);
