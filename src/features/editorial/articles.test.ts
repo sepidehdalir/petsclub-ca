@@ -1375,7 +1375,8 @@ describe("Batch A — Canadian legal and regulatory evidence", () => {
     expect(b).toContain("limited update");
     expect(b).toContain("/guides/cost-of-owning-a-dog-in-canada");
     const a = articles.find((item) => item.slug === "pet-licensing-across-canada")!;
-    expect(a.keyTakeaways.join(" ")).not.toMatch(/generally not exempt|does not transfer/);
+    expect(a.keyTakeaways).toBeDefined();
+    expect(a.keyTakeaways!.join(" ")).not.toMatch(/generally not exempt|does not transfer/);
   });
 
   it("claims no universal rule about licences transferring", () => {
