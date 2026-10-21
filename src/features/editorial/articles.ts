@@ -1964,14 +1964,15 @@ export const articles: readonly Article[] = [
     indexable: true,
     status: "published",
     publishedAt: "2026-09-06",
+    updatedAt: "2026-10-21",
     keyTakeaways: [
       "Licensing is municipal. Your city decides it, and neighbouring cities genuinely differ.",
       "Toronto, Ottawa, Calgary and Edmonton all license cats as well as dogs. Many municipalities do not.",
       "Indoor cats are generally not exempt \u2014 Calgary and Edmonton both say so explicitly.",
       "Age thresholds differ: three months in Calgary, Ottawa and Vancouver; six months in Edmonton.",
-      "Edmonton's licence includes a microchip, and reduced fees for altered animals are common.",
+      "Edmonton's included microchip programme requires an appointment, proof of ownership and a valid City licence.",
       "Licensing is not the rabies rule \u2014 that is provincial \u2014 but Ottawa layers its own vaccination requirement on top.",
-      "A licence is not permission from a landlord or a condominium, and it does not transfer when you move.",
+      "A licence is not housing permission; check the new municipality rather than assuming a licence transfers when you move.",
     ],
     relatedSlugs: [
       "when-a-pet-goes-missing-in-canada",
@@ -2011,6 +2012,7 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
+      "October 21, 2026 limited correction: current Edmonton licensing and microchip-program pages explicitly confirm the included chip with appointment, ownership proof and valid licence. This supersedes the earlier microchip exclusion note below. National no-transfer takeaway narrowed to the existing body. Added application checklist and budget/harness routes; no new city fee or medical claim.",
       "RESOLVED \u2014 NARROWED, 2026-09-06. Vancouver cats. vancouver.ca and bylaws.vancouver.ca are behind Cloudflare and returned 403 to every route available here \u2014 curl, WebFetch and a headless browser. What is verifiable from the City's own indexed material is that dogs three months and older require a licence under Animal Control By-law No. 9150, an instrument whose stated purpose is to establish a pound and license dogs. Cats are not asserted either way: inferring exemption from a dog-licensing bylaw is precisely the move the BC rabies error was made of. The row now says what is verified, says plainly that we are not presenting a position on cats, and sends the reader to Vancouver Animal Services.",
       "STANDING GUARDRAIL \u2014 do not conclude that a municipality does not license cats from the absence of cats on a dog-licensing page. That requires the bylaw or the City saying so.",
       "RESOLVED \u2014 VERIFIED, 2026-09-06. Toronto fees re-read on the City's pet licensing fee page: dog spayed/neutered $25.00, unaltered $60.00; cat spayed/neutered $15.00, unaltered $50.00; service dog no charge. Owners 65+ receive 50% off, and households under $50,000 income may have fees subsidised or waived. Licences run one year. The article now dates the figures to September 2026, attributes them to Toronto, gives the senior and low-income reductions so the headline numbers do not read as universal, and says explicitly that these are Toronto's numbers rather than a Canadian price.",
