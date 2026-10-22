@@ -1,3 +1,5 @@
+import { KitchenBanner } from "@/features/kitchen/kitchen-banner";
+import { Container } from "@/components/ui/layout-primitives";
 import type { Metadata } from "next";
 
 import { TopicPage } from "@/components/shared/topic-page";
@@ -11,5 +13,5 @@ export const metadata: Metadata = createMetadata({
 });
 
 export default function FoodPage() {
-  return <TopicPage path="/food" />;
+  return <><Container><KitchenBanner /></Container><TopicPage path="/food" /></>;
 }
