@@ -75,13 +75,15 @@ for (const scenario of scenarios) {
       page.setDefaultTimeout(12000);
       const errors = [];
       const badResponses = [];
+      const failedRequests = [];
+      page.on('requestfailed', (request) => failedRequests.push({ url: request.url(), error: request.failure()?.errorText }));
       page.on('pageerror', (error) => errors.push(error.message));
       page.on('response', (response) => {
         if (response.status() >= 400 && new URL(response.url()).origin === base.origin) {
           badResponses.push({ path: new URL(response.url()).pathname, status: response.status() });
         }
       });
-      const result = { browser: scenario.name, path, passed: false };
+      const result = { browser: scenario.name, path, passed: false, failedRequests };
       const filename = `${scenario.name}-${path === '/' ? 'home' : path.slice(1).replaceAll('/', '-')}`;
       try {
         // Background prefetches are not a readiness signal. The explicit
@@ -271,8 +273,18 @@ for (const scenario of scenarios) {
           await page.locator('main h1').waitFor({ state: 'visible' });
           assert.match(await page.locator('main').innerText(), /12 weeks/i);
           assert.ok(await page.locator('meta[name="robots"]').getAttribute('content').then(x => x.includes('noindex')));
-          await page.goto(new URL(path, base).href);
-          result.puppyOnboarding = 'Empty date feedback and personalised journey navigation passed';
+          // Exercise the real return control rather than interrupting the
+          // client transition with an immediate unrelated hard navigation.
+          await page.getByRole('link', { name: 'Change details', exact: true }).click();
+          await page.waitForURL(new URL('/puppy', base).href);
+          await page.locator('#puppy-dob').waitFor({ state: 'visible' });
+          // Keep explicit reload coverage. Settle background requests first so
+          // this checks a user reload, not a forced abort mid-transition.
+          await page.waitForLoadState('networkidle');
+          await page.reload({ waitUntil: 'load' });
+          await page.locator('#puppy-dob').waitFor({ state: 'visible' });
+          assert.equal(await page.locator('form button[type="submit"]').count(), 1);
+          result.puppyOnboarding = 'Empty date feedback, personalised journey, Change details return and direct reload passed';
         }
         if (path === '/search') {
           await page.locator('#search-query').fill('q'.repeat(120));
