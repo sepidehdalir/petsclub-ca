@@ -32,7 +32,7 @@ while (Date.now() < deadline) {
 }
 assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
-const routes = ['/guides/pet-licensing-across-canada', '/guides/cost-of-owning-a-dog-in-canada', '/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
+const routes = ['/kitchen', '/kitchen/soft-carrot-mash-for-dogs', '/kitchen/sweet-potato-spoonfuls-for-dogs', '/kitchen/plain-poached-chicken-for-dogs-and-cats', '/kitchen/plain-egg-crumbles-for-dogs-and-cats', '/guides/pet-licensing-across-canada', '/guides/cost-of-owning-a-dog-in-canada', '/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
 const sitemap = await (await fetch(new URL('/sitemap.xml', base))).text();
 const sitemapRoutes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => new URL(match[1]).pathname);
 const privateRoutes = ['/search', '/sign-in', '/sign-up', '/forgot-password', '/reset-password', '/auth/confirm', '/account', '/my-puppy'];
@@ -75,13 +75,15 @@ for (const scenario of scenarios) {
       page.setDefaultTimeout(12000);
       const errors = [];
       const badResponses = [];
+      const failedRequests = [];
+      page.on('requestfailed', (request) => failedRequests.push({ url: request.url(), error: request.failure()?.errorText }));
       page.on('pageerror', (error) => errors.push(error.message));
       page.on('response', (response) => {
         if (response.status() >= 400 && new URL(response.url()).origin === base.origin) {
           badResponses.push({ path: new URL(response.url()).pathname, status: response.status() });
         }
       });
-      const result = { browser: scenario.name, path, passed: false };
+      const result = { browser: scenario.name, path, passed: false, failedRequests };
       const filename = `${scenario.name}-${path === '/' ? 'home' : path.slice(1).replaceAll('/', '-')}`;
       try {
         // Background prefetches are not a readiness signal. The explicit
@@ -93,6 +95,25 @@ for (const scenario of scenarios) {
         await page.locator('h1').waitFor({ state: 'visible' });
         assert.equal(await page.locator('h1').count(), 1, 'Exactly one h1 is required');
         const mainText = (await page.locator('main').innerText()).replace(/\s+/g, ' ');
+        if (path === '/kitchen') {
+          assert.equal(await page.locator('main article').count(), 4);
+          await page.getByRole('button', { name: 'For cats', exact: true }).click();
+          assert.equal(await page.locator('main article').count(), 2);
+          assert.match(await page.locator('main').innerText(), /Plain Poached Chicken/);
+          await page.getByRole('button', { name: 'All recipes', exact: true }).click();
+          assert.equal(await page.locator('main article').count(), 4);
+          result.kitchenFilter = 'Dog/cat filter and reset passed';
+        }
+        if (path.startsWith('/kitchen/')) {
+          assert.match(mainText, /below 10%/);
+          assert.match(mainText, /not a target/);
+          assert.match(mainText, /AI-generated illustration/);
+          assert.equal(await page.getByRole('button', { name: 'Share recipe ↗', exact: true }).count(), 1);
+          await page.evaluate(() => { window.__printRequested = false; window.print = () => { window.__printRequested = true; }; });
+          await page.getByRole('button', { name: 'Print / save PDF', exact: true }).click();
+          assert.equal(await page.evaluate(() => window.__printRequested), true);
+          result.kitchenPrint = 'Print action and safety copy passed';
+        }
         if (path === '/guides/pet-licensing-across-canada') {
           assert.match(mainText, /Pet-licence application checklist/i);
           assert.match(mainText, /appointment, proof of ownership and a valid City licence/);
@@ -252,8 +273,18 @@ for (const scenario of scenarios) {
           await page.locator('main h1').waitFor({ state: 'visible' });
           assert.match(await page.locator('main').innerText(), /12 weeks/i);
           assert.ok(await page.locator('meta[name="robots"]').getAttribute('content').then(x => x.includes('noindex')));
-          await page.goto(new URL(path, base).href);
-          result.puppyOnboarding = 'Empty date feedback and personalised journey navigation passed';
+          // Exercise the real return control rather than interrupting the
+          // client transition with an immediate unrelated hard navigation.
+          await page.getByRole('link', { name: 'Change details', exact: true }).click();
+          await page.waitForURL(new URL('/puppy', base).href);
+          await page.locator('#puppy-dob').waitFor({ state: 'visible' });
+          // Keep explicit reload coverage. Settle background requests first so
+          // this checks a user reload, not a forced abort mid-transition.
+          await page.waitForLoadState('networkidle');
+          await page.reload({ waitUntil: 'load' });
+          await page.locator('#puppy-dob').waitFor({ state: 'visible' });
+          assert.equal(await page.locator('form button[type="submit"]').count(), 1);
+          result.puppyOnboarding = 'Empty date feedback, personalised journey, Change details return and direct reload passed';
         }
         if (path === '/search') {
           await page.locator('#search-query').fill('q'.repeat(120));

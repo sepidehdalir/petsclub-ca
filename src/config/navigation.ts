@@ -75,6 +75,7 @@ export const footerNavigation: readonly NavGroup[] = [
       { label: "Cats", href: "/cats" },
       { label: "Health", href: "/health" },
       { label: "Food", href: "/food" },
+      { label: "Pet Kitchen", href: "/kitchen" },
       { label: "Training", href: "/training" },
     ],
   },

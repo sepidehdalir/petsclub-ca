@@ -4431,11 +4431,11 @@ describe("stage robots policy", () => {
     expect(stageRobotsPolicy(held)).toBe("public-noindex");
   });
 
-  it("16. includes 83 routes: 34 guides, 7 Journey routes and a comparison", () => {
+  it("16. includes 88 routes with five Pet Kitchen pages: 34 guides, 7 Journey routes and a comparison", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
     expect(urls.filter((url) => isJourneyRoute(url))).toHaveLength(7);
     expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(34);
-    expect(urls).toHaveLength(83);
+    expect(urls).toHaveLength(88);
     expect(new Set(urls).size, "duplicate sitemap URL").toBe(urls.length);
   });
 

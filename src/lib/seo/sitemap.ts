@@ -10,6 +10,8 @@ import { articlePath, indexableArticles } from "@/features/editorial/articles";
 import { indexableJourneyPaths } from "@/features/puppy/stages";
 import { absoluteUrl } from "@/lib/seo/urls";
 
+import { recipes } from "@/features/kitchen/recipes";
+
 type SitemapEntry = MetadataRoute.Sitemap[number];
 type ChangeFrequency = NonNullable<SitemapEntry["changeFrequency"]>;
 
@@ -30,6 +32,7 @@ const ROUTE_GROUPS: readonly RouteGroup[] = [
   { paths: ["/"], priority: 1, changeFrequency: "daily" },
   { paths: [COMMUNITY_BASE_PATH], priority: 0.9, changeFrequency: "daily" },
   { paths: topicRoutes, priority: 0.8, changeFrequency: "weekly" },
+  { paths: ["/kitchen", ...recipes.map(recipe => `/kitchen/${recipe.slug}`)], priority: 0.8, changeFrequency: "monthly" },
   { paths: comparisonRoutes, priority: 0.7, changeFrequency: "monthly" },
   {
     // Published *and* approved for indexing. `isArticleIndexable` is the same

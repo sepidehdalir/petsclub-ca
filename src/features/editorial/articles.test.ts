@@ -596,7 +596,7 @@ describe("article index policy", () => {
     expect(all.some((u) => u.includes("?"))).toBe(false);
     expect(new Set(all).size, "duplicate sitemap URL").toBe(all.length);
     // Non-guide routes are unchanged; the two October 18 guides add canonical URLs.
-    expect(all).toHaveLength(83);
+    expect(all).toHaveLength(88);
     expect(all.map((url) => new URL(url).pathname)).toContain("/compare/catit-digger-vs-wave-circuit");
   });
 
@@ -1904,7 +1904,7 @@ describe("article robots policy", () => {
   it("15. includes exactly thirty-four guides in the sitemap", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
     expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(34);
-    expect(urls).toHaveLength(83);
+    expect(urls).toHaveLength(88);
   });
 });
 
