@@ -1117,7 +1117,7 @@ export const articles: readonly Article[] = [
     tags: ["indoor-cats", "enrichment", "behaviour", "apartments", "cats"],
     indexable: true,
     status: "published",
-    updatedAt: "2026-10-18",
+    updatedAt: "2026-10-23",
     publishedAt: "2026-10-09",
     veterinaryNotice: true,
     keyTakeaways: ["Start with the individual cat and accessible choices.", "Install equipment securely and inspect wear.", "Enrichment is not a diagnosis or treatment for changed health or behaviour."],
