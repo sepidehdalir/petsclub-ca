@@ -416,7 +416,7 @@ const OCTOBER_17_PUBLICATIONS = ["choosing-a-cat-carrier-in-canada"];
 const OCTOBER_18_PUBLICATIONS = ["choosing-dog-boots-in-canada", "choosing-a-cat-scratching-post-in-canada"];
 const OCTOBER_18_REVISIONS = ["winter-dog-care-in-canada", "indoor-cat-enrichment-canadian-homes"];
 function expectedRevisionDate(slug: string) {
-  return slug === "pet-licensing-across-canada" ? "2026-10-21" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
+  return slug === "cost-of-owning-a-cat-in-canada" ? "2026-10-22" : slug === "pet-licensing-across-canada" ? "2026-10-21" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
 }
 function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_16_PUBLICATIONS, ...OCTOBER_17_PUBLICATIONS, ...OCTOBER_18_PUBLICATIONS, "choosing-a-dog-harness-in-canada"]; }
 
@@ -489,7 +489,7 @@ describe("article publication dates", () => {
     expect(dates).toHaveLength(34);
     expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18"]));
     const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
-    expect(revisions).toEqual(["2026-10-18", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-18", "2026-10-21"]);
+    expect(revisions).toEqual(["2026-10-18", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-18", "2026-10-22", "2026-10-21"]);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
   });
 
@@ -1905,5 +1905,22 @@ describe("article robots policy", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
     expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(34);
     expect(urls).toHaveLength(88);
+  });
+});
+
+
+describe("October 22 cat budget refresh", () => {
+  it("keeps the provincial benchmark bounded and existing conversion intact", () => {
+    const article = findArticle("cost-of-owning-a-cat-in-canada")!;
+    const body = readBody(article);
+    expect(body).toContain("$3,594");
+    expect(body).toContain("$299.50");
+    expect(body).toContain("not a Canada-wide average");
+    expect(body).toContain("does not mean every cat needs it annually");
+    expect(body).toContain("No veterinarian has reviewed this update");
+    expect(body).toContain('productId="catit-digger"');
+    expect(body).toContain("affiliate links");
+    expect(article.publishedAt).toBe("2026-10-09");
+    expect(article.updatedAt).toBe("2026-10-22");
   });
 });

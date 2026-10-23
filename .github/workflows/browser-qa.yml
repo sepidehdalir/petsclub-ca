@@ -21,7 +21,14 @@ jobs:
   browser-qa:
     name: Desktop and mobile browser smoke tests
     runs-on: ubuntu-24.04
+    container:
+      # Match the isolated npm package below; browsers and OS dependencies are baked in.
+      image: mcr.microsoft.com/playwright:v1.63.0-noble@sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27
+      options: --user 1001
     timeout-minutes: 15
+    defaults:
+      run:
+        shell: bash
     env:
       NEXT_PUBLIC_SITE_URL: https://thepetclub.ca
       NEXT_TELEMETRY_DISABLED: '1'
@@ -33,6 +40,9 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
       - name: Install locked application dependencies
         run: npm ci
       - name: Build isolated production-mode application
@@ -42,7 +52,6 @@ jobs:
       - name: Install isolated browser QA tools
         run: |
           npm install --prefix "$RUNNER_TEMP/petclub-qa-tools" --ignore-scripts --no-audit --no-fund playwright@1.63.0
-          "$RUNNER_TEMP/petclub-qa-tools/node_modules/.bin/playwright" install --with-deps chromium webkit
       - name: Exercise local build at real desktop and mobile viewport sizes
         env:
           QA_TOOLS_DIR: ${{ runner.temp }}/petclub-qa-tools

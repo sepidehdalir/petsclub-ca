@@ -1146,11 +1146,11 @@ export const articles: readonly Article[] = [
     slug: "cost-of-owning-a-cat-in-canada",
     section: "cats",
     subcategory: "Money",
-    title: "Cost of Owning a Cat in Canada: Build Your Local Budget",
-    deck: "Build a cat budget from local quotes for equipment, food, litter, veterinary care, licensing, travel and unexpected expenses.",
-    metaDescription: "Build a cat budget from local quotes for equipment, food, litter, veterinary care, licensing, travel and unexpected expenses.",
+    title: "Cost of Owning a Cat in Canada: Monthly and First-Year Budget",
+    deck: "Use an Ontario 2026–27 cost benchmark and a practical worksheet to budget for food, litter, care, setup and a second cat.",
+    metaDescription: "Use an Ontario 2026–27 cost benchmark and a practical worksheet to budget for food, litter, care, setup and a second cat.",
     authorId: "pet-club-editorial",
-    readingMinutes: 4,
+    readingMinutes: 5,
     mediaId: "cats-eating-from-bowls",
     mediaAlt:
       "Two cats eating from separate bowls — the line that doubles when the second cat arrives.",
@@ -1158,6 +1158,7 @@ export const articles: readonly Article[] = [
     indexable: true,
     status: "published",
     publishedAt: "2026-10-09",
+    updatedAt: "2026-10-22",
     veterinaryNotice: true,
     keyTakeaways: ["Separate setup, recurring, irregular and emergency expenses.", "Compare actual included services and current local quotes.", "Budget for each animal without assuming costs simply double or stay shared."],
     relatedSlugs: [
@@ -1166,6 +1167,8 @@ export const articles: readonly Article[] = [
     ],
     relatedCategorySlugs: ["vet-costs", "pet-insurance", "cat-food-and-nutrition"],
     sources: [
+      { label: "2026–27 annual costs of owning a kitten or cat", publisher: "Ontario Veterinary Medical Association", url: "https://www.ovma.org/getmedia/343d20ed-e15f-41f2-914d-c24527522f6e/OVMA-CostofCare-Feline.pdf?ext=.pdf" },
+      { label: "Cat adoption package inclusions", publisher: "BC SPCA", url: "https://spca.bc.ca/adoption/how-to-adopt/" },
       { label: "Catit Senses 2.0 Digger listing and care instructions", publisher: "Homes Alive Pets", url: "https://www.homesalive.ca/cat/bowls-and-feeders/automatic/catit-senses-2-0-digger.html" },
     ],
     resources: [
@@ -1175,7 +1178,7 @@ export const articles: readonly Article[] = [
         url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
       },
     ],
-    needsVerification: [],
+    needsVerification: ["Recheck the attributed OVMA 2026–27 Ontario adult-cat benchmark (CAD $3,594 annually; $299.50 divided by 12), scope and caveats at the next scheduled review. Verified October 22, 2026. It is not a national average or prescribed care schedule."],
   },
 
   /* ---------------------------------------------------------------- Batch C
