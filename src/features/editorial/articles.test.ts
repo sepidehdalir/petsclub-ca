@@ -416,7 +416,7 @@ const OCTOBER_17_PUBLICATIONS = ["choosing-a-cat-carrier-in-canada"];
 const OCTOBER_18_PUBLICATIONS = ["choosing-dog-boots-in-canada", "choosing-a-cat-scratching-post-in-canada"];
 const OCTOBER_18_REVISIONS = ["winter-dog-care-in-canada", "indoor-cat-enrichment-canadian-homes"];
 function expectedRevisionDate(slug: string) {
-  return slug === "indoor-cat-enrichment-canadian-homes" ? "2026-10-23" : slug === "cost-of-owning-a-cat-in-canada" ? "2026-10-22" : slug === "pet-licensing-across-canada" ? "2026-10-21" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
+  return slug === "parasite-prevention-for-pets-in-canada" ? "2026-10-24" : slug === "indoor-cat-enrichment-canadian-homes" ? "2026-10-23" : slug === "cost-of-owning-a-cat-in-canada" ? "2026-10-22" : slug === "pet-licensing-across-canada" ? "2026-10-21" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
 }
 function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_16_PUBLICATIONS, ...OCTOBER_17_PUBLICATIONS, ...OCTOBER_18_PUBLICATIONS, "choosing-a-dog-harness-in-canada"]; }
 
@@ -489,7 +489,7 @@ describe("article publication dates", () => {
     expect(dates).toHaveLength(34);
     expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18"]));
     const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
-    expect(revisions).toEqual(["2026-10-18", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-21"]);
+    expect(revisions).toEqual(["2026-10-18", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-24", "2026-10-21"]);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
   });
 
@@ -1067,60 +1067,44 @@ describe("Batch C — veterinary and medical evidence", () => {
   const sourceUrls = (slug: string) =>
     (articles.find((a) => a.slug === slug)!.sources ?? []).map((x) => x.url).join(" ");
 
-  it("follows the current PHAC risk-area map for blacklegged ticks", () => {
+  it("links current PHAC risk context without freezing a province map", () => {
     const b = body("parasite-prevention-for-pets-in-canada");
-    // The stale four-province list is gone.
-    expect(b).not.toMatch(/established in southern Manitoba, southern and southeastern Ontario/i);
-    expect(b).not.toMatch(/risk there has been comparatively stable/i);
-
-    // PHAC's own terminology and coverage, including what was missing.
     expect(b).toMatch(/Public Health Agency of Canada/);
-    expect(b).toMatch(/risk area/i);
-    expect(b).toMatch(/New Brunswick/);
-    expect(b).toMatch(/all of Nova Scotia/i);
-    expect(b).toMatch(/53rd parallel/);
-    expect(b).toMatch(/Vancouver Island/);
-    // And PHAC's two caveats.
-    expect(b).toMatch(/spreading to new areas/i);
-    expect(b).toMatch(/outside the areas where they are known to live/i);
-    expect(sourceUrls("parasite-prevention-for-pets-in-canada")).toMatch(/risk-lyme-disease/);
+    expect(b).toMatch(/outside known risk areas/);
+    expect(b).toMatch(/not every tick species/);
+    expect(b).not.toMatch(/comparatively stable|53rd parallel/);
+    expect(sourceUrls("parasite-prevention-for-pets-in-canada")).toMatch(/prevention-lyme-disease/);
   });
 
-  it("attributes the heartworm trend to the study, with its own limitation", () => {
+  it("limits the Ontario timing evidence and keeps medication decisions clinical", () => {
     const b = body("parasite-prevention-for-pets-in-canada");
-    expect(b).toMatch(/McGill/);
-    expect(b).toMatch(/2007/);
-    expect(b).toMatch(/tested/i);
-    // The limitation the authors state, in the prose rather than a footnote.
-    expect(b).toMatch(/only dogs that see a veterinarian and get tested/i);
-    expect(b).toMatch(/not a measurement of every dog/i);
-    expect(sourceUrls("parasite-prevention-for-pets-in-canada")).toContain("PMC6515813");
+    expect(b).toMatch(/selected Ontario cities between 1996 and 2023/);
+    expect(b).toMatch(/does not establish one correct calendar/);
+    expect(b).toMatch(/do not travel abroad/);
+    expect(b).toMatch(/missed a dose, contact the clinic/);
+    expect(b).not.toMatch(/That is why Canada has a start date|June start is adequate/);
+    expect(sourceUrls("parasite-prevention-for-pets-in-canada")).toContain("seasonal-canine-heartworm-prevention");
   });
 
-  it("names the compound and sources the contact route for cats", () => {
+  it("sources cat safety to Health Canada and keeps urgent escalation", () => {
     const b = body("parasite-prevention-for-pets-in-canada");
-    expect(b).toMatch(/permethrin/i);
-    expect(b).toMatch(/Merck/);
-    expect(b).toMatch(/Pfister and Armstrong/);
-    expect(b).toMatch(/contact with a permethrin-treated dog/i);
-    expect(b).toMatch(/label says it is for cats/i);
-    // Escalation, and nothing resembling treatment.
-    expect(b).toMatch(/emergency|straight away/i);
-    expect(b).not.toMatch(/induce vomiting/i);
-    expect(b).not.toMatch(/\bmg\/kg\b|\bantidote\b|\bwash the cat with\b/i);
-    expect(sourceUrls("parasite-prevention-for-pets-in-canada")).toContain("PMC4977707");
+    expect(b).toMatch(/Permethrin/);
+    expect(b).toMatch(/Do not use a dog-labelled product on a cat/);
+    expect(b).toMatch(/close contact with recently treated dogs/);
+    expect(b).toMatch(/urgent veterinary attention/);
+    expect(b).not.toMatch(/induce vomiting|mg\/kg|antidote|wash the cat with/i);
+    expect(sourceUrls("parasite-prevention-for-pets-in-canada")).toContain("label-improvements-spot-on-pesticides-companion-animals");
   });
 
-  it("removes ticks the way the public health authority says to", () => {
+  it("keeps tick-removal guidance sourced and rejects folk methods", () => {
     const b = body("parasite-prevention-for-pets-in-canada");
-    expect(b).toMatch(/fine-tipped tweezers/i);
-    expect(b).toMatch(/as close to the skin/i);
-    expect(b).toMatch(/without twisting/i);
-    expect(b).toMatch(/clean the bite/i);
-    // The methods that must be named as wrong.
-    expect(b).toMatch(/lit match/i);
-    expect(b).toMatch(/petroleum jelly/i);
-    expect(b).toMatch(/alcohol/i);
+    expect(b).toMatch(/fine-tipped tweezers/);
+    expect(b).toMatch(/as close to the skin as possible/);
+    expect(b).toMatch(/Wash the bite area with soap and water/);
+    expect(b).toMatch(/without twisting or crushing/);
+    expect(b).toMatch(/Do not use heat, petroleum jelly/);
+    expect(b).toMatch(/tick-removal device, follow its instructions/);
+    expect(sourceUrls("parasite-prevention-for-pets-in-canada")).toContain("removing-submitting-ticks-testing");
   });
 
   it("matches AAHA's sterilization table exactly, and claims no universal age", () => {
