@@ -1500,26 +1500,27 @@ export const articles: readonly Article[] = [
     section: "health",
     subcategory: "Preventative care",
     title: "Parasite Prevention in Canada, by Region and Season",
-    deck: "Heartworm has a date and ticks have a map \u2014 and both are Canadian. Where blacklegged ticks are actually established, why prevention starts on 1 June, and the month everyone stops too early.",
+    deck: "When should Canadian pets start or stop parasite prevention? Plan for local tick risk, heartworm season, travel and cat-safe products with your veterinarian.",
     metaDescription:
-      "Where blacklegged ticks are established in Canada, why heartworm prevention starts on 1 June, and the autumn month most owners stop too early.",
+      "Plan parasite prevention in Canada by region, season and travel. Questions for your vet about heartworm, autumn ticks, fleas and cat-safe products.",
     authorId: "pet-club-editorial",
-    readingMinutes: 8,
+    readingMinutes: 6,
     mediaId: "health-dog-in-tall-grass",
     mediaAlt:
-      "A dog shoulder-deep in long meadow grass \u2014 which is exactly where the ticks are.",
+      "A dog standing in long meadow grass.",
     tags: ["parasites", "ticks", "heartworm", "fleas", "preventative-care", "canada"],
     indexable: true,
     status: "published",
     publishedAt: "2026-09-06",
+    updatedAt: "2026-10-24",
     veterinaryNotice: true,
     keyTakeaways: [
-      "Blacklegged ticks are established in southern Manitoba, southern and southeastern Ontario, southern Quebec and Nova Scotia \u2014 and the range is expanding.",
-      "British Columbia has a different species, the western blacklegged tick, and a comparatively stable picture.",
-      "1 June is the Canadian convention for starting heartworm prevention, because larval development in mosquitoes stops below about 14 \u00b0C.",
-      "The common mistake is not missing July. It is stopping tick prevention in September, when ticks are still active.",
-      "Fleas are an indoor, year-round problem, which is why an outbreak in February is not mysterious.",
-      "Never put a dog tick product on a cat, and raise it explicitly if both live in your house.",
+      "There is no single parasite-prevention calendar for every Canadian pet; location, travel and species matter.",
+      "The Ontario heartworm timing study is regional evidence, not a prescription for every province or international trip.",
+      "Ticks can remain active during mild autumn and winter days; ask your veterinarian about the full local risk period.",
+      "Flea management can involve the home as well as the pets living in it.",
+      "Dog-labelled flea and tick products must not be used on cats; some also require separation from recently treated dogs.",
+      "Compare the parasites covered, doses and testing included, not package price alone.",
     ],
     relatedSlugs: [
       "puppy-vaccination-schedule-in-canada",
@@ -1527,40 +1528,15 @@ export const articles: readonly Article[] = [
     ],
     relatedCategorySlugs: ["dog-health", "cat-health", "vet-costs"],
     sources: [
-      {
-        label:
-          "Lyme disease risk areas \u2014 the current PHAC cross-sections, and that blacklegged ticks are spreading to new areas",
-        publisher: "Public Health Agency of Canada",
-        url: "https://www.canada.ca/en/public-health/services/diseases/lyme-disease/risk-lyme-disease.html",
-      },
-      {
-        label:
-          "Heartworm infection in domestic dogs in Canada, 1977\u20132016 \u2014 prevalence among tested dogs, rising in Manitoba and Quebec over 2007\u20132016",
-        publisher: "McGill, Berke, Weese and Peregrine, Can Vet J 2019;60(6):605\u2013612",
-        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6515813/",
-      },
-      {
-        label:
-          "Ectoparasiticides used in small animals \u2014 some pyrethroids, permethrin among them, can be highly toxic to cats",
-        publisher: "Merck Veterinary Manual",
-        url: "https://www.merckvetmanual.com/pharmacology/ectoparasiticides/ectoparasiticides-used-in-small-animals",
-      },
-      {
-        label:
-          "Systemically and cutaneously distributed ectoparasiticides \u2014 any contact between cats and permethrin products, including contact with a treated dog, must be avoided",
-        publisher: "Pfister and Armstrong, Parasites & Vectors 2016;9:436",
-        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC4977707/",
-      },
-      {
-        label: "Lyme disease surveillance in Canada \u2014 where blacklegged ticks are established",
-        publisher: "Public Health Agency of Canada",
-        url: "https://www.canada.ca/en/public-health/services/publications/diseases-conditions/lyme-disease-surveillance-canada-annual-edition-2022.html",
-      },
-      {
-        label: "Seasonal canine heartworm prevention in Canada: does our current timing still work?",
-        publisher: "Centre for Public Health and Zoonoses, Ontario Veterinary College",
-        url: "https://www.wormsandgermsblog.com/2025/04/articles/animals/dogs/seasonal-canine-heartworm-prevention-in-canadadoes-our-current-timing-still-work/",
-      },
+      { label: "Heartworm prevention and travel considerations", publisher: "Canadian Parasitology Expert Panel, University of Saskatchewan", url: "https://research-groups.usask.ca/cpep/parasites/heartworm.php" },
+      { label: "Ontario seasonal heartworm timing analysis", publisher: "Ontario Veterinary College, Centre for Public Health and Zoonoses", url: "https://www.wormsandgermsblog.com/2025/04/articles/animals/dogs/seasonal-canine-heartworm-prevention-in-canadadoes-our-current-timing-still-work/" },
+      { label: "Tick activity and the local risk period", publisher: "Canadian Veterinary Medical Association", url: "https://www.canadianveterinarians.net/media/qlvd05gw/2025_ntam_tick-activity-calendar_en.pdf" },
+      { label: "Current Lyme disease risk information", publisher: "Public Health Agency of Canada", url: "https://www.canada.ca/en/public-health/services/diseases/lyme-disease/prevention-lyme-disease.html" },
+      { label: "Western Canada regional parasite context (2019)", publisher: "Canadian Parasitology Expert Panel, University of Saskatchewan", url: "https://research-groups.usask.ca/cpep/parasitedata/western-canada.php" },
+      { label: "Flea management in pets and homes", publisher: "Health Canada", url: "https://www.canada.ca/en/health-canada/services/pest-control-tips/fleas.html" },
+      { label: "Pet pesticide safety", publisher: "Health Canada", url: "https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/pesticides-pest-management/fact-sheets-other-resources/keep-your-pets-safe-when-using-pesticides.html" },
+      { label: "Spot-on products and cat contact warnings", publisher: "Health Canada", url: "https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/pesticides-pest-management/policies-guidelines/label-improvements-spot-on-pesticides-companion-animals.html" },
+      { label: "Tick removal", publisher: "Public Health Agency of Canada", url: "https://www.canada.ca/en/public-health/services/diseases/lyme-disease/removing-submitting-ticks-testing.html" },
     ],
     resources: [
       {
@@ -1570,14 +1546,9 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
-      "RESOLVED \u2014 NARROWED, 2026-09-06. Blacklegged tick distribution was verified against the current PHAC Lyme disease risk-areas page. Two corrections followed. PHAC's term is \u201crisk areas\u201d, not \u201cestablished populations\u201d, and the article's four-province list was out of date: it omitted New Brunswick entirely (twelve named counties), understated Manitoba (PHAC covers the province below the 53rd parallel, not only the south), said Nova Scotia rather than all of Nova Scotia, and described British Columbia as comparatively stable when PHAC lists risk areas across much of Vancouver Island, the facing coast and southern river valleys. The article now follows PHAC's cross-sections and carries its two caveats: the range is spreading, and ticks turn up outside known areas.",
-      "STANDING GUARDRAIL \u2014 the tick map moves. Re-read the PHAC risk-areas page at every scheduled review and follow its wording; do not freeze a province count into the prose.",
-      "RESOLVED \u2014 VERIFIED, 2026-09-06. The heartworm trend is now attributed to the underlying study rather than a summary: McGill, Berke, Weese and Peregrine, Can Vet J 2019;60(6):605\u2013612, using clinic mail-back surveys to 2010 and laboratory antigen-test submissions 2007\u20132016. It measured prevalence among dogs submitted for testing, and the authors state plainly that only dogs which see a veterinarian and are tested can appear, so it under-reports and does not extrapolate to all dogs. The article now says \u201ctested\u201d dog populations and carries that limitation in the prose.",
-      "STANDING GUARDRAIL \u2014 never generalise clinic or laboratory test data to all dogs in a province. \u201cTested dogs\u201d is load-bearing.",
-      "RESOLVED \u2014 VERIFIED, 2026-09-06. The dog-product-to-cat claim is now specific and doubly sourced. Merck: some pyrethroids, permethrin among them, can be highly toxic to cats, producing muscle fasciculations and seizures. Pfister and Armstrong (Parasites & Vectors 2016;9:436) for the secondary route the article asserts: any contact between cats and permethrin-containing products, including contact with a permethrin-treated dog, must be avoided; cats lack the enzyme dogs use to clear it. The compound is now named, the route is sourced rather than assumed, and the escalation is a phone call. No dose, no antidote, no home treatment, and no instruction to induce vomiting.",
-      "STANDING GUARDRAIL \u2014 the secondary-contact route may be stated only while a source explicitly supports it. Never add treatment, dosing or decontamination instructions here.",
-      "RESOLVED \u2014 VERIFIED, 2026-09-06. Tick removal now follows PHAC: fine-tipped tweezers or a tick remover, grasp as close to the skin as possible, pull straight out gently and steadily without twisting, jerking or crushing, then clean the bite. The article names the methods that must not be used \u2014 heat, a lit match, petroleum jelly, alcohol \u2014 rather than only implying them.",
-      "OPEN (NON-BLOCKING) \u2014 Whether any Canadian veterinary body publishes a current national parasite protocol that should be cited alongside the regional evidence.",
+      "UPDATED 2026-10-24: The Ontario timing study is explicitly regional; national start-date and static province-map claims were removed. Sources were checked on this date. This is not a veterinary review.",
+      "STANDING GUARDRAIL: Do not prescribe doses or tell owners to start or stop medication based on this guide. Refer local risk, travel, product choice and testing to their veterinarian.",
+      "STANDING GUARDRAIL: The Western Canada reference is dated 2019 and is labelled as context, not current prevalence. Recheck public health maps and regional guidance at review.",
     ],
   },
   {
