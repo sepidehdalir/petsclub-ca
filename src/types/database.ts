@@ -161,6 +161,8 @@ export interface Database {
     };
     Views: Record<never, never>;
     Functions: {
+      community_report_queue: { Args: Record<never, never>; Returns: Array<{id:string; kind:string; target:string; thread_id:string; reason:string; created_at:string}> };
+      community_mutate: { Args: { request_id: string; payload: Record<string, unknown> }; Returns: string };
       /** Returns true when the current JWT belongs to a moderator or admin. */
       is_moderator: {
         Args: Record<never, never>;
