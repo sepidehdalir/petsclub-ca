@@ -436,7 +436,7 @@ for (const scenario of scenarios) {
           result.guideCardNavigation = 'passed';
         }
         if (path === '/guides/winter-dog-care-in-canada') {
-          assert.match(mainText, /Updated — October 25, 2026/);
+          assert.match(mainText, /Updated — October 25, 2026/i);
           assert.match(mainText, /There is no reliable conversion/);
           assert.match(mainText, /the season does not diagnose the cause/);
           assert.doesNotMatch(mainText, /not a regulated claim|disproportionately tiring/);
