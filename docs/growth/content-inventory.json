@@ -89,7 +89,7 @@
   },
   {
     "slug": "pet-insurance-in-canada",
-    "title": "Pet Insurance in Canada: What It Covers and What It Doesn\u2019t",
+    "title": "Pet Insurance in Canada: What It Covers and What It Doesn’t",
     "status": "in-review",
     "section": "health",
     "publishedAt": "",
@@ -277,6 +277,22 @@
     "status": "published",
     "section": "dogs",
     "publishedAt": "2026-09-06",
+    "updatedAt": ""
+  },
+  {
+    "slug": "cat-pregnancy-signs-and-tests",
+    "title": "Cat Pregnancy Signs: How Vets Confirm Pregnancy",
+    "status": "published",
+    "section": "cats",
+    "publishedAt": "2026-10-25",
+    "updatedAt": ""
+  },
+  {
+    "slug": "dog-pregnancy-signs-and-tests",
+    "title": "Dog Pregnancy Signs: Tests, Timing and False Pregnancy",
+    "status": "published",
+    "section": "dogs",
+    "publishedAt": "2026-10-25",
     "updatedAt": ""
   }
 ]

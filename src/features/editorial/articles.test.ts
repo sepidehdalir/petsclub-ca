@@ -413,12 +413,13 @@ function withState(
 const OCTOBER_PUBLICATIONS = ["bringing-home-a-kitten-first-30-days", "introducing-a-second-cat", "indoor-or-outdoor-cats-in-canada", "renting-with-a-pet-in-canada", "indoor-cat-enrichment-canadian-homes", "cost-of-owning-a-cat-in-canada", "pet-insurance-in-canada", "travelling-with-a-pet-in-canada", "adopting-a-pet-in-canada", "when-a-pet-goes-missing-in-canada", "moving-provinces-with-a-pet", "pet-emergency-preparedness-canada", "what-veterinary-care-costs-in-canada"];
 const OCTOBER_16_PUBLICATIONS = ["choosing-a-cat-puzzle-feeder", "pet-food-storage-container-original-bag"];
 const OCTOBER_17_PUBLICATIONS = ["choosing-a-cat-carrier-in-canada"];
+const OCTOBER_25_PUBLICATIONS = ["cat-pregnancy-signs-and-tests", "dog-pregnancy-signs-and-tests"];
 const OCTOBER_18_PUBLICATIONS = ["choosing-dog-boots-in-canada", "choosing-a-cat-scratching-post-in-canada"];
 const OCTOBER_18_REVISIONS = ["winter-dog-care-in-canada", "indoor-cat-enrichment-canadian-homes"];
 function expectedRevisionDate(slug: string) {
   return slug === "winter-dog-care-in-canada" ? "2026-10-25" : slug === "parasite-prevention-for-pets-in-canada" ? "2026-10-24" : slug === "indoor-cat-enrichment-canadian-homes" ? "2026-10-23" : slug === "cost-of-owning-a-cat-in-canada" ? "2026-10-22" : slug === "pet-licensing-across-canada" ? "2026-10-21" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
 }
-function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_16_PUBLICATIONS, ...OCTOBER_17_PUBLICATIONS, ...OCTOBER_18_PUBLICATIONS, "choosing-a-dog-harness-in-canada"]; }
+function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_16_PUBLICATIONS, ...OCTOBER_17_PUBLICATIONS, ...OCTOBER_18_PUBLICATIONS, ...OCTOBER_25_PUBLICATIONS, "choosing-a-dog-harness-in-canada"]; }
 
 describe("cat planning publication scope", () => {
   for (const slug of ["bringing-home-a-kitten-first-30-days", "introducing-a-second-cat"]) {
@@ -437,11 +438,11 @@ describe("cat planning publication scope", () => {
 describe("article publication dates", () => {
   const real = articles[0]!;
 
-  it("keeps 34 published guides and holds the same seven clinical drafts", () => {
-    expect(articles).toHaveLength(41);
+  it("keeps 36 published guides and holds the same seven clinical drafts", () => {
+    expect(articles).toHaveLength(43);
     const published = articles.filter((a) => a.status === "published").map((a) => a.slug);
     expect([...published].sort()).toEqual(expectedPublishedSlugs().sort());
-    expect(published).toHaveLength(34);
+    expect(published).toHaveLength(36);
     expect(articles.filter((a) => a.status === "in-review")).toHaveLength(7);
   });
 
@@ -449,9 +450,9 @@ describe("article publication dates", () => {
     const published = articles.filter((a) => a.status === "published");
     // One launch, one first-publication date. A later factual correction may
     // carry its own revision date without rewriting the original launch date.
-    expect(new Set(published.map((a) => a.publishedAt))).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18"]));
+    expect(new Set(published.map((a) => a.publishedAt))).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-25"]));
     for (const article of published) {
-      const publicationDate = OCTOBER_18_PUBLICATIONS.includes(article.slug) ? "2026-10-18" : OCTOBER_17_PUBLICATIONS.includes(article.slug) ? "2026-10-17" : OCTOBER_16_PUBLICATIONS.includes(article.slug) ? "2026-10-16" : article.slug === "choosing-a-dog-harness-in-canada" ? "2026-10-10" : OCTOBER_PUBLICATIONS.includes(article.slug) ? "2026-10-09" : LAUNCH_DATE;
+      const publicationDate = OCTOBER_25_PUBLICATIONS.includes(article.slug) ? "2026-10-25" : OCTOBER_18_PUBLICATIONS.includes(article.slug) ? "2026-10-18" : OCTOBER_17_PUBLICATIONS.includes(article.slug) ? "2026-10-17" : OCTOBER_16_PUBLICATIONS.includes(article.slug) ? "2026-10-16" : article.slug === "choosing-a-dog-harness-in-canada" ? "2026-10-10" : OCTOBER_PUBLICATIONS.includes(article.slug) ? "2026-10-09" : LAUNCH_DATE;
       const revisionDate = expectedRevisionDate(article.slug);
       expect(article.updatedAt, `${article.slug} revision state`).toBe(
         revisionDate,
@@ -486,8 +487,8 @@ describe("article publication dates", () => {
     // First-publication dates remain the real launch day. Revision dates are
     // allowed only where a published correction actually occurred.
     const dates = [...registry.matchAll(/\n {4}publishedAt: "([^"]+)"/g)].map((m) => m[1]);
-    expect(dates).toHaveLength(34);
-    expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18"]));
+    expect(dates).toHaveLength(36);
+    expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-25"]));
     const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
     expect(revisions).toEqual(["2026-10-25", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-24", "2026-10-21"]);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
@@ -555,13 +556,13 @@ describe("article index policy", () => {
     ).toBe(true);
   });
 
-  it("carries no SEO-level hold, and indexes exactly the published thirty-four", () => {
+  it("carries no SEO-level hold, and indexes exactly the published thirty-six", () => {
     // Every article is still `indexable`, meaning none is held back for search
     // reasons. What holds the other seven is `status` — the honest reason.
     for (const article of articles) expect(article.indexable, article.slug).toBe(true);
     expect(indexableArticles().map((a) => a.slug).sort()).toEqual(expectedPublishedSlugs().sort());
-    expect(indexableArticles()).toHaveLength(34);
-    expect(publishedArticles()).toHaveLength(34);
+    expect(indexableArticles()).toHaveLength(36);
+    expect(publishedArticles()).toHaveLength(36);
   });
 
   it("drives the sitemap and the meta tag from one predicate", () => {
@@ -580,13 +581,13 @@ describe("article index policy", () => {
     expect(sitemap).not.toMatch(/publishedArticles\(\)/);
   });
 
-  it("puts exactly the thirty-four guides, and no query-string variant, in the sitemap", () => {
+  it("puts exactly the thirty-six guides, and no query-string variant, in the sitemap", () => {
     const all = urls();
     const guides = all
       .filter((u) => new URL(u).pathname.startsWith("/guides/"))
       .map((u) => new URL(u).pathname.replace("/guides/", ""));
     expect([...guides].sort()).toEqual(expectedPublishedSlugs().sort());
-    expect(guides).toHaveLength(34);
+    expect(guides).toHaveLength(36);
 
     // And none of the seven held articles leaked in.
     const held = articles.filter((a) => a.status === "in-review").map((a) => a.slug);
@@ -595,8 +596,8 @@ describe("article index policy", () => {
 
     expect(all.some((u) => u.includes("?"))).toBe(false);
     expect(new Set(all).size, "duplicate sitemap URL").toBe(all.length);
-    // Non-guide routes are unchanged; the two October 18 guides add canonical URLs.
-    expect(all).toHaveLength(88);
+    // Non-guide routes are unchanged; the two October 25 pregnancy guides add canonical URLs.
+    expect(all).toHaveLength(90);
     expect(all.map((url) => new URL(url).pathname)).toContain("/compare/catit-digger-vs-wave-circuit");
   });
 
@@ -749,7 +750,7 @@ const ARTICLE_BODIES = articles.map((article) => ({
 
 describe("behaviour folklore across the article library", () => {
   it("scans every article body, not a sample", () => {
-    expect(ARTICLE_BODIES).toHaveLength(41);
+    expect(ARTICLE_BODIES).toHaveLength(43);
     for (const { slug, body } of ARTICLE_BODIES) {
       expect(body.length, `${slug} body is empty`).toBeGreaterThan(2000);
     }
@@ -1879,16 +1880,16 @@ describe("article robots policy", () => {
       const expected = article.status === "published" ? "index" : "private-noindex";
       expect(articleRobotsPolicy(article), article.slug).toBe(expected);
     }
-    expect(articles.filter((a) => articleRobotsPolicy(a) === "index")).toHaveLength(34);
+    expect(articles.filter((a) => articleRobotsPolicy(a) === "index")).toHaveLength(36);
     expect(articles.filter((a) => articleRobotsPolicy(a) === "private-noindex")).toHaveLength(7);
     // Nothing is in the middle state yet — that arrives with Journey Phase 2.
     expect(articles.filter((a) => articleRobotsPolicy(a) === "public-noindex")).toEqual([]);
   });
 
-  it("15. includes exactly thirty-four guides in the sitemap", () => {
+  it("15. includes exactly thirty-six guides in the sitemap", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
-    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(34);
-    expect(urls).toHaveLength(88);
+    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(36);
+    expect(urls).toHaveLength(90);
   });
 });
 

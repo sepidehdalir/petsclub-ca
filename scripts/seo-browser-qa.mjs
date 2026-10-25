@@ -32,7 +32,7 @@ while (Date.now() < deadline) {
 }
 assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
-const routes = ['/guides/parasite-prevention-for-pets-in-canada', '/kitchen', '/kitchen/soft-carrot-mash-for-dogs', '/kitchen/sweet-potato-spoonfuls-for-dogs', '/kitchen/plain-poached-chicken-for-dogs-and-cats', '/kitchen/plain-egg-crumbles-for-dogs-and-cats', '/guides/pet-licensing-across-canada', '/guides/cost-of-owning-a-dog-in-canada', '/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
+const routes = ['/guides/cat-pregnancy-signs-and-tests', '/guides/dog-pregnancy-signs-and-tests', '/guides/parasite-prevention-for-pets-in-canada', '/kitchen', '/kitchen/soft-carrot-mash-for-dogs', '/kitchen/sweet-potato-spoonfuls-for-dogs', '/kitchen/plain-poached-chicken-for-dogs-and-cats', '/kitchen/plain-egg-crumbles-for-dogs-and-cats', '/guides/pet-licensing-across-canada', '/guides/cost-of-owning-a-dog-in-canada', '/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
 const sitemap = await (await fetch(new URL('/sitemap.xml', base))).text();
 const sitemapRoutes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => new URL(match[1]).pathname);
 const privateRoutes = ['/search', '/sign-in', '/sign-up', '/forgot-password', '/reset-password', '/auth/confirm', '/account', '/my-puppy'];
@@ -95,6 +95,16 @@ for (const scenario of scenarios) {
         await page.locator('h1').waitFor({ state: 'visible' });
         assert.equal(await page.locator('h1').count(), 1, 'Exactly one h1 is required');
         const mainText = (await page.locator('main').innerText()).replace(/\s+/g, ' ');
+        if (/^\/guides\/(cat|dog)-pregnancy-signs-and-tests$/.test(path)) {
+          assert.match(mainText, /No veterinarian has reviewed this guide/);
+          assert.match(mainText, /false pregnancy/i);
+          assert.match(mainText, /without visible discharge/);
+          assert.match(mainText, /human pregnancy test/i);
+          assert.ok(await page.locator('a[href="/guides/finding-a-veterinarian-in-canada"]').count());
+          assert.ok(await page.locator('a[href="/guides/emergency-vet-visits-in-canada"]').count());
+          assert.equal(await page.locator('time[datetime="2026-10-25"]').count(), 1);
+          result.pregnancySafety = 'Species-specific symptoms, test limitations, urgent care, honest byline and clinic links checked';
+        }
         if (path === '/kitchen') {
           assert.equal(await page.locator('main article').count(), 4);
           await page.getByRole('button', { name: 'For cats', exact: true }).click();

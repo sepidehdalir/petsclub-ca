@@ -306,6 +306,149 @@ export type Article = ArticleContent & ArticlePublication;
 
 export const articles: readonly Article[] = [
   {
+    slug: "cat-pregnancy-signs-and-tests",
+    section: "cats",
+    subcategory: "Pregnancy and health",
+    title: "Cat Pregnancy Signs: How Vets Confirm Pregnancy",
+    deck: "Learn which changes may suggest cat pregnancy, how veterinary tests confirm it, and when symptoms need urgent care.",
+    metaDescription: "Learn which changes may suggest cat pregnancy, how veterinary tests confirm it, and when symptoms need urgent care.",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "cats-window-tabby",
+    mediaAlt: "A ginger tabby cat rests on a windowsill; this is not a diagnostic pregnancy photograph.",
+    tags: [
+      "cat-pregnancy",
+      "pregnancy-tests",
+      "pet-health"
+    ],
+    indexable: true,
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Appearance and behaviour cannot confirm or rule out pregnancy.",
+      "A veterinarian chooses testing and timing; an early negative may need repeating.",
+      "An unwell pet needs care rather than waiting for a pregnancy-test appointment."
+    ],
+    relatedSlugs: [
+      "finding-a-veterinarian-in-canada",
+      "emergency-vet-visits-in-canada",
+      "cost-of-owning-a-cat-in-canada"
+    ],
+    sources: [
+      {
+        label: "Pregnancy in cats",
+        publisher: "PDSA",
+        url: "https://www.pdsa.org.uk/pet-help-and-advice/pet-health-hub/conditions/pregnancy-in-cats"
+      },
+      {
+        label: "Management of reproduction of cats",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/cat-owners/reproductive-disorders-of-cats/management-of-reproduction-of-cats"
+      },
+      {
+        label: "Pregnancy determination in bitches and queens",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/management-and-nutrition/management-of-reproduction-dogs-and-cats/pregnancy-determination-in-bitches-and-queens"
+      },
+      {
+        label: "Relaxin (Lateral Flow): species-specific testing windows",
+        publisher: "Texas A&M Veterinary Medical Diagnostic Laboratory",
+        url: "https://tvmdl.tamu.edu/tests/relaxin-lateral-flow/"
+      },
+      {
+        label: "Reproductive disorders of female cats",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/cat-owners/reproductive-disorders-of-cats/reproductive-disorders-of-female-cats"
+      },
+      {
+        label: "Pyometra",
+        publisher: "American College of Veterinary Surgeons",
+        url: "https://www.acvs.org/small-animal/pyometra/"
+      },
+      {
+        label: "Serologic test kits",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/clinical-pathology-and-procedures/diagnostic-procedures-for-the-private-practice-laboratory/serologic-test-kits"
+      }
+    ],
+    status: "published",
+    publishedAt: "2026-10-25",
+    needsVerification: []
+  },
+  {
+    slug: "dog-pregnancy-signs-and-tests",
+    section: "dogs",
+    subcategory: "Pregnancy and health",
+    title: "Dog Pregnancy Signs: Tests, Timing and False Pregnancy",
+    deck: "Understand possible dog pregnancy signs, ultrasound and blood-test timing, false pregnancy, and when to call a veterinarian.",
+    metaDescription: "Understand possible dog pregnancy signs, ultrasound and blood-test timing, false pregnancy, and when to call a veterinarian.",
+    authorId: "pet-club-editorial",
+    readingMinutes: 6,
+    mediaId: "health-dog-on-bed",
+    mediaAlt: "A small dog rests on a bed beside a hand; this is not a diagnostic pregnancy photograph.",
+    tags: [
+      "dog-pregnancy",
+      "pregnancy-tests",
+      "pet-health"
+    ],
+    indexable: true,
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Appearance and behaviour cannot confirm or rule out pregnancy.",
+      "A veterinarian chooses testing and timing; an early negative may need repeating.",
+      "An unwell pet needs care rather than waiting for a pregnancy-test appointment."
+    ],
+    relatedSlugs: [
+      "finding-a-veterinarian-in-canada",
+      "emergency-vet-visits-in-canada",
+      "cost-of-owning-a-dog-in-canada"
+    ],
+    sources: [
+      {
+        label: "Pregnancy in dogs",
+        publisher: "PDSA",
+        url: "https://www.pdsa.org.uk/pet-help-and-advice/pet-health-hub/conditions/pregnancy-in-dogs"
+      },
+      {
+        label: "Dog estrous cycles",
+        publisher: "Cornell University College of Veterinary Medicine",
+        url: "https://www.vet.cornell.edu/dog-estrous-cycles"
+      },
+      {
+        label: "Pregnancy Diagnosis in the Bitch",
+        publisher: "UC Davis School of Veterinary Medicine",
+        url: "https://healthtopics.vetmed.ucdavis.edu/health-topics/canine/pregnancy-diagnosis-bitch"
+      },
+      {
+        label: "Pregnancy determination in bitches and queens",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/management-and-nutrition/management-of-reproduction-dogs-and-cats/pregnancy-determination-in-bitches-and-queens"
+      },
+      {
+        label: "Relaxin (Lateral Flow): species-specific testing windows",
+        publisher: "Texas A&M Veterinary Medical Diagnostic Laboratory",
+        url: "https://tvmdl.tamu.edu/tests/relaxin-lateral-flow/"
+      },
+      {
+        label: "Pregnancy Testing in the Dog",
+        publisher: "VCA Animal Hospitals",
+        url: "https://vcahospitals.com/clinton-township/know-your-pet/pregnancy-testing-in-the-dog"
+      },
+      {
+        label: "The reproductive system in animals",
+        publisher: "Merck Veterinary Manual",
+        url: "https://www.merckvetmanual.com/reproductive-system/reproductive-system-introduction/the-reproductive-system-in-animals"
+      },
+      {
+        label: "Pyometra",
+        publisher: "American College of Veterinary Surgeons",
+        url: "https://www.acvs.org/small-animal/pyometra/"
+      }
+    ],
+    status: "published",
+    publishedAt: "2026-10-25",
+    needsVerification: []
+  },
+  {
     slug: "choosing-dog-boots-in-canada",
     section: "dogs",
     subcategory: "Buying guides",
