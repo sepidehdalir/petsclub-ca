@@ -559,24 +559,24 @@ export const articles: readonly Article[] = [
     section: "dogs",
     subcategory: "Seasonal care",
     title: "Winter Dog Care in Canada",
-    deck: "Why there is no single “too cold” temperature, what road salt actually does to paws, and the winter hazards that put Canadian dogs in front of a vet.",
+    deck: "Plan winter dog walks in Canada: cold-weather decisions, paw cleaning, coat and boot fit, ice-melt precautions and when to call a vet.",
     authorId: "pet-club-editorial",
-    readingMinutes: 9,
+    readingMinutes: 8,
     mediaId: "guides-dogs-winter-forest",
     mediaAlt:
       "Two dogs standing among snow-covered pines on a still winter day in the forest.",
     tags: ["winter", "seasonal-care", "paw-care", "safety", "dogs"],
     indexable: true,
     status: "published",
-    updatedAt: "2026-10-18",
+    updatedAt: "2026-10-25",
     publishedAt: "2026-09-06",
     veterinaryNotice: true,
     keyTakeaways: [
       "Consider weather and ground conditions alongside your dog's age, coat, health and signs of discomfort.",
       "Inspect and clean paws after winter walks; road salt and de-icers can irritate them.",
       "Antifreeze and frozen water bodies are absolutes, not judgement calls.",
-      "Short-coated, small, senior and recently clipped dogs need a waterproof coat that covers the chest and belly.",
-      "Replace lost walking distance with nose work and training — mental work tires a dog disproportionately.",
+      "Choose clothing for the individual dog and conditions; check fit and replace wet items.",
+      "Offer suitable indoor activities without assuming they replace a fixed amount of walking.",
     ],
     relatedSlugs: [
       "choosing-dog-boots-in-canada",
@@ -585,6 +585,7 @@ export const articles: readonly Article[] = [
     ],
     relatedCategorySlugs: ["dog-health", "dog-training-and-behaviour", "general-dog-discussion"],
     sources: [
+      { label: "Cold Weather Safety Tips", publisher: "ASPCA Animal Poison Control Center", url: "https://www.aspca.org/pet-care/general-pet-care/cold-weather-safety-tips" },
       { label: "Cold Weather and Pets", publisher: "Canadian Veterinary Medical Association", url: "https://www.canadianveterinarians.net/related-resources/cold-weather-and-pets" },
       {
         label: "Cold weather animal safety — why there is no single temperature threshold",
@@ -616,7 +617,6 @@ export const articles: readonly Article[] = [
     ],
     needsVerification: [
       "Whether to name specific temperature guidance for small or short-coated dogs — still omitted rather than estimated, and the AVMA source supports omitting it.",
-      "Whether a Canadian veterinary or public health source publishes de-icer guidance, so the ASPCA citation can be paired with a domestic one.",
     ],
   },
   {

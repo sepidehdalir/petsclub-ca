@@ -84,7 +84,7 @@ describe("October 18 buying guides", () => {
   it("dates the narrow winter correction without rewriting its original publication", () => {
     const article = findArticle("winter-dog-care-in-canada")!;
     const content = body(article.slug);
-    expect(articlePublicationDates(article)).toEqual({ datePublished: "2026-09-06", dateModified: "2026-10-18" });
+    expect(articlePublicationDates(article)).toEqual({ datePublished: "2026-09-06", dateModified: "2026-10-25" });
     expect(content).toContain("Correction — October 18, 2026");
     expect(content).toContain("This update is not a veterinary review");
     expect(content).toContain("https://www.canadianveterinarians.net/related-resources/cold-weather-and-pets");
