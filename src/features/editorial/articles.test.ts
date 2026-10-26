@@ -417,7 +417,7 @@ const OCTOBER_25_PUBLICATIONS = ["cat-pregnancy-signs-and-tests", "dog-pregnancy
 const OCTOBER_18_PUBLICATIONS = ["choosing-dog-boots-in-canada", "choosing-a-cat-scratching-post-in-canada"];
 const OCTOBER_18_REVISIONS = ["winter-dog-care-in-canada", "indoor-cat-enrichment-canadian-homes"];
 function expectedRevisionDate(slug: string) {
-  return slug === "winter-dog-care-in-canada" ? "2026-10-25" : slug === "parasite-prevention-for-pets-in-canada" ? "2026-10-24" : slug === "indoor-cat-enrichment-canadian-homes" ? "2026-10-23" : slug === "cost-of-owning-a-cat-in-canada" ? "2026-10-22" : slug === "pet-licensing-across-canada" ? "2026-10-21" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
+  return slug === "puppy-socialisation-checklist" ? "2026-10-26" : slug === "winter-dog-care-in-canada" ? "2026-10-25" : slug === "parasite-prevention-for-pets-in-canada" ? "2026-10-24" : slug === "indoor-cat-enrichment-canadian-homes" ? "2026-10-23" : slug === "cost-of-owning-a-cat-in-canada" ? "2026-10-22" : slug === "pet-licensing-across-canada" ? "2026-10-21" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
 }
 function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_16_PUBLICATIONS, ...OCTOBER_17_PUBLICATIONS, ...OCTOBER_18_PUBLICATIONS, ...OCTOBER_25_PUBLICATIONS, "choosing-a-dog-harness-in-canada"]; }
 
@@ -490,7 +490,7 @@ describe("article publication dates", () => {
     expect(dates).toHaveLength(36);
     expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-25"]));
     const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
-    expect(revisions).toEqual(["2026-10-25", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-24", "2026-10-21"]);
+    expect(revisions).toEqual(["2026-10-25", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-24", "2026-10-21", "2026-10-26"]);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
   });
 
@@ -820,17 +820,15 @@ describe("Batch B — puppy behaviour and training evidence", () => {
     expect(b).not.toMatch(/second fear (?:period|stage|phase)/i);
 
     // What replaced it is attributed, gradual, and individual.
-    expect(b).toMatch(/McEvoy/);
-    expect(b).toMatch(/three to five weeks/i);
+    expect(b).toMatch(/individual variation/i);
     expect(b).toMatch(/Merck Veterinary Manual/);
-    expect(b).toMatch(/juvenile period/i);
-    expect(b).toMatch(/Neither is a stage with dates on it/i);
+    expect(b).toMatch(/not a deadline after which learning stops/i);
     expect(b).toMatch(/varies enormously from dog to dog|individual/i);
     // Pain and illness named, with a route to help.
     expect(b).toMatch(/pain and illness/i);
     expect(b).toMatch(/qualified behaviour professional/i);
 
-    expect(sourceUrls("puppy-socialisation-checklist")).toContain("PMC9655304");
+    expect(sourceUrls("puppy-socialisation-checklist")).toContain("aaha.org");
     expect(register("puppy-socialisation-checklist")).toMatch(/RESOLVED 2026-09-06/);
   });
 
@@ -840,7 +838,7 @@ describe("Batch B — puppy behaviour and training evidence", () => {
     expect(b).toMatch(/piloerection/);
     expect(b).toMatch(/displacement/i);
     // The point that matters: no single signal is a verdict.
-    expect(b).toMatch(/None of these is a fear signal on its own/i);
+    expect(b).toMatch(/No single observation reliably establishes the cause/i);
     expect(b).toMatch(/combination|context/i);
     expect(b).not.toMatch(/\bmeans your (?:dog|puppy) is afraid\b/i);
     expect(sourceUrls("puppy-socialisation-checklist")).toMatch(/merckvetmanual\.com\/behavior/);
@@ -1907,5 +1905,38 @@ describe("October 22 cat budget refresh", () => {
     expect(body).toContain("affiliate links");
     expect(article.publishedAt).toBe("2026-10-09");
     expect(article.updatedAt).toBe("2026-10-22");
+  });
+});
+
+
+describe("October 26 puppy socialisation refresh", () => {
+  const slug = "puppy-socialisation-checklist";
+  const body = ARTICLE_BODIES.find((a) => a.slug === slug)!.body;
+  const article = articles.find((a) => a.slug === slug)!;
+
+  it("preserves the existing URL and original publication while recording the refresh", () => {
+    expect(article.status).toBe("published");
+    expect(article.publishedAt).toBe("2026-09-06");
+    expect(article.updatedAt).toBe("2026-10-26");
+    expect(article.veterinaryNotice).toBe(true);
+  });
+
+  it("avoids single-signal diagnoses and guaranteed outcomes", () => {
+    const surface = body + JSON.stringify(article.keyTakeaways) + article.metaDescription;
+    expect(surface).not.toMatch(/single most reliable|ignores it for life|will not (?:eat|take food) is (?:a puppy )?over threshold/i);
+    expect(body).toMatch(/not as a stand-alone test/i);
+    expect(body).toMatch(/does not guarantee/i);
+    expect(body).toMatch(/editorial review, not a veterinary review/i);
+  });
+
+  it("helps choose suitable settings without prescribing a vaccination plan", () => {
+    expect(body).toContain("Which vaccination, parasite-prevention and health records");
+    expect(body).toContain("do not adjust vaccination dates yourself");
+    expect(body).toContain("Do not seek out ice, road salt");
+    expect(body).toContain("/guides/finding-a-veterinarian-in-canada");
+    const urls = article.sources!.map((source) => source.url).join(" ");
+    expect(urls).toContain("vet.osu.edu");
+    expect(urls).toContain("aaha.org");
+    expect(urls).toContain("canadianveterinarians.net");
   });
 });
