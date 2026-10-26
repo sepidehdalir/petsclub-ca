@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { siteConfig } from "@/config/site";
+import { isPublicProductionDeployment } from "@/lib/seo/deployment-crawl";
 import { absoluteUrl } from "@/lib/seo/urls";
 
 /**
@@ -11,13 +12,12 @@ import { absoluteUrl } from "@/lib/seo/urls";
  * stable content of their own and would otherwise compete with the pages they
  * point at.
  *
- * Preview deployments are blocked entirely so a `*.vercel.app` copy of the
- * site cannot be indexed alongside the production domain.
+ * Preview and development deployments are blocked even if they inherit the
+ * production canonical URL. Robots disallow is a crawl directive, not proof
+ * of Google index removal; preview access controls remain advisable.
  */
 export default function robots(): MetadataRoute.Robots {
-  const isProduction = siteConfig.url === `https://${siteConfig.domain}`;
-
-  if (!isProduction) {
+  if (!isPublicProductionDeployment(siteConfig.url, siteConfig.domain, process.env.VERCEL_ENV)) {
     return {
       rules: { userAgent: "*", disallow: "/" },
     };
