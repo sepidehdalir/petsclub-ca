@@ -2219,12 +2219,12 @@ export const articles: readonly Article[] = [
     slug: "puppy-socialisation-checklist",
     section: "dogs",
     subcategory: "Training",
-    title: "Puppy Socialisation: What to Actually Expose a Puppy To",
-    deck: "Socialisation is not exposure \u2014 it is exposure at an intensity the puppy can handle, in which nothing bad happens. The categories to cover, and how to read whether it is working.",
+    title: "Puppy Socialisation Checklist: Safe Starts in Canada",
+    deck: "Plan comfortable early experiences, choose pre-vaccination settings with your vet, and adapt puppy socialisation for Canadian winter conditions.",
     metaDescription:
-      "What to actually socialise a puppy to, how to tell an exposure is helping rather than harming, and why a puppy that won\u2019t eat is over threshold.",
+      "A puppy socialisation checklist for Canada: pre-vaccination planning, class questions, body-language cues and practical winter alternatives.",
     authorId: "pet-club-editorial",
-    readingMinutes: 6,
+    readingMinutes: 7,
     mediaId: "training-puppy-on-street",
     mediaAlt:
       "A puppy on a lead taking in a street \u2014 the world at a distance it can handle.",
@@ -2232,27 +2232,46 @@ export const articles: readonly Article[] = [
     indexable: true,
     status: "published",
     publishedAt: "2026-09-06",
+    updatedAt: "2026-10-26",
     veterinaryNotice: true,
     keyTakeaways: [
-      "The primary period is the first three months, so it is largely over by the time most owners feel ready to start.",
-      "AVSAB holds that socialising before a puppy is fully vaccinated should be the standard of care \u2014 behavioural problems, not infectious disease, are the leading cause of death in dogs under three.",
-      "Classes can start at 7\u20138 weeks with one set of vaccines at least seven days beforehand, plus a first deworming.",
-      "A puppy that will not take food is over threshold. That is the single most reliable signal you have.",
-      "Let the puppy choose the distance, watch how fast it recovers, and stop while it is still going well.",
-      "Cover categories rather than counting encounters \u2014 surfaces, sounds and handling get missed while people and dogs get overdone.",
-      "A winter puppy meets far fewer people and far more snow. Compensate deliberately rather than waiting for spring.",
+      "Discuss early socialisation and local infection precautions with your veterinary team before the vaccination series is complete.",
+      "Choose brief, comfortable experiences, not a target number of meetings or a list the puppy must finish.",
+      "Check the actual class health requirements and how it handles worried puppies before booking.",
+      "Read behaviour in context: taking or refusing treats is not a stand-alone test of comfort.",
+      "Use safe indoor alternatives when winter weather makes outings unsuitable; ice and road salt are not training surfaces.",
     ],
     relatedSlugs: [
       "puppy-vaccination-schedule-in-canada",
-      "separation-anxiety-in-dogs",
+      "finding-a-veterinarian-in-canada",
+      "winter-dog-care-in-canada",
     ],
     relatedCategorySlugs: ["puppies", "dog-training-and-behaviour", "general-dog-discussion"],
     sources: [
       {
-        label:
-          "Canine Socialisation: A Narrative Systematic Review \u2014 the tendency to approach unfamiliar stimuli peaks at about three to five weeks and declines thereafter",
-        publisher: "McEvoy, Baqueiro Espinosa, Crump and Arnott, Animals (2022)",
-        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9655304/",
+        label: "Socialization and Infectious Disease Prevention: a planning checklist",
+        publisher: "Ohio State University College of Veterinary Medicine — Stull and Herron (2025)",
+        url: "https://vet.osu.edu/sites/default/files/documents/socialization-and-id-prevention-checklist-final.pdf",
+      },
+      {
+        label: "Age and behavior: individual development and avoiding forced exposure",
+        publisher: "American Animal Hospital Association",
+        url: "https://www.aaha.org/resources/2015-aaha-canine-and-feline-behavior-management-guidelines/age-and-behavior/",
+      },
+      {
+        label: "Puppy behavior and training basics: recognizing possible fear signs",
+        publisher: "VCA Animal Hospitals",
+        url: "https://vcahospitals.com/know-your-pet/puppy-behavior-and-training-training-basics",
+      },
+      {
+        label: "Puppy socialization class information: a Canadian provider example",
+        publisher: "Winnipeg Humane Society",
+        url: "https://winnipeghumanesociety.ca/puppy-socialization-important-information/",
+      },
+      {
+        label: "Cold Weather and Pets",
+        publisher: "Canadian Veterinary Medical Association",
+        url: "https://www.canadianveterinarians.net/related-resources/cold-weather-and-pets/",
       },
       {
         label:
@@ -2263,7 +2282,7 @@ export const articles: readonly Article[] = [
       {
         label: "Position statement on puppy socialization",
         publisher: "American Veterinary Society of Animal Behavior",
-        url: "https://avsab.org/puppy-socialization-position-statement/",
+        url: "https://www.avsab.org/wp-content/uploads/2019/01/Puppy-Socialization-Position-Statement-FINAL.pdf",
       },
       {
         label: "Behavior problems of dogs \u2014 socialisation and early learning",
@@ -2279,6 +2298,8 @@ export const articles: readonly Article[] = [
       },
     ],
     needsVerification: [
+      "RESOLVED 2026-10-26 — current copy uses AVSAB early-period and AAHA individual-variation guidance rather than the older precise approach-to-novelty trajectory. Historical September review notes below are retained as history, not current article assertions.",
+      "RESOLVED 2026-10-26 — editorial safety refresh removed treat-taking diagnostics, guaranteed lifetime noise tolerance, universal recovery timers and hazardous surface practice. Added individual veterinary venue advice, class-selection questions and winter alternatives from AVSAB, OSU, AAHA, VCA, CVMA and a Canadian class provider. Not a veterinary review; no product or affiliate endorsement.",
       "RESOLVED 2026-09-06 \u2014 the second-wariness claim. The article said \u201cmany dogs go through a second period of increased wariness during adolescence\u201d, which is the second fear period in other words and contradicted the Puppy Journey's editorial position, where the differentiation gate found no peer-reviewed basis for a scheduled adolescent fear stage at any age. Replaced with the sourced trajectory: McEvoy et al. 2022 put the peak tendency to approach novelty at three to five weeks with a decline after it, and Merck describes attraction to unfamiliar people decreasing and avoidance becoming more pronounced through the juvenile period from about twelve weeks. Framed as a gradual curve rather than a stage, individual variation stated, pain and illness named as possible causes of sudden change, and a route to veterinary and qualified behavioural help given.",
       "STANDING GUARDRAIL \u2014 no second fear period, fear stage, fear phase, scheduled adolescent fear event or universal age threshold, in any wording. The prohibition is on the developmental assertion, not on a form of words: do not reintroduce it by avoiding the phrase.",
       "RESOLVED 2026-09-06 \u2014 body-language signals. Merck is now named for the signs it actually lists (low body posture, piloerection, vocalisation, and displacement behaviours such as yawning or lip-licking), and the article states plainly that none of these is a fear signal on its own. Merck classes yawning and lip-licking as displacement behaviours, which is exactly why they are non-specific; the article now asks the reader to read the combination and the context rather than any single sign.",
