@@ -354,9 +354,12 @@ for (const scenario of scenarios) {
           // do not substitute endpoint success for a decoded image.
           for (let index = 0; index < await images.count(); index += 1) {
             await images.nth(index).scrollIntoViewIfNeeded();
-            await images.nth(index).evaluate(node => node.decode());
+            // Responsive srcset may change after scrolling in WebKit. Wait
+            // for the selected source to load instead of decoding a stale one.
+            await page.waitForFunction(node => node.complete && node.naturalWidth > 0,
+              await images.nth(index).elementHandle(), { timeout: 12000 });
           }
-          result.expansionImagesDecoded = await images.count();
+          result.expansionImagesLoaded = await images.count();
         }
         await page.evaluate(() => window.scrollTo(0, 0));
         if (representativeRoutes.includes(path)) await page.screenshot({ path: join(out, `${filename}.png`), fullPage: true });
