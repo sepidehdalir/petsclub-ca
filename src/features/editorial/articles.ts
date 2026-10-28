@@ -2347,10 +2347,10 @@ export const articles: readonly Article[] = [
     section: "canadian-life",
     subcategory: "Preparedness",
     title: "Pet Emergency Preparedness in Canada: Kits and Evacuation Plans",
-    deck: "Prepare a portable pet kit, transport and possible destinations, and follow current local evacuation instructions in Canada.",
-    metaDescription: "Prepare a portable pet kit, transport and possible destinations, and follow current local evacuation instructions in Canada.",
+    deck: "Build a pet emergency kit and evacuation plan for Canada, with regional supply guidance, a household worksheet and current official sources.",
+    metaDescription: "Build a pet emergency kit and evacuation plan for Canada, with regional supply guidance, a household worksheet and current official sources.",
     authorId: "pet-club-editorial",
-    readingMinutes: 3,
+    readingMinutes: 5,
     mediaId: "guides-pet-emergency-kit",
     mediaAlt:
       "A pet carrier, collapsible bowls, food, a coat and a bed laid out from above \u2014 the kit, assembled.",
@@ -2358,15 +2358,18 @@ export const articles: readonly Article[] = [
     indexable: true,
     status: "published",
     publishedAt: "2026-10-09",
+    updatedAt: "2026-10-28",
     veterinaryNotice: true,
-    keyTakeaways: ["Confirm shelter access instead of assuming pets are accepted.", "Pack supplies and records that you can actually transport.", "Follow official evacuation instructions and ask local services for help."],
+    keyTakeaways: ["Confirm shelter access instead of assuming pets are accepted.", "Use local supply guidance, and plan both portable and reserve supplies.", "Follow official evacuation instructions and ask local services for help."],
     relatedSlugs: [
       "emergency-vet-visits-in-canada",
       "when-a-pet-goes-missing-in-canada",
     ],
     relatedCategorySlugs: ["pet-friendly-canada", "general-dog-discussion", "general-cat-discussion"],
     sources: [
-      {"label": "Pets and service animals", "publisher": "Public Safety Canada", "url": "https://www.getprepared.gc.ca/cnt/plns/ptsndsrvcnmls-eng.aspx"},
+      {label: "Pet preparedness: supplies, profiles and evacuation planning", publisher: "Government of Alberta", url: "https://www.alberta.ca/pet-preparedness"},
+      {label: "How to prepare for an emergency: pet edition", publisher: "BC SPCA", url: "https://spca.bc.ca/article/emergency-evacuation-checklist/"},
+      {"label": "Emergency preparedness for pets and service animals", "publisher": "Public Safety Canada", "url": "https://www.canada.ca/en/services/policing/emergencies/preparedness/get-prepared/emergency-planning-resources/animals.html"},
     ],
     resources: [
       {
