@@ -705,7 +705,7 @@
 .club-article--unleashed h2,
 .club-article--unleashed h3 { font-family: var(--font-bricolage), Arial, sans-serif; letter-spacing: -.035em; color: #242820; }
 .club-article--unleashed h1 { line-height: 1.08; }
-.club-article--unleashed .prose-article { line-height: 1.7; color: #242820; }
+.club-article--unleashed .prose-article { font-family: var(--font-dm), Arial, sans-serif; line-height: 1.7; color: #242820; }
 .club-article--unleashed .prose-article a { color: #71361f; text-decoration-thickness: 1px; }
 .club-article--unleashed [aria-labelledby="key-takeaways-heading"] { background: #d7ed82; border-color: #24282030; border-radius: 1rem; }
 .club-article--unleashed .club-article-shortcuts a { background: #242820; color: #fff9e9; border-radius: 999px; padding: .55rem 1rem; text-decoration: none; }

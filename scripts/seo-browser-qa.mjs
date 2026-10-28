@@ -100,7 +100,8 @@ for (const scenario of scenarios) {
           assert.equal(await page.locator('.club-article--unleashed').count(), 1);
           assert.match(await page.locator('h1').evaluate(node => getComputedStyle(node).fontFamily), /Bricolage/i);
           assert.equal(await page.locator('.club-article--unleashed > header').evaluate(node => getComputedStyle(node).backgroundColor), 'rgb(244, 240, 228)');
-          result.homepageBrand = 'Scoped homepage type and palette verified';
+          assert.match(await page.locator('.prose-article').evaluate(node => getComputedStyle(node).fontFamily), /DM.?Sans|DM Sans|dmSans/i);
+          result.homepageBrand = 'Scoped homepage heading/body type and palette verified';
         }
         if (path === '/guides/dog-trainers-greater-vancouver') {
           assert.equal(await page.locator('a[href*="google.com/maps/place/"]').count(), 5);
@@ -347,6 +348,15 @@ for (const scenario of scenarios) {
           await page.keyboard.press('Escape');
           await page.getByRole('dialog', { name: 'Menu', exact: true }).waitFor({ state: 'hidden' });
           result.editorialMenu = 'Open and Escape close passed';
+        }
+        if (expansionPaths.includes(path)) {
+          // Scroll each editorial image into view before visual evidence;
+          // do not substitute endpoint success for a decoded image.
+          for (let index = 0; index < await images.count(); index += 1) {
+            await images.nth(index).scrollIntoViewIfNeeded();
+            await images.nth(index).evaluate(node => node.decode());
+          }
+          result.expansionImagesDecoded = await images.count();
         }
         await page.evaluate(() => window.scrollTo(0, 0));
         if (representativeRoutes.includes(path)) await page.screenshot({ path: join(out, `${filename}.png`), fullPage: true });
