@@ -137,6 +137,8 @@ export interface ArticleSource {
 export type ArticleStatus = "in-review" | "published";
 
 interface ArticleContent {
+  /** Opt-in homepage brand treatment; unrelated editorial pages keep their layout. */
+  visualStyle?: "unleashed";
   /** URL slug. The article lives at `/guides/<slug>`. */
   slug: string;
   section: ArticleSectionId;
@@ -306,12 +308,66 @@ export type Article = ArticleContent & ArticlePublication;
 
 export const articles: readonly Article[] = [
   {
+    slug: "dog-trainers-greater-vancouver",
+    section: "dogs",
+    subcategory: "Local directory",
+    visualStyle: "unleashed",
+    title: "Dog Trainers in Greater Vancouver: An Independent Starting Directory",
+    deck: "Compare five Vancouver-based training businesses, their stated methods and service formats, with dated Google Maps ratings and questions to ask before booking.",
+    metaDescription: "Compare Greater Vancouver dog trainers, dated Google Maps ratings, service areas and training formats. An independent directory, not a ranking.",
+    authorId: "pet-club-editorial",
+    readingMinutes: 5,
+    mediaId: "training-forest-path",
+    mediaAlt: "A dog watches a handler's signal on a forest path; illustrative stock photography, not a listed trainer.",
+    tags: ["dog-training", "greater-vancouver", "trainer-directory"],
+    indexable: true,
+    status: "in-review",
+    keyTakeaways: [
+      "Initial Vancouver-focused coverage; five businesses listed alphabetically, not ranked.",
+      "Google Maps ratings and counts were checked October 28, 2026 and can change.",
+      "Ask about methods, suitability and written terms; stars do not verify credentials or outcomes."
+    ],
+    relatedSlugs: ["loose-leash-walking-and-recall", "puppy-socialisation-checklist"],
+    sources: [{ label: "Humane dog training position statement", publisher: "American Veterinary Society of Animal Behavior", url: "https://avsab.org/wp-content/uploads/2021/08/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf" }],
+    needsVerification: ["Release approval pending. Recheck dated Maps observations before release if publication is delayed; no paid listing or referral relationship exists."]
+  },
+  {
+    slug: "raw-pet-food-canada-risks-nutrition",
+    section: "health",
+    subcategory: "Food decisions",
+    visualStyle: "unleashed",
+    title: "Raw Pet Food in Canada: Evidence, Safety and Manufacturers",
+    deck: "Separate proposed benefits from evidence, understand nutrition and household risks, and explore a starting directory of Canadian manufacturers by province.",
+    metaDescription: "Compare raw pet food evidence, nutritional adequacy and household risks, with a starting directory of Canadian manufacturers by province.",
+    authorId: "pet-club-editorial",
+    readingMinutes: 5,
+    mediaId: "health-vet-examining-dog",
+    mediaAlt: "A veterinarian examines a small dog; an editorial stock photograph, not a review or endorsement of raw food.",
+    tags: ["raw-pet-food", "nutrition", "food-safety", "canada"],
+    indexable: true,
+    status: "in-review",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "CVMA says documented risks outweigh purported benefits; PHAC advises against raw pet food and treats.",
+      "Raw does not mean nutritionally complete, and freezing does not remove every pathogen.",
+      "Manufacturer listings are factual starting points, not nutrition endorsements or current affiliate partners."
+    ],
+    relatedSlugs: ["reading-a-canadian-pet-food-label", "pet-food-storage-container-original-bag", "finding-a-veterinarian-in-canada"],
+    sources: [
+      { label: "Safety of raw meat-based pet food products", publisher: "Canadian Veterinary Medical Association", url: "https://www.canadianveterinarians.net/policy-and-outreach/position-statements/statements/safety-of-raw-meat-based-pet-food-products" },
+      { label: "Pet food and treats", publisher: "Public Health Agency of Canada", url: "https://www.canada.ca/en/public-health/services/food-safety/pet-food-treats.html" },
+      { label: "Raw meat-based diets for pets", publisher: "World Small Animal Veterinary Association", url: "https://wsava.org/wp-content/uploads/2021/04/Raw-Meat-Based-Diets-for-Pets_WSAVA-Global-Nutrition-Toolkit.pdf" }
+    ],
+    needsVerification: ["Release approval pending; manufacturer location and distribution evidence checked October28,2026, not a product audit or endorsement."]
+  },
+  {
     slug: "cat-pregnancy-signs-and-tests",
+    visualStyle: "unleashed",
     section: "cats",
     subcategory: "Pregnancy and health",
-    title: "Cat Pregnancy Signs: How Vets Confirm Pregnancy",
-    deck: "Learn which changes may suggest cat pregnancy, how veterinary tests confirm it, and when symptoms need urgent care.",
-    metaDescription: "Learn which changes may suggest cat pregnancy, how veterinary tests confirm it, and when symptoms need urgent care.",
+    title: "Cat Pregnancy: Signs, Tests, Gestation and Care",
+    deck: "Possible signs are not confirmation. Learn how vets test for pregnancy, how long it lasts, everyday care and when your cat needs urgent help.",
+    metaDescription: "Learn possible cat pregnancy signs, veterinary tests, gestation length, everyday care and when to seek urgent help.",
     authorId: "pet-club-editorial",
     readingMinutes: 6,
     mediaId: "cats-window-tabby",
@@ -334,6 +390,8 @@ export const articles: readonly Article[] = [
       "cost-of-owning-a-cat-in-canada"
     ],
     sources: [
+      { label: "Pregnancy and parturition in cats", publisher: "VCA Animal Hospitals", url: "https://vcahospitals.com/know-your-pet/pregnancy-and-parturition-in-cats" },
+      { label: "Feeding practices in small animals", publisher: "Merck Veterinary Manual", url: "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/feeding-practices-in-small-animals" },
       {
         label: "Pregnancy in cats",
         publisher: "PDSA",
@@ -376,11 +434,12 @@ export const articles: readonly Article[] = [
   },
   {
     slug: "dog-pregnancy-signs-and-tests",
+    visualStyle: "unleashed",
     section: "dogs",
     subcategory: "Pregnancy and health",
-    title: "Dog Pregnancy Signs: Tests, Timing and False Pregnancy",
-    deck: "Understand possible dog pregnancy signs, ultrasound and blood-test timing, false pregnancy, and when to call a veterinarian.",
-    metaDescription: "Understand possible dog pregnancy signs, ultrasound and blood-test timing, false pregnancy, and when to call a veterinarian.",
+    title: "Dog Pregnancy: Signs, Tests, Gestation and Care",
+    deck: "Understand possible signs, false pregnancy, veterinary testing, gestation and everyday care—without relying on appearance or a due-date calculator.",
+    metaDescription: "Understand dog pregnancy signs, false pregnancy, veterinary testing, gestation, feeding and when to call a veterinarian.",
     authorId: "pet-club-editorial",
     readingMinutes: 6,
     mediaId: "health-dog-on-bed",
@@ -403,6 +462,9 @@ export const articles: readonly Article[] = [
       "cost-of-owning-a-dog-in-canada"
     ],
     sources: [
+      { label: "Feeding practices in small animals", publisher: "Merck Veterinary Manual", url: "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/feeding-practices-in-small-animals" },
+      { label: "Disorders of calcium metabolism in dogs", publisher: "Merck Veterinary Manual", url: "https://www.merckvetmanual.com/dog-owners/metabolic-disorders-of-dogs/disorders-of-calcium-metabolism-in-dogs" },
+      { label: "Whelping: when to seek help", publisher: "PDSA", url: "https://www.pdsa.org.uk/pet-help-and-advice/pet-health-hub/other-veterinary-advice/whelping-a-guide-to-your-dog-giving-birth" },
       {
         label: "Pregnancy in dogs",
         publisher: "PDSA",
@@ -1696,36 +1758,30 @@ export const articles: readonly Article[] = [
   },
   {
     slug: "spaying-and-neutering-in-canada",
+    visualStyle: "unleashed",
     section: "health",
     subcategory: "Procedures",
-    title: "Spaying and Neutering in Canada: Timing, Cost and Recovery",
-    deck: "\u201cSix months\u201d is still right for a lot of animals and is no longer the answer for large-breed dogs. What the timing turns on, and the two Canadian costs nobody mentions.",
-    metaDescription:
-      "Why the timing guidance changed for large-breed dogs, what recovery actually asks of you, and the two Canadian costs that change the arithmetic.",
+    title: "When to Spay or Neuter Your Cat or Dog in Canada",
+    deck: "Most cats should be spayed or neutered by five months; dogs need an individual plan. Understand Canadian guidance and the questions to ask your veterinarian.",
+    metaDescription: "Learn Canadian cat spay/neuter timing and why dog breed, size, sex, health and home circumstances need an individual veterinary plan.",
     authorId: "pet-club-editorial",
     readingMinutes: 5,
     mediaId: "health-dog-recovery-cone",
-    mediaAlt:
-      "A golden retriever in a recovery cone resting on the floor \u2014 the fortnight that decides how the surgery goes.",
+    mediaAlt: "A golden retriever wearing a recovery cone rests indoors; an illustrative stock photograph.",
     tags: ["spay-neuter", "surgery", "preventative-care", "money", "canada"],
     indexable: true,
     status: "published",
     publishedAt: "2026-09-06",
     veterinaryNotice: true,
-    keyTakeaways: [
-      "Small dogs: around six months for males, and before the first heat \u2014 roughly five to six months \u2014 for females.",
-      "Large dogs over about 45 lb: after growth finishes, usually 9 to 15 months. This is the part that changed.",
-      "For large-breed females the window is wider still, 5 to 15 months, and is meant to be narrowed by a veterinarian rather than applied as a rule.",
-      "The reasoning is orthopaedic and oncologic \u2014 it is an argument for timing the procedure, not for skipping it.",
-      "Municipal licence fees are commonly lower for an altered animal, which is a recurring saving rather than a one-off.",
-      "Exercise restriction during recovery is the instruction most often ignored and the one that matters most.",
-    ],
+    keyTakeaways: ["CVMA supports spaying or neutering most cats not intended for breeding by five months.", "There is no universal dog surgery age; discuss breed, size, sex, health and household circumstances.", "Plan how to prevent mating while waiting, compare written estimates and prepare for recovery.", "Surgery is not a guaranteed treatment for behaviour problems."],
     relatedSlugs: [
       "adopting-a-pet-in-canada",
       "cost-of-owning-a-dog-in-canada",
     ],
     relatedCategorySlugs: ["vet-costs", "dog-health", "cat-health"],
     sources: [
+      { label: "Spaying and neutering of dogs and cats", publisher: "Canadian Veterinary Medical Association", url: "https://www.canadianveterinarians.net/policy-and-outreach/position-statements/statements/spaying-and-neutering-of-dogs-and-cats/" },
+      { label: "When should you neuter or spay your dog?", publisher: "UC Davis School of Veterinary Medicine", url: "https://www.vetmed.ucdavis.edu/news/when-should-you-neuter-or-spay-your-dog" },
       {
         label:
           "2019 AAHA Canine Life Stage Guidelines, Textbox 1 \u2014 recommended timing for canine sterilization, split at 45 lb projected adult bodyweight",
@@ -1760,7 +1816,7 @@ export const articles: readonly Article[] = [
       "RESOLVED \u2014 REMOVED, 2026-09-06. The mechanism claim \u2014 that sex hormones are part of what signals long bones to stop growing \u2014 was taken out. No source could be attached that supports it as stated, and the practical advice does not depend on it. In its place the article gives AAHA's own footnote to Textbox 1: earlier, before the first estrus, decreases mammary neoplasia and unwanted litters; later, after growth stops, decreases the risk of orthopaedic disease, some cancers and urethral sphincter mechanism incompetence, with clinical discretion and owner education rather than one answer.",
       "STANDING GUARDRAIL \u2014 associations stay associations. Do not convert \u201cassociated in some breeds with joint disorders\u201d into a causal claim that early neutering causes joint disease, and do not generalise a single-breed finding to all dogs.",
       "STANDING GUARDRAIL \u2014 That municipal licence fees are commonly lower for spayed or neutered animals \u2014 verified for Toronto and Calgary only; no proportion of Canadian municipalities is claimed.",
-      "OPEN (NON-BLOCKING) \u2014 Feline timing is described only as \u201cgenerally done young\u201d because no AAFP age window has been confirmed here. Establish one before making it any more specific.",
+      "RESOLVED 2026-10-28 — CVMA December2024 position supports most non-breeding cats by five months; dog timing individualized. Sources rechecked; no veterinarian review claimed.",
       "STANDING GUARDRAIL \u2014 Which subsidised or low-cost spay and neuter programmes operate in Canada, and who runs them \u2014 described as intensely local and named nowhere.",
     ],
   },

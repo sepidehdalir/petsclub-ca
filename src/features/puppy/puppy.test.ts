@@ -4216,9 +4216,9 @@ describe("indexing", () => {
     expect(puppyRoutes.every((name) => stages.some((stage) => stage.slug === name))).toBe(true);
   });
 
-  it("keeps the current article library at 43 entries", () => {
+  it("keeps the current article library at 45 entries", () => {
     // Includes the two pregnancy guides published October 25.
-    expect(articles.length).toBe(43);
+    expect(articles.length).toBe(45);
   });
 
   it("drives robots and sitemap from the same two stage fields", () => {

@@ -438,12 +438,12 @@ describe("cat planning publication scope", () => {
 describe("article publication dates", () => {
   const real = articles[0]!;
 
-  it("keeps 36 published guides and holds the same seven clinical drafts", () => {
-    expect(articles).toHaveLength(43);
+  it("keeps 36 published guides, seven clinical drafts and two new expansion drafts", () => {
+    expect(articles).toHaveLength(45);
     const published = articles.filter((a) => a.status === "published").map((a) => a.slug);
     expect([...published].sort()).toEqual(expectedPublishedSlugs().sort());
     expect(published).toHaveLength(36);
-    expect(articles.filter((a) => a.status === "in-review")).toHaveLength(7);
+    expect(articles.filter((a) => a.status === "in-review")).toHaveLength(9);
   });
 
   it("preserves original dates and dates the October publications correctly", () => {
@@ -589,9 +589,9 @@ describe("article index policy", () => {
     expect([...guides].sort()).toEqual(expectedPublishedSlugs().sort());
     expect(guides).toHaveLength(36);
 
-    // And none of the seven held articles leaked in.
+    // Neither the seven clinical holds nor the two expansion drafts leak in.
     const held = articles.filter((a) => a.status === "in-review").map((a) => a.slug);
-    expect(held).toHaveLength(7);
+    expect(held).toHaveLength(9);
     for (const slug of held) expect(guides, `${slug} leaked into the sitemap`).not.toContain(slug);
 
     expect(all.some((u) => u.includes("?"))).toBe(false);
@@ -750,7 +750,7 @@ const ARTICLE_BODIES = articles.map((article) => ({
 
 describe("behaviour folklore across the article library", () => {
   it("scans every article body, not a sample", () => {
-    expect(ARTICLE_BODIES).toHaveLength(43);
+    expect(ARTICLE_BODIES).toHaveLength(45);
     for (const { slug, body } of ARTICLE_BODIES) {
       expect(body.length, `${slug} body is empty`).toBeGreaterThan(2000);
     }
@@ -1879,7 +1879,7 @@ describe("article robots policy", () => {
       expect(articleRobotsPolicy(article), article.slug).toBe(expected);
     }
     expect(articles.filter((a) => articleRobotsPolicy(a) === "index")).toHaveLength(36);
-    expect(articles.filter((a) => articleRobotsPolicy(a) === "private-noindex")).toHaveLength(7);
+    expect(articles.filter((a) => articleRobotsPolicy(a) === "private-noindex")).toHaveLength(9);
     // Nothing is in the middle state yet — that arrives with Journey Phase 2.
     expect(articles.filter((a) => articleRobotsPolicy(a) === "public-noindex")).toEqual([]);
   });
