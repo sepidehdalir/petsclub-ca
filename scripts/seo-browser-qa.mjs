@@ -32,7 +32,7 @@ while (Date.now() < deadline) {
 }
 assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
-const routes = ['/guides/pet-emergency-preparedness-canada', '/guides/puppy-socialisation-checklist', '/guides/cat-pregnancy-signs-and-tests', '/guides/dog-pregnancy-signs-and-tests', '/guides/parasite-prevention-for-pets-in-canada', '/kitchen', '/kitchen/soft-carrot-mash-for-dogs', '/kitchen/sweet-potato-spoonfuls-for-dogs', '/kitchen/plain-poached-chicken-for-dogs-and-cats', '/kitchen/plain-egg-crumbles-for-dogs-and-cats', '/guides/pet-licensing-across-canada', '/guides/cost-of-owning-a-dog-in-canada', '/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
+const routes = ['/guides/dog-trainers-greater-vancouver', '/guides/raw-pet-food-canada-risks-nutrition', '/guides/spaying-and-neutering-in-canada', '/guides/pet-emergency-preparedness-canada', '/guides/puppy-socialisation-checklist', '/guides/cat-pregnancy-signs-and-tests', '/guides/dog-pregnancy-signs-and-tests', '/guides/parasite-prevention-for-pets-in-canada', '/kitchen', '/kitchen/soft-carrot-mash-for-dogs', '/kitchen/sweet-potato-spoonfuls-for-dogs', '/kitchen/plain-poached-chicken-for-dogs-and-cats', '/kitchen/plain-egg-crumbles-for-dogs-and-cats', '/guides/pet-licensing-across-canada', '/guides/cost-of-owning-a-dog-in-canada', '/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
 const sitemap = await (await fetch(new URL('/sitemap.xml', base))).text();
 const sitemapRoutes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => new URL(match[1]).pathname);
 const privateRoutes = ['/search', '/sign-in', '/sign-up', '/forgot-password', '/reset-password', '/auth/confirm', '/account', '/my-puppy'];
@@ -95,6 +95,30 @@ for (const scenario of scenarios) {
         await page.locator('h1').waitFor({ state: 'visible' });
         assert.equal(await page.locator('h1').count(), 1, 'Exactly one h1 is required');
         const mainText = (await page.locator('main').innerText()).replace(/\s+/g, ' ');
+        const expansionPaths = ['/guides/dog-trainers-greater-vancouver', '/guides/raw-pet-food-canada-risks-nutrition', '/guides/spaying-and-neutering-in-canada', '/guides/cat-pregnancy-signs-and-tests', '/guides/dog-pregnancy-signs-and-tests'];
+        if (expansionPaths.includes(path)) {
+          assert.equal(await page.locator('.club-article--unleashed').count(), 1);
+          assert.match(await page.locator('h1').evaluate(node => getComputedStyle(node).fontFamily), /Bricolage/i);
+          assert.equal(await page.locator('.club-article--unleashed > header').evaluate(node => getComputedStyle(node).backgroundColor), 'rgb(244, 240, 228)');
+          assert.match(await page.locator('.prose-article').evaluate(node => getComputedStyle(node).fontFamily), /DM.?Sans|DM Sans|dmSans/i);
+          assert.equal(await page.locator('time[datetime="2026-10-29"]').count(), 1);
+          result.homepageBrand = 'Scoped homepage heading/body type and palette verified';
+        }
+        if (path === '/guides/dog-trainers-greater-vancouver') {
+          assert.equal(await page.locator('a[href*="google.com/maps/place/"]').count(), 5);
+          assert.match(mainText, /October 28, 2026/);
+          assert.match(mainText, /not a listed trainer/);
+          assert.match(mainText, /in-home/);
+          assert.match(mainText, /Life Skills group class specifically excludes/);
+          result.directoryEvidence = 'Five dated Maps observations, format limits and illustrative image boundary';
+        }
+        if (path === '/guides/raw-pet-food-canada-risks-nutrition') {
+          for (const province of ['British Columbia', 'Alberta', 'Saskatchewan', 'Ontario', 'Quebec']) assert.match(mainText, new RegExp(province));
+          assert.match(mainText, /not tracked affiliate links/);
+          assert.match(mainText, /cooked/);
+          assert.match(mainText, /not a ranking, product test or endorsement/);
+          result.rawFoodEvidence = 'Evidence and risks, five-province scope and no affiliate claim';
+        }
         if (path === '/guides/pet-emergency-preparedness-canada') {
           assert.match(mainText, /Is a 72-hour pet kit enough/);
           assert.match(mainText, /7 to 14 days/);
@@ -325,6 +349,18 @@ for (const scenario of scenarios) {
           await page.keyboard.press('Escape');
           await page.getByRole('dialog', { name: 'Menu', exact: true }).waitFor({ state: 'hidden' });
           result.editorialMenu = 'Open and Escape close passed';
+        }
+        if (expansionPaths.includes(path)) {
+          // Scroll each editorial image into view before visual evidence;
+          // do not substitute endpoint success for a decoded image.
+          for (let index = 0; index < await images.count(); index += 1) {
+            await images.nth(index).scrollIntoViewIfNeeded();
+            // Responsive srcset may change after scrolling in WebKit. Wait
+            // for the selected source to load instead of decoding a stale one.
+            await page.waitForFunction(node => node.complete && node.naturalWidth > 0,
+              await images.nth(index).elementHandle(), { timeout: 12000 });
+          }
+          result.expansionImagesLoaded = await images.count();
         }
         await page.evaluate(() => window.scrollTo(0, 0));
         if (representativeRoutes.includes(path)) await page.screenshot({ path: join(out, `${filename}.png`), fullPage: true });

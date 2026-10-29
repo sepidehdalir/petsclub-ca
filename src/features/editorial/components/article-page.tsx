@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Bricolage_Grotesque, DM_Sans, Instrument_Serif } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
@@ -32,6 +33,11 @@ export interface ArticlePageProps {
   children: ReactNode;
 }
 
+// The same self-hosted font families as the homepage, opted in per article.
+const display = Bricolage_Grotesque({ subsets: ["latin"], display: "swap", variable: "--font-bricolage" });
+const body = DM_Sans({ subsets: ["latin"], display: "swap", variable: "--font-dm" });
+const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], display: "swap", variable: "--font-instrument" });
+
 /**
  * The article template.
  *
@@ -60,7 +66,9 @@ export function ArticlePage({ article, children }: ArticlePageProps) {
   const path = articlePath(article.slug);
 
   return (
-    <article className="club-article">
+    <article className={article.visualStyle === "unleashed"
+      ? `club-article club-article--unleashed ${display.variable} ${body.variable} ${serif.variable}`
+      : "club-article"}>
       <header className="border-b border-border bg-surface">
         <Container width="prose" className="pb-8 pt-5 sm:pt-9">
           <Breadcrumbs

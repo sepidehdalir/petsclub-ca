@@ -4216,9 +4216,9 @@ describe("indexing", () => {
     expect(puppyRoutes.every((name) => stages.some((stage) => stage.slug === name))).toBe(true);
   });
 
-  it("keeps the current article library at 43 entries", () => {
+  it("keeps the current article library at 45 entries", () => {
     // Includes the two pregnancy guides published October 25.
-    expect(articles.length).toBe(43);
+    expect(articles.length).toBe(45);
   });
 
   it("drives robots and sitemap from the same two stage fields", () => {
@@ -4431,11 +4431,11 @@ describe("stage robots policy", () => {
     expect(stageRobotsPolicy(held)).toBe("public-noindex");
   });
 
-  it("16. includes 90 routes with five Pet Kitchen pages: 36 guides, 7 Journey routes and a comparison", () => {
+  it("16. includes 92 routes with five Pet Kitchen pages: 38 guides, 7 Journey routes and a comparison", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
     expect(urls.filter((url) => isJourneyRoute(url))).toHaveLength(7);
-    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(36);
-    expect(urls).toHaveLength(90);
+    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(38);
+    expect(urls).toHaveLength(92);
     expect(new Set(urls).size, "duplicate sitemap URL").toBe(urls.length);
   });
 

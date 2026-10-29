@@ -690,3 +690,27 @@
 }
 @media (max-width: 639px) { .club-product-content { padding: 1.35rem; } .club-product-photo img { padding: 1rem; } }
 @media (prefers-reduced-motion: reduce) { .club-product-panel, .club-product-photo img, .club-product-action a { transition: none; } }
+
+/* Homepage-aligned editorial variant: opted in only for the current expansion.
+   Keep reading measure and native navigation; no homepage motion or physics. */
+.club-article--unleashed {
+  --font-sans: var(--font-dm);
+  --font-serif: var(--font-instrument);
+  background: #fff9e9;
+  color: #242820;
+  font-family: var(--font-dm), Arial, sans-serif;
+}
+.club-article--unleashed > header { background: #f4f0e4; border-color: #24282030; }
+.club-article--unleashed h1,
+.club-article--unleashed h2,
+.club-article--unleashed h3 { font-family: var(--font-bricolage), Arial, sans-serif; letter-spacing: -.035em; color: #242820; }
+.club-article--unleashed h1 { line-height: 1.08; }
+.club-article--unleashed .prose-article { font-family: var(--font-dm), Arial, sans-serif; line-height: 1.7; color: #242820; }
+.club-article--unleashed .prose-article a { color: #71361f; text-decoration-thickness: 1px; }
+.club-article--unleashed [aria-labelledby="key-takeaways-heading"] { background: #d7ed82; border-color: #24282030; border-radius: 1rem; }
+.club-article--unleashed .club-article-shortcuts a { background: #242820; color: #fff9e9; border-radius: 999px; padding: .55rem 1rem; text-decoration: none; }
+.club-article--unleashed .club-article-shortcuts a:hover { background: #4a3626; }
+.club-article--unleashed a:focus-visible { outline: 3px solid #71361f; outline-offset: 4px; }
+.club-article--unleashed figure { border-radius: 1.25rem; overflow: hidden; }
+.club-article--unleashed .prose-article h2 { border-color: #24282030; }
+.club-article--unleashed #related-reading-heading { color: #242820; }

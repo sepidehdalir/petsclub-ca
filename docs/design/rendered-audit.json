@@ -1,7 +1,7 @@
 {
-  "pages": 95,
-  "internal_links": 5628,
-  "local_asset_and_font_references": 302,
+  "pages": 104,
+  "internal_links": 6234,
+  "local_asset_and_font_references": 518,
   "issues": [],
   "scope": "Prerendered HTML and local assets; dynamic auth and browser rendering are separate checks."
 }

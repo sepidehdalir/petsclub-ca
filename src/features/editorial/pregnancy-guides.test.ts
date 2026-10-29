@@ -16,7 +16,7 @@ describe("species-specific pregnancy guides", () => {
     it(`${species}: published discovery, sitemap and honest health metadata`, () => {
       const article = findArticle(slug)!;
       expect(article.status).toBe("published");
-      expect(articlePublicationDates(article)).toEqual({ datePublished: "2026-10-25", dateModified: "2026-10-25" });
+      expect(articlePublicationDates(article)).toEqual({ datePublished: "2026-10-25", dateModified: "2026-10-29" });
       expect(articleRobotsPolicy(article)).toBe("index");
       expect(article.reviewerId).toBeUndefined();
       expect(article.veterinaryNotice).toBe(true);
