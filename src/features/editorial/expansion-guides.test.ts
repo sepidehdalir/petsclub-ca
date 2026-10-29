@@ -11,20 +11,26 @@ describe("October 28 evidence-led expansion", () => {
     expect(articles.filter(a => a.visualStyle === "unleashed").map(a => a.slug).sort()).toEqual([...expansion].sort());
     for (const slug of expansion) expect(findArticle(slug)?.reviewerId).toBeUndefined();
   });
-  it("keeps new directories out of publication and indexing until approved", () => {
+  it("publishes only the approved new directories with actual release dates", () => {
     for (const slug of expansion.slice(3)) {
       const article = findArticle(slug)!;
-      expect(article.status).toBe("in-review");
-      expect(articleRobotsPolicy(article)).toBe("private-noindex");
-      expect(articlePublicationDates(article)).toEqual({});
-      expect(buildSitemapEntries().some(entry => new URL(entry.url).pathname === `/guides/${slug}`)).toBe(false);
+      expect(article.status).toBe("published");
+      expect(articleRobotsPolicy(article)).toBe("index");
+      expect(articlePublicationDates(article)).toEqual({ datePublished: "2026-10-29", dateModified: "2026-10-29" });
+      expect(buildSitemapEntries().some(entry => new URL(entry.url).pathname === `/guides/${slug}`)).toBe(true);
     }
   });
   it("retains existing reproductive URLs and original publication dates", () => {
-    for (const slug of expansion.slice(0, 3)) expect(findArticle(slug)?.status).toBe("published");
+    for (const slug of expansion.slice(0, 3)) {
+      expect(findArticle(slug)?.status).toBe("published");
+      expect(findArticle(slug)?.updatedAt).toBe("2026-10-29");
+    }
     expect(findArticle(expansion[0])?.publishedAt).toBe("2026-10-25");
     expect(findArticle(expansion[1])?.publishedAt).toBe("2026-10-25");
     expect(findArticle(expansion[2])?.publishedAt).toBe("2026-09-06");
+  });
+  it("retains exactly the seven unrelated clinical holds", () => {
+    expect(articles.filter(a => a.status === "in-review").map(a => a.slug).sort()).toEqual(["arthritis-and-mobility-in-dogs-and-cats", "cat-urinary-blockage-flutd", "end-of-life-care-for-pets", "kitten-vaccination-schedule-in-canada", "litter-box-problems-in-cats", "senior-dogs-and-cats", "separation-anxiety-in-dogs"]);
   });
   it("distinguishes pregnancy signs from diagnosis and adds care planning", () => {
     for (const slug of expansion.slice(0, 2)) {

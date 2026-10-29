@@ -101,6 +101,7 @@ for (const scenario of scenarios) {
           assert.match(await page.locator('h1').evaluate(node => getComputedStyle(node).fontFamily), /Bricolage/i);
           assert.equal(await page.locator('.club-article--unleashed > header').evaluate(node => getComputedStyle(node).backgroundColor), 'rgb(244, 240, 228)');
           assert.match(await page.locator('.prose-article').evaluate(node => getComputedStyle(node).fontFamily), /DM.?Sans|DM Sans|dmSans/i);
+          assert.equal(await page.locator('time[datetime="2026-10-29"]').count(), 1);
           result.homepageBrand = 'Scoped homepage heading/body type and palette verified';
         }
         if (path === '/guides/dog-trainers-greater-vancouver') {

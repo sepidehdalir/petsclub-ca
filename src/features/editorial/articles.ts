@@ -321,7 +321,8 @@ export const articles: readonly Article[] = [
     mediaAlt: "A dog watches a handler's signal on a forest path; illustrative stock photography, not a listed trainer.",
     tags: ["dog-training", "greater-vancouver", "trainer-directory"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-10-29",
     keyTakeaways: [
       "Initial Vancouver-focused coverage; five businesses listed alphabetically, not ranked.",
       "Google Maps ratings and counts were checked October 28, 2026 and can change.",
@@ -329,7 +330,7 @@ export const articles: readonly Article[] = [
     ],
     relatedSlugs: ["loose-leash-walking-and-recall", "puppy-socialisation-checklist"],
     sources: [{ label: "Humane dog training position statement", publisher: "American Veterinary Society of Animal Behavior", url: "https://avsab.org/wp-content/uploads/2021/08/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf" }],
-    needsVerification: ["Release approval pending. Recheck dated Maps observations before release if publication is delayed; no paid listing or referral relationship exists."]
+    needsVerification: ["Owner-approved release 2026-10-29; Maps observations remain explicitly dated October 28, 2026; no paid listing or referral relationship exists."]
   },
   {
     slug: "raw-pet-food-canada-risks-nutrition",
@@ -345,7 +346,8 @@ export const articles: readonly Article[] = [
     mediaAlt: "A veterinarian examines a small dog; an editorial stock photograph, not a review or endorsement of raw food.",
     tags: ["raw-pet-food", "nutrition", "food-safety", "canada"],
     indexable: true,
-    status: "in-review",
+    status: "published",
+    publishedAt: "2026-10-29",
     veterinaryNotice: true,
     keyTakeaways: [
       "CVMA says documented risks outweigh purported benefits; PHAC advises against raw pet food and treats.",
@@ -358,7 +360,7 @@ export const articles: readonly Article[] = [
       { label: "Pet food and treats", publisher: "Public Health Agency of Canada", url: "https://www.canada.ca/en/public-health/services/food-safety/pet-food-treats.html" },
       { label: "Raw meat-based diets for pets", publisher: "World Small Animal Veterinary Association", url: "https://wsava.org/wp-content/uploads/2021/04/Raw-Meat-Based-Diets-for-Pets_WSAVA-Global-Nutrition-Toolkit.pdf" }
     ],
-    needsVerification: ["Release approval pending; manufacturer location and distribution evidence checked October28,2026, not a product audit or endorsement."]
+    needsVerification: ["Owner-approved release 2026-10-29; manufacturer location and distribution evidence checked October28,2026, not a product audit or endorsement."]
   },
   {
     slug: "cat-pregnancy-signs-and-tests",
@@ -430,6 +432,7 @@ export const articles: readonly Article[] = [
     ],
     status: "published",
     publishedAt: "2026-10-25",
+    updatedAt: "2026-10-29",
     needsVerification: []
   },
   {
@@ -508,6 +511,7 @@ export const articles: readonly Article[] = [
     ],
     status: "published",
     publishedAt: "2026-10-25",
+    updatedAt: "2026-10-29",
     needsVerification: []
   },
   {
@@ -1772,6 +1776,7 @@ export const articles: readonly Article[] = [
     indexable: true,
     status: "published",
     publishedAt: "2026-09-06",
+    updatedAt: "2026-10-29",
     veterinaryNotice: true,
     keyTakeaways: ["CVMA supports spaying or neutering most cats not intended for breeding by five months.", "There is no universal dog surgery age; discuss breed, size, sex, health and household circumstances.", "Plan how to prevent mating while waiting, compare written estimates and prepare for recovery.", "Surgery is not a guaranteed treatment for behaviour problems."],
     relatedSlugs: [
