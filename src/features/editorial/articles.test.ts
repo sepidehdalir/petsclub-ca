@@ -419,7 +419,7 @@ const OCTOBER_25_PUBLICATIONS = ["cat-pregnancy-signs-and-tests", "dog-pregnancy
 const OCTOBER_18_PUBLICATIONS = ["choosing-dog-boots-in-canada", "choosing-a-cat-scratching-post-in-canada"];
 const OCTOBER_18_REVISIONS = ["winter-dog-care-in-canada", "indoor-cat-enrichment-canadian-homes"];
 function expectedRevisionDate(slug: string) {
-  return OCTOBER_29_REVISIONS.includes(slug) ? "2026-10-29" : slug === "pet-emergency-preparedness-canada" ? "2026-10-28" : slug === "puppy-socialisation-checklist" ? "2026-10-26" : slug === "winter-dog-care-in-canada" ? "2026-10-25" : slug === "parasite-prevention-for-pets-in-canada" ? "2026-10-24" : slug === "indoor-cat-enrichment-canadian-homes" ? "2026-10-23" : slug === "cost-of-owning-a-cat-in-canada" ? "2026-10-22" : slug === "pet-licensing-across-canada" ? "2026-10-21" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
+  return slug === "reading-a-canadian-pet-food-label" ? "2026-10-30" : OCTOBER_29_REVISIONS.includes(slug) ? "2026-10-29" : slug === "pet-emergency-preparedness-canada" ? "2026-10-28" : slug === "puppy-socialisation-checklist" ? "2026-10-26" : slug === "winter-dog-care-in-canada" ? "2026-10-25" : slug === "parasite-prevention-for-pets-in-canada" ? "2026-10-24" : slug === "indoor-cat-enrichment-canadian-homes" ? "2026-10-23" : slug === "cost-of-owning-a-cat-in-canada" ? "2026-10-22" : slug === "pet-licensing-across-canada" ? "2026-10-21" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
 }
 function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_16_PUBLICATIONS, ...OCTOBER_17_PUBLICATIONS, ...OCTOBER_18_PUBLICATIONS, ...OCTOBER_25_PUBLICATIONS, ...OCTOBER_29_PUBLICATIONS, "choosing-a-dog-harness-in-canada"]; }
 
@@ -492,7 +492,7 @@ describe("article publication dates", () => {
     expect(dates).toHaveLength(38);
     expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-25", "2026-10-29"]));
     const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
-    expect(revisions).toEqual(["2026-10-29", "2026-10-29", "2026-10-25", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-24", "2026-10-29", "2026-10-21", "2026-10-26", "2026-10-28"]);
+    expect(revisions).toEqual(["2026-10-29", "2026-10-29", "2026-10-25", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-24", "2026-10-29", "2026-10-21", "2026-10-26", "2026-10-28", "2026-10-30"]);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
   });
 
@@ -1409,6 +1409,27 @@ describe("Batch A — Canadian legal and regulatory evidence", () => {
     expect(b).toMatch(/accurate, not misleading/i);
   });
 
+  it("keeps food-label summaries as qualified as the body and preserves the existing URL", () => {
+    const article = findArticle("reading-a-canadian-pet-food-label")!;
+    const summary = [article.deck, article.metaDescription, ...(article.keyTakeaways ?? [])].join(" ");
+    expect(summary).not.toMatch(/pre-cooking|not defined terms in Canadian law|No Canadian (?:federal )?body/);
+    expect(article.publishedAt).toBe("2026-09-06");
+    expect(article.updatedAt).toBe("2026-10-30");
+    expect(article.indexable).toBe(true);
+    expect(article.status).toBe("published");
+    const b = body(article.slug);
+    expect(b).toMatch(/Invented label examples/);
+    expect(b).toMatch(/not exact nutrient measurements/);
+    expect(b).toContain("26.7%");
+    expect(b).toContain("40.0%");
+    expect(b).toMatch(/Higher protein is not automatically better/);
+    expect(b).toMatch(/CAD 2 per day and 30 days per bag/);
+    expect(b).toMatch(/does not determine a pet's portion/);
+    expect(b).not.toContain("/guides/senior-dogs-and-cats");
+    expect(sourceUrls(article.slug)).toMatch(/merckvetmanual/);
+    expect(sourceUrls(article.slug)).toMatch(/wsava/);
+  });
+
   it("never calls AAFCO a Canadian regulator", () => {
     const b = body("reading-a-canadian-pet-food-label");
     expect(b).toMatch(/Association of American Feed Control Officials/);
@@ -1469,7 +1490,9 @@ describe("Batch A — Canadian legal and regulatory evidence", () => {
       }
       // Official domains only — no blog or aggregator crept in.
       for (const url of (articles.find((a) => a.slug === slug)!.sources ?? []).map((x) => x.url)) {
-        expect(url, `${slug}: ${url}`).toMatch(/\.ca\/|\.gc\.ca|canada\.ca|canadianveterinarians\.net/);
+        const officialDomain = /\.ca\/|\.gc\.ca|canada\.ca|canadianveterinarians\.net/;
+        const labelAuthorities = ["wsava.org", "www.merckvetmanual.com", "www.aafco.org"];
+        expect(officialDomain.test(url) || (slug === "reading-a-canadian-pet-food-label" && labelAuthorities.includes(new URL(url).hostname)), `${slug}: ${url}`).toBe(true);
       }
     }
   });
