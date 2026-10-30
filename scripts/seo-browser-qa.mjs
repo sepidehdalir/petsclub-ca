@@ -32,7 +32,7 @@ while (Date.now() < deadline) {
 }
 assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
-const routes = ['/guides/dog-trainers-greater-vancouver', '/guides/raw-pet-food-canada-risks-nutrition', '/guides/spaying-and-neutering-in-canada', '/guides/pet-emergency-preparedness-canada', '/guides/puppy-socialisation-checklist', '/guides/cat-pregnancy-signs-and-tests', '/guides/dog-pregnancy-signs-and-tests', '/guides/parasite-prevention-for-pets-in-canada', '/kitchen', '/kitchen/soft-carrot-mash-for-dogs', '/kitchen/sweet-potato-spoonfuls-for-dogs', '/kitchen/plain-poached-chicken-for-dogs-and-cats', '/kitchen/plain-egg-crumbles-for-dogs-and-cats', '/guides/pet-licensing-across-canada', '/guides/cost-of-owning-a-dog-in-canada', '/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
+const routes = ['/guides/reading-a-canadian-pet-food-label', '/guides/dog-trainers-greater-vancouver', '/guides/raw-pet-food-canada-risks-nutrition', '/guides/spaying-and-neutering-in-canada', '/guides/pet-emergency-preparedness-canada', '/guides/puppy-socialisation-checklist', '/guides/cat-pregnancy-signs-and-tests', '/guides/dog-pregnancy-signs-and-tests', '/guides/parasite-prevention-for-pets-in-canada', '/kitchen', '/kitchen/soft-carrot-mash-for-dogs', '/kitchen/sweet-potato-spoonfuls-for-dogs', '/kitchen/plain-poached-chicken-for-dogs-and-cats', '/kitchen/plain-egg-crumbles-for-dogs-and-cats', '/guides/pet-licensing-across-canada', '/guides/cost-of-owning-a-dog-in-canada', '/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
 const sitemap = await (await fetch(new URL('/sitemap.xml', base))).text();
 const sitemapRoutes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => new URL(match[1]).pathname);
 const privateRoutes = ['/search', '/sign-in', '/sign-up', '/forgot-password', '/reset-password', '/auth/confirm', '/account', '/my-puppy'];
@@ -118,6 +118,17 @@ for (const scenario of scenarios) {
           assert.match(mainText, /cooked/);
           assert.match(mainText, /not a ranking, product test or endorsement/);
           result.rawFoodEvidence = 'Evidence and risks, five-province scope and no affiliate claim';
+        }
+        if (path === '/guides/reading-a-canadian-pet-food-label') {
+          assert.match(mainText, /two-food shopping worksheet/i);
+          assert.match(mainText, /26\.7%/);
+          assert.match(mainText, /40\.0%/);
+          assert.match(mainText, /not exact nutrient measurements/);
+          assert.match(mainText, /CAD 2 per day and 30 days per bag/);
+          assert.doesNotMatch(mainText, /Ingredient order is by pre-cooking weight|not defined terms in Canadian law/);
+          assert.equal(await page.locator('time[datetime="2026-10-30"]').count(), 1);
+          assert.equal(await page.locator('a[href="/guides/senior-dogs-and-cats"]').count(), 0);
+          result.foodLabelComparison = 'Qualified summaries, invented comparison math, no held-guide link';
         }
         if (path === '/guides/pet-emergency-preparedness-canada') {
           assert.match(mainText, /Is a 72-hour pet kit enough/);

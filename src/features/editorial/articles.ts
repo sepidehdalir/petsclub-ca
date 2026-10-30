@@ -2446,11 +2446,11 @@ export const articles: readonly Article[] = [
     section: "health",
     subcategory: "Nutrition",
     title: "How to Read a Canadian Pet Food Label",
-    deck: "No Canadian body sets nutritional standards for retail pet food or approves it before sale. Which parts of the label are actually load-bearing, and which words mean nothing here.",
+    deck: "Read adequacy and life-stage statements, compare wet and dry food carefully, and use a practical worksheet to check calories, cost and manufacturer information.",
     metaDescription:
-      "Pet food is not regulated in Canada the way you think. Who oversees what, which parts of the label matter, and why AAFCO is a US voluntary standard.",
+      "Read Canadian pet food labels, compare wet and dry food on a dry-matter basis, and check life stage, calories and daily cost before buying.",
     authorId: "pet-club-editorial",
-    readingMinutes: 8,
+    readingMinutes: 10,
     mediaId: "food-pouring-kibble",
     mediaAlt:
       "Dry food being poured from an unbranded paper bag into a bowl.",
@@ -2458,22 +2458,26 @@ export const articles: readonly Article[] = [
     indexable: true,
     status: "published",
     publishedAt: "2026-09-06",
+    updatedAt: "2026-10-30",
     veterinaryNotice: true,
     keyTakeaways: [
-      "No Canadian federal body sets nutritional standards for retail pet food or approves a formulation before sale.",
+      "A nutritional adequacy statement is not Canadian government approval of a product.",
       "CFIA covers imports, exports and animal by-products; Health Canada polices unsubstantiated health claims; the Competition Bureau requires a bilingual common name, metric net quantity and dealer address.",
       "Ingredient definitions come from AAFCO \u2014 an American voluntary body \u2014 and are recommended rather than required here.",
       "The nutritional adequacy statement and life stage is the most useful line on the bag and the one most people skim.",
-      "Ingredient order is by pre-cooking weight, so moisture and ingredient splitting both distort the list.",
-      "Guaranteed analysis is stated as fed, so wet and dry foods are not comparable until moisture is accounted for.",
-      "Premium, holistic and human-grade are not defined terms in Canadian law.",
+      "Ingredient order alone does not establish nutritional quality; moisture affects weight comparisons.",
+      "Wet and dry food need a common comparison basis; guaranteed minimums and maximums are not exact nutrient levels.",
+      "Marketing adjectives do not establish nutritional suitability; check adequacy, life stage and manufacturer evidence.",
     ],
     relatedSlugs: [
-      "senior-dogs-and-cats",
+      "pet-food-storage-container-original-bag",
       "cost-of-owning-a-dog-in-canada",
     ],
     relatedCategorySlugs: ["dog-food-and-nutrition", "cat-food-and-nutrition", "canadian-pet-products"],
     sources: [
+      { label: "Food-selection questions", publisher: "World Small Animal Veterinary Association", url: "https://wsava.org/wp-content/uploads/2021/04/Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf" },
+      { label: "Guaranteed analysis and dry-matter comparisons", publisher: "Merck Veterinary Manual", url: "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/dog-and-cat-foods" },
+      { label: "Nutritional adequacy and label statements (US context)", publisher: "AAFCO", url: "https://www.aafco.org/consumers/understanding-pet-food/reading-labels/" },
       {
         label:
           "Guide for the labelling and advertising of pet foods \u2014 the three mandatory items under the Consumer Packaging and Labelling Act, and ingredients in descending order by percentage of weight",
