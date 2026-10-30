@@ -1384,7 +1384,8 @@ describe("Batch A — Canadian legal and regulatory evidence", () => {
     expect(b).toMatch(/unsubstantiated health claims/i);
     expect(b).toMatch(/bilingual common name/i);
     // And the softened version of the exhaustive negative.
-    expect(b).toMatch(/None of those three is setting nutritional standards/i);
+    expect(b).toMatch(/not Canadian government approval of a diet/i);
+    expect(b).not.toMatch(/None of those three is setting nutritional standards/i);
     expect(b).not.toMatch(/There is no federal agency setting nutritional standards/i);
   });
 
