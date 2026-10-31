@@ -60,7 +60,10 @@ describe("October 28 evidence-led expansion", () => {
     expect(risks).toBeGreaterThanOrEqual(0);
     expect(directory).toBeGreaterThanOrEqual(0);
     expect(risks).toBeLessThan(directory);
-    for (const province of ["British Columbia", "Alberta", "Saskatchewan", "Manitoba", "Ontario", "Quebec", "Nova Scotia"]) expect(text).toContain(`### ${province}`);
+    for (const province of ["British Columbia", "Alberta", "Saskatchewan", "Manitoba", "Ontario", "Quebec", "Nova Scotia"]) {
+      const fragment = province.toLowerCase().replaceAll(" ", "-");
+      expect(text).toContain(`<h3 id="${fragment}" tabIndex={-1} style={{ scrollMarginTop: "6rem" }}>${province}</h3>`);
+    }
     expect(text).toContain('aria-label="Browse by province of published business location"');
     for (const fragment of ["british-columbia", "alberta", "saskatchewan", "manitoba", "ontario", "quebec", "nova-scotia"])
       expect(text).toContain(`href="#${fragment}"`);
