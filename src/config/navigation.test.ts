@@ -3,6 +3,8 @@ import { fileURLToPath } from "node:url";
 
 import { describe, expect, it } from "vitest";
 
+import { findArticle } from "@/features/editorial/articles";
+
 import {
   footerNavigation,
   headerNavigation,
@@ -55,6 +57,14 @@ describe("header navigation", () => {
     ]);
   });
 
+  it("takes resource readers directly to the relevant published money guides", () => {
+    const resources = footerNavigation.find((group) => group.title === "Resources");
+    expect(resources?.items.find((item) => item.label === "Pet insurance")?.href)
+      .toBe("/guides/pet-insurance-in-canada");
+    expect(resources?.items.find((item) => item.label === "Vet costs")?.href)
+      .toBe("/guides/what-veterinary-care-costs-in-canada");
+  });
+
   it("keeps every footer destination pointing somewhere real", () => {
     // Community category links are covered against the taxonomy elsewhere;
     // this checks the static pages the footer promises.
@@ -63,6 +73,11 @@ describe("header navigation", () => {
       .filter((item) => !item.href.startsWith("/community/"));
 
     for (const item of staticLinks) {
+      if (item.href.startsWith("/guides/")) {
+        const article = findArticle(item.href.slice("/guides/".length));
+        expect(article?.status, `footer: ${item.label} must link to a published guide`).toBe("published");
+        continue;
+      }
       const page = fileURLToPath(new URL(`../app${item.href}/page.tsx`, import.meta.url));
       expect(existsSync(page), `footer: ${item.label} -> ${item.href} has no page`).toBe(true);
     }

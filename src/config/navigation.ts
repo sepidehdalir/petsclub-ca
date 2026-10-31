@@ -93,8 +93,8 @@ export const footerNavigation: readonly NavGroup[] = [
     items: [
       { label: "Canada guides", href: "/guides" },
       { label: "Cat enrichment comparison", href: "/compare/catit-digger-vs-wave-circuit" },
-      { label: "Pet insurance", href: "/community/pet-insurance" },
-      { label: "Vet costs", href: "/community/vet-costs" },
+      { label: "Pet insurance", href: "/guides/pet-insurance-in-canada" },
+      { label: "Vet costs", href: "/guides/what-veterinary-care-costs-in-canada" },
       { label: "Pet-friendly Canada", href: "/community/pet-friendly-canada" },
     ],
   },
