@@ -5,6 +5,12 @@ import {
   type Article,
 } from "@/features/editorial/articles";
 
+/** Treat punctuation as word boundaries without discarding Unicode letters/numbers. */
+function normalizeSearchText(value: string): string {
+  return value.normalize("NFKC").toLocaleLowerCase("en-CA")
+    .replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+}
+
 /**
  * Lightweight server-side search of the existing, editorially approved article
  * registry. A query never surfaces an unpublished draft.
@@ -13,21 +19,18 @@ import {
  * planned full-text/community search service has shipped.
  */
 export function searchPublishedGuides(rawQuery: string, limit = 24): Article[] {
-  const query = rawQuery.trim().slice(0, 120).toLocaleLowerCase("en-CA");
+  const query = normalizeSearchText(rawQuery.trim().slice(0, 120));
   const terms = [...new Set(query.split(/\s+/).filter(Boolean))];
 
   if (terms.length === 0) return [];
 
   return publishedArticles()
     .map((article) => {
-      const title = article.title.toLocaleLowerCase("en-CA");
-      const deck = articleDescription(article).toLocaleLowerCase("en-CA");
-      const tags = article.tags.join(" ").replaceAll("-", " ").toLocaleLowerCase("en-CA");
-      const section = getArticleSection(article.section).name.toLocaleLowerCase("en-CA");
-      const categories = (article.relatedCategorySlugs ?? [])
-        .join(" ")
-        .replaceAll("-", " ")
-        .toLocaleLowerCase("en-CA");
+      const title = normalizeSearchText(article.title);
+      const deck = normalizeSearchText(articleDescription(article));
+      const tags = normalizeSearchText(article.tags.join(" "));
+      const section = normalizeSearchText(getArticleSection(article.section).name);
+      const categories = normalizeSearchText((article.relatedCategorySlugs ?? []).join(" "));
       const searchable = [title, deck, tags, section, categories].join(" ");
       if (!terms.every((term) => searchable.includes(term))) return null;
       const score = terms.reduce(
