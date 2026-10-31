@@ -50,7 +50,7 @@ function ChecklistState({ items, stageSlug, stageLabel, scope }: StageChecklistP
   return (
     <section aria-labelledby="stage-checklist-heading"
       className="scroll-mt-28 rounded-card border border-pine-200 bg-pine-50/60 px-5 py-6 sm:px-7">
-      <h2 id="stage-checklist-heading" className="font-sans text-label uppercase text-pine-800">
+      <h2 id="stage-checklist-heading" tabIndex={-1} className="scroll-mt-28 font-sans text-label uppercase text-pine-800">
         This week&rsquo;s checklist
       </h2>
       <p className="mt-3 text-body-sm text-foreground-muted">

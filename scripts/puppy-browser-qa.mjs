@@ -11,15 +11,24 @@ export async function checkPuppyJourney(context, base, out, name) {
     await page.goto(route);
     await page.evaluate(() => localStorage.clear());
     await page.reload();
+    await page.getByRole('link', { name: 'Open this stage’s checklist', exact: true }).click();
+    const anchorBounds = await page.locator('#stage-checklist-heading').evaluate(node => {
+      const blockers = [...document.querySelectorAll('header')].filter(header => ['sticky', 'fixed'].includes(getComputedStyle(header).position));
+      return { top: node.getBoundingClientRect().top, bottom: Math.max(0, ...blockers.map(header => header.getBoundingClientRect().bottom)) };
+    });
+    assert.ok(anchorBounds.top >= anchorBounds.bottom - 1, 'checklist jump target must clear sticky header');
     const box = page.getByRole('checkbox').first();
     await box.focus();
     await page.keyboard.press('Space');
     await page.waitForFunction(() => document.querySelector('input[type="checkbox"]')?.checked);
+    await page.getByText('Saved on this device.', { exact: true }).waitFor();
     assert.match(await page.locator('main').innerText(), /1 of .* marked done/);
     await page.reload();
+    await page.waitForFunction(() => document.querySelector('input[type="checkbox"]')?.checked);
     assert.equal(await box.isChecked(), true, 'tick survives reload');
     const other = await context.newPage();
     await other.goto(route);
+    await other.waitForFunction(() => document.querySelector('input[type="checkbox"]')?.checked);
     assert.equal(await other.getByRole('checkbox').first().isChecked(), true);
     await other.getByRole('checkbox').first().uncheck();
     await page.waitForFunction(() => !document.querySelector('input[type="checkbox"]')?.checked);
@@ -54,6 +63,8 @@ export async function checkPuppyJourney(context, base, out, name) {
     await page.getByRole('button', { name: 'Copy public link', exact: true }).click();
     await page.getByText('Copy is unavailable. Select and copy the public link in the field below.', { exact: true }).waitFor();
     assert.equal(await page.getByLabel('Public link — no birth date, breed, province or name').inputValue(), shares[0].url);
+    const expandedWidth = await page.evaluate(() => ({ client: document.documentElement.clientWidth, scroll: document.documentElement.scrollWidth }));
+    assert.ok(expandedWidth.scroll <= expandedWidth.client + 1, 'expanded card must not cause horizontal overflow');
     await page.screenshot({ path: join(out, `${name}-puppy-checklist.png`), fullPage: true });
     page.once('dialog', dialog => dialog.dismiss());
     await page.getByRole('button', { name: 'Clear this checklist', exact: true }).click();
@@ -79,9 +90,15 @@ export async function checkPuppyJourney(context, base, out, name) {
       localStorage.setItem('petclub.journey-checklist.v1.12-weeks:guide', '{"version":1,"done":["example"]}');
       localStorage.setItem('qa-unrelated', 'keep');
     });
+    const profileTab = await context.newPage();
+    await profileTab.goto(new URL('/puppy', base).href);
+    const otherResume = profileTab.getByRole('link', { name: 'Continue your saved Journey', exact: true });
+    await otherResume.waitFor();
     page.once('dialog', dialog => dialog.accept());
     await page.getByRole('button', { name: 'Clear saved Journey', exact: true }).click();
     await resume.waitFor({ state: 'hidden' });
+    await otherResume.waitFor({ state: 'hidden' });
+    await profileTab.close();
     assert.equal(await page.evaluate(() => localStorage.getItem('petclub.puppy.v1')), null);
     assert.equal(await page.evaluate(() => Object.keys(localStorage).some(key => key.startsWith('petclub.journey-checklist.v1.'))), false);
     assert.equal(await page.evaluate(() => localStorage.getItem('qa-unrelated')), 'keep');
@@ -97,5 +114,8 @@ export async function checkPuppyJourney(context, base, out, name) {
     assert.ok(width.scroll <= width.client + 1, 'no horizontal overflow');
     await page.evaluate(() => localStorage.clear());
     return 'keyboard, reload, cross-tab, clear/cancel, local resume, old schema, denied storage, PNG bytes, cancelled native share and clipboard fallback passed; no external share';
+  } catch (error) {
+    await page.screenshot({ path: join(out, `${name}-puppy-failure.png`), fullPage: true }).catch(() => {});
+    throw error;
   } finally { await page.close(); }
 }
