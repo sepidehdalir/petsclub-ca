@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { mkdir, writeFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { checkPuppyJourney } from './puppy-browser-qa.mjs';
 
 // QA runs only against an isolated, credential-free CI build, never production.
 const base = new URL(process.env.QA_BASE_URL ?? 'http://127.0.0.1:3000');
@@ -70,6 +71,8 @@ for (const scenario of scenarios) {
       return route.continue();
     });
     const selectedRoutes = ['chromium-small', 'chromium-desktop'].includes(scenario.name) ? allRoutes : representativeRoutes;
+    const puppyResult = await checkPuppyJourney(context, base, out, scenario.name);
+    report.cases.push({ browser: scenario.name, path: '(puppy interactive journey)', passed: true, evidence: puppyResult });
     for (const path of selectedRoutes) {
       const page = await context.newPage();
       page.setDefaultTimeout(12000);

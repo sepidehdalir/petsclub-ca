@@ -13,6 +13,7 @@
  */
 
 const KEY = "petclub.puppy.v1";
+const CHANGE_EVENT = "petclub:puppy-change";
 
 export interface StoredPuppy {
   /** `YYYY-MM-DD`, as the date input produces it. */
@@ -58,10 +59,14 @@ export function readStoredPuppyRaw(): string | null {
   }
 }
 
-/** Subscribes to cross-tab writes. Same-tab writes do not need to notify. */
+/** Keep the form and resume link current after same-tab and cross-tab changes. */
 export function subscribeToStoredPuppy(onChange: () => void): () => void {
   window.addEventListener("storage", onChange);
-  return () => window.removeEventListener("storage", onChange);
+  window.addEventListener(CHANGE_EVENT, onChange);
+  return () => {
+    window.removeEventListener("storage", onChange);
+    window.removeEventListener(CHANGE_EVENT, onChange);
+  };
 }
 
 export function parseStoredPuppy(raw: string | null): StoredPuppy | null {
@@ -97,13 +102,18 @@ export function writeStoredPuppy(puppy: StoredPuppy): void {
   } catch {
     // Storage unavailable. The Journey still works for this session via the
     // query string, which is why this is not surfaced as an error.
+    return;
   }
+  window.dispatchEvent(new Event(CHANGE_EVENT));
 }
 
-export function clearStoredPuppy(): void {
+export function clearStoredPuppy(): boolean {
   try {
     window.localStorage.removeItem(KEY);
   } catch {
     // Nothing to do, and nothing worth telling the reader.
+    return false;
   }
+  window.dispatchEvent(new Event(CHANGE_EVENT));
+  return true;
 }
