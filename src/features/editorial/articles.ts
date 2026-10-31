@@ -348,6 +348,7 @@ export const articles: readonly Article[] = [
     indexable: true,
     status: "published",
     publishedAt: "2026-10-29",
+    updatedAt: "2026-10-31",
     veterinaryNotice: true,
     keyTakeaways: [
       "CVMA says documented risks outweigh purported benefits; PHAC advises against raw pet food and treats.",

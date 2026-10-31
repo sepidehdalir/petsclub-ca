@@ -419,6 +419,7 @@ const OCTOBER_25_PUBLICATIONS = ["cat-pregnancy-signs-and-tests", "dog-pregnancy
 const OCTOBER_18_PUBLICATIONS = ["choosing-dog-boots-in-canada", "choosing-a-cat-scratching-post-in-canada"];
 const OCTOBER_18_REVISIONS = ["winter-dog-care-in-canada", "indoor-cat-enrichment-canadian-homes"];
 function expectedRevisionDate(slug: string) {
+  if (slug === "raw-pet-food-canada-risks-nutrition") return "2026-10-31";
   return slug === "reading-a-canadian-pet-food-label" ? "2026-10-30" : OCTOBER_29_REVISIONS.includes(slug) ? "2026-10-29" : slug === "pet-emergency-preparedness-canada" ? "2026-10-28" : slug === "puppy-socialisation-checklist" ? "2026-10-26" : slug === "winter-dog-care-in-canada" ? "2026-10-25" : slug === "parasite-prevention-for-pets-in-canada" ? "2026-10-24" : slug === "indoor-cat-enrichment-canadian-homes" ? "2026-10-23" : slug === "cost-of-owning-a-cat-in-canada" ? "2026-10-22" : slug === "pet-licensing-across-canada" ? "2026-10-21" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
 }
 function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_16_PUBLICATIONS, ...OCTOBER_17_PUBLICATIONS, ...OCTOBER_18_PUBLICATIONS, ...OCTOBER_25_PUBLICATIONS, ...OCTOBER_29_PUBLICATIONS, "choosing-a-dog-harness-in-canada"]; }
@@ -492,7 +493,7 @@ describe("article publication dates", () => {
     expect(dates).toHaveLength(38);
     expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-25", "2026-10-29"]));
     const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
-    expect(revisions).toEqual(["2026-10-29", "2026-10-29", "2026-10-25", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-24", "2026-10-29", "2026-10-21", "2026-10-26", "2026-10-28", "2026-10-30"]);
+    expect(revisions).toEqual(["2026-10-31", "2026-10-29", "2026-10-29", "2026-10-25", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-24", "2026-10-29", "2026-10-21", "2026-10-26", "2026-10-28", "2026-10-30"]);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
   });
 
