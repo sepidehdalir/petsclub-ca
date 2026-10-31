@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/shared/page-header";
 import { Card, CardBody } from "@/components/ui/card";
 import { Container, Section, SectionHeading } from "@/components/ui/layout-primitives";
 import { OnboardingForm } from "@/features/puppy/components/onboarding-form";
+import { SavedJourneyLink } from "@/features/puppy/components/saved-journey-link";
 import { JourneyTimeline } from "@/features/puppy/components/journey-timeline";
 import { JOURNEY_HUB_INDEXABLE, stages } from "@/features/puppy/stages";
 import { createMetadata } from "@/lib/seo/metadata";
@@ -72,6 +73,7 @@ export default function PuppyJourneyPage() {
                 <div className="mt-8">
                   <OnboardingForm />
                 </div>
+                <SavedJourneyLink />
               </div>
             </div>
 
