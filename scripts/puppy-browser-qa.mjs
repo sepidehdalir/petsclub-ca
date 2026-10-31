@@ -8,7 +8,16 @@ export async function checkPuppyJourney(context, base, out, name) {
   page.setDefaultTimeout(12000);
   const route = new URL('/puppy/12-weeks', base).href;
   try {
-    await page.goto(route);
+    // Hold app JavaScript to inspect the actual server-rendered control, not a synthetic ready flag.
+    let releaseScripts;
+    const scriptsReady = new Promise(resolve => { releaseScripts = resolve; });
+    await page.route('**/_next/static/**/*.js', async request => { await scriptsReady; await request.continue(); });
+    await page.goto(route, { waitUntil: 'commit' });
+    await page.getByRole('checkbox').first().waitFor({ state: 'visible' });
+    assert.equal(await page.getByRole('checkbox').first().isDisabled(), true, 'pre-hydration controls cannot accept lost ticks');
+    releaseScripts();
+    await page.waitForFunction(() => document.querySelector('input[type="checkbox"]')?.disabled === false);
+    await page.unroute('**/_next/static/**/*.js');
     await page.evaluate(() => localStorage.clear());
     await page.reload();
     await page.getByRole('link', { name: 'Open this stage’s checklist', exact: true }).click();
@@ -26,10 +35,12 @@ export async function checkPuppyJourney(context, base, out, name) {
     await page.reload();
     await page.waitForFunction(() => document.querySelector('input[type="checkbox"]')?.checked);
     assert.equal(await box.isChecked(), true, 'tick survives reload');
+    assert.match(await page.locator('main').innerText(), /1 of .* marked done/);
     const other = await context.newPage();
     await other.goto(route);
     await other.waitForFunction(() => document.querySelector('input[type="checkbox"]')?.checked);
     assert.equal(await other.getByRole('checkbox').first().isChecked(), true);
+    assert.match(await other.locator('main').innerText(), /1 of .* marked done/);
     await other.getByRole('checkbox').first().uncheck();
     await page.waitForFunction(() => !document.querySelector('input[type="checkbox"]')?.checked);
     await other.close();
@@ -72,6 +83,7 @@ export async function checkPuppyJourney(context, base, out, name) {
     page.once('dialog', dialog => dialog.accept());
     await page.getByRole('button', { name: 'Clear this checklist', exact: true }).click();
     await page.reload();
+    await page.waitForFunction(() => document.querySelector('input[type="checkbox"]')?.disabled === false);
     assert.equal(await box.isChecked(), false);
     await page.evaluate(() => {
       const d = new Date(); d.setDate(d.getDate() - 90);
@@ -104,11 +116,13 @@ export async function checkPuppyJourney(context, base, out, name) {
     assert.equal(await page.evaluate(() => localStorage.getItem('qa-unrelated')), 'keep');
     await page.evaluate(() => localStorage.setItem('petclub.journey-checklist.v1.12-weeks:guide', '{"version":999,"done":["fake"]}'));
     await page.goto(route);
+    await page.waitForFunction(() => document.querySelector('input[type="checkbox"]')?.disabled === false);
     assert.equal(await box.isChecked(), false, 'unsupported old schema fails closed');
     await page.evaluate(() => { Storage.prototype.setItem = () => { throw new DOMException('Blocked', 'SecurityError'); }; });
     await box.check();
     await page.getByText('Storage is unavailable. These ticks are temporary and may disappear when you leave or refresh.', { exact: true }).waitFor();
     await page.reload();
+    await page.waitForFunction(() => document.querySelector('input[type="checkbox"]')?.disabled === false);
     assert.equal(await box.isChecked(), false, 'failed storage was not persisted');
     const width = await page.evaluate(() => ({ client: document.documentElement.clientWidth, scroll: document.documentElement.scrollWidth }));
     assert.ok(width.scroll <= width.client + 1, 'no horizontal overflow');

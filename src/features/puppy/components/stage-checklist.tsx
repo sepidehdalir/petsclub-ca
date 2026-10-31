@@ -9,6 +9,10 @@ import {
 } from "@/features/puppy/progress";
 import { ProgressCard } from "@/features/puppy/components/progress-card";
 
+const subscribeHydration = () => () => {};
+const clientReady = () => true;
+const serverReady = () => false;
+
 export interface StageChecklistProps {
   items: readonly ChecklistItem[];
   stageSlug: string;
@@ -24,6 +28,7 @@ export function StageChecklist(props: StageChecklistProps) {
 
 function ChecklistState({ items, stageSlug, stageLabel, scope }: StageChecklistProps & { scope: string }) {
   const id = useId();
+  const ready = useSyncExternalStore(subscribeHydration, clientReady, serverReady);
   const getSnapshot = useCallback(() => readChecklistRaw(scope), [scope]);
   const raw = useSyncExternalStore(subscribeToChecklist, getSnapshot, () => null);
   const allowed = items.map((item) => item.id);
@@ -60,11 +65,12 @@ function ChecklistState({ items, stageSlug, stageLabel, scope }: StageChecklistP
       <p className="mt-3 text-body-sm font-medium text-pine-900">{done.length} of {items.length} marked done</p>
       <progress className="mt-2 h-2 w-full accent-pine-700" value={done.length} max={Math.max(1, items.length)}
         aria-label={`${done.length} of ${items.length} checklist items marked done`} />
+      {!ready ? <p role="status" className="mt-2 text-body-sm">Loading saved ticks. JavaScript is needed to use this checklist.</p> : null}
       <ul className="mt-4 space-y-3.5">
         {items.map((item, index) => (
           <li key={item.id}>
             <label htmlFor={`${id}-${index}`} className="flex min-h-11 cursor-pointer items-start gap-3 py-1">
-              <input id={`${id}-${index}`} type="checkbox" checked={done.includes(item.id)}
+              <input id={`${id}-${index}`} type="checkbox" disabled={!ready} checked={done.includes(item.id)}
                 onChange={(event) => toggle(item.id, event.target.checked)}
                 className="mt-1 h-5 w-5 shrink-0 accent-pine-700"
                 aria-describedby={item.detail ? `${id}-${index}-detail` : undefined} />
