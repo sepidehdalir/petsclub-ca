@@ -16,7 +16,7 @@ describe("October 28 evidence-led expansion", () => {
       const article = findArticle(slug)!;
       expect(article.status).toBe("published");
       expect(articleRobotsPolicy(article)).toBe("index");
-      expect(articlePublicationDates(article)).toEqual({ datePublished: "2026-10-29", dateModified: "2026-10-29" });
+      expect(articlePublicationDates(article)).toEqual({ datePublished: "2026-10-29", dateModified: slug === "raw-pet-food-canada-risks-nutrition" ? "2026-10-31" : "2026-10-29" });
       expect(buildSitemapEntries().some(entry => new URL(entry.url).pathname === `/guides/${slug}`)).toBe(true);
     }
   });
@@ -60,7 +60,17 @@ describe("October 28 evidence-led expansion", () => {
     expect(risks).toBeGreaterThanOrEqual(0);
     expect(directory).toBeGreaterThanOrEqual(0);
     expect(risks).toBeLessThan(directory);
-    for (const province of ["British Columbia", "Alberta", "Saskatchewan", "Ontario", "Quebec"]) expect(text).toContain(`### ${province}`);
+    for (const province of ["British Columbia", "Alberta", "Saskatchewan", "Manitoba", "Ontario", "Quebec", "Nova Scotia"]) expect(text).toContain(`### ${province}`);
+    expect(text).toContain('aria-label="Browse by province of published business location"');
+    for (const fragment of ["british-columbia", "alberta", "saskatchewan", "manitoba", "ontario", "quebec", "nova-scotia"])
+      expect(text).toContain(`href="#${fragment}"`);
+    expect(text).toContain("https://perfectlyraw.ca/faqs/");
+    expect(text).toContain("https://perfectlyraw.ca/distributors-store-locations/");
+    expect(text).toContain("https://www.totallyrawdogfood.com/our-story/");
+    expect(text).toContain("https://www.totallyrawdogfood.com/where-to-buy/");
+    expect(text).toContain("business address alone does not confirm a factory location");
+    expect(text).toContain("Health evidence checked October 28, 2026");
+    expect(text).toContain("October 31, 2026");
     expect(text).toContain("not tracked affiliate links");
     expect(text).toContain("cooked");
     expect(text).toContain("nutritional");
