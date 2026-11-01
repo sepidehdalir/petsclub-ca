@@ -39,7 +39,7 @@ describe("GSC evidence-led content changes stay within review boundaries", () =>
     );
     expect(licensing.sources?.some((source) => source.publisher === "Government of Quebec"))
       .toBe(true);
-    expect(licensing.keyTakeaways.join(" ")).toContain("Quebec");
+    expect((licensing.keyTakeaways ?? []).join(" ")).toContain("Quebec");
   });
 
   it("does not present Ottawa's rabies-vaccination age as a licence-registration threshold", () => {
@@ -47,7 +47,7 @@ describe("GSC evidence-led content changes stay within review boundaries", () =>
     expect(body).toContain("three-month **rabies-vaccination** requirement");
     expect(body).toContain("not be treated as a documented licence-registration age threshold");
     expect(body).not.toContain("Three months in Calgary, Ottawa and Vancouver");
-    expect(licensing.keyTakeaways.join(" ")).not.toContain("three months in Calgary, Ottawa");
+    expect((licensing.keyTakeaways ?? []).join(" ")).not.toContain("three months in Calgary, Ottawa");
   });
 
   it("adds an actionable non-ranked cat carrier decision worksheet without inventing tests or offers", () => {
