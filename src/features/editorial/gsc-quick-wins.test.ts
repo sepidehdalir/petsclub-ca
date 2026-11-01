@@ -58,6 +58,6 @@ describe("GSC evidence-led content changes stay within review boundaries", () =>
     expect(body).toContain("The airline requires a flexible, soft-sided carrier.");
     expect(body).toContain("We have not tested these products");
     expect(body).toContain("No affiliate relationship or hands-on product testing is claimed");
-    expect(body).not.toMatch(/amzn\\.to|[?&]tag=/);
+    expect(body).not.toMatch(/amzn[.]to|[?&]tag=/);
   });
 });
