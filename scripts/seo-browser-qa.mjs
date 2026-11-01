@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { mkdir, writeFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { checkKitchenPrint } from './kitchen-print-qa.mjs';
 import { checkPuppyJourney } from './puppy-browser-qa.mjs';
 
 // QA runs only against an isolated, credential-free CI build, never production.
@@ -70,6 +71,10 @@ for (const scenario of scenarios) {
       if (url.origin !== base.origin || !['GET', 'HEAD'].includes(request.method())) return route.abort();
       return route.continue();
     });
+    if (scenario.name === 'chromium-desktop') {
+      const evidence = await checkKitchenPrint(context, base, out);
+      report.cases.push({ browser: scenario.name, path: '(kitchen print and PDF)', passed: true, evidence });
+    }
     const selectedRoutes = ['chromium-small', 'chromium-desktop'].includes(scenario.name) ? allRoutes : representativeRoutes;
     const puppyResult = await checkPuppyJourney(context, base, out, scenario.name);
     report.cases.push({ browser: scenario.name, path: '(puppy interactive journey)', passed: true, evidence: puppyResult });

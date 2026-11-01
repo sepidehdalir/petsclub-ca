@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { recipes, findRecipe } from "./recipes";
 import { buildSitemapEntries } from "@/lib/seo/sitemap";
@@ -25,5 +26,18 @@ describe("Pet Kitchen editorial guardrails", () => {
     expect(paths).toContain("/kitchen");
     for (const recipe of recipes) expect(paths).toContain(`/kitchen/${recipe.slug}`);
     expect(findRecipe("invented-recipe")).toBeUndefined();
+  });
+});
+
+
+describe("Pet Kitchen print safety", () => {
+  it("keeps the batch warning separate from decorative image captions", () => {
+    const page = readFileSync("src/app/kitchen/[slug]/page.tsx", "utf8");
+    const css = readFileSync("src/features/kitchen/kitchen.module.css", "utf8");
+    expect(page).toContain('<p className={styles.preparationNote}>Makes a preparation batch, not one serving.');
+    expect(page).toContain('Recipe page: https://thepetclub.ca/kitchen/{recipe.slug}');
+    expect(css).toContain('.preparationNote{display:block;color:#111;font-size:10pt}');
+    expect(css).toContain('.sources a::after{content:" (" attr(href) ")";');
+    expect(page).toContain('No invented calorie values, ratings or tested-recipe claims.');
   });
 });

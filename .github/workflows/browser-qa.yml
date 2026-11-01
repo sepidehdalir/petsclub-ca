@@ -6,6 +6,7 @@ on:
     paths:
       - 'src/**'
       - 'scripts/seo-browser-qa.mjs'
+      - 'scripts/kitchen-print-qa.mjs'
       - '.github/workflows/browser-qa.yml'
       - 'next.config.ts'
       - 'package*.json'
