@@ -2,7 +2,7 @@
 **Prepared:** 2026-11-01 | **State:** editorial and outreach DRAFT; not approval to publish or send.
 
 ## Provenance and reporting limits
-- First-party source: [official Search Console-to-Sheets export](https://docs.google.com/spreadsheets/d/1ipsD0vgGjRNzpNJcX6VFPvwso0fDVz9Tphd1OJdSKoU/edit), `sc-domain:thepetclub.ca`, Web search. Original `Chart`, `Queries`, `Pages`, `Countries`, `Devices` and `Filters` tabs are the **2026-10-03 through 2026-10-30** 28-day export.
+- First-party source: owner's access-controlled official Search Console-to-Sheets export (spreadsheet identifier intentionally omitted from this public repository), `sc-domain:thepetclub.ca`, Web search. Original `Chart`, `Queries`, `Pages`, `Countries`, `Devices` and `Filters` tabs are the **2026-10-03 through 2026-10-30** 28-day export.
 - Whole-property totals: **31 clicks, 3,936 impressions, 0.79% CTR, average position 19.8**. November 1 report contains no proof all recent days are fully settled; allow source corrections and a 2–3-day reporting delay.
 - Page Indexing report snapshot noted in `SEO review` was **updated 2026-10-22**: **66 indexed / 32 not indexed**. These are URL counts reported by Google, not a count of sitemap URLs, pages searched, or impressions. Five excluded-by-noindex and one indexed-though-robots-blocked case are separately recorded. The snapshot is not refreshed by the performance add-on.
 - Query data suppresses anonymized/rare searches and query aggregations do not necessarily sum to whole-property totals. A **page-level average position is NOT the ranking of a target keyword**. The 2026-10-30 date tab is a single day's Query×Page data, not a substitute for a full 28-day Query×Page export.
