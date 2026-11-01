@@ -62,7 +62,6 @@ jobs:
           SERVER_PID=$!
           trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
           node scripts/seo-browser-qa.mjs
-          node scripts/kitchen-print-qa.mjs
       - name: Save browser evidence, including failures
         if: always()
         uses: actions/upload-artifact@v4

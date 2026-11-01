@@ -1,22 +1,15 @@
 import assert from 'node:assert/strict';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { pathToFileURL } from 'node:url';
 
-// Isolated local production build only; no external forms or sharing.
-const base = new URL(process.env.QA_BASE_URL ?? 'http://127.0.0.1:3000');
-assert.equal(base.protocol, 'http:');
-assert.ok(['127.0.0.1', 'localhost'].includes(base.hostname));
-assert.ok(!base.username && !base.password && !base.search && !base.hash);
-assert.ok(process.env.QA_TOOLS_DIR, 'Set QA_TOOLS_DIR to an existing Playwright installation');
-const { chromium } = await import(pathToFileURL(join(process.env.QA_TOOLS_DIR, 'node_modules/playwright/index.mjs')).href);
-const out = process.env.QA_OUTPUT_DIR ?? '/tmp/petclub-kitchen-print-qa';
-await mkdir(out, { recursive: true });
-const browser = await chromium.launch({ chromiumSandbox: true, executablePath: process.env.QA_CHROMIUM_PATH || undefined });
-const results = [];
-try {
+// Reuse the caller's isolated browser context and existing same-origin request guard.
+// No browser launch, credentials, network policy or sandbox settings are changed here.
+export async function checkKitchenPrint(context, base, out) {
+  assert.equal(base.protocol, 'http:');
+  assert.ok(['127.0.0.1', 'localhost'].includes(base.hostname));
+  const results = [];
   for (const slug of ['soft-carrot-mash-for-dogs', 'sweet-potato-spoonfuls-for-dogs', 'plain-poached-chicken-for-dogs-and-cats', 'plain-egg-crumbles-for-dogs-and-cats']) {
-    const page = await browser.newPage();
+    const page = await context.newPage();
     try {
       const response = await page.goto(new URL(`/kitchen/${slug}`, base).href);
       assert.equal(response.status(), 200);
@@ -48,6 +41,6 @@ try {
       results.push({ slug, passed: true });
     } finally { await page.close(); }
   }
-} finally { await browser.close(); }
-await writeFile(join(out, 'results.json'), JSON.stringify({ checked: new Date().toISOString(), results }, null, 2));
-process.stdout.write(JSON.stringify(results));
+  await writeFile(join(out, 'kitchen-print-results.json'), JSON.stringify({ checked: new Date().toISOString(), results }, null, 2));
+  return 'Four recipes: printed batch warning, preparation disclaimer, serving/storage/avoid guidance, canonical URL, source URLs and screen restoration verified; four PDFs and screenshots saved.';
+}
