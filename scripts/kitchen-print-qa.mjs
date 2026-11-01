@@ -19,6 +19,8 @@ export async function checkKitchenPrint(context, base, out) {
       assert.equal(await identity.isVisible(), false, 'print identity does not clutter screen');
       await page.emulateMedia({ media: 'print' });
       await page.screenshot({ path: join(out, `${slug}-print-before-checks.png`), fullPage: true });
+      const visibility = await page.locator('main p, main strong').evaluateAll(nodes => nodes.filter(node => /Makes a preparation batch|AI-generated illustration|Recipe page:|Before you start:/.test(node.textContent)).map(node => ({ text: node.textContent, display: getComputedStyle(node).display, visibility: getComputedStyle(node).visibility, rect: node.getBoundingClientRect().toJSON() })));
+      await writeFile(join(out, `${slug}-print-visibility.json`), JSON.stringify(visibility, null, 2));
       assert.equal(await batch.isVisible(), true, 'batch warning must survive print');
       assert.equal(await page.getByText('AI-generated illustration.', { exact: false }).isVisible(), true, 'untested-method disclosure survives print');
       assert.equal(await identity.isVisible(), true, `${slug}: print identity visible`);
