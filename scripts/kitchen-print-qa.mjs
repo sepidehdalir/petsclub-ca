@@ -12,33 +12,38 @@ export async function checkKitchenPrint(context, base, out) {
     const page = await context.newPage();
     try {
       const response = await page.goto(new URL(`/kitchen/${slug}`, base).href);
-      assert.equal(response.status(), 200);
+      assert.equal(response.status(), 200, `${slug}: page HTTP200`);
       const batch = page.getByText('Makes a preparation batch, not one serving.', { exact: false });
-      assert.equal(await batch.isVisible(), true);
+      assert.equal(await batch.isVisible(), true, `${slug}: screen batch note visible`);
       const identity = page.getByText(`Recipe page: https://thepetclub.ca/kitchen/${slug}`, { exact: true });
       assert.equal(await identity.isVisible(), false, 'print identity does not clutter screen');
       await page.emulateMedia({ media: 'print' });
+      await page.screenshot({ path: join(out, `${slug}-print-before-checks.png`), fullPage: true });
       assert.equal(await batch.isVisible(), true, 'batch warning must survive print');
       assert.equal(await page.getByText('AI-generated illustration.', { exact: false }).isVisible(), true, 'untested-method disclosure survives print');
-      assert.equal(await identity.isVisible(), true);
-      assert.equal(await page.getByText('Before you start:', { exact: true }).isVisible(), true);
+      assert.equal(await identity.isVisible(), true, `${slug}: print identity visible`);
+      assert.equal(await page.getByText('Before you start:', { exact: true }).isVisible(), true, `${slug}: caution visible`);
       for (const heading of ['Offer a little, not the whole batch', 'Keep the rest safely', 'Leave these out']) {
-        assert.equal(await page.getByRole('heading', { name: heading, exact: true }).isVisible(), true);
+        assert.equal(await page.getByRole('heading', { name: heading, exact: true }).isVisible(), true, `${slug}: ${heading} visible`);
       }
-      assert.equal(await page.getByRole('button', { name: 'Print / save PDF' }).isVisible(), false);
+      assert.equal(await page.getByRole('button', { name: 'Print / save PDF' }).isVisible(), false, `${slug}: print tool hidden`);
       const sources = page.locator('main a[target="_blank"]');
       for (const link of await sources.all()) {
         if (await link.isVisible()) {
           const href = await link.getAttribute('href');
-          assert.ok((await link.evaluate(node => getComputedStyle(node, '::after').content)).includes(href));
+          assert.ok((await link.evaluate(node => getComputedStyle(node, '::after').content)).includes(href), `${slug}: printed source URL ${href}`);
         }
       }
       await page.screenshot({ path: join(out, `${slug}-print.png`), fullPage: true });
       await page.pdf({ path: join(out, `${slug}.pdf`), format: 'Letter', printBackground: false });
       await page.emulateMedia({ media: 'screen' });
-      assert.equal(await identity.isVisible(), false);
-      assert.equal(await page.getByRole('button', { name: 'Print / save PDF' }).isVisible(), true);
+      assert.equal(await identity.isVisible(), false, `${slug}: screen identity hidden after restore`);
+      assert.equal(await page.getByRole('button', { name: 'Print / save PDF' }).isVisible(), true, `${slug}: screen tool restored`);
       results.push({ slug, passed: true });
+    } catch (error) {
+      await page.screenshot({ path: join(out, `${slug}-print-failure.png`), fullPage: true }).catch(() => {});
+      await writeFile(join(out, 'kitchen-print-failure.json'), JSON.stringify({ slug, error: String(error), stack: error.stack }, null, 2));
+      throw error;
     } finally { await page.close(); }
   }
   await writeFile(join(out, 'kitchen-print-results.json'), JSON.stringify({ checked: new Date().toISOString(), results }, null, 2));
