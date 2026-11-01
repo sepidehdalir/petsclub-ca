@@ -419,6 +419,7 @@ const OCTOBER_25_PUBLICATIONS = ["cat-pregnancy-signs-and-tests", "dog-pregnancy
 const OCTOBER_18_PUBLICATIONS = ["choosing-dog-boots-in-canada", "choosing-a-cat-scratching-post-in-canada"];
 const OCTOBER_18_REVISIONS = ["winter-dog-care-in-canada", "indoor-cat-enrichment-canadian-homes"];
 function expectedRevisionDate(slug: string) {
+  if (slug === "dental-care-for-dogs-and-cats") return "2026-11-01";
   if (["raw-pet-food-canada-risks-nutrition", "pet-food-storage-container-original-bag"].includes(slug)) return "2026-10-31";
   return slug === "reading-a-canadian-pet-food-label" ? "2026-10-30" : OCTOBER_29_REVISIONS.includes(slug) ? "2026-10-29" : slug === "pet-emergency-preparedness-canada" ? "2026-10-28" : slug === "puppy-socialisation-checklist" ? "2026-10-26" : slug === "winter-dog-care-in-canada" ? "2026-10-25" : slug === "parasite-prevention-for-pets-in-canada" ? "2026-10-24" : slug === "indoor-cat-enrichment-canadian-homes" ? "2026-10-23" : slug === "cost-of-owning-a-cat-in-canada" ? "2026-10-22" : slug === "pet-licensing-across-canada" ? "2026-10-21" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
 }
@@ -493,7 +494,7 @@ describe("article publication dates", () => {
     expect(dates).toHaveLength(38);
     expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-25", "2026-10-29"]));
     const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
-    expect(revisions).toEqual(["2026-10-31", "2026-10-29", "2026-10-29", "2026-10-31", "2026-10-25", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-24", "2026-10-29", "2026-10-21", "2026-10-26", "2026-10-28", "2026-10-30"]);
+    expect(revisions).toEqual(["2026-10-31", "2026-10-29", "2026-10-29", "2026-10-31", "2026-10-25", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-24", "2026-10-29", "2026-11-01", "2026-10-21", "2026-10-26", "2026-10-28", "2026-10-30"]);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
   });
 
@@ -1982,5 +1983,22 @@ describe("original-bag storage buying update", () => {
     expect(body).toContain("https://www.simplehuman.ca/products/pet-food-can-large");
     expect(body).not.toMatch(/<AffiliateOffer|[?&]tag=/);
     expect(article.sources?.some(source => source.publisher === "Simplehuman Canada")).toBe(true);
+  });
+});
+
+
+describe("dental decision-quality refresh", () => {
+  it("preserves launch date and removes unsupported home-care absolutes", () => {
+    const article = findArticle("dental-care-for-dogs-and-cats")!;
+    const body = readBody(article);
+    expect(article.publishedAt).toBe("2026-09-06");
+    expect(article.updatedAt).toBe("2026-11-01");
+    expect(body).toContain("https://vohc.org/accepted-products/");
+    expect(body).toContain("Exact product");
+    expect(body).toContain("plaque, tartar or both");
+    expect(body).toContain("No veterinarian has reviewed this guide");
+    expect(article.mediaAlt).not.toContain("only home-care");
+    expect(body).not.toMatch(/There is no yelping|only home-care measure that reliably|Home the same day, usually/);
+    expect(body).not.toMatch(/<AffiliateOffer|[?&]tag=/);
   });
 });
