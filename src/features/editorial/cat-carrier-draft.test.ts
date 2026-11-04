@@ -12,10 +12,10 @@ const body = readFileSync(
 );
 
 describe("cat-carrier buying guide publication", () => {
-  it("publishes only this guide on 17 October and includes its canonical in discovery", () => {
+  it("preserves the original publication, dates the verified update and includes its canonical in discovery", () => {
     expect(article.status).toBe("published");
     expect(article.publishedAt).toBe("2026-10-17");
-    expect(article.updatedAt).toBeUndefined();
+    expect(article.updatedAt).toBe("2026-11-04");
     expect(articleRobotsPolicy(article)).toBe("index");
     expect(publishedArticles().map((item) => item.slug)).toContain(slug);
     expect(buildSitemapEntries().map((item) => item.url)).toContain(`https://thepetclub.ca/guides/${slug}`);

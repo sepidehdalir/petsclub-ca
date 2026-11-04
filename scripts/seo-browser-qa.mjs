@@ -243,6 +243,11 @@ for (const scenario of scenarios) {
         if (path === '/guides/choosing-a-cat-carrier-in-canada') {
           assert.equal(await page.locator('h1').innerText(), 'Choosing a Cat Carrier in Canada: Size, Access and Fit');
           assert.equal(await page.locator('time[datetime="2026-10-17"]').count(), 1);
+          assert.equal(await page.locator('time[datetime="2026-11-04"]').count(), 1);
+          assert.match(mainText, /not suitable for airplane travel/);
+          assert.match(mainText, /Hard or soft cat carrier\? A quick decision grid/);
+          assert.equal(await page.locator('table tbody tr').count(), 5);
+          assert.match(mainText, /Record these details before selecting a carrier/i);
           assert.match(mainText, /We have not tested these products/);
           assert.match(mainText, /intended maximum cat weight of 6 kg/);
           assert.match(mainText, /maximum cat height of 30 cm/);
@@ -503,7 +508,15 @@ for (const scenario of scenarios) {
           result.fullSearch = 'Homepage query reached the server-rendered search route and returned the published boots guide';
 
         }
+        if (path === '/compare/catit-digger-vs-wave-circuit') {
+          assert.match((await page.locator('h1').innerText()).replace(/\s+/g, ' '), /^Catit Digger vs Wave Circuit$/);
+          assert.match(mainText, /We have not tested either product/);
+          result.comparisonHeading = 'Product-specific H1 and testing disclaimer retained';
+        }
         if (path === '/guides') {
+          assert.equal(await page.getByRole('link', { name: 'Browse Community Topics', exact: true }).getAttribute('href'), '/community');
+          assert.equal(await page.getByRole('link', { name: 'Ask the Community', exact: true }).count(), 0);
+          assert.match(await page.locator('meta[name="description"]').getAttribute('content'), /with cited sources and practical Canadian context/);
           const list = page.locator('section[aria-labelledby="published-guides-heading"]');
           result.guideCards = await list.locator('h3').count();
           assert.ok(result.guideCards > 0, 'Published library must not be empty');
