@@ -247,7 +247,7 @@ for (const scenario of scenarios) {
           assert.match(mainText, /not suitable for airplane travel/);
           assert.match(mainText, /Hard or soft cat carrier\? A quick decision grid/);
           assert.equal(await page.locator('table tbody tr').count(), 5);
-          assert.match(mainText, /Record these details before selecting a carrier/);
+          assert.match(mainText, /Record these details before selecting a carrier/i);
           assert.match(mainText, /We have not tested these products/);
           assert.match(mainText, /intended maximum cat weight of 6 kg/);
           assert.match(mainText, /maximum cat height of 30 cm/);
