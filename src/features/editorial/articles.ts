@@ -649,7 +649,7 @@ export const articles: readonly Article[] = [
     "indexable": true,
     "status": "published",
     publishedAt: "2026-10-17",
-    updatedAt: "2026-11-04",
+    updatedAt: "2026-11-06",
     "veterinaryNotice": true,
     "keyTakeaways": [
       "Check your cat’s measurements and the exact model’s intended weight limit.",
