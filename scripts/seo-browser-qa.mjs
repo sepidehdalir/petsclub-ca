@@ -243,7 +243,7 @@ for (const scenario of scenarios) {
         if (path === '/guides/choosing-a-cat-carrier-in-canada') {
           assert.equal(await page.locator('h1').innerText(), 'Choosing a Cat Carrier in Canada: Size, Access and Fit');
           assert.equal(await page.locator('time[datetime="2026-10-17"]').count(), 1);
-          assert.equal(await page.locator('time[datetime="2026-11-04"]').count(), 1);
+          assert.equal(await page.locator('time[datetime="2026-11-06"]').count(), 1);
           assert.match(mainText, /not suitable for airplane travel/);
           assert.match(mainText, /Hard or soft cat carrier\? A quick decision grid/);
           assert.equal(await page.locator('table tbody tr').count(), 5);
