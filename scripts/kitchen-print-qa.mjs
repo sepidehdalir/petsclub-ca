@@ -14,6 +14,9 @@ export async function checkKitchenPrint(context, base, out) {
       const response = await page.goto(new URL(`/kitchen/${slug}`, base).href);
       assert.equal(response.status(), 200, `${slug}: page HTTP200`);
       const batch = page.getByText('Makes a preparation batch, not one serving.', { exact: false });
+      // A streamed route can still show its loading shell after navigation resolves.
+      // Wait for real recipe content; keep the visibility assertion and finite timeout.
+      await batch.waitFor({ state: 'visible', timeout: 15000 });
       assert.equal(await batch.isVisible(), true, `${slug}: screen batch note visible`);
       const identity = page.getByText(`Recipe page: https://thepetclub.ca/kitchen/${slug}`, { exact: true });
       assert.equal(await identity.isVisible(), false, 'print identity does not clutter screen');
