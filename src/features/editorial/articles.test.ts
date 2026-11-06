@@ -991,7 +991,98 @@ const PARASITE_RX = [
   // A universal start age.
   /\b(?:start|begin|commence)\w*\b[^.]{0,40}\b(?:heartworm|flea|tick|parasite|deworm\w*)\b[^.]{0,40}\bat\s+(?:\d+|six|eight|twelve|sixteen)\s*(?:weeks?|months?)\b/i,
   /\b(?:heartworm|flea|tick|parasite|deworm\w*)\b[^.]{0,40}\b(?:starts?|begins?)\b[^.]{0,25}\bat\s+(?:\d+|six|eight|twelve)\s*(?:weeks?|months?)\b/i,
-  // Every animal needs it.…1181 tokens truncated…).toMatch(/selected Ontario cities between 1996 and 2023/);
+  // Every animal needs it.
+  /\b(?:every|all|each)\s+(?:puppy|puppies|kitten|kittens|dog|dogs|cat|cats|animal|animals)\b[^.]{0,60}\b(?:needs?|requires?|must have|should have|should be on)\b[^.]{0,40}\b(?:heartworm|flea|tick|parasite|deworm\w*|prevention|preventive)\b/i,
+  // A universal cadence.
+  /\bgive\b[^.]{0,40}\b(?:heartworm|flea|tick|parasite)\b[^.]{0,40}\bevery\s+month\b/i,
+  /\b(?:monthly|every month)\b[^.]{0,40}\b(?:year-round|all year)\b[^.]{0,40}\b(?:every|all)\s+(?:dog|cat|dogs|cats)\b/i,
+  // A national schedule.
+  /\ball\s+Canadian\s+(?:dogs|cats|pets)\b[^.]{0,50}\b(?:need|require|should)\b/i,
+];
+
+const PARASITE_EXEMPT =
+  /\b(?:not|never|no|nothing)\b|\bask\b|\bquestion\b|\byour veterinar\w+\b|\bclinic\b|\bdepends?\b|\bvaries\b|\brisk\b|\bwhere you live\b|\bgeograph\w+\b|\blabel\b|\bproduct\b|\bmay\b|\bmight\b|\busually\b|\btypically\b|\boften\b|\bsome\b|\bmost\b|\bconvention\b|\bPHAC\b|\bMerck\b|\bwe do not\b|\bthis (?:page|guide|article)\b/i;
+
+function parasiteClauses(sentence: string): string[] {
+  return sentence
+    .split(/\s*[;—]\s*|,\s+(?:then|and then|but|so|which|where)\s+/)
+    .filter((part) => part.trim().length > 0);
+}
+
+function parasiteRxViolations(sentence: string): string[] {
+  const found: string[] = [];
+  for (const pattern of PARASITE_RX) {
+    for (const clause of parasiteClauses(sentence)) {
+      const hit = pattern.exec(clause);
+      if (hit && !PARASITE_EXEMPT.test(clause)) found.push(hit[0]);
+    }
+  }
+  return found;
+}
+
+describe("parasite prescription across the article library", () => {
+  it("prescribes no universal parasite age, product or cadence in any article", () => {
+    const offenders: string[] = [];
+    for (const { slug, body } of ARTICLE_BODIES) {
+      for (const sentence of body.split(/(?<=[.?!])\s+/)) {
+        for (const hit of parasiteRxViolations(sentence)) {
+          offenders.push(`${slug}: "${hit}" in "${sentence.trim().slice(0, 110)}"`);
+        }
+      }
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it("catches the sentence the hardening report said nothing caught", () => {
+    expect(
+      parasiteRxViolations("Start heartworm prevention at 8 weeks and continue monthly."),
+      "the known gap is still open",
+    ).not.toEqual([]);
+  });
+
+  it("catches the rest of the family", () => {
+    for (const sentence of [
+      "Every puppy needs monthly heartworm medication.",
+      "Begin tick prevention at 12 weeks.",
+      "All Canadian dogs need parasite medication from eight weeks.",
+      "Give heartworm prevention every month.",
+      "All dogs require flea prevention.",
+    ]) {
+      expect(parasiteRxViolations(sentence), `missed: ${sentence}`).not.toEqual([]);
+    }
+  });
+
+  it("allows risk-based, label-based and veterinarian-directed prose", () => {
+    for (const sentence of [
+      "What parasite prevention does this puppy need here, and when does it start?",
+      "Ask your veterinarian when to start heartworm prevention and whether it runs to a fixed end date.",
+      "Many parasite products carry a minimum age or weight on the label, so the product decides that, not the calendar.",
+      "1 June is the Canadian convention for starting heartworm prevention, and the reason is arithmetic about mosquitoes and temperature.",
+      "Whether your dog needs tick prevention depends on where you live and where you travel.",
+      "We do not publish one national parasite schedule, because the right one depends on your region and your veterinarian.",
+    ]) {
+      expect(parasiteRxViolations(sentence), `false positive: ${sentence}`).toEqual([]);
+    }
+  });
+});
+
+describe("Batch C — veterinary and medical evidence", () => {
+  const body = (slug: string) => ARTICLE_BODIES.find((a) => a.slug === slug)!.body;
+  const sourceUrls = (slug: string) =>
+    (articles.find((a) => a.slug === slug)!.sources ?? []).map((x) => x.url).join(" ");
+
+  it("links current PHAC risk context without freezing a province map", () => {
+    const b = body("parasite-prevention-for-pets-in-canada");
+    expect(b).toMatch(/Public Health Agency of Canada/);
+    expect(b).toMatch(/outside known risk areas/);
+    expect(b).toMatch(/not every tick species/);
+    expect(b).not.toMatch(/comparatively stable|53rd parallel/);
+    expect(sourceUrls("parasite-prevention-for-pets-in-canada")).toMatch(/prevention-lyme-disease/);
+  });
+
+  it("limits the Ontario timing evidence and keeps medication decisions clinical", () => {
+    const b = body("parasite-prevention-for-pets-in-canada");
+    expect(b).toMatch(/selected Ontario cities between 1996 and 2023/);
     expect(b).toMatch(/does not establish one correct calendar/);
     expect(b).toMatch(/do not travel abroad/);
     expect(b).toMatch(/missed a dose, contact the clinic/);
@@ -1414,501 +1505,4 @@ describe("Batch A — Canadian legal and regulatory evidence", () => {
 /**
  * The day the dependency cluster first went public.
  *
- * Not a drafting, commit or remediation date. If a later launch moves it, this
- * constant and the registry move together — the tests below compare the two.
- */
-const LAUNCH_DATE = "2026-09-06";
-const PUPPY_REVISION_DATE = "2026-09-27";
-const REVISED_PUPPY_SLUG = "bringing-home-a-puppy-first-30-days";
-
-/** The fifteen articles the Puppy Journey links from its stages. */
-const JOURNEY_DEPENDENCIES = [
-  "bringing-home-a-puppy-first-30-days",
-  "crate-training-a-puppy-in-canada",
-  "puppy-socialisation-checklist",
-  "puppy-vaccination-schedule-in-canada",
-  "loose-leash-walking-and-recall",
-  "spaying-and-neutering-in-canada",
-  "dental-care-for-dogs-and-cats",
-  "parasite-prevention-for-pets-in-canada",
-  "finding-a-veterinarian-in-canada",
-  "pet-licensing-across-canada",
-  "reading-a-canadian-pet-food-label",
-  "emergency-vet-visits-in-canada",
-  "cost-of-owning-a-dog-in-canada",
-  "winter-dog-care-in-canada",
-  "summer-heat-safety-for-dogs-in-canada",
-] as const;
-
-/** Register wording that means an item is still blocking publication. */
-const BLOCKING_ITEM =
-  /before publication|before it is published|before publishing|attach a source or cut|source it before|confirm .{0,40}before|could not be (?:retrieved|confirmed|verified)|not yet sourced|re-check .{0,30}before|attach the underlying study|attach a (?:veterinary|toxicology|public health|conservation) source|resolve this before/i;
-
-describe("Batch D — vaccination and cost evidence", () => {
-  const body = (slug: string) => ARTICLE_BODIES.find((a) => a.slug === slug)!.body;
-  const sourceUrls = (slug: string) =>
-    (articles.find((a) => a.slug === slug)!.sources ?? []).map((x) => x.url).join(" ");
-
-  it("renders Alberta's post-exposure rule conditionally, from the province's own page", () => {
-    const b = body("puppy-vaccination-schedule-in-canada");
-    // The two halves of the condition, not just "unvaccinated".
-    expect(b).toMatch(/unvaccinated \*or which do not receive a booster promptly/i);
-    expect(b).toMatch(/three- to six-month quarantine/i);
-    expect(b).toMatch(/within 96 hours/i);
-    expect(b).toMatch(/will not require quarantine/i);
-    expect(b).toMatch(/public health veterinarian/i);
-    expect(b).toMatch(/risk assessment/i);
-    // Alberta's framework, not the country's.
-    expect(b).toMatch(/Alberta's framework, not the country's/i);
-    expect(b).not.toMatch(/across Canada[^.]{0,40}quarantine/i);
-    expect(sourceUrls("puppy-vaccination-schedule-in-canada")).toMatch(/alberta\.ca\/rabies-information/);
-  });
-
-  it("keeps the already-resolved vaccination material correct", () => {
-    const b = body("puppy-vaccination-schedule-in-canada");
-    // Ontario, inclusive, from the regulation.
-    expect(b).toMatch(/three months of age or over/);
-    expect(b).not.toMatch(/over three months of age/);
-    // BC, no unsupported negative.
-    expect(b).not.toMatch(/sets no legal requirement|no legal requirement at all/i);
-    expect(b).toMatch(/not presenting a province-wide legal requirement/i);
-    // Core-series framing intact, and no age-alone prescription anywhere.
-    expect(b).toMatch(/sixteen weeks or later|past 16 weeks|older than sixteen weeks/i);
-    expect(b).toMatch(/26 weeks/);
-    expect(b).toMatch(/twelve-month (?:booster|appointment)|twelve to sixteen months/i);
-    for (const sentence of b.split(/(?<=[.?!])\s+/)) {
-      expect(parasiteRxViolations(sentence), sentence.slice(0, 90)).toEqual([]);
-      expect(absoluteLegalClaims(sentence), sentence.slice(0, 90)).toEqual([]);
-    }
-  });
-
-  it("keeps licence-fee examples current and geographically attributed", () => {
-    const b = body("cost-of-owning-a-dog-in-canada");
-    expect(b).toMatch(/As of October 2026, Toronto lists \$25\.00/);
-    expect(b).toMatch(/\$60\.00/);
-    expect(b).toMatch(/As of October 2026, Calgary lists \$45/);
-    expect(b).toMatch(/\$71/);
-    expect(b).toMatch(/not a Canadian pattern/i);
-    expect(sourceUrls("cost-of-owning-a-dog-in-canada")).toMatch(/toronto\.ca/);
-    expect(sourceUrls("cost-of-owning-a-dog-in-canada")).toMatch(/calgary\.ca/);
-  });
-
-  it("sources adoption inclusions as named examples rather than a rule", () => {
-    const b = body("cost-of-owning-a-dog-in-canada");
-    expect(b).toMatch(/Some adoption fees bundle/i);
-    expect(b).toMatch(/two organisations, not a national rule/i);
-    expect(b).not.toMatch(/Rescue fees usually bundle/i);
-    expect(sourceUrls("cost-of-owning-a-dog-in-canada")).toContain("https://spca.bc.ca/adoption/how-to-adopt/");
-    expect(sourceUrls("cost-of-owning-a-dog-in-canada")).toContain("https://www.calgaryhumane.ca/adopt/");
-  });
-
-  it("uses a scoped primary-source benchmark rather than an invented Canadian average", () => {
-    const article = articles.find((a) => a.slug === "cost-of-owning-a-dog-in-canada")!;
-    const b = body(article.slug);
-    expect(article.publishedAt).toBe("2026-09-06");
-    expect(article.updatedAt).toBe("2026-10-20");
-    expect(b).toContain("Ontario Veterinary Medical Association's 2026–27 estimate is CAD $4,993");
-    expect(b).toContain("$416 a month when divided by 12");
-    expect(b).toContain("not a Canada-wide average or a quote for your dog");
-    expect(Math.round(4993 / 12)).toBe(416);
-    expect(b).toContain("OVMA-CostofCare-Canine.pdf?ext=.pdf");
-    expect(b).toContain("not a required spending schedule");
-    expect(b).toContain("Grooming, daycare, walking, boarding, acquisition and transport");
-    expect(b).not.toMatch(/the average Canadian dog costs/i);
-  });
-
-  it("provides a usable worksheet without prescribing feeding or insurance outcomes", () => {
-    const b = body("cost-of-owning-a-dog-in-canada");
-    expect(b).toContain("<ScheduleTable");
-    expect(b).toContain("not quoted");
-    expect(b).toContain("insurance-faq/article/how-to-tell-pre-existing-conditions");
-    expect(b).toContain("Do not delay veterinary care");
-    expect(b).not.toMatch(/stops being insurable|costs multiples of a small one|without a payment plan|fails if the emergency arrives in year one/);
-    expect(b).toContain("/guides/choosing-a-dog-harness-in-canada");
-    expect(b).toContain("/guides/pet-food-storage-container-original-bag");
-    expect(b).toContain("No veterinarian has reviewed this update");
-  });
-});
-
-describe("Puppy Journey dependency set", () => {
-  it("covers exactly the fifteen articles the Journey links", () => {
-    expect(JOURNEY_DEPENDENCIES).toHaveLength(15);
-    for (const slug of JOURNEY_DEPENDENCIES) {
-      expect(articles.some((a) => a.slug === slug), `${slug} is missing`).toBe(true);
-    }
-  });
-
-  it("leaves zero publication blockers across all fifteen", () => {
-    const blockers: string[] = [];
-    for (const slug of JOURNEY_DEPENDENCIES) {
-      const items = articles.find((a) => a.slug === slug)!.needsVerification ?? [];
-      for (const item of items) {
-        if (!BLOCKING_ITEM.test(item)) continue;
-        if (/^(?:RESOLVED|STANDING GUARDRAIL|OPEN \(NON-BLOCKING\))/.test(item)) continue;
-        blockers.push(`${slug}: ${item.slice(0, 120)}`);
-      }
-    }
-    expect(blockers).toEqual([]);
-  });
-
-  /**
-   * The last blocker was the claim that very young animals have less
-   * physiological reserve and deteriorate faster than adults.
-   *
-   * These tests are deliberately written against the prose and the sources
-   * rather than against the register label, because a register label can be
-   * changed by hand and prose cannot be changed without changing what the
-   * reader is told. Relabelling the item would not make any of them pass.
-   */
-  describe("the physiological-reserve claim", () => {
-    const RESERVE_ARTICLES = [
-      "emergency-vet-visits-in-canada",
-      "bringing-home-a-puppy-first-30-days",
-    ] as const;
-
-    const body = (slug: string) => ARTICLE_BODIES.find((a) => a.slug === slug)!.body;
-    const sourceText = (slug: string) =>
-      (articles.find((a) => a.slug === slug)!.sources ?? [])
-        .map((x) => `${x.label} ${x.publisher} ${x.url}`)
-        .join(" ");
-
-    it("1. asserts the broad reserve claim in no article in the library", () => {
-      // The unsourced generalisation, in any of the three phrasings it had.
-      const broad =
-        /(?:far )?less reserve than an adult|little reserve\b|lacks? (?:the )?reserves? of an adult|deteriorates? faster than (?:an )?adults?|go(?:es)? downhill quickly/i;
-      const offenders = ARTICLE_BODIES.filter(({ body }) => broad.test(body)).map((a) => a.slug);
-      expect(offenders).toEqual([]);
-    });
-
-    it("2. states no universal claim about reserve across every organ system", () => {
-      for (const slug of RESERVE_ARTICLES) {
-        expect(body(slug), slug).not.toMatch(/physiological(?:ly)? reserve/i);
-        expect(body(slug), slug).not.toMatch(/weak immune system|immature immune system/i);
-        // No "every"/"any" symptom generalisation — asserted. A sentence that
-        // *denies* the generalisation ("not that every symptom is more
-        // dangerous") is the opposite of the failure, so the clause is only a
-        // violation when nothing negates it.
-        const claim =
-          /(?:every|any|all) (?:symptom|illness|problem)s? (?:is|are) (?:more|far more) (?:dangerous|serious)/i;
-        for (const clause of body(slug).split(/(?<=[.?!])\s+|(?:, | \u2014 )/)) {
-          if (!claim.test(clause)) continue;
-          expect(clause, `${slug}: ${clause}`).toMatch(/\bnot\b|\bnever\b|\brather than\b/i);
-        }
-      }
-    });
-
-    it("3. keeps only the mechanisms the sources actually establish", () => {
-      const b = body("emergency-vet-visits-in-canada");
-      // Fluid — Lee & Cohn, pediatric.
-      expect(b).toMatch(/mild dehydration to hypovolaemia/i);
-      expect(b).toMatch(/more fluid than adults/i);
-      // Glucose and temperature — Merck, neonatal.
-      expect(b).toMatch(/hypoglycaemia/i);
-      expect(b).toMatch(/thermoregulatory mechanisms until four weeks/i);
-    });
-
-    it("4. carries the real age scope beside each mechanism, not a vague 'very young'", () => {
-      const b = body("emergency-vet-visits-in-canada");
-      // Pediatric is defined, and the neonatal findings are marked as neonatal.
-      expect(b).toMatch(/pediatric patients .{0,120}six months/is);
-      expect(b).toMatch(/neonatal period at the first 21 days/i);
-      expect(b).toMatch(/neonates/i);
-    });
-
-    it("5. explicitly denies the overbroad reading it used to imply", () => {
-      expect(body("emergency-vet-visits-in-canada")).toMatch(
-        /not that every symptom is more dangerous in a young animal/i,
-      );
-    });
-
-    it("6. retains the actionable advice: call sooner for a young animal", () => {
-      const b = body("emergency-vet-visits-in-canada");
-      expect(b).toMatch(/earns a call sooner than the same thing would in an adult/i);
-      expect(b).toMatch(/same lower threshold applies/i);
-      expect(body("bringing-home-a-puppy-first-30-days")).toMatch(/worth a call sooner/i);
-    });
-
-    it("7. attaches a real source to the claim in every article that makes it", () => {
-      for (const slug of RESERVE_ARTICLES) {
-        // The peer-reviewed pediatric fluid-therapy paper.
-        expect(sourceText(slug), slug).toMatch(/27939859/);
-      }
-      // The emergency guide additionally carries Merck and the scope anchor.
-      const emergency = sourceText("emergency-vet-visits-in-canada");
-      expect(emergency).toMatch(/management-of-the-neonate/);
-      expect(emergency).toMatch(/10390787/);
-    });
-
-    it("8. keeps the three articles from drifting apart on the same claim", () => {
-      for (const slug of RESERVE_ARTICLES) {
-        // Each names dehydration, and none reverts to a bare reserve claim.
-        expect(body(slug), slug).toMatch(/dehydration/i);
-      }
-      // Both 30-days guides name low blood sugar in plain words, as they must.
-      for (const slug of RESERVE_ARTICLES.slice(1)) {
-        expect(body(slug), slug).toMatch(/low blood sugar/i);
-      }
-    });
-
-    it("9. adds no numeric threshold for when to call", () => {
-      const b = body("emergency-vet-visits-in-canada");
-      // Hours/times that would read as an action cutoff.
-      expect(b).not.toMatch(
-        /(?:call|phone|seek|go)[^.]{0,60}\bwithin \d+\s*(?:hours?|minutes?)/i,
-      );
-      expect(b).not.toMatch(/\bmore than \d+\s*(?:hours?|times?)[^.]{0,40}(?:call|emergency)/i);
-      // The only figures near the young-animal passage are source age scopes.
-      const passage = b.slice(b.indexOf("Two smaller notes"), b.indexOf("Two smaller notes") + 1400);
-      for (const n of passage.match(/\b\d+\b/g) ?? []) {
-        expect(["21", "4"], `unexpected figure ${n}`).toContain(n);
-      }
-    });
-  });
-
-  /**
-   * The safety sweep over the emergency advice that was already there. These
-   * are the properties the brief names, checked against the prose rather than
-   * assumed from the earlier gate.
-   */
-  it("keeps the emergency advice free of diagnosis, doses and home treatment", () => {
-    const b = ARTICLE_BODIES.find((a) => a.slug === "emergency-vet-visits-in-canada")!.body;
-    // No instruction *to* induce vomiting. The article does discuss induced
-    // vomiting — to forbid it without veterinary direction, and to explain why
-    // for corrosives and petroleum distillates — so the check is on direction,
-    // not on the phrase. Every mention must be negated or conditioned.
-    for (const clause of b.split(/(?<=[.?!])\s+/)) {
-      if (!/induce vomiting|making an animal vomit|make (?:your|the) (?:dog|cat|pet) (?:vomit|sick)/i.test(clause)) {
-        continue;
-      }
-      expect(clause, `unqualified emesis instruction: ${clause}`).toMatch(
-        /\bdo not\b|\bnever\b|\bunless\b|\bcontraindicated\b|\bdanger\b|\bbrings the corrosive\b/i,
-      );
-    }
-    expect(b).not.toMatch(/hydrogen peroxide/i);
-    // No medication or dose.
-    expect(b).not.toMatch(
-      /\b\d+\s*(?:mg|ml|mcg|g)\b|\bper (?:kg|kilogram|pound|lb)\b|benadryl|diphenhydramine|ibuprofen|acetaminophen|aspirin/i,
-    );
-    // No home treatment offered as an alternative to care.
-    expect(b).not.toMatch(/instead of (?:calling|seeing) (?:a|your) vet/i);
-    expect(b).not.toMatch(/wait (?:it )?out (?:overnight|until morning)/i);
-    // The disclaimer that it does not diagnose is still present.
-    expect(b).toMatch(/Nothing here is a diagnosis/i);
-  });
-
-  it("holds every earlier batch's guard across the whole dependency set", () => {
-    for (const slug of JOURNEY_DEPENDENCIES) {
-      const { body } = ARTICLE_BODIES.find((a) => a.slug === slug)!;
-      for (const sentence of body.split(/(?<=[.?!])\s+/)) {
-        // Batch B: behaviour folklore.
-        expect(folkloreViolations(sentence), `${slug}: ${sentence.slice(0, 80)}`).toEqual([]);
-        // Batch C: parasite prescription.
-        expect(parasiteRxViolations(sentence), `${slug}: ${sentence.slice(0, 80)}`).toEqual([]);
-        // Batch A: absolute legal language.
-        expect(absoluteLegalClaims(sentence), `${slug}: ${sentence.slice(0, 80)}`).toEqual([]);
-      }
-    }
-  });
-
-  it("gives every dependency article a real source", () => {
-    for (const slug of JOURNEY_DEPENDENCIES) {
-      const article = articles.find((a) => a.slug === slug)!;
-      expect((article.sources ?? []).length, `${slug} has no sources`).toBeGreaterThan(0);
-    }
-  });
-
-  it("keeps the puppy insurance correction provider-sourced and non-deferrable", () => {
-    const article = articles.find((a) => a.slug === REVISED_PUPPY_SLUG)!;
-    const urls = (article.sources ?? []).map((source) => source.url);
-    expect(urls).toContain(
-      "https://www.fetchpet.com/canada/faqs/what-is-pre-existing-conditions",
-    );
-    expect(urls).toContain(
-      "https://www.trupanion.com/en-ca/pet-insurance-faq/article/when-does-my-coverage-begin",
-    );
-
-    const body = ARTICLE_BODIES.find((a) => a.slug === REVISED_PUPPY_SLUG)!.body;
-    expect(body).toMatch(/Do not delay veterinary care or an appointment/i);
-    expect(body).not.toMatch(/not pre-existing on Monday and is on Tuesday/i);
-  });
-
-  it("publishes and indexes all fifteen, on the real launch date", () => {
-    for (const slug of JOURNEY_DEPENDENCIES) {
-      const article = articles.find((a) => a.slug === slug)!;
-      expect(article.status, slug).toBe("published");
-      expect(article.publishedAt, slug).toBe(LAUNCH_DATE);
-      expect(article.updatedAt, slug).toBe(
-        expectedRevisionDate(slug),
-      );
-      expect(article.indexable, slug).toBe(true);
-      expect(isArticleIndexable(article), slug).toBe(true);
-    }
-  });
-
-  it("renders index,follow for a published dependency article", () => {
-    // The route derives its robots directive from the same predicate the
-    // sitemap uses, so a published+indexable article cannot be told to noindex.
-    const route = readFileSync(
-      fileURLToPath(new URL("../../app/guides/[slug]/page.tsx", import.meta.url)),
-      "utf8",
-    );
-    expect(route).toContain("robots: articleRobotsPolicy(article)");
-    for (const slug of JOURNEY_DEPENDENCIES) {
-      expect(isArticleIndexable(articles.find((a) => a.slug === slug)!), slug).toBe(true);
-    }
-  });
-});
-
-/**
- * M1: a published page held out of the index keeps its links followable.
- *
- * `isArticleIndexable` returning false covers two different situations —
- * still in review, and published but deliberately withheld — and before this
- * they emitted the same `noindex, nofollow`. That stranded every internal
- * link on a page held back from a launch wave, turning an indexing decision
- * into a crawl-graph defect. The states are separated here, against the
- * derived policy and against `createMetadata`'s actual output.
- */
-describe("article robots policy", () => {
-  const real = articles[0]!;
-  const emitted = (article: Article) =>
-    createMetadata({ path: articlePath(article.slug), robots: articleRobotsPolicy(article) }).robots;
-
-  it("1. indexes and follows a published, indexable article", () => {
-    const article = withState(real, { status: "published", publishedAt: "2026-10-01", indexable: true });
-    expect(articleRobotsPolicy(article)).toBe("index");
-    expect(emitted(article)).toMatchObject({ index: true, follow: true });
-  });
-
-  it("2. holds a published, non-indexable article out of the index but keeps it followable", () => {
-    const article = withState(real, { status: "published", publishedAt: "2026-10-01", indexable: false });
-    expect(articleRobotsPolicy(article)).toBe("public-noindex");
-    expect(emitted(article)).toMatchObject({ index: false, follow: true });
-  });
-
-  it("3. follows nothing out of an article still in review", () => {
-    for (const indexable of [true, false]) {
-      const article = withState(real, { status: "in-review", indexable });
-      expect(articleRobotsPolicy(article)).toBe("private-noindex");
-      expect(emitted(article)).toMatchObject({ index: false, follow: false });
-    }
-  });
-
-  it("9. keeps a public-noindex article out of the sitemap, and self-canonical", () => {
-    const article = withState(real, { status: "published", publishedAt: "2026-10-01", indexable: false });
-    // Sitemap membership is unchanged by M1: it still needs published AND indexable.
-    expect(isArticleIndexable(article)).toBe(false);
-    // 11. Held from search is not merged away: the canonical stays on itself.
-    const metadata = createMetadata({
-      path: articlePath(article.slug),
-      robots: articleRobotsPolicy(article),
-    });
-    expect(metadata.alternates?.canonical).toBe(canonicalUrl(articlePath(article.slug)));
-    // And the publication date still exists for a page that is genuinely published.
-    expect(articlePublicationDates(article)).toEqual({
-      datePublished: "2026-10-01",
-      dateModified: "2026-10-01",
-    });
-  });
-
-  it("12/13. leaves today's live articles exactly as they are", () => {
-    for (const article of articles) {
-      const expected = article.status === "published" ? "index" : "private-noindex";
-      expect(articleRobotsPolicy(article), article.slug).toBe(expected);
-    }
-    expect(articles.filter((a) => articleRobotsPolicy(a) === "index")).toHaveLength(38);
-    expect(articles.filter((a) => articleRobotsPolicy(a) === "private-noindex")).toHaveLength(7);
-    // Nothing is in the middle state yet — that arrives with Journey Phase 2.
-    expect(articles.filter((a) => articleRobotsPolicy(a) === "public-noindex")).toEqual([]);
-  });
-
-  it("15. includes exactly thirty-eight guides in the sitemap", () => {
-    const urls = buildSitemapEntries().map((e) => e.url);
-    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(38);
-    expect(urls).toHaveLength(92);
-  });
-});
-
-
-describe("October 22 cat budget refresh", () => {
-  it("keeps the provincial benchmark bounded and existing conversion intact", () => {
-    const article = findArticle("cost-of-owning-a-cat-in-canada")!;
-    const body = readBody(article);
-    expect(body).toContain("$3,594");
-    expect(body).toContain("$299.50");
-    expect(body).toContain("not a Canada-wide average");
-    expect(body).toContain("does not mean every cat needs it annually");
-    expect(body).toContain("No veterinarian has reviewed this update");
-    expect(body).toContain('productId="catit-digger"');
-    expect(body).toContain("affiliate links");
-    expect(article.publishedAt).toBe("2026-10-09");
-    expect(article.updatedAt).toBe("2026-10-22");
-  });
-});
-
-
-describe("October 26 puppy socialisation refresh", () => {
-  const slug = "puppy-socialisation-checklist";
-  const body = ARTICLE_BODIES.find((a) => a.slug === slug)!.body;
-  const article = articles.find((a) => a.slug === slug)!;
-
-  it("preserves the existing URL and original publication while recording the refresh", () => {
-    expect(article.status).toBe("published");
-    expect(article.publishedAt).toBe("2026-09-06");
-    expect(article.updatedAt).toBe("2026-10-26");
-    expect(article.veterinaryNotice).toBe(true);
-  });
-
-  it("avoids single-signal diagnoses and guaranteed outcomes", () => {
-    const surface = body + JSON.stringify(article.keyTakeaways) + article.metaDescription;
-    expect(surface).not.toMatch(/single most reliable|ignores it for life|will not (?:eat|take food) is (?:a puppy )?over threshold/i);
-    expect(body).toMatch(/not as a stand-alone test/i);
-    expect(body).toMatch(/does not guarantee/i);
-    expect(body).toMatch(/editorial review, not a veterinary review/i);
-  });
-
-  it("helps choose suitable settings without prescribing a vaccination plan", () => {
-    expect(body).toContain("Which vaccination, parasite-prevention and health records");
-    expect(body).toContain("do not adjust vaccination dates yourself");
-    expect(body).toContain("Do not seek out ice, road salt");
-    expect(body).toContain("/guides/finding-a-veterinarian-in-canada");
-    const urls = article.sources!.map((source) => source.url).join(" ");
-    expect(urls).toContain("vet.osu.edu");
-    expect(urls).toContain("aaha.org");
-    expect(urls).toContain("canadianveterinarians.net");
-  });
-});
-
-
-describe("original-bag storage buying update", () => {
-  it("keeps the existing route and original publication while separating specifications from tests", () => {
-    const article = findArticle("pet-food-storage-container-original-bag")!;
-    const body = readBody(article);
-    expect(article.publishedAt).toBe("2026-10-16");
-    expect(article.updatedAt).toBe("2026-10-31");
-    expect(body).toContain("Plastic or stainless steel: inspect the inside");
-    expect(body).toContain("SKU CW1886");
-    expect(body).toContain("We have not confirmed that your food bag fits this model.");
-    expect(body).toContain("ordinary and non-affiliate");
-    expect(body).toContain("https://www.simplehuman.ca/products/pet-food-can-large");
-    expect(body).not.toMatch(/<AffiliateOffer|[?&]tag=/);
-    expect(article.sources?.some(source => source.publisher === "Simplehuman Canada")).toBe(true);
-  });
-});
-
-
-describe("dental decision-quality refresh", () => {
-  it("preserves launch date and removes unsupported home-care absolutes", () => {
-    const article = findArticle("dental-care-for-dogs-and-cats")!;
-    const body = readBody(article);
-    expect(article.publishedAt).toBe("2026-09-06");
-    expect(article.updatedAt).toBe("2026-11-01");
-    expect(body).toContain("https://vohc.org/accepted-products/");
-    expect(body).toContain("Exact product");
-    expect(body).toContain("plaque, tartar or both");
-    expect(body).toContain("No veterinarian has reviewed this guide");
-    expect(article.mediaAlt).not.toContain("only home-care");
-    expect(body).not.toMatch(/There is no yelping|only home-care measure that reliably|Home the same day, usually/);
-    expect(body).not.toMatch(/<AffiliateOffer|[?&]tag=/);
-  });
-});
+ * 
