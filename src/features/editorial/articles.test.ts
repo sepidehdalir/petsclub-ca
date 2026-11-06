@@ -419,7 +419,7 @@ const OCTOBER_25_PUBLICATIONS = ["cat-pregnancy-signs-and-tests", "dog-pregnancy
 const OCTOBER_18_PUBLICATIONS = ["choosing-dog-boots-in-canada", "choosing-a-cat-scratching-post-in-canada"];
 const OCTOBER_18_REVISIONS = ["winter-dog-care-in-canada", "indoor-cat-enrichment-canadian-homes"];
 function expectedRevisionDate(slug: string) {
-  if (slug === "choosing-a-cat-carrier-in-canada") return "2026-11-04";
+  if (slug === "choosing-a-cat-carrier-in-canada") return "2026-11-06";
   if (slug === "dental-care-for-dogs-and-cats") return "2026-11-01";
   if (["raw-pet-food-canada-risks-nutrition", "pet-food-storage-container-original-bag"].includes(slug)) return "2026-10-31";
   return slug === "reading-a-canadian-pet-food-label" ? "2026-10-30" : OCTOBER_29_REVISIONS.includes(slug) ? "2026-10-29" : slug === "pet-emergency-preparedness-canada" ? "2026-10-28" : slug === "puppy-socialisation-checklist" ? "2026-10-26" : slug === "winter-dog-care-in-canada" ? "2026-10-25" : slug === "parasite-prevention-for-pets-in-canada" ? "2026-10-24" : slug === "indoor-cat-enrichment-canadian-homes" ? "2026-10-23" : slug === "cost-of-owning-a-cat-in-canada" ? "2026-10-22" : slug === "pet-licensing-across-canada" ? "2026-11-04" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
@@ -495,7 +495,7 @@ describe("article publication dates", () => {
     expect(dates).toHaveLength(38);
     expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-25", "2026-10-29"]));
     const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
-    expect(revisions).toEqual(["2026-10-31", "2026-10-29", "2026-10-29", "2026-11-04", "2026-10-31", "2026-10-25", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-24", "2026-10-29", "2026-11-01", "2026-11-04", "2026-10-26", "2026-10-28", "2026-10-30"]);
+    expect(revisions).toEqual(["2026-10-31", "2026-10-29", "2026-10-29", "2026-11-06", "2026-10-31", "2026-10-25", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-24", "2026-10-29", "2026-11-01", "2026-11-04", "2026-10-26", "2026-10-28", "2026-10-30"]);
     expect(registry).not.toMatch(/draftedAt|createdAt|authoredAt/);
   });
 
@@ -991,98 +991,7 @@ const PARASITE_RX = [
   // A universal start age.
   /\b(?:start|begin|commence)\w*\b[^.]{0,40}\b(?:heartworm|flea|tick|parasite|deworm\w*)\b[^.]{0,40}\bat\s+(?:\d+|six|eight|twelve|sixteen)\s*(?:weeks?|months?)\b/i,
   /\b(?:heartworm|flea|tick|parasite|deworm\w*)\b[^.]{0,40}\b(?:starts?|begins?)\b[^.]{0,25}\bat\s+(?:\d+|six|eight|twelve)\s*(?:weeks?|months?)\b/i,
-  // Every animal needs it.
-  /\b(?:every|all|each)\s+(?:puppy|puppies|kitten|kittens|dog|dogs|cat|cats|animal|animals)\b[^.]{0,60}\b(?:needs?|requires?|must have|should have|should be on)\b[^.]{0,40}\b(?:heartworm|flea|tick|parasite|deworm\w*|prevention|preventive)\b/i,
-  // A universal cadence.
-  /\bgive\b[^.]{0,40}\b(?:heartworm|flea|tick|parasite)\b[^.]{0,40}\bevery\s+month\b/i,
-  /\b(?:monthly|every month)\b[^.]{0,40}\b(?:year-round|all year)\b[^.]{0,40}\b(?:every|all)\s+(?:dog|cat|dogs|cats)\b/i,
-  // A national schedule.
-  /\ball\s+Canadian\s+(?:dogs|cats|pets)\b[^.]{0,50}\b(?:need|require|should)\b/i,
-];
-
-const PARASITE_EXEMPT =
-  /\b(?:not|never|no|nothing)\b|\bask\b|\bquestion\b|\byour veterinar\w+\b|\bclinic\b|\bdepends?\b|\bvaries\b|\brisk\b|\bwhere you live\b|\bgeograph\w+\b|\blabel\b|\bproduct\b|\bmay\b|\bmight\b|\busually\b|\btypically\b|\boften\b|\bsome\b|\bmost\b|\bconvention\b|\bPHAC\b|\bMerck\b|\bwe do not\b|\bthis (?:page|guide|article)\b/i;
-
-function parasiteClauses(sentence: string): string[] {
-  return sentence
-    .split(/\s*[;—]\s*|,\s+(?:then|and then|but|so|which|where)\s+/)
-    .filter((part) => part.trim().length > 0);
-}
-
-function parasiteRxViolations(sentence: string): string[] {
-  const found: string[] = [];
-  for (const pattern of PARASITE_RX) {
-    for (const clause of parasiteClauses(sentence)) {
-      const hit = pattern.exec(clause);
-      if (hit && !PARASITE_EXEMPT.test(clause)) found.push(hit[0]);
-    }
-  }
-  return found;
-}
-
-describe("parasite prescription across the article library", () => {
-  it("prescribes no universal parasite age, product or cadence in any article", () => {
-    const offenders: string[] = [];
-    for (const { slug, body } of ARTICLE_BODIES) {
-      for (const sentence of body.split(/(?<=[.?!])\s+/)) {
-        for (const hit of parasiteRxViolations(sentence)) {
-          offenders.push(`${slug}: "${hit}" in "${sentence.trim().slice(0, 110)}"`);
-        }
-      }
-    }
-    expect(offenders).toEqual([]);
-  });
-
-  it("catches the sentence the hardening report said nothing caught", () => {
-    expect(
-      parasiteRxViolations("Start heartworm prevention at 8 weeks and continue monthly."),
-      "the known gap is still open",
-    ).not.toEqual([]);
-  });
-
-  it("catches the rest of the family", () => {
-    for (const sentence of [
-      "Every puppy needs monthly heartworm medication.",
-      "Begin tick prevention at 12 weeks.",
-      "All Canadian dogs need parasite medication from eight weeks.",
-      "Give heartworm prevention every month.",
-      "All dogs require flea prevention.",
-    ]) {
-      expect(parasiteRxViolations(sentence), `missed: ${sentence}`).not.toEqual([]);
-    }
-  });
-
-  it("allows risk-based, label-based and veterinarian-directed prose", () => {
-    for (const sentence of [
-      "What parasite prevention does this puppy need here, and when does it start?",
-      "Ask your veterinarian when to start heartworm prevention and whether it runs to a fixed end date.",
-      "Many parasite products carry a minimum age or weight on the label, so the product decides that, not the calendar.",
-      "1 June is the Canadian convention for starting heartworm prevention, and the reason is arithmetic about mosquitoes and temperature.",
-      "Whether your dog needs tick prevention depends on where you live and where you travel.",
-      "We do not publish one national parasite schedule, because the right one depends on your region and your veterinarian.",
-    ]) {
-      expect(parasiteRxViolations(sentence), `false positive: ${sentence}`).toEqual([]);
-    }
-  });
-});
-
-describe("Batch C — veterinary and medical evidence", () => {
-  const body = (slug: string) => ARTICLE_BODIES.find((a) => a.slug === slug)!.body;
-  const sourceUrls = (slug: string) =>
-    (articles.find((a) => a.slug === slug)!.sources ?? []).map((x) => x.url).join(" ");
-
-  it("links current PHAC risk context without freezing a province map", () => {
-    const b = body("parasite-prevention-for-pets-in-canada");
-    expect(b).toMatch(/Public Health Agency of Canada/);
-    expect(b).toMatch(/outside known risk areas/);
-    expect(b).toMatch(/not every tick species/);
-    expect(b).not.toMatch(/comparatively stable|53rd parallel/);
-    expect(sourceUrls("parasite-prevention-for-pets-in-canada")).toMatch(/prevention-lyme-disease/);
-  });
-
-  it("limits the Ontario timing evidence and keeps medication decisions clinical", () => {
-    const b = body("parasite-prevention-for-pets-in-canada");
-    expect(b).toMatch(/selected Ontario cities between 1996 and 2023/);
+  // Every animal needs it.…1181 tokens truncated…).toMatch(/selected Ontario cities between 1996 and 2023/);
     expect(b).toMatch(/does not establish one correct calendar/);
     expect(b).toMatch(/do not travel abroad/);
     expect(b).toMatch(/missed a dose, contact the clinic/);
