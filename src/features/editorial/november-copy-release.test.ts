@@ -29,7 +29,7 @@ describe("verified November copy release", () => {
   it("keeps the carrier page published at its original canonical with a truthful revision date", () => {
     expect(carrier.status).toBe("published");
     expect(carrier.publishedAt).toBe("2026-10-17");
-    expect(carrier.updatedAt).toBe("2026-11-04");
+    expect(carrier.updatedAt).toBe("2026-11-06");
     expect(articleRobotsPolicy(carrier)).toBe("index");
     expect(articlePath(carrier.slug)).toBe("/guides/choosing-a-cat-carrier-in-canada");
     expect(body).toContain("As checked on 4 November 2026");
