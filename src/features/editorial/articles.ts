@@ -905,6 +905,41 @@ export const articles: readonly Article[] = [
      them they cover the first year of owning a dog in this country. */
 
   {
+    slug: "puppy-potty-training-schedule",
+    section: "dogs",
+    subcategory: "Training",
+    title: "Puppy Potty Training: A Daily Pee and Poop Schedule",
+    deck: "Teach your puppy where to pee and poop with a first-week schedule, quick rewards and a plan for apartments, rain and overnight trips.",
+    metaDescription:
+      "Follow a puppy potty training schedule for pee and poop breaks. Learn when to go out, how to reward, what to do after accidents and how to train in an apartment.",
+    authorId: "pet-club-editorial",
+    readingMinutes: 3,
+    mediaId: "dogs-black-lab-puppy",
+    tags: ["puppies", "house-training", "training", "dogs"],
+    indexable: true,
+    status: "published",
+    publishedAt: "2026-11-12",
+    veterinaryNotice: true,
+    keyTakeaways: [
+      "Go out after waking, eating and active play, with regular trips in between.",
+      "Reward at the toilet spot as soon as your puppy finishes.",
+      "Log pee and poop separately to find your puppy's own pattern.",
+    ],
+    relatedSlugs: [
+      "bringing-home-a-puppy-first-30-days",
+      "crate-training-a-puppy-in-canada",
+      "winter-dog-care-in-canada",
+    ],
+    relatedCategorySlugs: ["puppies", "dog-training-and-behaviour"],
+    sources: [
+      { label: "Housetraining for puppies and dogs", publisher: "VCA Canada", url: "https://vcacanada.com/know-your-pet/pet-health-articles/house-training-your-puppy" },
+      { label: "Dog care and puppy house training", publisher: "BC SPCA", url: "https://spca.bc.ca/get-help/pet-care/dogs/" },
+      { label: "Urgent urinary signs", publisher: "VCA Animal Hospitals", url: "https://vcahospitals.com/urgent-care/health-concerns/urinary-issues" },
+      { label: "Puppy diarrhoea warning signs", publisher: "VCA Animal Hospitals", url: "https://vcahospitals.com/pediatric/puppy/health-wellness/puppy-has-diarrhea" },
+    ],
+  },
+
+  {
     slug: "bringing-home-a-puppy-first-30-days",
     section: "dogs",
     subcategory: "New owners",
