@@ -424,7 +424,7 @@ function expectedRevisionDate(slug: string) {
   if (["raw-pet-food-canada-risks-nutrition", "pet-food-storage-container-original-bag"].includes(slug)) return "2026-10-31";
   return slug === "reading-a-canadian-pet-food-label" ? "2026-10-30" : OCTOBER_29_REVISIONS.includes(slug) ? "2026-10-29" : slug === "pet-emergency-preparedness-canada" ? "2026-10-28" : slug === "puppy-socialisation-checklist" ? "2026-10-26" : slug === "winter-dog-care-in-canada" ? "2026-10-25" : slug === "parasite-prevention-for-pets-in-canada" ? "2026-10-24" : slug === "indoor-cat-enrichment-canadian-homes" ? "2026-10-23" : slug === "cost-of-owning-a-cat-in-canada" ? "2026-10-22" : slug === "pet-licensing-across-canada" ? "2026-11-04" : slug === "cost-of-owning-a-dog-in-canada" ? "2026-10-20" : OCTOBER_18_REVISIONS.includes(slug) ? "2026-10-18" : slug === REVISED_PUPPY_SLUG ? PUPPY_REVISION_DATE : undefined;
 }
-function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_16_PUBLICATIONS, ...OCTOBER_17_PUBLICATIONS, ...OCTOBER_18_PUBLICATIONS, ...OCTOBER_25_PUBLICATIONS, ...OCTOBER_29_PUBLICATIONS, "choosing-a-dog-harness-in-canada", "puppy-potty-training-schedule"]; }
+function expectedPublishedSlugs() { return [...JOURNEY_DEPENDENCIES, ...OCTOBER_PUBLICATIONS, ...OCTOBER_16_PUBLICATIONS, ...OCTOBER_17_PUBLICATIONS, ...OCTOBER_18_PUBLICATIONS, ...OCTOBER_25_PUBLICATIONS, ...OCTOBER_29_PUBLICATIONS, "choosing-a-dog-harness-in-canada", "puppy-potty-training-schedule", "cedar-dog-houses-and-catios-in-canada"]; }
 
 describe("cat planning publication scope", () => {
   for (const slug of ["bringing-home-a-kitten-first-30-days", "introducing-a-second-cat"]) {
@@ -443,11 +443,11 @@ describe("cat planning publication scope", () => {
 describe("article publication dates", () => {
   const real = articles[0]!;
 
-  it("keeps 39 published guides and seven clinical drafts", () => {
-    expect(articles).toHaveLength(46);
+  it("keeps 40 published guides and seven clinical drafts", () => {
+    expect(articles).toHaveLength(47);
     const published = articles.filter((a) => a.status === "published").map((a) => a.slug);
     expect([...published].sort()).toEqual(expectedPublishedSlugs().sort());
-    expect(published).toHaveLength(39);
+    expect(published).toHaveLength(40);
     expect(articles.filter((a) => a.status === "in-review")).toHaveLength(7);
   });
 
@@ -457,7 +457,7 @@ describe("article publication dates", () => {
     // carry its own revision date without rewriting the original launch date.
     expect(new Set(published.map((a) => a.publishedAt))).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-25", "2026-10-29", "2026-11-12"]));
     for (const article of published) {
-      const publicationDate = article.slug === "puppy-potty-training-schedule" ? "2026-11-12" : OCTOBER_29_PUBLICATIONS.includes(article.slug) ? "2026-10-29" : OCTOBER_25_PUBLICATIONS.includes(article.slug) ? "2026-10-25" : OCTOBER_18_PUBLICATIONS.includes(article.slug) ? "2026-10-18" : OCTOBER_17_PUBLICATIONS.includes(article.slug) ? "2026-10-17" : OCTOBER_16_PUBLICATIONS.includes(article.slug) ? "2026-10-16" : article.slug === "choosing-a-dog-harness-in-canada" ? "2026-10-10" : OCTOBER_PUBLICATIONS.includes(article.slug) ? "2026-10-09" : LAUNCH_DATE;
+      const publicationDate = ["puppy-potty-training-schedule", "cedar-dog-houses-and-catios-in-canada"].includes(article.slug) ? "2026-11-12" : OCTOBER_29_PUBLICATIONS.includes(article.slug) ? "2026-10-29" : OCTOBER_25_PUBLICATIONS.includes(article.slug) ? "2026-10-25" : OCTOBER_18_PUBLICATIONS.includes(article.slug) ? "2026-10-18" : OCTOBER_17_PUBLICATIONS.includes(article.slug) ? "2026-10-17" : OCTOBER_16_PUBLICATIONS.includes(article.slug) ? "2026-10-16" : article.slug === "choosing-a-dog-harness-in-canada" ? "2026-10-10" : OCTOBER_PUBLICATIONS.includes(article.slug) ? "2026-10-09" : LAUNCH_DATE;
       const revisionDate = expectedRevisionDate(article.slug);
       expect(article.updatedAt, `${article.slug} revision state`).toBe(
         revisionDate,
@@ -492,7 +492,7 @@ describe("article publication dates", () => {
     // First-publication dates remain the real launch day. Revision dates are
     // allowed only where a published correction actually occurred.
     const dates = [...registry.matchAll(/\n {4}publishedAt: "([^"]+)"/g)].map((m) => m[1]);
-    expect(dates).toHaveLength(39);
+    expect(dates).toHaveLength(40);
     expect(new Set(dates)).toEqual(new Set([LAUNCH_DATE, "2026-10-09", "2026-10-10", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-25", "2026-10-29", "2026-11-12"]));
     const revisions = [...registry.matchAll(/\n {4}updatedAt: "([^"]+)"/g)].map((m) => m[1]);
     expect(revisions).toEqual(["2026-10-31", "2026-10-29", "2026-10-29", "2026-11-06", "2026-10-31", "2026-10-25", PUPPY_REVISION_DATE, "2026-10-20", "2026-10-23", "2026-10-22", "2026-10-24", "2026-10-29", "2026-11-01", "2026-11-04", "2026-10-26", "2026-10-28", "2026-10-30"]);
@@ -561,13 +561,13 @@ describe("article index policy", () => {
     ).toBe(true);
   });
 
-  it("carries no SEO-level hold, and indexes exactly the published thirty-nine", () => {
+  it("carries no SEO-level hold, and indexes exactly the published forty", () => {
     // Every article is still `indexable`, meaning none is held back for search
     // reasons. What holds the other seven is `status` — the honest reason.
     for (const article of articles) expect(article.indexable, article.slug).toBe(true);
     expect(indexableArticles().map((a) => a.slug).sort()).toEqual(expectedPublishedSlugs().sort());
-    expect(indexableArticles()).toHaveLength(39);
-    expect(publishedArticles()).toHaveLength(39);
+    expect(indexableArticles()).toHaveLength(40);
+    expect(publishedArticles()).toHaveLength(40);
   });
 
   it("drives the sitemap and the meta tag from one predicate", () => {
@@ -586,13 +586,13 @@ describe("article index policy", () => {
     expect(sitemap).not.toMatch(/publishedArticles\(\)/);
   });
 
-  it("puts exactly the thirty-nine guides, and no query-string variant, in the sitemap", () => {
+  it("puts exactly the forty guides, and no query-string variant, in the sitemap", () => {
     const all = urls();
     const guides = all
       .filter((u) => new URL(u).pathname.startsWith("/guides/"))
       .map((u) => new URL(u).pathname.replace("/guides/", ""));
     expect([...guides].sort()).toEqual(expectedPublishedSlugs().sort());
-    expect(guides).toHaveLength(39);
+    expect(guides).toHaveLength(40);
 
     // The seven unrelated clinical holds remain excluded.
     const held = articles.filter((a) => a.status === "in-review").map((a) => a.slug);
@@ -602,7 +602,7 @@ describe("article index policy", () => {
     expect(all.some((u) => u.includes("?"))).toBe(false);
     expect(new Set(all).size, "duplicate sitemap URL").toBe(all.length);
     // Non-guide routes are unchanged; the two October 29 publications add canonical URLs.
-    expect(all).toHaveLength(93);
+    expect(all).toHaveLength(94);
     expect(all.map((url) => new URL(url).pathname)).toContain("/compare/catit-digger-vs-wave-circuit");
   });
 
@@ -755,7 +755,7 @@ const ARTICLE_BODIES = articles.map((article) => ({
 
 describe("behaviour folklore across the article library", () => {
   it("scans every article body, not a sample", () => {
-    expect(ARTICLE_BODIES).toHaveLength(46);
+    expect(ARTICLE_BODIES).toHaveLength(47);
     for (const { slug, body } of ARTICLE_BODIES) {
       expect(body.length, `${slug} body is empty`).toBeGreaterThan(2000);
     }
@@ -1907,16 +1907,16 @@ describe("article robots policy", () => {
       const expected = article.status === "published" ? "index" : "private-noindex";
       expect(articleRobotsPolicy(article), article.slug).toBe(expected);
     }
-    expect(articles.filter((a) => articleRobotsPolicy(a) === "index")).toHaveLength(39);
+    expect(articles.filter((a) => articleRobotsPolicy(a) === "index")).toHaveLength(40);
     expect(articles.filter((a) => articleRobotsPolicy(a) === "private-noindex")).toHaveLength(7);
     // Nothing is in the middle state yet — that arrives with Journey Phase 2.
     expect(articles.filter((a) => articleRobotsPolicy(a) === "public-noindex")).toEqual([]);
   });
 
-  it("15. includes exactly thirty-nine guides in the sitemap", () => {
+  it("15. includes exactly forty guides in the sitemap", () => {
     const urls = buildSitemapEntries().map((e) => e.url);
-    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(39);
-    expect(urls).toHaveLength(93);
+    expect(urls.filter((u) => new URL(u).pathname.startsWith("/guides/"))).toHaveLength(40);
+    expect(urls).toHaveLength(94);
   });
 });
 

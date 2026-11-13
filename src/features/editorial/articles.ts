@@ -905,6 +905,37 @@ export const articles: readonly Article[] = [
      them they cover the first year of owning a dog in this country. */
 
   {
+    slug: "cedar-dog-houses-and-catios-in-canada",
+    section: "canadian-life",
+    subcategory: "Outdoor living",
+    title: "Cedar Dog Houses and Catios: A Canadian Buying Guide",
+    deck: "Size an outdoor dog house, plan an enclosed catio and compare custom cedar options in Greater Vancouver.",
+    metaDescription:
+      "Compare cedar dog houses and catios for Canadian weather. Learn what to measure, which features to request and where to order a custom build in Greater Vancouver.",
+    authorId: "pet-club-editorial",
+    readingMinutes: 4,
+    mediaId: "dogs-autumn-bridge",
+    tags: ["dogs", "cats", "catio", "outdoor-living", "canada"],
+    indexable: true,
+    status: "published",
+    publishedAt: "2026-11-12",
+    keyTakeaways: [
+      "Measure usable interior space and the clear doorway before ordering a dog house.",
+      "Plan secure mesh, shade, easy cleaning and indoor access for a catio.",
+      "Share site dimensions, photos and pet measurements for a custom quote.",
+    ],
+    relatedSlugs: [
+      "winter-dog-care-in-canada",
+      "indoor-or-outdoor-cats-in-canada",
+    ],
+    relatedCategorySlugs: ["general-dog-discussion", "pet-friendly-canada"],
+    sources: [
+      { label: "Canadian kennel code, outdoor shelter design", publisher: "Canadian Veterinary Medical Association", url: "https://spca.bc.ca/wp-content/uploads/CVMA-2018-Kennel-Code.pdf" },
+      { label: "Cat welfare and controlled outdoor access", publisher: "BC SPCA", url: "https://spca.bc.ca/about-us/position-statements/position-statement-on-cat-welfare/" },
+    ],
+  },
+
+  {
     slug: "puppy-potty-training-schedule",
     section: "dogs",
     subcategory: "Training",
