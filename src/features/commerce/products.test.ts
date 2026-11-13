@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import { createElement } from "react";
 import { approvedProductImage, products, type LicensedProductImage } from "./products";
@@ -28,7 +28,15 @@ describe("public product examples", () => {
     expect(renderToStaticMarkup(createElement(ProductComparison, { productIds: ["catit-digger", "catit-digger", "unknown"] }))).toBe("");
   });
   it("discloses affiliate links and renders accessible comparison semantics", () => {
-    const html = renderToStaticMarkup(createElement(ProductComparison, { productIds: products.map((item) => item.id) }));
+    // Exercise the approved offer window without changing production expiry.
+    vi.useFakeTimers();
+    let html: string;
+    try {
+      vi.setSystemTime(new Date("2026-11-01T12:00:00Z"));
+      html = renderToStaticMarkup(createElement(ProductComparison, { productIds: products.map((item) => item.id) }));
+    } finally {
+      vi.useRealTimers();
+    }
     expect(html).toContain("have not tested these products");
     expect(html).toContain("As an Amazon Associate I earn from qualifying purchases.");
     expect(html).toContain('scope="row"');
