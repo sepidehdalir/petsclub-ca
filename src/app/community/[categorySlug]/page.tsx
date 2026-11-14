@@ -1,3 +1,5 @@
+import { CategoryDiscussions } from "@/features/community/live/category-discussions";
+import { communityEnabled } from "@/features/community/live/server";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -71,6 +73,8 @@ export default async function CommunityCategoryPage(
         }
       />
 
+      {communityEnabled() && <Container><CategoryDiscussions slug={category.slug} page={(await props.searchParams).page}/></Container>}
+
       {resources.length > 0 ? (
         <Section aria-labelledby="category-resources-heading">
           <Container>
@@ -92,7 +96,7 @@ export default async function CommunityCategoryPage(
         </Section>
       ) : null}
 
-      <Section tone={resources.length > 0 ? "muted" : "canvas"} aria-labelledby="conversation-heading">
+      {!communityEnabled() && <Section tone={resources.length > 0 ? "muted" : "canvas"} aria-labelledby="conversation-heading">
         <Container>
           <SectionHeading
             id="conversation-heading"
@@ -124,7 +128,7 @@ export default async function CommunityCategoryPage(
             This category is currently a reading resource. Posting, replies and member activity will be enabled in a separate release.
           </p>
         </Container>
-      </Section>
+      </Section>}
 
       {siblings.length > 0 ? (
         <Section spacing="compact" aria-labelledby="related-heading">
