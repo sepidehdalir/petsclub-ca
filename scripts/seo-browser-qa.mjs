@@ -571,7 +571,7 @@ for (const scenario of scenarios) {
             const destination = new URL(await cta.getAttribute('href'));
             assert.equal(destination.hostname, 'www.amazon.ca');
             assert.equal(destination.searchParams.get('tag'), 'thepetclub09-20');
-            assert.match(destination.pathname, /\\/dp\\/B015P13QMM$/);
+            assert.ok(destination.pathname.endsWith('/dp/B015P13QMM'));
             assert.match(await cta.getAttribute('rel'), /sponsored/);
             assert.match(await cta.getAttribute('rel'), /nofollow/);
             assert.ok(await cta.isVisible());
