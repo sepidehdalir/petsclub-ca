@@ -34,6 +34,11 @@ while (Date.now() < deadline) {
 }
 assert.ok(serverReady, 'The local application did not start within 60 seconds');
 
+// Two legacy Amazon offer reviews expired at the UTC start of 2026-11-09.
+// QA deliberately fails if those expired affiliate destinations remain actionable;
+// any owner-approved renewal must update this date and its regression expectations.
+const legacyAmazonReviewExpired = Date.now() >= Date.parse('2026-11-09T00:00:00Z');
+
 const routes = ['/guides/reading-a-canadian-pet-food-label', '/guides/dog-trainers-greater-vancouver', '/guides/raw-pet-food-canada-risks-nutrition', '/guides/spaying-and-neutering-in-canada', '/guides/pet-emergency-preparedness-canada', '/guides/puppy-socialisation-checklist', '/guides/cat-pregnancy-signs-and-tests', '/guides/dog-pregnancy-signs-and-tests', '/guides/parasite-prevention-for-pets-in-canada', '/kitchen', '/kitchen/soft-carrot-mash-for-dogs', '/kitchen/sweet-potato-spoonfuls-for-dogs', '/kitchen/plain-poached-chicken-for-dogs-and-cats', '/kitchen/plain-egg-crumbles-for-dogs-and-cats', '/guides/pet-licensing-across-canada', '/guides/cost-of-owning-a-dog-in-canada', '/', '/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada', '/compare/catit-digger-vs-wave-circuit', '/guides', '/dogs', '/cats', '/guides/winter-dog-care-in-canada', '/puppy/12-weeks', '/editorial-policy', '/advertising-disclosure', '/guides/bringing-home-a-puppy-first-30-days', '/guides/indoor-cat-enrichment-canadian-homes', '/guides/cost-of-owning-a-cat-in-canada', '/guides/choosing-a-cat-carrier-in-canada', '/guides/choosing-a-cat-puzzle-feeder', '/contact'];
 const sitemap = await (await fetch(new URL('/sitemap.xml', base))).text();
 const sitemapRoutes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => new URL(match[1]).pathname);
@@ -210,18 +215,25 @@ for (const scenario of scenarios) {
         }
         if (path === '/guides/choosing-a-cat-puzzle-feeder') {
           const offer = page.locator('aside[aria-label="Affiliate offer"]');
-          assert.equal(await offer.count(), 1, 'One contextual offer, not a wall of links');
-          assert.match(await offer.innerText(), /As an Amazon Associate I earn from qualifying purchases/);
           const cta = offer.getByRole('link', { name: 'View on Amazon.ca' });
-          const target = new URL(await cta.getAttribute('href'));
-          assert.equal(target.hostname, 'www.amazon.ca');
-          assert.ok(target.pathname.includes('/dp/B015P13QMM'));
-          assert.equal(target.searchParams.get('tag'), 'thepetclub09-20');
-          assert.match(await cta.getAttribute('rel'), /sponsored/);
+          if (legacyAmazonReviewExpired) {
+            assert.equal(await offer.count(), 0, 'Expired Amazon offer must not remain in the article');
+            assert.equal(await cta.count(), 0);
+            assert.equal(await page.locator('a[href*="tag=thepetclub09-20"]').count(), 0);
+            result.affiliateCheck = 'Expired Digger offer and its tracked destination suppressed';
+          } else {
+            assert.equal(await offer.count(), 1, 'One contextual offer, not a wall of links');
+            assert.match(await offer.innerText(), /As an Amazon Associate I earn from qualifying purchases/);
+            const target = new URL(await cta.getAttribute('href'));
+            assert.equal(target.hostname, 'www.amazon.ca');
+            assert.ok(target.pathname.includes('/dp/B015P13QMM'));
+            assert.equal(target.searchParams.get('tag'), 'thepetclub09-20');
+            assert.match(await cta.getAttribute('rel'), /sponsored/);
+            await cta.scrollIntoViewIfNeeded();
+            assert.ok(await cta.isVisible());
+            result.affiliateCheck = 'Disclosed valid Digger CTA verified before review deadline';
+          }
           assert.match(mainText, /No product here has been tested by The Pet Club/);
-          await cta.scrollIntoViewIfNeeded();
-          assert.ok(await cta.isVisible());
-          result.affiliateCheck = 'One visible disclosed exact Digger offer; original verified Amazon tag retained';
         }
         if (['/guides/choosing-dog-boots-in-canada', '/guides/choosing-a-cat-scratching-post-in-canada'].includes(path)) {
           assert.equal(await page.locator('time[datetime="2026-10-18"]').count(), 1);
@@ -542,25 +554,35 @@ for (const scenario of scenarios) {
           await page.exposeFunction('recordProductClick', (detail) => clicks.push(detail));
           await page.evaluate(() => {
             window.addEventListener('thepetclub:affiliate-click', (event) => window.recordProductClick(event.detail));
-            // This credential-free test checks the actual button/event without leaving the application.
+            // Check a real on-page CTA without navigating away to the retailer.
             document.addEventListener('click', (event) => {
               if (event.target.closest('a[href^="https://www.amazon.ca/"]')) event.preventDefault();
             });
           });
           const cta = page.getByRole('link', { name: 'View on Amazon.ca', exact: true }).first();
-          const destination = new URL(await cta.getAttribute('href'));
-          assert.equal(destination.hostname, 'www.amazon.ca');
-          assert.equal(destination.searchParams.get('tag'), 'thepetclub09-20');
-          assert.match(destination.pathname, /\/dp\/B015P13QMM$/);
-          assert.match(await cta.getAttribute('rel'), /sponsored/);
-          assert.match(await cta.getAttribute('rel'), /nofollow/);
-          assert.ok(await cta.isVisible());
-          await cta.click();
-          await page.locator('main').innerText();
-          assert.deepEqual(clicks, [{ offer_id: 'amazon-catit-digger', partner: 'Amazon Canada' }], 'One affiliate event per actual click');
+          if (legacyAmazonReviewExpired) {
+            assert.equal(await cta.count(), 0, 'Expired offer must not expose an Amazon CTA');
+            assert.equal(await page.locator('a[href*="tag=thepetclub09-20"]').count(), 0);
+            const expectedFallbacks = path === '/guides/cost-of-owning-a-cat-in-canada' ? 1 : 2;
+            assert.equal(await page.getByRole('link', { name: /View retailer details/ }).count(), expectedFallbacks,
+              'Existing source retailer fallbacks must remain available');
+            assert.deepEqual(clicks, [], 'An expired offer must not fire a commission click event');
+            result.productInteraction = 'Expired Amazon offers disabled; both original retailer details links retained';
+          } else {
+            const destination = new URL(await cta.getAttribute('href'));
+            assert.equal(destination.hostname, 'www.amazon.ca');
+            assert.equal(destination.searchParams.get('tag'), 'thepetclub09-20');
+            assert.ok(destination.pathname.endsWith('/dp/B015P13QMM'));
+            assert.match(await cta.getAttribute('rel'), /sponsored/);
+            assert.match(await cta.getAttribute('rel'), /nofollow/);
+            assert.ok(await cta.isVisible());
+            await cta.click();
+            await page.locator('main').innerText();
+            assert.deepEqual(clicks, [{ offer_id: 'amazon-catit-digger', partner: 'Amazon Canada' }], 'One affiliate event per actual click');
+            result.productInteraction = 'Valid affiliate CTA emits one local event before review expiry';
+          }
           assert.match(await page.locator('main').innerText(), /As an Amazon Associate I earn from qualifying purchases/);
           assert.match(await page.locator('main').innerText(), /have not tested these products/);
-          result.productInteraction = 'Actual affiliate click emitted exactly one local event with verified offer ID; no GA collector configured';
           if (path.endsWith('indoor-cat-enrichment-canadian-homes') || path.startsWith('/compare/')) {
             await page.getByText('Compare the features side by side', { exact: true }).click();
             assert.equal(await page.getByRole('region', { name: 'Scrollable comparison table' }).count(), 1);

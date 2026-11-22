@@ -27,6 +27,19 @@ describe("public product examples", () => {
     expect(renderToStaticMarkup(createElement(ProductCard, { productId: "unknown" }))).toBe("");
     expect(renderToStaticMarkup(createElement(ProductComparison, { productIds: ["catit-digger", "catit-digger", "unknown"] }))).toBe("");
   });
+  it("keeps valid prerendered offers closed until hydration and expired offers on existing retailer fallback", () => {
+    vi.useFakeTimers();
+    try {
+      vi.setSystemTime(new Date("2026-11-08T23:59:59Z"));
+      const valid = renderToStaticMarkup(createElement(ProductComparison, { productIds: products.map((item) => item.id) }));
+      expect(valid.match(/current review status can be confirmed/g)).toHaveLength(2);
+      expect(valid).not.toContain("tag=thepetclub09-20");
+      vi.setSystemTime(new Date("2026-11-09T00:00:00Z"));
+      const expired = renderToStaticMarkup(createElement(ProductComparison, { productIds: products.map((item) => item.id) }));
+      expect(expired.match(/View retailer details/g)).toHaveLength(2);
+      expect(expired).not.toContain("tag=thepetclub09-20");
+    } finally { vi.useRealTimers(); }
+  });
   it("discloses affiliate links and renders accessible comparison semantics", () => {
     // Exercise the approved offer window without changing production expiry.
     vi.useFakeTimers();
@@ -41,13 +54,13 @@ describe("public product examples", () => {
     expect(html).toContain("As an Amazon Associate I earn from qualifying purchases.");
     expect(html).toContain('scope="row"');
     expect(html).toContain('scope="col"');
-    expect(html).toContain('rel="sponsored nofollow noopener"');
+    expect(html).not.toContain('href="https://www.amazon.ca');
     expect(html).not.toContain("aggregateRating");
     expect(html).not.toContain(">Affiliate link<");
     expect(html.match(/As an Amazon Associate/g)).toHaveLength(1);
     expect(html).not.toContain("Product photograph awaiting licensed asset");
     expect(html).not.toContain('class="club-product-photo"');
-    expect(html.match(/tag=thepetclub09-20/g)).toHaveLength(2);
+    expect(html).not.toContain("tag=thepetclub09-20");
     expect(html).not.toContain("club-product-number");
   });
 });
