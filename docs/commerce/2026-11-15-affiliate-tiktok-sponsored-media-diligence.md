@@ -54,3 +54,21 @@ Prepared 2026-11-15. **Research / owner review only.** No application, paid plac
 - No external application, outreach, TikTok posting, payment, new partnership contract, public campaign, production code, canonical, sitemap, affiliate link or publication state changed in this work.
 - Preserve publication and qualified reviewer requirements. New program placements require approval and policy/disclosure review; the current public ad policy still says legal review pending. Separate PR #71 remains blocked on actual browser QA and production target verification.
 - PR #52 is the **existing documentation-only commercial review**. This new file updates that thread without introducing a competing PR; PR #70 remains GSC reporting; #66 remains draft SEO work. No production merge without owner approval.
+
+
+## New verified partner screening — 2026-11-22
+
+No outbound application, purchase, TikTok post, sample shipment, sale, or agreement was made in this review. Current TikTok ownership/analytics and all approval statuses remain unverified.
+
+| Official program | Source-verified requirements and scope | Practical disposition |
+| --- | --- | --- |
+| [Cheerble pet creator/influencer](https://cheerble.com/en-ca/pages/influencer) | Official Canadian storefront describes affiliate marketing, gifting, discount codes and content creation options. **No fixed payout, gifted-product guarantee, or accepted application verified.** | Strong fit for real cat enrichment/toy videos. Shortlist for owner-approved outreach after current TikTok media-kit validation, product safety and fulfilment check. |
+| [Red Dingo Canada affiliate](https://reddingo.ca/affiliate-programme/) | Its publicly listed **Silver tier begins at 2,500 followers**, with 10–15% engagement benchmark; monthly cash commission rate is **negotiated/not disclosed**, and ad bidding on brand terms is prohibited. No current channel follower or engagement metrics were verified. | A conditional prospect only. Do not apply claiming eligibility; distinguish payout from store credit. |
+| [MYLOVE Pet creator/affiliate](https://mylovepet.ca/pages/affiliate-program) | Public starting **10% of eligible net merchandise** for accepted creators, tracking window described as planned 30 days and not confirmed until activation, selective samples only. | Retain in shortlist without claiming a guaranteed 30-day cookie or free products. |
+| [Korriko](https://www.korriko.ca/pages/ambassador-program) | Existing-customer ownership of a Korriko item is mandatory, public accounts at least 1,000 followers; advertised **10% store-credit** (not cash), no free samples. | **Deprioritize** until owner really owns a product and wants store credit; do not confuse with 10% payable affiliate revenue. |
+
+**Decision:** The near-term business model should test *paid original UGC production* and separately commission (if the brand agrees), rather than assume that 29 whole-site clicks in 28 days can immediately generate material affiliate income. Published partner program terms are not accepted contracts. Paid editorial placements may target qualified referral traffic only, with clear disclosure and `rel="sponsored"` / `nofollow`; no dofollow ranking-credit purchases.
+
+**Latest first-party evidence:** 2026-10-24..2026-11-20 Search Console web totals: 29 clicks, 6,137 impressions, CTR ~0.47%, avg position ~16.54. Full details in existing draft PR #70 (`docs/seo/weekly-growth-evidence-2026-11-22.md`). Historical official Page Indexing dated 2026-10-22 remains 66 indexed / 32 not indexed, **not a current live count**.
+
+**All prior unsent templates remain NOT SENT.** Confirm the account's current follower total, audience and actual sample work, product experience and Canada fulfilment, and have owner approve exact recipient, message, rights and compensation before sending.
