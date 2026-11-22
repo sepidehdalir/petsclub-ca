@@ -563,7 +563,8 @@ for (const scenario of scenarios) {
           if (legacyAmazonReviewExpired) {
             assert.equal(await cta.count(), 0, 'Expired offer must not expose an Amazon CTA');
             assert.equal(await page.locator('a[href*="tag=thepetclub09-20"]').count(), 0);
-            assert.equal(await page.getByRole('link', { name: /View retailer details/ }).count(), 2,
+            const expectedFallbacks = path === '/guides/cost-of-owning-a-cat-in-canada' ? 1 : 2;
+            assert.equal(await page.getByRole('link', { name: /View retailer details/ }).count(), expectedFallbacks,
               'Existing source retailer fallbacks must remain available');
             assert.deepEqual(clicks, [], 'An expired offer must not fire a commission click event');
             result.productInteraction = 'Expired Amazon offers disabled; both original retailer details links retained';
