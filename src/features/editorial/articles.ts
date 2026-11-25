@@ -825,7 +825,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -863,7 +863,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [],
@@ -1021,7 +1021,7 @@ export const articles: readonly Article[] = [
       {
         label: "Position statement on puppy socialization, and why it precedes full vaccination",
         publisher: "American Veterinary Society of Animal Behavior",
-        url: "https://avsab.org/puppy-socialization-position-statement/",
+        url: "https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf",
       },
       {
         label:
@@ -1040,7 +1040,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -1100,7 +1100,7 @@ export const articles: readonly Article[] = [
       {
         label: "Position statement on puppy socialization",
         publisher: "American Veterinary Society of Animal Behavior",
-        url: "https://avsab.org/puppy-socialization-position-statement/",
+        url: "https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf",
       },
       {
         label: "Rabies and your pets — the provincial vaccination requirement",
@@ -1118,7 +1118,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -1182,7 +1182,7 @@ export const articles: readonly Article[] = [
       {
         label: "Position statement on puppy socialization — why early training and rest matter",
         publisher: "American Veterinary Society of Animal Behavior",
-        url: "https://avsab.org/puppy-socialization-position-statement/",
+        url: "https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf",
       },
       {
         label: "Residential Tenancies Act, 2006 — section 14 makes a no-pets provision void",
@@ -1199,7 +1199,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -1251,7 +1251,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -1304,7 +1304,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: ["RESOLVED 2026-10-09 — rewritten as home preparation, records and budgeting. Clinical assessment, treatment, fixed introduction timelines, product efficacy and unsourced superlatives were removed, not signed off. BC SPCA source checked for the limited room/resource guidance. No veterinary review is claimed."],
@@ -1368,7 +1368,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -1416,7 +1416,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [],
@@ -1454,7 +1454,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: ["Recheck the attributed OVMA 2026–27 Ontario adult-cat benchmark (CAD $3,594 annually; $299.50 divided by 12), scope and caveats at the next scheduled review. Verified October 22, 2026. It is not a national average or prescribed care schedule."],
@@ -1562,7 +1562,7 @@ export const articles: readonly Article[] = [
       {
         label: "General Insurance OmbudService — independent dispute resolution for general insurance",
         publisher: "General Insurance OmbudService",
-        url: "https://www.giocanada.org/",
+        url: "https://giocanada.org/",
       },
       {
         label: "How to file a complaint about an insurance company",
@@ -1604,19 +1604,19 @@ export const articles: readonly Article[] = [
         label:
           "The provincial and territorial veterinary regulatory bodies \u2014 twelve listed, with Northwest Territories and Nunavut handled by territorial government departments",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
       {
         label: "The provincial and territorial veterinary regulatory bodies, by name",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     resources: [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -1693,14 +1693,14 @@ export const articles: readonly Article[] = [
       {
         label: "The provincial and territorial veterinary regulatory bodies, by name",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     resources: [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -1753,7 +1753,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [],
@@ -1861,7 +1861,7 @@ export const articles: readonly Article[] = [
         label:
           "2019 AAHA Canine Life Stage Guidelines, Textbox 1 \u2014 recommended timing for canine sterilization, split at 45 lb projected adult bodyweight",
         publisher: "American Animal Hospital Association",
-        url: "https://www.aaha.org/globalassets/02-guidelines/canine-life-stage-2019/2019-aaha-canine-life-stage-guidelines-final.pdf",
+        url: "https://www.aaha.org/wp-content/uploads/globalassets/02-guidelines/canine-life-stage-2019/2019-aaha-canine-life-stage-guidelines-final.pdf",
       },
       {
         label: "When should I spay or neuter my dog or cat? Age and timing by projected adult weight",
@@ -1883,7 +1883,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -1982,7 +1982,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -2058,7 +2058,7 @@ export const articles: readonly Article[] = [
       {
         label: "Current Air Quality Health Index readings and special air quality statements",
         publisher: "Environment and Climate Change Canada",
-        url: "https://www.canada.ca/en/environment-climate-change/services/air-quality-health-index/wildfire-smoke.html",
+        url: "https://www.canada.ca/en/services/health/healthy-living/environment/air-quality/wildfire-smoke.html",
       },
     ],
     needsVerification: [
@@ -2409,7 +2409,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -2452,7 +2452,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [],
@@ -2553,7 +2553,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -2618,7 +2618,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -2702,7 +2702,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -2767,7 +2767,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [
@@ -2808,7 +2808,7 @@ export const articles: readonly Article[] = [
       {
         label: "Your provincial or territorial veterinary regulator, and what it licenses",
         publisher: "Canadian Veterinary Medical Association",
-        url: "https://www.canadianveterinarians.net/students-of-the-cvma-scvma/regulatory-bodies/",
+        url: "https://www.canadianveterinarians.net/public-resources/regulatory-bodies/",
       },
     ],
     needsVerification: [],
