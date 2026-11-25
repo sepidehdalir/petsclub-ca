@@ -1562,7 +1562,7 @@ export const articles: readonly Article[] = [
       {
         label: "General Insurance OmbudService — independent dispute resolution for general insurance",
         publisher: "General Insurance OmbudService",
-        url: "https://www.giocanada.org/",
+        url: "https://giocanada.org/",
       },
       {
         label: "How to file a complaint about an insurance company",
@@ -1861,7 +1861,7 @@ export const articles: readonly Article[] = [
         label:
           "2019 AAHA Canine Life Stage Guidelines, Textbox 1 \u2014 recommended timing for canine sterilization, split at 45 lb projected adult bodyweight",
         publisher: "American Animal Hospital Association",
-        url: "https://www.aaha.org/globalassets/02-guidelines/canine-life-stage-2019/2019-aaha-canine-life-stage-guidelines-final.pdf",
+        url: "https://www.aaha.org/wp-content/uploads/globalassets/02-guidelines/canine-life-stage-2019/2019-aaha-canine-life-stage-guidelines-final.pdf",
       },
       {
         label: "When should I spay or neuter my dog or cat? Age and timing by projected adult weight",
@@ -2058,7 +2058,7 @@ export const articles: readonly Article[] = [
       {
         label: "Current Air Quality Health Index readings and special air quality statements",
         publisher: "Environment and Climate Change Canada",
-        url: "https://www.canada.ca/en/environment-climate-change/services/air-quality-health-index/wildfire-smoke.html",
+        url: "https://www.canada.ca/en/services/health/healthy-living/environment/air-quality/wildfire-smoke.html",
       },
     ],
     needsVerification: [
